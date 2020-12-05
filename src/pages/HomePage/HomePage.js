@@ -1,7 +1,8 @@
 import React from 'react';
+import { StandardNavPage } from '../../components/Page';
 
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return <StandardNavPage>HomePage</StandardNavPage>;
 };
 
 export default HomePage;

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import IconComponent from './Icon';
 import { Nav } from './Button';
+import { Link } from 'react-router-dom';
 
 const NavbarContainer = styled.div`
   position: fixed;
@@ -43,7 +44,7 @@ const RightSide = styled.div`
   margin-right: 90px;
 `;
 
-const Logo = styled.div`
+const Logo = styled(Link)`
   background: url(${process.env.PUBLIC_URL}/logo.png) center/cover;
   height: 32px;
   width: 100px;
@@ -122,7 +123,7 @@ const Navbar = () => {
     <NavbarContainer>
       <NavbarTop>
         <LeftSide>
-          <Logo />
+          <Logo to='/'/>
           <SearchBar />
         </LeftSide>
         <RightSide>
