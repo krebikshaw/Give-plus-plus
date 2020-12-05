@@ -16,7 +16,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const Root = styled.div``;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  margin-top: 110px;
+`;
 
 const App = () => {
   return (
@@ -24,17 +26,19 @@ const App = () => {
       <ThemeProvider theme={generalTheme}>
         <GlobalStyle />
         <Navbar />
-        <BrowserRouter>
-          <Routes basename='/'>
-            <Route path={'/'} element={<HomePage />} />
-            <Route path={'/general*'} element={<GeneralRoute />} />
-            <Route path={'/user*'} element={<UserRoute />} />
-            <Route path={'/product*'} element={<ProductRoute />} />
-            <Route path={'/cart*'} element={<CartRoute />} />
-            <Route path={'/order*'} element={<OrderRoute />} />
-            <Route path={'/admin*'} element={<AdminRoute />} />
-          </Routes>
-        </BrowserRouter>
+        <Wrapper>
+          <BrowserRouter>
+            <Routes basename='/'>
+              <Route path={'/'} element={<HomePage />} />
+              <Route path={'/general*'} element={<GeneralRoute />} />
+              <Route path={'/user*'} element={<UserRoute />} />
+              <Route path={'/product*'} element={<ProductRoute />} />
+              <Route path={'/cart*'} element={<CartRoute />} />
+              <Route path={'/order*'} element={<OrderRoute />} />
+              <Route path={'/admin*'} element={<AdminRoute />} />
+            </Routes>
+          </BrowserRouter>
+        </Wrapper>
         <Footer />
       </ThemeProvider>
     </Root>

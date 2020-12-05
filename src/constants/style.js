@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components"
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
   
   a {
     text-decoration: none;
+    display: flex;
   
     &:hover {
       text-decoration: none;
@@ -26,6 +27,14 @@ const GlobalStyle = createGlobalStyle`
   input {
     outline: none;
     border: none;
+  }
+
+  i {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    filter: opacity(0.8);
+    margin: 8px 11px;
   }
 
   textarea {
@@ -49,7 +58,7 @@ const GlobalStyle = createGlobalStyle`
     font:  14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.4em;
   }
-`
+`;
 export default GlobalStyle;
 export const MEDIA_QUERY_MD = '@media scream and (min-width: 768px)';
 export const MEDIA_QUERY_LG = '@media scream and (min-width: 1000px)';
