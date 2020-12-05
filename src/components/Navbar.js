@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import IconComponent from './general/Icon';
-import Button from './general/Button';
+import IconComponent from './Icon';
+import { Nav } from './Button';
 
 const NavbarContainer = styled.div`
   position: fixed;
@@ -100,7 +100,7 @@ const SearchBar = () => {
         <InputSearch
           value={value}
           onChange={handleChangeInput}
-          placeholder='搜尋物品'
+          placeholder="搜尋物品"
         />
       </div>
       <IconComponent kind={'angle-down'} />
@@ -131,7 +131,7 @@ const Navbar = () => {
             <IconComponent kind={'shopping-cart'} />
             <IconComponent kind={'setting'} />
             <IconComponent kind={'bed'} />
-            <Button text={'登入 / 註冊'} width={5} />
+            <Nav children={'登入 / 註冊'} path={'/entrance'} />
           </OptionList>
         </RightSide>
       </NavbarTop>

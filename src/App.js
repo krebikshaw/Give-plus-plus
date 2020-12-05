@@ -45,7 +45,7 @@ import  {
   AdminMailPage,
 } from './pages/adminPages'
 
-import GlobalStyle from './constants/style';
+import GlobalStyle from './constants/globalStyle';
 import generalTheme from './constants/theme.js';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -58,8 +58,8 @@ const App = () => {
     <Root>
       <ThemeProvider theme={generalTheme}>
         <GlobalStyle />
-        <Navbar />
         <BrowserRouter>
+        <Navbar />
           <Routes basename="/">
             <Route path={'/'} element={<HomePage />} />
             <Route path={'/about'} element={<AboutUsPage />} />
