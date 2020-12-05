@@ -24,6 +24,7 @@ import {
   EditProductPage,
   PostProductPage,
   SearchProductPage,
+  CategorizedProductPage,
   VendorShopPage,
 } from './pages/productPages';
 
@@ -62,10 +63,15 @@ const App = () => {
         <Navbar />
           <Routes basename="/">
             <Route path={'/'} element={<HomePage />} />
+
             <Route path={'/about'} element={<AboutUsPage />} />
+
             <Route path={'/entrance'} element={<EntrancePage />} />
+
             <Route path={'/login'} element={<LoginPage />} />
+
             <Route path={'/register'} element={<RegisterPage />} />
+
             <Route path={'/faq'} element={<FAQPage />} />
 
             <Route path={'/users'}>
@@ -82,6 +88,7 @@ const App = () => {
               <Route path={'/edit/:id'} element={<EditProductPage />}></Route>
               <Route path={'/post'} element={<PostProductPage />}></Route>
               <Route path={'/search/:keyword'} element={<SearchProductPage />}></Route>
+              <Route path={'/category/:id'} element={<CategorizedProductPage />}></Route>
               <Route path={'/vendor/:id'} element={<VendorShopPage />}></Route>
             </Route>
             
@@ -104,8 +111,8 @@ const App = () => {
             </Route>
 
           </Routes>
+          <Footer />
         </BrowserRouter>
-        <Footer />
       </ThemeProvider>
     </Root>
   );
