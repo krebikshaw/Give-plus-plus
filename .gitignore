@@ -4,3 +4,4 @@ config/firebase.json
 config/config.json
 .env
 .vscode
+.eslintcache
