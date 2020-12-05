@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import ClientOrderPage from './ClientOrderPage';
+import ClientOrderPage from './ClientOrdersPage';
 import OrderDetailPage from './OrderDetailPage';
-import VendorOrderPage from './VendorOrderPage';
+import VendorOrderPage from './VendorOrdersPage';
 
 const AdminRouter = () => {
   const path = useLocation().pathname.split('/')[2];
