@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import IconComponent from './general/Icon';
 import Button from './general/Button';
@@ -70,7 +70,7 @@ const SearchBarContainer = styled.div`
   }
 `;
 
-const ProductCategoryContainer = styled.ul`
+const ProductCategoriesList = styled.ul`
   display: flex;
   align-items: center;
 `;
@@ -82,24 +82,72 @@ const ProductCategoryItem = styled.li`
   cursor: pointer;
   & p {
     margin-left: -5px;
+    &:hover {
+      color: ${(props) => props.theme.colors.hover};
+    }
   }
 `;
 
 const SearchBar = () => {
+  const [value, setValue] = useState('');
+
+  const handleChangeInput = (e) => setValue(e.target.value);
+
   return (
     <SearchBarContainer>
       <div>
         <IconComponent kind={'search'} />
-        <InputSearch placeholder='搜尋物品' />
+        <InputSearch
+          value={value}
+          onChange={handleChangeInput}
+          placeholder='搜尋物品'
+        />
       </div>
       <IconComponent kind={'angle-down'} />
     </SearchBarContainer>
   );
 };
 
-const ProductCategoriesList = () => {
+const CategoryItemContainer = ({ text, id }) => {
   return (
-    <ProductCategoryContainer>
+    <ProductCategoryItem>
+      <IconComponent kind={`product_category_${id}`} />
+      <p>{text}</p>
+    </ProductCategoryItem>
+  );
+};
+
+const Navbar = () => {
+  return (
+    <NavbarContainer>
+      <NavbarTop>
+        <LeftSide>
+          <Logo />
+          <SearchBar />
+        </LeftSide>
+        <RightSide>
+          <OptionList>
+            <IconComponent kind={'user-circle'} />
+            <IconComponent kind={'shopping-cart'} />
+            <IconComponent kind={'setting'} />
+            <IconComponent kind={'bed'} />
+            <Button text={'登入 / 註冊'} width={5} />
+          </OptionList>
+        </RightSide>
+      </NavbarTop>
+      <NavbarBottom>
+        <ProductCategoriesList>
+          <CategoryItemContainer text={'生活'} id={1} />
+        </ProductCategoriesList>
+      </NavbarBottom>
+    </NavbarContainer>
+  );
+};
+
+export default Navbar;
+
+{
+  /* <CategoryItemContainer>
       <ProductCategoryItem>
         <IconComponent kind={'schedule'} />
         <p>生活</p>
@@ -148,33 +196,5 @@ const ProductCategoriesList = () => {
         <IconComponent kind={'more'} />
         <p>其他</p>
       </ProductCategoryItem>
-    </ProductCategoryContainer>
-  );
-};
-
-const Navbar = () => {
-  return (
-    <NavbarContainer>
-      <NavbarTop>
-        <LeftSide>
-          <Logo />
-          <SearchBar />
-        </LeftSide>
-        <RightSide>
-          <OptionList>
-            <IconComponent kind={'user-circle'} />
-            <IconComponent kind={'shopping-cart'} />
-            <IconComponent kind={'setting'} />
-            <IconComponent kind={'bed'} />
-            <Button text={'登入 / 註冊'} width={5} />
-          </OptionList>
-        </RightSide>
-      </NavbarTop>
-      <NavbarBottom>
-        <ProductCategoriesList />
-      </NavbarBottom>
-    </NavbarContainer>
-  );
-};
-
-export default Navbar;
+    </CategoryItemContainer> */
+}

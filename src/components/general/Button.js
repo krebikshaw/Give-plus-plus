@@ -15,8 +15,8 @@ const ButtonContainer = styled.div`
   text-align: center;
   text-decoration: none;
   &:hover {
-    border-color: #5c77b7;
-    color: #5c77b7 !important;
+    border-color: ${(props) => props.theme.colors.hover};
+    color: ${(props) => props.theme.colors.hover} !important;
     transform: scale(1.05);
   }
 `;

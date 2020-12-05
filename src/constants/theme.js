@@ -1,6 +1,7 @@
 const theme = {
   colors: {
     primary: '#258bdc',
+    hover: '#2e90b7',
     text: '#787b7b',
     cross_line: '#6daeaf',
     read_more: '#0891ff',
