@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Logo from './Logo';
 import IconComponent from './Icon';
 import { Nav } from './Button';
+import { InputSearch } from './Input';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { COLOR, EFFECT } from '../constants/style';
 import useProduct from '../hooks/productHooks/useProduct';
@@ -36,14 +37,6 @@ const LeftSide = styled.div`
   display: flex;
   align-items: center;
   margin-left: 80px;
-`;
-
-const InputSearch = styled.input`
-  width: 100%;
-  height: 45px;
-  outline: none;
-  border: none;
-  background: rgba(0, 0, 0, 0);
 `;
 
 const RightSide = styled.div`

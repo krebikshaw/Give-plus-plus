@@ -28,6 +28,7 @@ const HelperButtonWrapper = styled(ButtonWrapper)`
   color: ${COLOR.black};
   font-size: ${FONT.sm};
   font-weight: 800;
+  min-width: max-content;
   box-shadow: ${EFFECT.shadowDark};
   &:hover {
     transform: scale(1.05);
@@ -41,6 +42,7 @@ export const NormalButton = styled(ButtonWrapper)`
   background-color: ${COLOR.bg_primary};
   color: ${COLOR.black};
   margin: 0px ${(props) => (props.$margin === 0 ? 0 : 20)}px;
+  min-width: max-content;
   &:hover {
     border-color: ${COLOR.hover};
     color: ${COLOR.hover};
@@ -50,10 +52,15 @@ export const NormalButton = styled(ButtonWrapper)`
 
 export const ActionButton = styled(ButtonWrapper)`
   border: solid 1px transparent;
-  border-radius: 4px;
-  padding: ${(props) => (props.$size === 'lg' ? '10px 90px' : '10px 40px')};
+  border-radius: 8px;
+  padding: ${(props) => (props.$size === 'lg' ? '10px 90px' : '10px 20px')};
   background-color: ${COLOR.btn_primary};
   color: ${COLOR.white};
+  margin: 0px ${(props) => (props.$margin === 0 ? 0 : 20)}px;
+  min-width: max-content;
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 export function HelperButton() {
@@ -65,10 +72,10 @@ export function HelperButton() {
   );
 }
 
-export function Nav({ children, path, margin }) {
+export function Nav({ children, path, $margin }) {
   return (
     <NavLink style={{ minWidth: 'fit-content' }} to={path}>
-      <NormalButton $margin={margin}>{children}</NormalButton>
+      <NormalButton $margin={$margin}>{children}</NormalButton>
     </NavLink>
   );
 }

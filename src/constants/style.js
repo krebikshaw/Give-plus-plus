@@ -44,6 +44,7 @@ export const EFFECT = {
   shadowDark: `0px 2px 0.5px ${COLOR.dark_primary}`,
   shadowLight: `0px 1px 4px ${COLOR.light_primary}`,
   shadowHover: `0px 1.5px 0.3px ${COLOR.hover}`,
+  shadowInput: `0px 0px 2px 0.5px ${COLOR.dark_primary}`,
   block: `
     display: block;
     color: ${COLOR.dark_primary};
