@@ -37,6 +37,8 @@ const LeftSide = styled.div`
 `;
 
 const InputSearch = styled.input`
+  width: 100%;
+  height: 45px;
   outline: none;
   border: none;
   background: rgba(0, 0, 0, 0);
@@ -74,6 +76,10 @@ const SearchBarContainer = styled.div`
   }
 `;
 
+const SearchArea = styled.div`
+  width: 90%;
+`;
+
 const ProductCategoriesList = styled.ul`
   display: flex;
   align-items: center;
@@ -87,6 +93,7 @@ const ProductCategoryItem = styled.li`
   & p {
     margin-left: -5px;
     color: ${COLOR.black};
+    min-width: fit-content;
     &:hover {
       color: ${COLOR.hover};
     }
@@ -107,7 +114,7 @@ const SearchBar = () => {
 
   return (
     <SearchBarContainer>
-      <div>
+      <SearchArea>
         <IconComponent kind={'search'} />
         <InputSearch
           value={value}
@@ -119,7 +126,7 @@ const SearchBar = () => {
             }
           }}
         />
-      </div>
+      </SearchArea>
       <IconComponent kind={'angle-down'} />
     </SearchBarContainer>
   );
