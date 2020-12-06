@@ -3,15 +3,26 @@ import { createSlice } from '@reduxjs/toolkit';
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
-    // state
+    // other state
+    user: null,
+    errorMessage: null,
   },
   reducers: {
-    // reducer
+    // other reducer
+    setErrorMessage: (state, action) => {
+      state.errorMessage = action.payload;
+    },
   },
 });
 
 export const {
-  //action
+  // other action
+  setErrorMessage,
 } = userSlice.actions;
 
+export const getUser = () => (dispatch) => {
+  // API
+};
+
+export const selectUser = (state) => state.user.user;
 export default userSlice.reducer;
