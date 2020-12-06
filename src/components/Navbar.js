@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import IconComponent from './Icon';
 import { Nav } from './Button';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { COLOR, EFFECT } from '../constants/style';
+import useProduct from '../hooks/productHooks/useProduct';
 
 const NavbarContainer = styled.div`
   position: fixed;
@@ -65,6 +67,7 @@ const SearchBarContainer = styled.div`
   border-radius: 8px;
   background: #f1f3f4;
   margin-left: 40px;
+  box-shadow: ${EFFECT.shadowLight};
   & div {
     display: flex;
     align-items: center;
@@ -83,16 +86,24 @@ const ProductCategoryItem = styled.li`
   cursor: pointer;
   & p {
     margin-left: -5px;
+    color: ${COLOR.black};
     &:hover {
-      color: ${(props) => props.theme.colors.hover};
+      color: ${COLOR.hover};
     }
+  }
+  &:hover {
+    box-shadow: ${EFFECT.shadowHover};
   }
 `;
 
 const SearchBar = () => {
+  const navigate = useNavigate();
   const [value, setValue] = useState('');
-
   const handleChangeInput = (e) => setValue(e.target.value);
+  const handleSearchProduct = (keyWord) => {
+    navigate(`/products/search/${keyWord}`);
+    setValue('');
+  };
 
   return (
     <SearchBarContainer>
@@ -101,7 +112,12 @@ const SearchBar = () => {
         <InputSearch
           value={value}
           onChange={handleChangeInput}
-          placeholder="搜尋物品"
+          placeholder='搜尋物品'
+          onKeyDown={(e) => {
+            if (e.keyCode === 13 && value !== '') {
+              handleSearchProduct(value);
+            }
+          }}
         />
       </div>
       <IconComponent kind={'angle-down'} />
@@ -111,19 +127,26 @@ const SearchBar = () => {
 
 const CategoryItemContainer = ({ text, id }) => {
   return (
-    <ProductCategoryItem>
-      <IconComponent kind={`product_category_${id}`} />
-      <p>{text}</p>
-    </ProductCategoryItem>
+    <NavLink to={`/products/category/${id}`}>
+      <ProductCategoryItem>
+        <IconComponent kind={`product_category_${id}`} />
+        <p>{text}</p>
+      </ProductCategoryItem>
+    </NavLink>
   );
 };
 
 const Navbar = () => {
+  const { productCategories, handleGetProductCategories } = useProduct();
+  useEffect(() => {
+    handleGetProductCategories();
+  }, []);
+
   return (
     <NavbarContainer>
       <NavbarTop>
         <LeftSide>
-          <Logo to='/'/>
+          <Logo to='/' />
           <SearchBar />
         </LeftSide>
         <RightSide>
@@ -138,7 +161,13 @@ const Navbar = () => {
       </NavbarTop>
       <NavbarBottom>
         <ProductCategoriesList>
-          <CategoryItemContainer text={'生活'} id={1} />
+          {productCategories.map((category) => (
+            <CategoryItemContainer
+              text={category.name}
+              id={category.id}
+              key={category.id}
+            />
+          ))}
         </ProductCategoriesList>
       </NavbarBottom>
     </NavbarContainer>
@@ -146,56 +175,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-{
-  /* <CategoryItemContainer>
-      <ProductCategoryItem>
-        <IconComponent kind={'schedule'} />
-        <p>生活</p>
-      </ProductCategoryItem>
-      <ProductCategoryItem>
-        <IconComponent kind={'desktop'} />
-        <p>3C</p>
-      </ProductCategoryItem>
-      <ProductCategoryItem>
-        <IconComponent kind={'coffee'} />
-        <p>休閒</p>
-      </ProductCategoryItem>
-      <ProductCategoryItem>
-        <IconComponent kind={'dropbox'} />
-        <p>服飾</p>
-      </ProductCategoryItem>
-      <ProductCategoryItem>
-        <IconComponent kind={'sanitizer-alt'} />
-        <p>美妝</p>
-      </ProductCategoryItem>
-      <ProductCategoryItem>
-        <IconComponent kind={'postcard'} />
-        <p>票券</p>
-      </ProductCategoryItem>
-      <ProductCategoryItem>
-        <IconComponent kind={'books'} />
-        <p>書籍</p>
-      </ProductCategoryItem>
-      <ProductCategoryItem>
-        <IconComponent kind={'bug'} />
-        <p>寵物</p>
-      </ProductCategoryItem>
-      <ProductCategoryItem>
-        <IconComponent kind={'crockery'} />
-        <p>烹飪</p>
-      </ProductCategoryItem>
-      <ProductCategoryItem>
-        <IconComponent kind={'basketball'} />
-        <p>運動</p>
-      </ProductCategoryItem>
-      <ProductCategoryItem>
-        <IconComponent kind={'gift'} />
-        <p>綜合</p>
-      </ProductCategoryItem>
-      <ProductCategoryItem>
-        <IconComponent kind={'more'} />
-        <p>其他</p>
-      </ProductCategoryItem>
-    </CategoryItemContainer> */
-}

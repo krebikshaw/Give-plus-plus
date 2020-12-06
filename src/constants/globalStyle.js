@@ -34,7 +34,6 @@ const GlobalStyle = createGlobalStyle`
     height: 18px;
     cursor: pointer;
     filter: opacity(0.8);
-    margin: 8px 11px;
   }
 
   textarea {

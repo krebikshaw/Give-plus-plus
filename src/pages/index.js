@@ -4,6 +4,7 @@ import LoginPage from './LoginPage';
 import EntrancePage from './EntrancePage';
 import AboutUsPage from './AboutUsPage';
 import FAQPage from './FAQPage';
+import ContactUsPage from './ContactUsPage';
 
 export {
   HomePage,
@@ -12,4 +13,5 @@ export {
   LoginPage,
   RegisterPage,
   FAQPage,
+  ContactUsPage,
 };

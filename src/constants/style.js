@@ -6,8 +6,8 @@ export const COLOR = {
   hover: '#2e90b7',
   black: '#333333',
   white: '#fff',
-  dark_primary: '#3b5e68',
-  light_primary: '#9ddbe6',
+  dark_primary: '#00000033',
+  light_primary: '#e0e9ef',
   bg_primary: '#fff',
   bg_secondary: '#f7f7f7',
   bg_mask: '#c7c1c1',
@@ -41,8 +41,9 @@ export const MEDIA_QUERY_LG = {
 };
 
 export const EFFECT = {
-  shadowDark: `0px 1px 4px ${COLOR.dark_primary}30`,
-  shadowLight: `0px 1px 4px ${COLOR.light_primary}80`,
+  shadowDark: `0px 3px 0.5px ${COLOR.dark_primary}`,
+  shadowLight: `0px 1px 4px ${COLOR.light_primary}`,
+  shadowHover: `0px 1.5px 0.3px ${COLOR.hover}`,
   block: `
     display: block;
     color: ${COLOR.dark_primary};
