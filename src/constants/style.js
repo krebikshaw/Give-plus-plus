@@ -3,7 +3,7 @@ export const COLOR = {
   text_2: '#929295',
   text_3: '##54aa98',
   text_alert: '#f44335',
-  hover: '#2e90b7',
+  hover: '#6dd0cd',
   black: '#333333',
   white: '#fff',
   dark_primary: '#00000033',
@@ -11,7 +11,7 @@ export const COLOR = {
   bg_primary: '#fff',
   bg_secondary: '#f7f7f7',
   bg_mask: '#c7c1c1',
-  btn_primary: '#b6deea',
+  btn_primary: '#6dd0cd',
   btn_secondary: '#dea8a8',
 };
 
@@ -41,7 +41,7 @@ export const MEDIA_QUERY_LG = {
 };
 
 export const EFFECT = {
-  shadowDark: `0px 3px 0.5px ${COLOR.dark_primary}`,
+  shadowDark: `0px 2px 0.5px ${COLOR.dark_primary}`,
   shadowLight: `0px 1px 4px ${COLOR.light_primary}`,
   shadowHover: `0px 1.5px 0.3px ${COLOR.hover}`,
   block: `

@@ -40,6 +40,7 @@ export const NormalButton = styled(ButtonWrapper)`
   border: solid 1px ${COLOR.black};
   background-color: ${COLOR.bg_primary};
   color: ${COLOR.black};
+  margin: 0px ${(props) => (props.$margin === 0 ? 0 : 20)}px;
   &:hover {
     border-color: ${COLOR.hover};
     color: ${COLOR.hover};
@@ -64,10 +65,10 @@ export function HelperButton() {
   );
 }
 
-export function Nav({ children, path }) {
+export function Nav({ children, path, margin }) {
   return (
     <NavLink style={{ minWidth: 'fit-content' }} to={path}>
-      <NormalButton>{children}</NormalButton>
+      <NormalButton $margin={margin}>{children}</NormalButton>
     </NavLink>
   );
 }

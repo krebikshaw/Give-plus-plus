@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Logo from './Logo';
 import IconComponent from './Icon';
 import { Nav } from './Button';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { COLOR, EFFECT } from '../constants/style';
 import useProduct from '../hooks/productHooks/useProduct';
 
@@ -19,6 +20,7 @@ const NavbarContainer = styled.div`
 `;
 
 const NavbarTop = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -48,12 +50,6 @@ const RightSide = styled.div`
   margin-right: 90px;
 `;
 
-const Logo = styled(Link)`
-  background: url(${process.env.PUBLIC_URL}/logo.png) center/cover;
-  height: 30px;
-  width: 140px;
-`;
-
 const OptionList = styled.div`
   display: flex;
   align-items: center;
@@ -67,8 +63,8 @@ const SearchBarContainer = styled.div`
   width: 400px;
   height: 32px;
   border-radius: 8px;
-  background: #f1f3f4;
-  margin-left: 40px;
+  background: ${COLOR.bg_secondary};
+  margin-left: 120px;
   box-shadow: ${EFFECT.shadowLight};
   & div {
     display: flex;
@@ -153,7 +149,7 @@ const Navbar = () => {
     <NavbarContainer>
       <NavbarTop>
         <LeftSide>
-          <Logo to='/' />
+          <Logo />
           <SearchBar />
         </LeftSide>
         <RightSide>

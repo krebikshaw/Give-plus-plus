@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import GlobalStyle from './constants/globalStyle';
+import generalTheme from './constants/theme.js';
 import { Navbar, Footer } from './components';
 import { HelperButton } from './components/Button';
+import { ThemeProvider } from 'styled-components';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import {
   HomePage,
@@ -46,11 +50,6 @@ import {
   AdminProductPage,
   AdminMailPage,
 } from './pages/adminPages';
-
-import GlobalStyle from './constants/globalStyle';
-import generalTheme from './constants/theme.js';
-import { ThemeProvider } from 'styled-components';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const Root = styled.div``;
 
