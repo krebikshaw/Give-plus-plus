@@ -50,8 +50,8 @@ const RightSide = styled.div`
 
 const Logo = styled(Link)`
   background: url(${process.env.PUBLIC_URL}/logo.png) center/cover;
-  height: 32px;
-  width: 100px;
+  height: 30px;
+  width: 140px;
 `;
 
 const OptionList = styled.div`
