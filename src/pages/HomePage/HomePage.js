@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar } from '../../components';
+import { Navbar, IconComponent } from '../../components';
 import { StandardNavPage } from '../../components/Page';
 import { InputComponent, TextAreaComponent } from '../../components/Input';
 import { NormalButton, ActionButton, Nav } from '../../components/Button';
@@ -10,6 +10,9 @@ const HomePage = () => {
       <Navbar />
       <StandardNavPage>
         <div style={{ margin: '130px 0 20px 20px' }}>DemoPage (HomePage)</div>
+        <div style={{ margin: '20px' }}>
+          <IconComponent kind={'github'} />
+        </div>
         <div style={{ margin: '20px' }}>
           <NormalButton $margin={0}>空心按鈕</NormalButton>
           <NormalButton $margin={0}>空心按鈕</NormalButton>

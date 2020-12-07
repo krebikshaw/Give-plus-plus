@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Logo from './Logo';
-import IconComponent from './Icon';
+import { Logo, IconComponent } from '../components';
 import { Nav } from './Button';
 import { InputSearch } from './Input';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
@@ -159,7 +158,7 @@ const Navbar = () => {
             <IconComponent kind={'user-circle'} />
             <IconComponent kind={'shopping-cart'} />
             <IconComponent kind={'setting'} />
-            <IconComponent kind={'bed'} />
+            <IconComponent kind={'moon'} />
             <Nav children={'登入 / 註冊'} path={'/entrance'} />
           </OptionList>
         </RightSide>
