@@ -6,7 +6,17 @@
 ## 注意事項
 - 有任何動作之前，一定要開新的 branch，切勿直接改動 master 的東西
 - 所有資料夾都有依據不同的功能來區分
-  * 請各位依照指定的資料夾結構進行開發 
+  * 請各位依照指定的資料夾結構進行開發
+- useHooks 底下用 handle、middleware 用 get api 底下用跟 middleware 一樣的命名加上 API結尾
+  * useProduct -> handleGetProductCategories 
+  * middleware -> getProductCategories
+  * reduce -> setProductCategories
+  * api -> getProductCategoriesAPI
+- 命名變數 CRUD 統一用的寫法
+  * 新增 Post
+  * 取得 Get
+  * 編輯 Update
+  * 刪除 Delete
 - 所有的「顏色、字型、按鈕」格式都已經訂好了，請大家依照定義的格式來開發 
   * style 的格式寫在 `src/constants/style.js `
 - 開發時請考慮是否有不同身份的角色需要使用同一頁面，若是有的話請一並考慮進去（註1）
@@ -18,6 +28,7 @@
   * merge 之後於群組通知大家更新
 - 若發現缺少頁面，請勿直接新增，請先另外開一條新的 branch 單獨處理新增頁面的功能（註2）
   * 流程與改動 app.js 相同
+  
 
 版型可參考：[demo](https://krebikshaw.github.io/final-project/prepare/)
 
