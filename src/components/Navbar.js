@@ -4,7 +4,7 @@ import Logo from './Logo';
 import IconComponent from './Icon';
 import { Nav } from './Button';
 import { InputSearch } from './Input';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { COLOR, EFFECT } from '../constants/style';
 import useProduct from '../hooks/productHooks/useProduct';
 
@@ -13,7 +13,7 @@ const NavbarContainer = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  height: 110px;
+  height: ${(props) => (props.$size === 'sm' ? '65px' : '110px')};
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
   background: #fff;
   padding: 15px 0;
@@ -133,13 +133,22 @@ const CategoryItemContainer = ({ text, id }) => {
 };
 
 const Navbar = () => {
+  const location = useLocation();
+  const [showNavBottom, setShowNavBottom] = useState(false);
   const { productCategories, handleGetProductCategories } = useProduct();
+
+  useEffect(() => {
+    setShowNavBottom(false);
+    const path = location.pathname.split('/')[1];
+    if (path === 'products' || !path) setShowNavBottom(true);
+  }, []);
+
   useEffect(() => {
     handleGetProductCategories();
   }, []);
 
   return (
-    <NavbarContainer>
+    <NavbarContainer $size={showNavBottom ? '' : 'sm'}>
       <NavbarTop>
         <LeftSide>
           <Logo />
@@ -155,17 +164,19 @@ const Navbar = () => {
           </OptionList>
         </RightSide>
       </NavbarTop>
-      <NavbarBottom>
-        <ProductCategoriesList>
-          {productCategories.map((category) => (
-            <CategoryItemContainer
-              text={category.name}
-              id={category.id}
-              key={category.id}
-            />
-          ))}
-        </ProductCategoriesList>
-      </NavbarBottom>
+      {showNavBottom && (
+        <NavbarBottom>
+          <ProductCategoriesList>
+            {productCategories.map((category) => (
+              <CategoryItemContainer
+                text={category.name}
+                id={category.id}
+                key={category.id}
+              />
+            ))}
+          </ProductCategoriesList>
+        </NavbarBottom>
+      )}
     </NavbarContainer>
   );
 };

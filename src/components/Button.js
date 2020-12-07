@@ -54,7 +54,8 @@ export const ActionButton = styled(ButtonWrapper)`
   border: solid 1px transparent;
   border-radius: 8px;
   padding: ${(props) => (props.$size === 'lg' ? '10px 90px' : '10px 20px')};
-  background-color: ${COLOR.btn_primary};
+  background-color: ${(props) =>
+    props.$bg === 'red' ? COLOR.btn_secondary : COLOR.btn_primary};
   color: ${COLOR.white};
   margin: 0px ${(props) => (props.$margin === 0 ? 0 : 20)}px;
   min-width: max-content;

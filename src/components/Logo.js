@@ -4,7 +4,7 @@ import { EFFECT } from '../constants/style';
 
 const LogoComponent = styled(Link)`
   position: absolute;
-  top: -5px;
+  top: -10px;
   left: 55px;
   background: url(${process.env.PUBLIC_URL}/logo.svg) center/cover;
   height: 60px;

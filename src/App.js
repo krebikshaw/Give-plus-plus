@@ -59,7 +59,6 @@ const App = () => {
       <ThemeProvider theme={generalTheme}>
         <GlobalStyle />
         <BrowserRouter>
-          <Navbar />
           <Routes basename='/'>
             <Route path={'/'} element={<HomePage />} />
             <Route path={'/about'} element={<AboutUsPage />} />
