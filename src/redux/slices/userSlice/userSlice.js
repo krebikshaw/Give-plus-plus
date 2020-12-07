@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getMeAPI } from '../../../webAPI/userAPI';
+import { getMeAPI, updateUserAPI } from '../../../webAPI/userAPI';
 
 export const userSlice = createSlice({
   name: 'user',
@@ -24,6 +24,7 @@ export const userSlice = createSlice({
 export const { setUser, setErrorMessage } = userSlice.actions;
 
 export const getMe = () => (dispatch) => {
+  dispatch(setUser({}));
   getMeAPI().then((result) => {
     if (!result || result.ok === 0)
       return dispatch(
@@ -33,12 +34,14 @@ export const getMe = () => (dispatch) => {
   });
 };
 
-export const getVendorInfo = (id) => (dispatch) => {
-  return getVendorInfoAPI(id).then((res) => {
-    if (res.ok === 0) {
-      return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
-    }
-    dispatch(setVendorInfo(res.data));
+export const updateUser = (data) => (dispatch) => {
+  return updateUserAPI(data).then((result) => {
+    if (!result || result.ok === 0)
+      return dispatch(
+        setErrorMessage(result ? result.message : 'something wrong')
+      );
+    getMe();
+    return result;
   });
 };
 

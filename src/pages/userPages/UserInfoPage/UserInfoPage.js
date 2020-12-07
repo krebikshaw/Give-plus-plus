@@ -1,12 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Navbar, IconComponent } from '../../../components';
-import { COLOR, FONT, DISTANCE } from '../../../constants/style';
+import { COLOR, FONT, EFFECT } from '../../../constants/style';
+import { ActionButton } from '../../../components/Button';
+import { Announcement, ClientInfoForm } from '../../../components/userSystem';
 import { ThickNavPage } from '../../../components/Page';
 import useUser from '../../../hooks/userHooks/useUser';
+import { useSearchParams } from 'react-router-dom';
 
 const Wrapper = styled.div`
-  padding: 50px;
+  width: 50vw;
+  margin 0 auto;
+  padding: 30px 0;
 `;
 
 const Title = styled.h1`
@@ -14,36 +19,36 @@ const Title = styled.h1`
   font-size: ${FONT.lg};
 `;
 
-const AnnouncementWrapper = styled.div`
-  height: 100px;
-  padding: ${DISTANCE.sm};
-  margin: ${DISTANCE.md} 0px;
-  background: ${COLOR.bg_secondary};
+const SuccessMessage = styled.div`
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 200px;
+  min-width: 40vw;
+  color: ${COLOR.text_1};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: ${FONT.lg};
+  border-radius: 15px;
+  background: ${COLOR.light_primary};
+  box-shadow: ${EFFECT.shadowDark};
+  & p {
+    margin: 20px;
+  }
 `;
-
-const AnnouncementTitle = styled.h2`
-  color: ${COLOR.text_3};
-  font-size: ${FONT.md};
-`;
-
-const Announcement = () => {
-  return (
-    <AnnouncementWrapper>
-      <AnnouncementTitle>小提醒</AnnouncementTitle>
-    </AnnouncementWrapper>
-  );
-};
 
 const UserInfoPage = () => {
-  const { user, handleGetMe, errorMessage } = useUser();
+  const [successMode, setSuccessMode] = useState(false);
+  const { handleGetMe, errorMessage } = useUser();
+
+  const handleToggleMode = () => setSuccessMode(false);
 
   useEffect(() => {
     handleGetMe();
   }, []);
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   useEffect(() => {
     console.log(errorMessage);
@@ -53,9 +58,16 @@ const UserInfoPage = () => {
     <>
       <Navbar />
       <ThickNavPage>
-        <Wrapper>
+        <Wrapper $dark={successMode}>
           <Title>基本資料</Title>
           <Announcement />
+          <ClientInfoForm setSuccessMode={setSuccessMode} />
+          {successMode && (
+            <SuccessMessage>
+              <p>編輯成功</p>
+              <ActionButton onClick={handleToggleMode}>確定</ActionButton>
+            </SuccessMessage>
+          )}
         </Wrapper>
       </ThickNavPage>
     </>
