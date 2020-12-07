@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import GlobalStyle from './constants/globalStyle';
 import generalTheme from './constants/theme.js';
-import { Navbar, Footer } from './components';
+import { Footer } from './components';
 import { HelperButton } from './components/Button';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
