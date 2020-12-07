@@ -19,7 +19,7 @@ export const InputComponent = styled.input`
   letter-spacing: 0.1rem;
   line-height: 1.5rem;
   padding: 3px;
-  margin: ${(props) => (props.$margin == 0 ? '0' : '20px')};
+  margin: ${(props) => (props.$margin === 0 ? '0' : '20px')};
 `;
 
 export const TextAreaComponent = styled.textarea`
@@ -29,5 +29,5 @@ export const TextAreaComponent = styled.textarea`
   letter-spacing: 0.1rem;
   line-height: 1.5rem;
   padding: 5px;
-  margin: ${(props) => (props.$margin == 0 ? '0' : '20px')};
+  margin: ${(props) => (props.$margin === 0 ? '0' : '20px')};
 `;
