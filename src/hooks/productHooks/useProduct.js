@@ -1,14 +1,24 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import {
   selectProductCategories,
+  selectProducts,
+  selectProduct,
+  selectErrorMessage,
   getProductCategories,
-} from '../../redux/slices/productSlice/productSlice';
+  getProductsFromVendor,
+} from "../../redux/slices/productSlice/productSlice";
 
 export default function useProduct() {
   const dispatch = useDispatch();
   const productCategories = useSelector(selectProductCategories);
-
+  const products = useSelector(selectProducts);
   const handleGetProductCategories = () => dispatch(getProductCategories());
-
-  return { productCategories, handleGetProductCategories };
+  const handleGetProductsFromVendor = (id) =>
+    dispatch(() => getProductsFromVendor(id));
+  return {
+    productCategories,
+    products,
+    handleGetProductCategories,
+    handleGetProductsFromVendor,
+  };
 }
