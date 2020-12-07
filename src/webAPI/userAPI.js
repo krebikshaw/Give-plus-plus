@@ -1,7 +1,12 @@
-import { BASE_URL } from "../constants/unit";
+import { BASE_URL } from '../constants/unit';
 
-const getVendorInfoAPI = (id) => {
-  return fetch(`${BASE_URL}/users/vendor/${id}`).then((res) => res.json());
+const getMeAPI = () => {
+  const token = localStorage.getItem('token');
+  return fetch(`${BASE_URL}/users/me`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
 };
 
-export { getVendorInfoAPI };
+export { getMeAPI };

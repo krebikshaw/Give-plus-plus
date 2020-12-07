@@ -1,9 +1,9 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 import {
   selectVendorInfo,
   selectErrorMessage,
   getVendorInfo,
-} from "../../redux/slices/userSlice/userSlice";
+} from '../../redux/slices/userSlice/userSlice';
 
 export default function useUser() {
   const dispatch = useDispatch();
