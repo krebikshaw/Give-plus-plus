@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { COLOR, FONT } from '../constants/style';
 import IconComponent from '../components/Icon';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const FooterContainer = styled.div`
   height: 150px;
@@ -48,7 +48,11 @@ const IconItem = styled.li`
 `;
 
 const Footer = () => {
-  return (
+  const location = useLocation();
+  const currentPath = location.pathname;
+  return currentPath === '/entrance' ||
+    currentPath === '/login' ||
+    currentPath === '/register' ? null : (
     <FooterContainer>
       <FooterItems>
         <ItemContainer>
