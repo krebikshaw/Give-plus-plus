@@ -162,7 +162,10 @@ export default function SetAvatarComponent({ setSuccessMode }) {
                 <ActionButton
                   $bg={'red'}
                   $margin={0}
-                  onClick={() => setIsCheckImage(false)}
+                  onClick={() => {
+                    setAvatarUrl(user.avatar_url);
+                    setIsCheckImage(false);
+                  }}
                 >
                   取消
                 </ActionButton>
