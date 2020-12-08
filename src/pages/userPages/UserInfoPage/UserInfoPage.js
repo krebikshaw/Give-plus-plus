@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Navbar, IconComponent } from '../../../components';
+import { Navbar } from '../../../components';
 import { WrapperMask } from '../../../components/userSystem/';
 import { COLOR, FONT, EFFECT, DISTANCE } from '../../../constants/style';
 import { ActionButton } from '../../../components/Button';
@@ -12,7 +12,6 @@ import {
 } from '../../../components/userSystem';
 import { ThickNavPage } from '../../../components/Page';
 import useUser from '../../../hooks/userHooks/useUser';
-import { useSearchParams } from 'react-router-dom';
 
 const Wrapper = styled.div`
   width: 50vw;

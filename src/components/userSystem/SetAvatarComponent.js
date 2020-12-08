@@ -3,10 +3,7 @@ import styled from 'styled-components';
 import useUser from '../../hooks/userHooks/useUser';
 import { WrapperMask } from '../userSystem';
 import { COLOR, FONT, DISTANCE, EFFECT } from '../../constants/style';
-import { InputComponent } from '../../components/Input';
-import IconComponent from '../../components/Icon';
 import { ActionButton } from '../../components/Button';
-import { setErrorMessage } from '../../redux/slices/productSlice/productSlice';
 
 const SetAvatarContainer = styled.div`
   display: flex;
@@ -90,11 +87,26 @@ const ErrorMessage = styled.p`
   font-size: ${FONT.sm};
 `;
 
+const LoadingMask = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: ${COLOR.bg_mask};
+  color: ${COLOR.text_1};
+  font-size: ${FONT.lg};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export default function SetAvatarComponent({ setSuccessMode }) {
   const { user, handleUploadAvatar } = useUser();
   const [isCheckImage, setIsCheckImage] = useState(false);
   const [uploadEvent, setUploadEvent] = useState(null);
   const [uploadError, setUploadError] = useState('');
+  const [isLoadingUpload, setIsLoadingUpload] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState(
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRis-FmrF5lq1jBAEO8tSMrnwGU_yQsfMe8LA&usqp=CAU'
   );
@@ -112,9 +124,11 @@ export default function SetAvatarComponent({ setSuccessMode }) {
   };
 
   const handleSubmit = () => {
+    setIsLoadingUpload(true);
     setUploadError('');
     handleUploadAvatar(uploadEvent).then((result) => {
       if (result.ok === 0) return setUploadError(result.message);
+      setIsLoadingUpload(false);
       setIsCheckImage(false);
       setSuccessMode(true);
     });
@@ -154,6 +168,7 @@ export default function SetAvatarComponent({ setSuccessMode }) {
                 </ActionButton>
               </TwoButton>
             </CheckImage>
+            {isLoadingUpload && <LoadingMask>Loading...</LoadingMask>}
           </WrapperMask>
         )}
       </RightSide>
