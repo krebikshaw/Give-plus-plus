@@ -10,7 +10,7 @@ export const COLOR = {
   light_primary: '#e0e9ef',
   bg_primary: '#fff',
   bg_secondary: '#f7f7f7',
-  bg_mask: '#c7c1c1',
+  bg_mask: '#c7c1c178',
   btn_primary: '#6dd0cd',
   btn_secondary: '#dea8a8',
 };
