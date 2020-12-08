@@ -4,7 +4,7 @@ import useUser from '../../hooks/userHooks/useUser';
 import { BirthdaySelector } from '../../components/userSystem';
 import { COLOR, FONT, DISTANCE } from '../../constants/style';
 import { InputComponent } from '../../components/Input';
-import { NormalButton, ActionButton, Nav } from '../../components/Button';
+import { ActionButton } from '../../components/Button';
 
 const FontWrapper = styled.form`
   margin: ${DISTANCE.md} 0;
@@ -39,9 +39,10 @@ export default function ClientInfoForm({ setSuccessMode }) {
     setAddressError('');
     setBirthdayError('');
     const emailReg = /^([\w]+)(.[\w]+)*@([\w]+)(.[\w]{2,3}){1,2}$/;
-    if (nickname && !nickname.trim()) setNicknameError('姓名格式錯誤');
-    if (email && email.search(emailReg) === -1) setEmailError('email 格式錯誤');
-    if (address && !address.trim()) setAddressError('地址格式錯誤');
+    if (nickname && !nickname.trim()) return setNicknameError('姓名格式錯誤');
+    if (email && email.search(emailReg) === -1)
+      return setEmailError('email 格式錯誤');
+    if (address && !address.trim()) return setAddressError('地址格式錯誤');
     const data = {
       nickname: nickname ? nickname : '',
       email: email ? email : '',
@@ -64,6 +65,7 @@ export default function ClientInfoForm({ setSuccessMode }) {
       <FontWrapper action='' novalidate=''>
         <InputName>姓名</InputName>
         <InputComponent
+          type='text'
           name='nickname'
           $margin={0}
           value={nickname}
@@ -72,6 +74,7 @@ export default function ClientInfoForm({ setSuccessMode }) {
         {nicknameError && <ErrorMessage>{nicknameError}</ErrorMessage>}
         <InputName>email</InputName>
         <InputComponent
+          type='email'
           name='email'
           $size={'lg'}
           $margin={0}
@@ -81,6 +84,7 @@ export default function ClientInfoForm({ setSuccessMode }) {
         {emailError && <ErrorMessage>{emailError}</ErrorMessage>}
         <InputName>地址</InputName>
         <InputComponent
+          type='text'
           name='address'
           $size={'lg'}
           $margin={0}

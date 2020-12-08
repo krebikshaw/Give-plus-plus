@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getMeAPI, updateUserAPI } from '../../../webAPI/userAPI';
+import {
+  getMeAPI,
+  updateUserAPI,
+  updatePasswordAPI,
+  uploadAvatarAPI,
+} from '../../../webAPI/userAPI';
 
 export const userSlice = createSlice({
   name: 'user',
@@ -36,6 +41,28 @@ export const getMe = () => (dispatch) => {
 
 export const updateUser = (data) => (dispatch) => {
   return updateUserAPI(data).then((result) => {
+    if (!result || result.ok === 0)
+      return dispatch(
+        setErrorMessage(result ? result.message : 'something wrong')
+      );
+    getMe();
+    return result;
+  });
+};
+
+export const updatePassword = (data) => (dispatch) => {
+  return updatePasswordAPI(data).then((result) => {
+    if (!result || result.ok === 0)
+      return dispatch(
+        setErrorMessage(result ? result.message : 'something wrong')
+      );
+    getMe();
+    return result;
+  });
+};
+
+export const uploadAvatar = (data) => (dispatch) => {
+  return uploadAvatarAPI(data).then((result) => {
     if (!result || result.ok === 0)
       return dispatch(
         setErrorMessage(result ? result.message : 'something wrong')

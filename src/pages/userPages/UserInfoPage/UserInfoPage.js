@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Navbar, IconComponent } from '../../../components';
+import { WrapperMask } from '../../../components/userSystem/';
 import { COLOR, FONT, EFFECT, DISTANCE } from '../../../constants/style';
 import { ActionButton } from '../../../components/Button';
 import {
   Announcement,
   ClientInfoForm,
   SetPasswordComponent,
+  SetAvatarComponent,
 } from '../../../components/userSystem';
 import { ThickNavPage } from '../../../components/Page';
 import useUser from '../../../hooks/userHooks/useUser';
@@ -27,15 +29,6 @@ const Text = styled.p`
   color: ${COLOR.black};
   font-size: ${FONT.md};
   margin: ${DISTANCE.lg} 0 ${DISTANCE.sm} 0;
-`;
-
-const WrapperMask = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #c7c1c178;
 `;
 
 const SuccessMessage = styled.div`
@@ -64,35 +57,40 @@ const UserInfoPage = () => {
   const [isSettingPassword, setIsSettingPassword] = useState(false);
   const { handleGetMe, errorMessage } = useUser();
 
-  const handleToggleMode = () => setSuccessMode(false);
   const handleSetPassword = () => setIsSettingPassword(true);
 
   useEffect(() => {
     handleGetMe();
   }, []);
 
-  useEffect(() => {
-    console.log(errorMessage);
-  }, [errorMessage]);
-
   return (
     <>
       <Navbar />
       <ThickNavPage>
-        <Wrapper $dark={successMode}>
+        <Wrapper>
           <Title>基本資料</Title>
           <Announcement />
           <ClientInfoForm setSuccessMode={setSuccessMode} />
-          <Text>重設密碼</Text>
+          {errorMessage && <errorText>{errorMessage}</errorText>}
+          <Text>變更密碼</Text>
           <ActionButton onClick={handleSetPassword} $margin={0}>
-            重設密碼
+            變更密碼
           </ActionButton>
-          {isSettingPassword && <SetPasswordComponent />}
+          {isSettingPassword && (
+            <SetPasswordComponent
+              setSuccessMode={setSuccessMode}
+              setIsSettingPassword={setIsSettingPassword}
+            />
+          )}
+          <Text>變更頭貼</Text>
+          <SetAvatarComponent setSuccessMode={setSuccessMode} />
           {successMode && (
             <WrapperMask>
               <SuccessMessage>
                 <p>編輯成功</p>
-                <ActionButton onClick={handleToggleMode}>確定</ActionButton>
+                <ActionButton onClick={() => setSuccessMode(false)}>
+                  確定
+                </ActionButton>
               </SuccessMessage>
             </WrapperMask>
           )}

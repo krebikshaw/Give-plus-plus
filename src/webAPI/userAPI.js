@@ -12,7 +12,6 @@ const getMeAPI = () => {
 const updateUserAPI = (data) => {
   const token = localStorage.getItem('token');
   return getMeAPI().then((res) => {
-    let id = res.data.userId;
     return fetch(`${BASE_URL}/users/me`, {
       method: 'PATCH',
       headers: {
@@ -29,4 +28,51 @@ const updateUserAPI = (data) => {
   });
 };
 
-export { getMeAPI, updateUserAPI };
+const updatePasswordAPI = (data) => {
+  const token = localStorage.getItem('token');
+  return getMeAPI().then((res) => {
+    return fetch(`${BASE_URL}/users/password`, {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        oldPassword: data.oldPassword,
+        newPassword: data.newPassword,
+        confirmPassword: data.confirmPassword,
+      }),
+    }).then((res) => res.json());
+  });
+};
+
+const uploadAvatarAPI = (data) => {
+  const formData = new FormData();
+  formData.append('image', data);
+  return fetch('https://api.imgur.com/3/image', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Client-ID 4610c48a0c55b2a',
+    },
+    body: formData,
+  })
+    .then((data) => data.json())
+    .then((data) => data.data.link)
+    .then((avatarUrl) => {
+      const token = localStorage.getItem('token');
+      return getMeAPI().then((res) => {
+        return fetch(`${BASE_URL}/users/me`, {
+          method: 'PATCH',
+          headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            avatar_url: avatarUrl,
+          }),
+        }).then((res) => res.json());
+      });
+    });
+};
+
+export { getMeAPI, updateUserAPI, updatePasswordAPI, uploadAvatarAPI };
