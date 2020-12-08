@@ -30,6 +30,7 @@ export const { setUser, setErrorMessage } = userSlice.actions;
 
 export const getMe = () => (dispatch) => {
   dispatch(setUser({}));
+  dispatch(setErrorMessage(''));
   getMeAPI().then((result) => {
     if (!result || result.ok === 0)
       return dispatch(
@@ -40,6 +41,7 @@ export const getMe = () => (dispatch) => {
 };
 
 export const updateUser = (data) => (dispatch) => {
+  dispatch(setErrorMessage(''));
   return updateUserAPI(data).then((result) => {
     if (!result || result.ok === 0)
       return dispatch(
@@ -51,6 +53,7 @@ export const updateUser = (data) => (dispatch) => {
 };
 
 export const updatePassword = (data) => (dispatch) => {
+  dispatch(setErrorMessage(''));
   return updatePasswordAPI(data).then((result) => {
     if (!result || result.ok === 0)
       return dispatch(
@@ -62,6 +65,7 @@ export const updatePassword = (data) => (dispatch) => {
 };
 
 export const uploadAvatar = (data) => (dispatch) => {
+  dispatch(setErrorMessage(''));
   return uploadAvatarAPI(data).then((result) => {
     if (!result || result.ok === 0)
       return dispatch(

@@ -30,6 +30,12 @@ const Text = styled.p`
   margin: ${DISTANCE.lg} 0 ${DISTANCE.sm} 0;
 `;
 
+const ErrorText = styled.p`
+  color: ${COLOR.text_alert};
+  font-size: ${FONT.xss};
+  margin-top: 15px;
+`;
+
 const SuccessMessage = styled.div`
   position: fixed;
   top: 40%;
@@ -70,7 +76,7 @@ const UserInfoPage = () => {
           <Title>基本資料</Title>
           <Announcement />
           <ClientInfoForm setSuccessMode={setSuccessMode} />
-          {errorMessage && <errorText>{errorMessage}</errorText>}
+          {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
           <Text>變更密碼</Text>
           <ActionButton onClick={handleSetPassword} $margin={0}>
             變更密碼

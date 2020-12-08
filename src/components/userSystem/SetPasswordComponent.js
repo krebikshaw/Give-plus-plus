@@ -87,10 +87,13 @@ export default function SetPasswordComponent({
       confirmPassword,
     };
     handleUpdatePassword(data).then((result) => {
-      console.log(result);
-      if (result.ok === 0) {
+      if (result.payload === 'Invalid oldPassword') {
         setOldPassword('');
         return setSubmitError('舊密碼錯誤');
+      }
+      if (result.payload === 'oldPassword and newPassword cannot be the same') {
+        setOldPassword('');
+        return setSubmitError('請勿設定與原先相同的密碼');
       }
       setSuccessMode(true);
       setIsSettingPassword(false);
@@ -159,7 +162,6 @@ export default function SetPasswordComponent({
           </ShownComponent>
         </InputItem>
         {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
-        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
         <TwoButton>
           <ActionButton $margin={0} onClick={handleSubmit}>
             送出
