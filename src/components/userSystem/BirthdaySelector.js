@@ -4,7 +4,9 @@ import styled from 'styled-components';
 import useUser from '../../hooks/userHooks/useUser';
 import { COLOR, FONT, EFFECT } from '../../constants/style';
 
-const BirthdayContainer = styled.div``;
+const BirthdayContainer = styled.div`
+  min-width: max-content;
+`;
 
 const YearsSelector = styled.select`
   height: 30px;
