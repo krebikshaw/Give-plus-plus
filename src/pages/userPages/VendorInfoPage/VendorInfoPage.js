@@ -70,12 +70,10 @@ const VendorInfoPage = () => {
   const { handleGetMe, errorMessage } = useUser();
 
   const handleSetPassword = () => setIsSettingPassword(true);
-
   const doAdminStatusInit = (userId) => {
     setIsAdminStatus(true);
     handleGetUserById(userId);
   };
-
   useEffect(() => {
     handleGetMe().then((result) => {
       const userId = location.pathname.split('/')[3];

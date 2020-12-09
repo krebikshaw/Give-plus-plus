@@ -145,7 +145,7 @@ export default function SetAvatarComponent({ setSuccessMode }) {
       <PreviewAvatar src={avatarUrl} alt='圖片載入失敗' />
       <RightSide>
         <Description>
-          從電腦中選取圖檔<br></br>最佳大小為 600 x 600px
+          從電腦中選取圖檔<br></br>最佳大小為 250 x 250px
         </Description>
         <Label>
           <InputFile type='file' onChange={handleChangeFile} />

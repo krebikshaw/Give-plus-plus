@@ -20,8 +20,8 @@ const PreviewBanner = styled.img`
 `;
 
 const RightSide = styled.div`
-  padding: ${DISTANCE.md};
   min-width: max-content;
+  margin-top: ${DISTANCE.md};
 `;
 
 const Description = styled.p`
@@ -147,7 +147,7 @@ export default function SetBannerComponent({ setSuccessMode }) {
       <PreviewBanner src={bannerUrl} alt='圖片載入失敗' />
       <RightSide>
         <Description>
-          從電腦中選取圖檔<br></br>最佳大小為 600 x 600px
+          從電腦中選取圖檔<br></br>最佳大小為 250 x 1140px
         </Description>
         <Label>
           <InputFile type='file' onChange={handleChangeFile} />
