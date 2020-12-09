@@ -5,16 +5,16 @@ import { WrapperMask } from '../userSystem';
 import { COLOR, FONT, DISTANCE, EFFECT } from '../../constants/style';
 import { ActionButton } from '../../components/Button';
 
-const SetAvatarContainer = styled.div`
+const SetBannerContainer = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 `;
 
-const PreviewAvatar = styled.img`
+const PreviewBanner = styled.img`
   box-shadow: ${EFFECT.shadowInput};
-  height: 250px;
-  width: 250px;
-  min-width: 250px;
+  height: 200px;
+  width: 600px;
   border-radius: 15px;
   object-fit: cover;
 `;
@@ -62,10 +62,10 @@ const CheckImage = styled.div`
   background: ${COLOR.bg_primary};
 `;
 
-const CheckAvatar = styled.img`
+const CheckBanner = styled.img`
   box-shadow: ${EFFECT.shadowInput};
-  height: 300px;
-  width: 300px;
+  height: 200px;
+  width: 600px;
   border-radius: 15px;
   object-fit: cover;
 `;
@@ -103,20 +103,22 @@ const LoadingMask = styled.div`
   align-items: center;
 `;
 
-export default function SetAvatarComponent({ setSuccessMode }) {
-  const { user, handleUploadAvatar } = useUser();
+export default function SetBannerComponent({ setSuccessMode }) {
+  const { user, handleUploadBanner } = useUser();
   const [isCheckImage, setIsCheckImage] = useState(false);
   const [uploadEvent, setUploadEvent] = useState(null);
   const [uploadError, setUploadError] = useState('');
   const [isLoadingUpload, setIsLoadingUpload] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState('https://i.imgur.com/uqZxFCm.png');
+  const [bannerUrl, setBannerUrl] = useState(
+    'https://lh4.googleusercontent.com/sAvtic6WzLRcGC485d2irc6Q36VS9GaiIj2TjL9AkbD1t3RjwacfNkJmmUe9fh9c0WV-ZVKQcw=w1200'
+  );
 
   const handleChangeFile = (e) => {
     setUploadEvent(e.target.files[0]);
     const file = e.target.files.item(0);
     const fileReader = new FileReader();
     fileReader.addEventListener('load', (e) => {
-      setAvatarUrl(e.target.result);
+      setBannerUrl(e.target.result);
       setIsCheckImage(true);
     });
     fileReader.readAsDataURL(file);
@@ -124,7 +126,7 @@ export default function SetAvatarComponent({ setSuccessMode }) {
   const handleSubmit = () => {
     setIsLoadingUpload(true);
     setUploadError('');
-    handleUploadAvatar(uploadEvent).then((result) => {
+    handleUploadBanner(uploadEvent).then((result) => {
       if (result.ok === 0) return setUploadError(result.message);
       setIsLoadingUpload(false);
       setIsCheckImage(false);
@@ -132,17 +134,17 @@ export default function SetAvatarComponent({ setSuccessMode }) {
     });
   };
   const handleCancel = () => {
-    setAvatarUrl(user.avatar_url);
+    setBannerUrl(user.banner_url);
     setIsCheckImage(false);
   };
 
   useEffect(() => {
-    if (user.avatar_url) setAvatarUrl(user.avatar_url);
+    if (user.banner_url) setBannerUrl(user.banner_url);
   }, [user]);
 
   return (
-    <SetAvatarContainer>
-      <PreviewAvatar src={avatarUrl} alt='圖片載入失敗' />
+    <SetBannerContainer>
+      <PreviewBanner src={bannerUrl} alt='圖片載入失敗' />
       <RightSide>
         <Description>
           從電腦中選取圖檔<br></br>最佳大小為 600 x 600px
@@ -155,7 +157,7 @@ export default function SetAvatarComponent({ setSuccessMode }) {
           <WrapperMask>
             <CheckImage>
               <Title>是否上傳這張照片？</Title>
-              <CheckAvatar src={avatarUrl} alt='圖片載入失敗' />
+              <CheckBanner src={bannerUrl} alt='圖片載入失敗' />
               {uploadError && <ErrorMessage>{uploadError}</ErrorMessage>}
               <TwoButton>
                 <ActionButton $margin={0} onClick={handleSubmit}>
@@ -170,6 +172,6 @@ export default function SetAvatarComponent({ setSuccessMode }) {
           </WrapperMask>
         )}
       </RightSide>
-    </SetAvatarContainer>
+    </SetBannerContainer>
   );
 }

@@ -4,6 +4,10 @@ import {
   updateUserAPI,
   updatePasswordAPI,
   uploadAvatarAPI,
+  uploadQRCodeAPI,
+  uploadBannerAPI,
+  updatePermissionAPI,
+  getUserByIdAPI,
 } from '../../../webAPI/userAPI';
 
 export const userSlice = createSlice({
@@ -31,36 +35,35 @@ export const { setUser, setErrorMessage } = userSlice.actions;
 export const getMe = () => (dispatch) => {
   dispatch(setUser({}));
   dispatch(setErrorMessage(''));
-  getMeAPI().then((result) => {
+  return getMeAPI().then((result) => {
     if (!result || result.ok === 0)
       return dispatch(
         setErrorMessage(result ? result.message : 'something wrong')
       );
     dispatch(setUser(result.data));
+    return result;
   });
 };
 
 export const updateUser = (data) => (dispatch) => {
   dispatch(setErrorMessage(''));
   return updateUserAPI(data).then((result) => {
-    if (!result || result.ok === 0)
-      return dispatch(
-        setErrorMessage(result ? result.message : 'something wrong')
-      );
+    if (!result || result.ok === 0) {
+      dispatch(setErrorMessage(result ? result.message : 'something wrong'));
+      return result;
+    }
     getMe();
-    return result;
   });
 };
 
 export const updatePassword = (data) => (dispatch) => {
   dispatch(setErrorMessage(''));
   return updatePasswordAPI(data).then((result) => {
-    if (!result || result.ok === 0)
-      return dispatch(
-        setErrorMessage(result ? result.message : 'something wrong')
-      );
+    if (!result || result.ok === 0) {
+      dispatch(setErrorMessage(result ? result.message : 'something wrong'));
+      return result;
+    }
     getMe();
-    return result;
   });
 };
 
@@ -72,6 +75,46 @@ export const uploadAvatar = (data) => (dispatch) => {
         setErrorMessage(result ? result.message : 'something wrong')
       );
     getMe();
+    return result;
+  });
+};
+
+export const uploadQRCode = (data) => (dispatch) => {
+  dispatch(setErrorMessage(''));
+  return uploadQRCodeAPI(data).then((result) => result);
+};
+
+export const uploadBanner = (data) => (dispatch) => {
+  dispatch(setErrorMessage(''));
+  return uploadBannerAPI(data).then((result) => {
+    if (!result || result.ok === 0)
+      return dispatch(
+        setErrorMessage(result ? result.message : 'something wrong')
+      );
+    getMe();
+    return result;
+  });
+};
+
+export const updatePermission = (data) => (dispatch) => {
+  dispatch(setErrorMessage(''));
+  return updatePermissionAPI(data).then((result) => {
+    if (!result || result.ok === 0) {
+      dispatch(setErrorMessage(result ? result.message : 'something wrong'));
+      return result;
+    }
+  });
+};
+
+export const getUserById = (id) => (dispatch) => {
+  dispatch(setUser({}));
+  dispatch(setErrorMessage(''));
+  return getUserByIdAPI(id).then((result) => {
+    if (!result || result.ok === 0)
+      return dispatch(
+        setErrorMessage(result ? result.message : 'something wrong')
+      );
+    dispatch(setUser(result.data));
     return result;
   });
 };

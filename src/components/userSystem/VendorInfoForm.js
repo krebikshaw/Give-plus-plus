@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import useUser from '../../hooks/userHooks/useUser';
+import { SetQRCode } from '../userSystem/';
 import { BirthdaySelector } from '../../components/userSystem';
 import { COLOR, FONT, DISTANCE } from '../../constants/style';
 import { InputComponent } from '../../components/Input';
@@ -16,19 +17,28 @@ const InputName = styled.h2`
   margin: ${DISTANCE.sm} 0;
 `;
 
+const InputDescription = styled.p`
+  color: ${COLOR.text_1};
+  font-size: ${FONT.sm};
+  margin: ${DISTANCE.xs} 0;
+`;
+
 const ErrorMessage = styled.span`
   color: ${COLOR.text_alert};
   font-size: ${FONT.xss};
   margin: 0 15px;
 `;
 
-export default function ClientInfoForm({ setSuccessMode }) {
+export default function VendorInfoForm({ setSuccessMode }) {
   const { user, handleUpdateUser } = useUser();
   const [nickname, setNickname] = useState('');
+  const [idCardNumber, setIdCardNumber] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
+  const [socialMediaId, setSocialMediaId] = useState('');
   const [birthday, setBirthday] = useState('');
   const [nicknameError, setNicknameError] = useState('');
+  const [idCardNumberError, setIdCardNumberError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [addressError, setAddressError] = useState('');
   const [birthdayError, setBirthdayError] = useState('');
@@ -45,9 +55,11 @@ export default function ClientInfoForm({ setSuccessMode }) {
     if (address && !address.trim()) return setAddressError('地址格式錯誤');
     const data = {
       nickname: nickname ? nickname : '',
+      idCardNumber: idCardNumber ? idCardNumber : '',
       email: email ? email : '',
       address: address ? address : '',
       birthday: birthday ? birthday : null,
+      socialMediaId: socialMediaId ? socialMediaId : null,
     };
     handleUpdateUser(data).then((result) => {
       if (result) return;
@@ -57,8 +69,10 @@ export default function ClientInfoForm({ setSuccessMode }) {
 
   useEffect(() => {
     setNickname(user.nickname ? user.nickname : '');
+    setIdCardNumber(user.id_card_no ? user.id_card_no : '');
     setEmail(user.email ? user.email : '');
     setAddress(user.address ? user.address : '');
+    setSocialMediaId(user.socialmedia_id ? user.socialmedia_id : '');
   }, [user]);
 
   return (
@@ -73,6 +87,15 @@ export default function ClientInfoForm({ setSuccessMode }) {
           onChange={(e) => setNickname(e.target.value)}
         />
         {nicknameError && <ErrorMessage>{nicknameError}</ErrorMessage>}
+        <InputName>身分證字號</InputName>
+        <InputComponent
+          type='text'
+          name='idCardNumber'
+          $margin={0}
+          value={idCardNumber}
+          onChange={(e) => setIdCardNumber(e.target.value)}
+        />
+        {idCardNumberError && <ErrorMessage>{idCardNumberError}</ErrorMessage>}
         <InputName>email</InputName>
         <InputComponent
           type='email'
@@ -96,6 +119,9 @@ export default function ClientInfoForm({ setSuccessMode }) {
         <InputName>生日</InputName>
         <BirthdaySelector setBirthday={setBirthday} />
         {birthdayError && <ErrorMessage>{birthdayError}</ErrorMessage>}
+        <InputName>聯繫帳號</InputName>
+        <InputDescription>line QR-code</InputDescription>
+        <SetQRCode setSocialMediaId={setSocialMediaId} />
       </FontWrapper>
       <ActionButton onClick={handleSubmit} $margin={0}>
         送出

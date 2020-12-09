@@ -38,7 +38,7 @@ const InputItem = styled.div`
   align-items: center;
 `;
 
-const ShownComponent = styled.div``;
+const ShownPasswordComponent = styled.div``;
 
 const TwoButton = styled.div`
   margin: ${DISTANCE.md} 0;
@@ -56,7 +56,7 @@ export default function SetPasswordComponent({
   setSuccessMode,
   setIsSettingPassword,
 }) {
-  const { handleUpdatePassword, errorMessage } = useUser();
+  const { handleUpdatePassword } = useUser();
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -87,18 +87,29 @@ export default function SetPasswordComponent({
       confirmPassword,
     };
     handleUpdatePassword(data).then((result) => {
-      if (result.payload === 'Invalid oldPassword') {
+      if (result.ok === 0 && result.message === 'Invalid oldPassword') {
         setOldPassword('');
         return setSubmitError('舊密碼錯誤');
       }
-      if (result.payload === 'oldPassword and newPassword cannot be the same') {
+      if (
+        result.ok === 0 &&
+        result.message === 'oldPassword and newPassword cannot be the same'
+      ) {
         setOldPassword('');
+        setNewPassword('');
+        setConfirmPassword('');
         return setSubmitError('請勿設定與原先相同的密碼');
       }
       setSuccessMode(true);
       setIsSettingPassword(false);
     });
   };
+  const handleToggleShownOldPassword = () =>
+    setShownOldPassword(!shownOldPassword);
+  const handleToggleShownNewPassword = () =>
+    setShownNewPassword(!shownNewPassword);
+  const handleToggleShownConfirmPassword = () =>
+    setShownConfirmPassword(!shownConfirmPassword);
 
   return (
     <WrapperMask>
@@ -113,15 +124,13 @@ export default function SetPasswordComponent({
             value={oldPassword}
             onChange={(e) => setOldPassword(e.target.value)}
           />
-          <ShownComponent
-            onClick={() => setShownOldPassword(!shownOldPassword)}
-          >
+          <ShownPasswordComponent onClick={handleToggleShownOldPassword}>
             {shownOldPassword ? (
               <IconComponent kind={'eye'} />
             ) : (
               <IconComponent kind={'eye-slash'} />
             )}
-          </ShownComponent>
+          </ShownPasswordComponent>
         </InputItem>
         <InputName>請輸入新密碼</InputName>
         <InputItem>
@@ -132,15 +141,13 @@ export default function SetPasswordComponent({
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
-          <ShownComponent
-            onClick={() => setShownNewPassword(!shownNewPassword)}
-          >
+          <ShownPasswordComponent onClick={handleToggleShownNewPassword}>
             {shownNewPassword ? (
               <IconComponent kind={'eye'} />
             ) : (
               <IconComponent kind={'eye-slash'} />
             )}
-          </ShownComponent>
+          </ShownPasswordComponent>
         </InputItem>
         <InputName>再輸入一次新密碼</InputName>
         <InputItem>
@@ -151,15 +158,13 @@ export default function SetPasswordComponent({
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <ShownComponent
-            onClick={() => setShownConfirmPassword(!shownConfirmPassword)}
-          >
+          <ShownPasswordComponent onClick={handleToggleShownConfirmPassword}>
             {shownConfirmPassword ? (
               <IconComponent kind={'eye'} />
             ) : (
               <IconComponent kind={'eye-slash'} />
             )}
-          </ShownComponent>
+          </ShownPasswordComponent>
         </InputItem>
         {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
         <TwoButton>

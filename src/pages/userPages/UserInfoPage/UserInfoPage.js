@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Navbar } from '../../../components';
 import { WrapperMask } from '../../../components/userSystem/';
@@ -58,6 +59,7 @@ const SuccessMessage = styled.div`
 `;
 
 const UserInfoPage = () => {
+  const navigate = useNavigate();
   const [successMode, setSuccessMode] = useState(false);
   const [isSettingPassword, setIsSettingPassword] = useState(false);
   const { handleGetMe, errorMessage } = useUser();
@@ -65,7 +67,10 @@ const UserInfoPage = () => {
   const handleSetPassword = () => setIsSettingPassword(true);
 
   useEffect(() => {
-    handleGetMe();
+    handleGetMe().then((result) => {
+      if (result.data.is_vendor)
+        return navigate(`/users/vendor/${result.data.userId}`);
+    });
   }, []);
 
   return (
