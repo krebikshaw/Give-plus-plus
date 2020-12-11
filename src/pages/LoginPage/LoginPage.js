@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
-import { COLOR, FONT } from '../../constants/style';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { COLOR, FONT } from '../../constants/style';
 import { ThickNavTwoColumnsPage } from '../../components/Page';
+import useLogin from '../../hooks/userHooks/useLogin';
 import {
   Column,
   BackgroundColumn,
@@ -10,8 +12,6 @@ import {
   JoinButton,
   JoinInput,
 } from '../../components/general/';
-import useLogin from '../../hooks/userHooks/useLogin';
-import { useDispatch } from 'react-redux';
 
 const Title = styled.h1`
   color: ${COLOR.text_2};
@@ -95,7 +95,7 @@ const LoginPage = () => {
             )}
           </Form>
         </Column>
-        <BackgroundColumn />
+        <BackgroundColumn $picture={'login-bg'} />
       </ThickNavTwoColumnsPage>
     </>
   );
