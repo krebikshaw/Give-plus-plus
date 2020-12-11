@@ -93,7 +93,10 @@ const VendorInfoPage = () => {
           {isAdminStatus && (
             <SetPermissionComponent setSuccessMode={setSuccessMode} />
           )}
-          <VendorInfoForm setSuccessMode={setSuccessMode} />
+          <VendorInfoForm
+            setSuccessMode={setSuccessMode}
+            isAdminStatus={isAdminStatus}
+          />
           {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
           <Text>變更密碼</Text>
           <ActionButton onClick={handleSetPassword} $margin={0}>

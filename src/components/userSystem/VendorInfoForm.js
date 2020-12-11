@@ -29,8 +29,8 @@ const ErrorMessage = styled.span`
   margin: 0 15px;
 `;
 
-export default function VendorInfoForm({ setSuccessMode }) {
-  const { user, handleUpdateUser } = useUser();
+export default function VendorInfoForm({ setSuccessMode, isAdminStatus }) {
+  const { user, handleUpdateUser, handleUpdateUserInfo } = useUser();
   const [nickname, setNickname] = useState('');
   const [idCardNumber, setIdCardNumber] = useState('');
   const [email, setEmail] = useState('');
@@ -55,12 +55,17 @@ export default function VendorInfoForm({ setSuccessMode }) {
     if (address && !address.trim()) return setAddressError('地址格式錯誤');
     const data = {
       nickname: nickname ? nickname : '',
-      idCardNumber: idCardNumber ? idCardNumber : '',
+      id_card_no: idCardNumber ? idCardNumber : '',
       email: email ? email : '',
       address: address ? address : '',
       birthday: birthday ? birthday : null,
-      socialMediaId: socialMediaId ? socialMediaId : null,
+      socialmedia_id: socialMediaId ? socialMediaId : null,
     };
+    if (isAdminStatus)
+      return handleUpdateUserInfo(user.id, data).then((result) => {
+        if (result) return;
+        setSuccessMode(true);
+      });
     handleUpdateUser(data).then((result) => {
       if (result) return;
       setSuccessMode(true);

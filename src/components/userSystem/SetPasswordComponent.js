@@ -87,11 +87,16 @@ export default function SetPasswordComponent({
       confirmPassword,
     };
     handleUpdatePassword(data).then((result) => {
-      if (result.ok === 0 && result.message === 'Invalid oldPassword') {
+      if (
+        result &&
+        result.ok === 0 &&
+        result.message === 'Invalid oldPassword'
+      ) {
         setOldPassword('');
         return setSubmitError('舊密碼錯誤');
       }
       if (
+        result &&
         result.ok === 0 &&
         result.message === 'oldPassword and newPassword cannot be the same'
       ) {

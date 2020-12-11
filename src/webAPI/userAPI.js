@@ -20,11 +20,11 @@ const updateUserAPI = (data) => {
       },
       body: JSON.stringify({
         nickname: data.nickname,
-        id_card_no: data.idCardNumber,
+        id_card_no: data.id_card_no,
         email: data.email,
         address: data.address,
         birthday: data.birthday,
-        socialmedia_id: data.socialMediaId,
+        socialmedia_id: data.socialmedia_id,
       }),
     }).then((res) => res.json());
   });
@@ -145,6 +145,33 @@ const updatePermissionAPI = (data) => {
   });
 };
 
+const updateUserInfoAPI = (id, data) => {
+  const token = localStorage.getItem('token');
+  return getMeAPI().then((res) => {
+    return fetch(`${BASE_URL}/users/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    }).then((res) => res.json());
+  });
+};
+
+const applyForVendorAPI = () => {
+  const token = localStorage.getItem('token');
+  return getMeAPI().then((res) => {
+    return fetch(`${BASE_URL}/users/apply`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => res.json());
+  });
+};
+
 export {
   getMeAPI,
   updateUserAPI,
@@ -154,4 +181,6 @@ export {
   uploadBannerAPI,
   updatePermissionAPI,
   getUserByIdAPI,
+  updateUserInfoAPI,
+  applyForVendorAPI,
 };

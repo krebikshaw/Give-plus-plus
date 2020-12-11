@@ -10,6 +10,8 @@ import {
   updatePermission,
   selectErrorMessage,
   getUserById,
+  updateUserInfo,
+  applyForVendor,
 } from '../../redux/slices/userSlice/userSlice';
 
 export default function useUser() {
@@ -36,6 +38,10 @@ export default function useUser() {
     dispatch(updatePermission(data)).then((result) => result);
   const handleGetUserById = (id) =>
     dispatch(getUserById(id)).then((result) => result);
+  const handleUpdateUserInfo = (id, data) =>
+    dispatch(updateUserInfo(id, data)).then((result) => result);
+  const handleApplyForVendor = () =>
+    dispatch(applyForVendor()).then((result) => result);
 
   return {
     user,
@@ -47,6 +53,8 @@ export default function useUser() {
     handleUploadBanner,
     handleUpdatePermission,
     handleGetUserById,
+    handleUpdateUserInfo,
+    handleApplyForVendor,
     errorMessage,
   };
 }

@@ -8,6 +8,8 @@ import {
   uploadBannerAPI,
   updatePermissionAPI,
   getUserByIdAPI,
+  updateUserInfoAPI,
+  applyForVendorAPI,
 } from '../../../webAPI/userAPI';
 
 export const userSlice = createSlice({
@@ -116,6 +118,26 @@ export const getUserById = (id) => (dispatch) => {
       );
     dispatch(setUser(result.data));
     return result;
+  });
+};
+
+export const updateUserInfo = (id, data) => (dispatch) => {
+  dispatch(setErrorMessage(''));
+  return updateUserInfoAPI(id, data).then((result) => {
+    if (!result || result.ok === 0) {
+      dispatch(setErrorMessage(result ? result.message : 'something wrong'));
+      return result;
+    }
+  });
+};
+
+export const applyForVendor = () => (dispatch) => {
+  dispatch(setErrorMessage(''));
+  return applyForVendorAPI().then((result) => {
+    if (!result || result.ok === 0) {
+      dispatch(setErrorMessage(result ? result.message : 'something wrong'));
+      return result;
+    }
   });
 };
 

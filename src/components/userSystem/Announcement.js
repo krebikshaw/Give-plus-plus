@@ -21,16 +21,26 @@ const AnnouncementContent = styled.p`
   font-size: ${FONT.xs};
 `;
 
+const AnnouncementAlert = styled.p`
+  color: ${COLOR.text_alert};
+  font-size: ${FONT.xs};
+`;
+
 const AnnouncementLink = styled.a`
   color: ${COLOR.text_1};
   font-size: ${FONT.xs};
   margin: ${DISTANCE.xs} 0;
 `;
 
-export default function Announcement() {
+export default function Announcement({ isApply }) {
   return (
     <AnnouncementWrapper>
       <AnnouncementTitle>小提醒</AnnouncementTitle>
+      {isApply && (
+        <AnnouncementAlert>
+          請確實填妥以下欄位，已開通賣家資格。
+        </AnnouncementAlert>
+      )}
       <AnnouncementContent>
         如果你不希望你的真實姓名被列入本平台及其他外部搜尋引擎的搜尋結果，建議你選擇一個暱稱使用。網站將依照個人資料保護法保障你的個人隱私！
       </AnnouncementContent>
