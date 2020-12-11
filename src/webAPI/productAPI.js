@@ -8,14 +8,31 @@ const getProductCategoriesAPI = () => {
   return fetch(`${BASE_URL}/products/categories`).then((res) => res.json());
 };
 
-const getProductsFromCategoryAPI = (id) => {
-  return fetch(`${BASE_URL}/products/categories/${id}`).then((res) =>
-    res.json()
-  );
+const getProductsFromCategoryAPI = (id, page, queue) => {
+  let sort;
+  let order;
+  switch (queue) {
+    case "lowToHight":
+      sort = "price";
+      order = "ASC";
+      break;
+    case "hightToLow":
+      sort = "price";
+      order = "DESC";
+      break;
+    default:
+      sort = "id";
+      order = "ASC";
+  }
+  return fetch(
+    `${BASE_URL}/products/categories/${id}?_page=${page}&_sort=${sort}&_order=${order}`
+  ).then((res) => res.json());
 };
 
-const getProductsFromVendorAPI = (id) => {
-  return fetch(`${BASE_URL}/products/vendor/${id}`).then((res) => res.json());
+const getProductsFromVendorAPI = (id, page) => {
+  return fetch(`${BASE_URL}/products/vendor/${id}?_page=${page}`).then((res) =>
+    res.json()
+  );
 };
 
 const searchProductAPI = (keyword) => {
