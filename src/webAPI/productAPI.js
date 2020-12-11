@@ -1,14 +1,6 @@
 import { BASE_URL } from "../constants/unit";
 
-const getProductsAPI = () => {
-  return fetch(`${BASE_URL}/products`).then((res) => res.json());
-};
-
-const getProductCategoriesAPI = () => {
-  return fetch(`${BASE_URL}/products/categories`).then((res) => res.json());
-};
-
-const getProductsFromCategoryAPI = (id, page, queue) => {
+function changeProductSort(queue) {
   let sort;
   let order;
   switch (queue) {
@@ -24,6 +16,19 @@ const getProductsFromCategoryAPI = (id, page, queue) => {
       sort = "id";
       order = "ASC";
   }
+  return { sort, order };
+}
+
+const getProductsAPI = () => {
+  return fetch(`${BASE_URL}/products`).then((res) => res.json());
+};
+
+const getProductCategoriesAPI = () => {
+  return fetch(`${BASE_URL}/products/categories`).then((res) => res.json());
+};
+
+const getProductsFromCategoryAPI = (id, page, queue) => {
+  let { sort, order } = changeProductSort(queue);
   return fetch(
     `${BASE_URL}/products/categories/${id}?_page=${page}&_sort=${sort}&_order=${order}`
   ).then((res) => res.json());

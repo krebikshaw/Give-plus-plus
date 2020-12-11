@@ -1,6 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import {
   setProducts,
+  setHasMoreProducts,
+  setSort,
+  selectSort,
   selectProductCount,
   selectProductCategories,
   selectProducts,
@@ -12,6 +15,7 @@ import {
   getProductsFromCategory,
   getProductsFromVendor,
   selectHasMoreProducts,
+  setPage,
 } from "../../redux/slices/productSlice/productSlice";
 
 function averageTime(count, products) {
@@ -32,6 +36,7 @@ export default function useProduct() {
   const hasMoreProducts = useSelector(selectHasMoreProducts);
   const averageShippingTime = averageTime(products.length, products);
   let page = useSelector(selectPage);
+  const sort = useSelector(selectSort);
   const handleGetProductCategories = () => dispatch(getProductCategories());
 
   const handleGetProductFromCategory = (id) =>
@@ -44,11 +49,14 @@ export default function useProduct() {
     dispatch(getProductsFromVendor(id, ++page));
   };
   const handleClickCategoryMoreButton = (id) => {
-    dispatch(getProductsFromCategory(id, ++page));
+    dispatch(getProductsFromCategory(id, ++page, sort));
   };
 
-  const handleChangeCategorySort = (id, queue) => {
-    dispatch(getProductsFromCategory(id, page, queue));
+  const handleChangeProductSort = (id, sort) => {
+    dispatch(setProducts([]));
+    dispatch(setHasMoreProducts(true));
+    dispatch(setSort(sort));
+    dispatch(getProductsFromCategory(id, page, sort));
   };
 
   return {
@@ -65,6 +73,6 @@ export default function useProduct() {
     handleGetProductCategories,
     handleGetProductFromCategory,
     handleGetProductsFromVendor,
-    handleChangeCategorySort,
+    handleChangeProductSort,
   };
 }

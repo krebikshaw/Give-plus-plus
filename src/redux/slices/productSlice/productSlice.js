@@ -15,6 +15,7 @@ export const productSlice = createSlice({
   name: "product",
   initialState: {
     page: 1,
+    sort: "latest",
     product: [],
     products: [],
     productCount: 0,
@@ -25,12 +26,18 @@ export const productSlice = createSlice({
     errorMessage: null,
   },
   reducers: {
+    setSort: (state, action) => {
+      state.sort = action.payload;
+    },
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
     pushProducts: (state, action) => {
       console.log("action:", action);
       state.products.push(...action.payload);
     },
     setProducts: (state, action) => {
-      state.product = action.payload;
+      state.products = action.payload;
     },
     setHasMoreProducts: (state, action) => {
       state.hasMoreProducts = action.payload;
@@ -54,6 +61,8 @@ export const productSlice = createSlice({
 });
 
 export const {
+  setSort,
+  setPage,
   pushProducts,
   setProducts,
   setProductCount,
@@ -83,10 +92,6 @@ export const getProduct = (id) => (dispatch) => {
 };
 
 export const getProductsFromCategory = (id, page, queue) => (dispatch) => {
-  if (queue) {
-    console.log("test");
-    dispatch(setProducts());
-  }
   getProductsFromCategoryAPI(id, page, queue).then((res) => {
     if (res.ok === 0) {
       dispatch(setHasMoreProducts(false));
@@ -209,4 +214,5 @@ export const selectErrorMessage = (state) => state.product.errorMessage;
 export const selectProductCount = (state) => state.product.productCount;
 export const selectHasMoreProducts = (state) => state.product.hasMoreProducts;
 export const selectPage = (state) => state.product.page;
+export const selectSort = (state) => state.product.sort;
 export default productSlice.reducer;
