@@ -1,21 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
 import { COLOR, FONT } from '../../constants/style';
 import { Navbar } from '../../components';
 import { ThickNavTwoColumnsPage } from '../../components/Page';
-import SocialMediaButton from '../../components/SocialMediaButton';
-
-const Column = styled.div`
-  display: flex;
-  align-items: center;
-  height: 100%;
-  width: 50vw;
-`;
-
-const BackgroundColumn = styled(Column)`
-  background: url(${process.env.PUBLIC_URL}/entrance-bg.jpg) center/cover;
-`;
+import {
+  Column,
+  BackgroundColumn,
+  SocialMediaButton,
+  NavButton,
+} from '../../components/general/';
 
 const Container = styled.div`
   display: flex;
@@ -32,26 +25,6 @@ const Section = styled.div`
   display: flex;
 `;
 
-const NavButton = styled(NavLink)`
-  padding: 10px 40px;
-  margin: 0px 20px;
-  display: inline-block;
-  transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out,
-    color 0.1s ease-in-out;
-  border-radius: 10px;
-  border: solid 1px ${COLOR.black};
-  background-color: ${COLOR.bg_primary};
-  text-align: center;
-  text-decoration: none;
-  color: ${COLOR.black};
-  cursor: pointer;
-  &:hover {
-    border-color: ${COLOR.hover};
-    color: ${COLOR.hover};
-    transform: scale(1.05);
-  }
-`;
-
 const Description = styled.p`
   margin: 60px 0 40px;
   font-size: ${FONT.md};
@@ -61,7 +34,6 @@ const Description = styled.p`
 const EntrancePage = () => {
   return (
     <>
-      <Navbar />
       <ThickNavTwoColumnsPage>
         <Column>
           <Container>
@@ -71,11 +43,14 @@ const EntrancePage = () => {
               <SocialMediaButton $kind={'google'} />
               <SocialMediaButton $color={'#4996d1'} $kind={'twitter-white'} />
             </Section>
+
             <Description>或用 Give++ 帳號</Description>
+
             <Section>
               <NavButton children={'登入'} to="/login" />
               <NavButton children={'註冊'} to="/register" />
             </Section>
+
           </Container>
         </Column>
         <BackgroundColumn />

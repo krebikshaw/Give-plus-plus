@@ -5,6 +5,7 @@ import orderReducer from '../redux/slices/orderSlice/orderSlice';
 import cartReducer from '../redux/slices/cartSlice/cartSlice';
 import adminReducer from '../redux/slices/adminSlice/adminSlice';
 import manageReducer from '../redux/slices/manageSlice/manageSlice';
+import generalReducer from '../redux/slices/generalSlice/generalSlice';
 
 export default configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
     cart: cartReducer,
     admin: adminReducer,
     manage: manageReducer,
+    general: generalReducer,
   },
 });

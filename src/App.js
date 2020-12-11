@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import GlobalStyle from './constants/globalStyle';
 import generalTheme from './constants/theme.js';
-import { Footer } from './components';
+import { Navbar, Footer } from './components';
 import { HelperButton } from './components/Button';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -15,6 +15,7 @@ import {
   RegisterPage,
   FAQPage,
   ContactUsPage,
+  RulesPage
 } from './pages/';
 
 import {
@@ -33,8 +34,6 @@ import {
   CategorizedProductPage,
   VendorShopPage,
 } from './pages/productPages';
-
-import { RulePage, RulesPage } from './pages/rulePages';
 
 import { CartPage, CheckoutPage } from './pages/cartPages';
 
@@ -59,6 +58,7 @@ const App = () => {
       <ThemeProvider theme={generalTheme}>
         <GlobalStyle />
         <BrowserRouter>
+          <Navbar />
           <Routes basename='/'>
             <Route path={'/'} element={<HomePage />} />
             <Route path={'/about'} element={<AboutUsPage />} />
@@ -67,11 +67,7 @@ const App = () => {
             <Route path={'/register'} element={<RegisterPage />} />
             <Route path={'/faq'} element={<FAQPage />} />
             <Route path={'/contact'} element={<ContactUsPage />} />
-            <Route path={'/rule/:id'} element={<RulePage />} />
-
-            <Route path={'/rules'} element={<RulesPage />}>
-              <Route path={'/:id'} element={<RulePage />} />
-            </Route>
+            <Route path={'/rules'} element={<RulesPage />} />
 
             <Route path={'/users'}>
               <Route path={'/me'} element={<UserInfoPage />}></Route>

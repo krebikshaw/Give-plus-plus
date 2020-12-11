@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Logo, IconComponent } from '../components';
-import { Nav } from './Button';
-import { InputSearch } from './Input';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { COLOR, EFFECT } from '../constants/style';
+import { Nav, NormalButton } from './Button';
+import { Logo, IconComponent, SearchBar, CategoryItemBox } from '../components';
+import { useLocation } from 'react-router-dom';
 import useProduct from '../hooks/productHooks/useProduct';
-
+import useLogout from '../hooks/userHooks/useLogout';
 const NavbarContainer = styled.div`
   position: fixed;
   top: 0;
@@ -47,133 +46,54 @@ const OptionList = styled.div`
   align-items: center;
 `;
 
-const SearchBarContainer = styled.div`
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 400px;
-  height: 32px;
-  border-radius: 8px;
-  background: ${COLOR.bg_secondary};
-  margin-left: 120px;
-  box-shadow: ${EFFECT.shadowLight};
-  & div {
-    display: flex;
-    align-items: center;
-  }
-`;
-
-const SearchArea = styled.div`
-  width: 90%;
-`;
-
-const ProductCategoriesList = styled.ul`
-  display: flex;
-  align-items: center;
-`;
-
-const ProductCategoryItem = styled.li`
-  margin: 0 10px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  & p {
-    margin-left: -5px;
-    color: ${COLOR.black};
-    min-width: fit-content;
-    &:hover {
-      color: ${COLOR.hover};
-    }
-  }
-  &:hover {
-    box-shadow: ${EFFECT.shadowHover};
-  }
-`;
-
-const SearchBar = () => {
-  const navigate = useNavigate();
-  const [value, setValue] = useState('');
-  const handleChangeInput = (e) => setValue(e.target.value);
-  const handleSearchProduct = (keyWord) => {
-    navigate(`/products/search/${keyWord}`);
-    setValue('');
-  };
-
-  return (
-    <SearchBarContainer>
-      <SearchArea>
-        <IconComponent kind={'search'} />
-        <InputSearch
-          value={value}
-          onChange={handleChangeInput}
-          placeholder='搜尋物品'
-          onKeyDown={(e) => {
-            if (e.keyCode === 13 && value !== '') {
-              handleSearchProduct(value);
-            }
-          }}
-        />
-      </SearchArea>
-      <IconComponent kind={'angle-down'} />
-    </SearchBarContainer>
-  );
-};
-
-const CategoryItemContainer = ({ text, id }) => {
-  return (
-    <NavLink to={`/products/category/${id}`}>
-      <ProductCategoryItem>
-        <IconComponent kind={`product_category_${id}`} />
-        <p>{text}</p>
-      </ProductCategoryItem>
-    </NavLink>
-  );
-};
-
 const Navbar = () => {
   const location = useLocation();
-  const [showNavBottom, setShowNavBottom] = useState(false);
   const { productCategories, handleGetProductCategories } = useProduct();
+  const { handleLogout, userId } = useLogout();
+  const currentPath = location.pathname;
 
   useEffect(() => {
-    setShowNavBottom(false);
-    const path = location.pathname.split('/')[1];
-    if (path === 'products' || !path) setShowNavBottom(true);
-  }, []);
-
-  useEffect(() => {
-    handleGetProductCategories();
+    if (currentPath === '/' || currentPath.includes('products')) {
+      handleGetProductCategories();
+    }
   }, []);
 
   return (
-    <NavbarContainer $size={showNavBottom ? '' : 'sm'}>
+    <NavbarContainer
+      $size={
+        currentPath === '/' || currentPath.includes('products') ? '' : 'sm'
+      }
+    >
       <NavbarTop>
         <LeftSide>
           <Logo />
           <SearchBar />
         </LeftSide>
+
         <RightSide>
           <OptionList>
             <IconComponent kind={'user-circle'} />
             <IconComponent kind={'shopping-cart'} />
             <IconComponent kind={'setting'} />
             <IconComponent kind={'moon'} />
-            <Nav children={'登入 / 註冊'} path={'/entrance'} />
+            {userId ? (
+              <NormalButton children="登出" onClick={handleLogout} />
+            ) : (
+              <Nav children={'登入 / 註冊'} path={'/entrance'} />
+            )}
           </OptionList>
         </RightSide>
       </NavbarTop>
-      {showNavBottom && (
+
+      {(currentPath === '/' || currentPath.includes('products')) && (
         <NavbarBottom>
-          <ProductCategoriesList>
-            {productCategories.map((category) => (
-              <CategoryItemContainer
-                text={category.name}
-                id={category.id}
-                key={category.id}
-              />
-            ))}
-          </ProductCategoriesList>
+          {productCategories.map((category) => (
+            <CategoryItemBox
+              text={category.name}
+              id={category.id}
+              key={category.id}
+            />
+          ))}
         </NavbarBottom>
       )}
     </NavbarContainer>
