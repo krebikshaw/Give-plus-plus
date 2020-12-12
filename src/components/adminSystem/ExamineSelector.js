@@ -17,6 +17,7 @@ const Selector = styled.select`
   letter-spacing: 0.1rem;
   line-height: 1.5rem;
   padding: 3px;
+  cursor: pointer;
   background: ${(props) => props.$bg === '0' && '#5de05d82'}
     ${(props) => props.$bg === '通過' && '#5dcee082'}
     ${(props) => props.$bg === '未通過' && '#e05d5d82'};

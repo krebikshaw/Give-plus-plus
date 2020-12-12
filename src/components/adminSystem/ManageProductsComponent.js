@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useAdmin from '../../hooks/adminHooks/useAdmin';
 import { DISTANCE } from '../../constants/style';
-import { ActionButton } from '../../components/Button';
+import { Nav } from '../../components/Button';
 import { ExamineSelector } from '../../components/adminSystem';
 
 const ExamineProductContainer = styled.div`
@@ -24,12 +24,15 @@ const ProductTh = styled.th``;
 
 const ProductTd = styled.td`
   text-align: center;
+  & a {
+    justify-content: center;
+  }
 `;
 
 const ProductImage = styled.img`
   width: 80px;
-  min-height: 80px;
   min-width: 80px;
+  min-height: 80px;
 `;
 
 const BottomContainer = styled.div`
@@ -49,17 +52,29 @@ const ProductsItem = ({ product }) => {
       <ProductTd>{product.price}</ProductTd>
       <ProductTd>{product.createdAt.split('T')[0]}</ProductTd>
       <ProductTd>
-        <ExamineSelector product={product} />
+        {product.status === '0' && '待審查'}
+        {product.status === '1' && '通過'}
+        {product.status === '2' && '未通過'}
+      </ProductTd>
+      <ProductTd>
+        <Nav children={'查看'} path={`products/${product.id}`} />
       </ProductTd>
     </ProductTr>
   );
 };
 
-export default function ExamineProductComponent() {
-  const { products, handleGetUnCheckProducts } = useAdmin();
+export default function ManageProductsComponent() {
+  const { products, handleGetProducts } = useAdmin();
 
   useEffect(() => {
-    handleGetUnCheckProducts();
+    const params = {
+      offset: 0,
+      limit: 10,
+      sort: 'createdAt',
+      order: 'DESC',
+      status: 'all',
+    };
+    handleGetProducts(params);
   }, []);
 
   return (
@@ -73,7 +88,8 @@ export default function ExamineProductComponent() {
             <ProductTh>類別</ProductTh>
             <ProductTh>價格</ProductTh>
             <ProductTh>刊登時間</ProductTh>
-            <ProductTh>審查</ProductTh>
+            <ProductTh>審核狀態</ProductTh>
+            <ProductTh>詳細資訊</ProductTh>
           </ProductTr>
         </ProductsThead>
         <ProductsTbody>
@@ -82,11 +98,6 @@ export default function ExamineProductComponent() {
           ))}
         </ProductsTbody>
       </ProductsTable>
-      <BottomContainer>
-        <ActionButton onClick={() => window.location.reload()}>
-          送出
-        </ActionButton>
-      </BottomContainer>
     </ExamineProductContainer>
   );
 }

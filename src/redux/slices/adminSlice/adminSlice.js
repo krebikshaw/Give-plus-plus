@@ -2,6 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   getUnCheckProductsAPI,
   updateProductStatusAPI,
+  getUsersAPI,
+  searchUsersAPI,
+  getProductsAPI,
+  searchProductsAPI,
 } from '../../../webAPI/adminAPI';
 
 export const adminSlice = createSlice({
@@ -13,10 +17,10 @@ export const adminSlice = createSlice({
   },
   reducers: {
     setUsers: (state, action) => {
-      state.users.push(...action.payload);
+      state.users = action.payload;
     },
     setProducts: (state, action) => {
-      state.products.push(...action.payload);
+      state.products = action.payload;
     },
     setErrorMessage: (state, action) => {
       state.errorMessage = action.payload;
@@ -46,6 +50,54 @@ export const updateProductStatus = (id, status) => (dispatch) => {
       return dispatch(
         setErrorMessage(result ? result.message : 'something wrong')
       );
+    return result;
+  });
+};
+
+export const getUsers = (params) => (dispatch) => {
+  dispatch(setErrorMessage(''));
+  return getUsersAPI(params).then((result) => {
+    if (!result || result.ok === 0)
+      return dispatch(
+        setErrorMessage(result ? result.message : 'something wrong')
+      );
+    dispatch(setUsers(result.data));
+    return result;
+  });
+};
+
+export const searchUsers = (keyword) => (dispatch) => {
+  dispatch(setErrorMessage(''));
+  return searchUsersAPI(keyword).then((result) => {
+    if (!result || result.ok === 0)
+      return dispatch(
+        setErrorMessage(result ? result.message : 'something wrong')
+      );
+    dispatch(setUsers(result.data));
+    return result;
+  });
+};
+
+export const getProducts = (params) => (dispatch) => {
+  dispatch(setErrorMessage(''));
+  return getProductsAPI(params).then((result) => {
+    if (!result || result.ok === 0)
+      return dispatch(
+        setErrorMessage(result ? result.message : 'something wrong')
+      );
+    dispatch(setProducts(result.data));
+    return result;
+  });
+};
+
+export const searchProducts = (keyword) => (dispatch) => {
+  dispatch(setErrorMessage(''));
+  return searchProductsAPI(keyword).then((result) => {
+    if (!result || result.ok === 0)
+      return dispatch(
+        setErrorMessage(result ? result.message : 'something wrong')
+      );
+    dispatch(setProducts(result.data));
     return result;
   });
 };

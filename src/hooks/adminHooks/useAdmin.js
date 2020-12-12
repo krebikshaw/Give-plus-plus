@@ -4,6 +4,10 @@ import {
   selectProducts,
   getUnCheckProducts,
   updateProductStatus,
+  getUsers,
+  searchUsers,
+  getProducts,
+  searchProducts,
 } from '../../redux/slices/adminSlice/adminSlice';
 
 export default function useAdmin() {
@@ -15,11 +19,23 @@ export default function useAdmin() {
     dispatch(getUnCheckProducts(page)).then((result) => result);
   const handleUpdateProductStatus = (id, status) =>
     dispatch(updateProductStatus(id, status)).then((result) => result);
+  const handleGetUsers = (params) =>
+    dispatch(getUsers(params)).then((result) => result);
+  const handleSearchUsers = (keyword) =>
+    dispatch(searchUsers(keyword)).then((result) => result);
+  const handleGetProducts = (params) =>
+    dispatch(getProducts(params)).then((result) => result);
+  const handleSearchProducts = (keyword) =>
+    dispatch(searchProducts(keyword)).then((result) => result);
 
   return {
     users,
     products,
     handleGetUnCheckProducts,
     handleUpdateProductStatus,
+    handleGetUsers,
+    handleSearchUsers,
+    handleGetProducts,
+    handleSearchProducts,
   };
 }
