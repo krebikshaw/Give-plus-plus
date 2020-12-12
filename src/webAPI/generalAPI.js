@@ -38,3 +38,19 @@ export const getMeAPI = () => {
     },
   }).then((res) => res.json());
 };
+
+export const postMailAPI = (mail) => {
+  const { name, email, content, phone } = mail;
+  return fetch(`${BASE_URL}/`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      phone,
+      content,
+    }),
+  }).then((res) => res.json());
+};

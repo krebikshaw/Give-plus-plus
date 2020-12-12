@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FONT } from '../../constants/style';
+import { FONT, COLOR } from '../../constants/style';
 
 const Page = styled.div`
   margin-top: 65px;
@@ -13,7 +13,7 @@ const Banner = styled.img`
 
 const Section = styled.div`
   margin: 20px 10vw;
-  border: 1px solid black;
+  height: auto;
 `;
 
 const SectionParagraph = styled.div`
@@ -21,6 +21,49 @@ const SectionParagraph = styled.div`
   color: #31596f;
   line-height: 2.5;
   font-size: ${FONT.md};
+`;
+
+const Avatars = styled.div`
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-wrap: wrap;
+  justify-content: space-around;
+`;
+
+const Avatar = styled.div`
+  padding: 40px 60px;
+  max-width: 33.333%;
+  min-width: 220px;
+`;
+
+const AvatarPicture = styled.img`
+  width: 100%;
+`;
+
+const GoalSection = styled.div`
+  background: ${COLOR.bg_secondary};
+  padding: 70px 0;
+  display: flex;
+  margin: 50px 0;
+  justify-content: center;
+`;
+
+const Goal = styled.div`
+  padding: 0 40px;
+  text-align-center;
+`;
+
+const GoalTitle = styled.h2`
+  margin-bottom: 30px;
+  font-size: ${FONT.lg};
+  font-weight: 400;
+  color: ${COLOR.text_2};
+`;
+
+const GoalPicture = styled.img`
+  display: block;
+  margin: 0 auto;
 `;
 
 const AboutUsPage = () => {
@@ -35,12 +78,36 @@ const AboutUsPage = () => {
           ，然而富裕不代表一定要將大把鈔票用來買新的東西，我們可以選擇做出改變，一起為環境和社會做出一點努力，快來加入
           Give++ 的行列吧。
         </SectionParagraph>
+
+        <Avatars>
+          <Avatar>
+            <AvatarPicture src="/about-us-avatar1.jpg" alt="avatar1" />
+          </Avatar>
+          <Avatar>
+            <AvatarPicture src="/about-us-avatar2.jpg" alt="avatar1" />
+          </Avatar>
+          <Avatar>
+            <AvatarPicture src="/about-us-avatar3.jpg" alt="avatar1" />
+          </Avatar>
+        </Avatars>
+
         <SectionParagraph>
           Everyone has the opportunity to make an action which may change the
           world. Give++ is a fantastic platform for exchanging and selling
           second hand products.
         </SectionParagraph>
       </Section>
+      
+      <GoalSection>
+        <Goal>
+          <GoalTitle>安心消費有保障</GoalTitle>
+          <GoalPicture src="/about-us-security.png" alt="安心消費有保障" />
+        </Goal>
+        <Goal>
+          <GoalTitle>最簡便的二手平台</GoalTitle>
+          <GoalPicture src="/about-us-heart.png" alt="最簡便的二手平台" />
+        </Goal>
+      </GoalSection>
     </Page>
   );
 };

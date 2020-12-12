@@ -4,6 +4,7 @@ import JoinButton from './JoinButton';
 import JoinInput from './JoinInput';
 import NavButton from './NavButton';
 import SocialMediaButton from './SocialMediaButton';
+import Modal from './Modal';
 
 export {
   Column,
@@ -13,4 +14,5 @@ export {
   JoinInput,
   NavButton,
   SocialMediaButton,
+  Modal,
 };
