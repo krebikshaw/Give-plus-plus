@@ -13,6 +13,7 @@ const generalSlice = createSlice({
     userId: null,
     errorMessage: null,
     isUserLoading: false,
+    currentRule: null,
   },
   reducers: {
     setIsUserLoading(state, action) {
@@ -24,6 +25,9 @@ const generalSlice = createSlice({
     setErrorMessage(state, action) {
       state.errorMessage = action.payload;
     },
+    setCurrentRule(state, action) {
+      state.currentRule = action.payload;
+    },
   },
 });
 
@@ -31,6 +35,7 @@ export const {
   setUserId,
   setErrorMessage,
   setIsUserLoading,
+  setCurrentRule,
 } = generalSlice.actions;
 
 const checkToken = (res, dispatch) => {
@@ -86,4 +91,5 @@ export const postMail = (mail) => (dispatch) => {
 export const selectUserId = (state) => state.general.userId;
 export const selectErrorMessage = (state) => state.general.errorMessage;
 export const selectIsUserLoading = (state) => state.general.isUserLoading;
+export const selectCurrentRule = (state) => state.general.currentRule;
 export default generalSlice.reducer;
