@@ -5,7 +5,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Navbar } from "../../../components";
 import { StandardNavPage } from "../../../components/Page";
-// import { NormalButton, ActionButton, Nav } from "../../../components/Button";
 import useProduct from "../../../hooks/productHooks/useProduct";
 import useUser from "../../../hooks/userHooks/useUser";
 import {
@@ -15,6 +14,11 @@ import {
   Products,
   MoreButton,
 } from "../../../components/productSystem";
+import {
+  setProducts,
+  setHasMoreProducts,
+  setErrorMessage,
+} from "../../../redux/slices/productSlice/productSlice";
 
 const SellerProductTitle = styled.div`
   margin: ${DISTANCE.sm} auto;
@@ -41,6 +45,11 @@ const VendorShopPage = () => {
   useEffect(() => {
     handleGetVendorInfo(id);
     handleGetProductsFromVendor(id, 1);
+    return () => {
+      dispatch(setProducts([]));
+      dispatch(setErrorMessage(null));
+      dispatch(setHasMoreProducts(true));
+    };
   }, []);
 
   return (

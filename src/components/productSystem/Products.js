@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import { COLOR, FONT, DISTANCE } from "../../constants/style";
 
-// export const SellerProductContainer = styled.section`
-
-// `;
-
 const ProductsContainer = styled.div`
   display: flex;
   padding: 50px 42px;

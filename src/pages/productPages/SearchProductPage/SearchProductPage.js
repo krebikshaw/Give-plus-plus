@@ -1,25 +1,84 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navbar } from "../../../components";
 import { StandardNavPage } from "../../../components/Page";
+import { COLOR, FONT } from "../../../constants/style";
+import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import useProduct from "../../../hooks/productHooks/useProduct";
+import {
+  Products,
+  MoreButton,
+  ProductSort,
+} from "../../../components/productSystem";
+import {
+  setProducts,
+  setErrorMessage,
+  setHasMoreProducts,
+} from "../../../redux/slices/productSlice/productSlice";
+
+const SearchTitleContainer = styled.section`
+  margin-top: 220px;
+  display: flex;
+  justify-content: space-between;
+  color: ${COLOR.text_2};
+`;
+
+const SearchKeyword = styled.div`
+  font-weight: bold;
+  font-size: ${FONT.lg};
+`;
+
+const SearchTitle = ({ keyword, handleChangeProductSort }) => {
+  return (
+    <SearchTitleContainer>
+      <SearchKeyword>"{keyword}" 相關的商品</SearchKeyword>
+      <ProductSort
+        id={keyword}
+        handleChangeProductSort={handleChangeProductSort}
+      />
+    </SearchTitleContainer>
+  );
+};
 
 const SearchProductPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { id } = useParams();
+  // const navigate = useNavigate();
+  const { keyword } = useParams();
   const {
     products,
-    setProducts,
+    category,
+    hasMoreProducts,
     productErrorMessage,
-    handleGetProductsFromVendor,
+    handleClickSearchMoreButton,
+    handleChangeProductSort,
+    handleGetSearchProduct,
   } = useProduct();
+
+  useEffect(() => {
+    handleGetSearchProduct(keyword);
+    return () => {
+      dispatch(setProducts([]));
+      dispatch(setErrorMessage(null));
+      dispatch(setHasMoreProducts(true));
+    };
+  }, []);
   return (
     <>
       <Navbar />
       <StandardNavPage>
-        <div>SearchProductPage</div>
+        <SearchTitle
+          keyword={keyword}
+          handleChangeProductSort={handleChangeProductSort}
+        />
+        <Products products={products} />
+        <MoreButton
+          id={keyword}
+          products={products}
+          hasMoreProducts={hasMoreProducts}
+          handler={handleClickSearchMoreButton}
+          productErrorMessage={productErrorMessage}
+        />
       </StandardNavPage>
     </>
   );

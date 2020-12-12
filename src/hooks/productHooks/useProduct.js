@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   setProducts,
   setHasMoreProducts,
@@ -11,6 +12,7 @@ import {
   selectProduct,
   selectCategory,
   selectErrorMessage,
+  searchProduct,
   getProductCategories,
   getProductsFromCategory,
   getProductsFromVendor,
@@ -27,6 +29,8 @@ function averageTime(count, products) {
 }
 
 export default function useProduct() {
+  const location = useLocation();
+  const currentPage = location.pathname;
   const dispatch = useDispatch();
   const productCategories = useSelector(selectProductCategories);
   const products = useSelector(selectProducts);
@@ -39,15 +43,26 @@ export default function useProduct() {
   const sort = useSelector(selectSort);
   const handleGetProductCategories = () => dispatch(getProductCategories());
 
-  const handleGetProductFromCategory = (id) =>
+  const handleGetSearchProduct = (keyword) => {
+    dispatch(searchProduct(keyword, page));
+  };
+
+  const handleGetProductFromCategory = (id) => {
     dispatch(getProductsFromCategory(id, page));
+  };
 
   const handleGetProductsFromVendor = (id) => {
     dispatch(getProductsFromVendor(id, page));
   };
+
+  const handleClickSearchMoreButton = (keyword) => {
+    dispatch(searchProduct(keyword, ++page, sort));
+  };
+
   const handleClickVendorMoreButton = (id) => {
     dispatch(getProductsFromVendor(id, ++page));
   };
+
   const handleClickCategoryMoreButton = (id) => {
     dispatch(getProductsFromCategory(id, ++page, sort));
   };
@@ -56,7 +71,9 @@ export default function useProduct() {
     dispatch(setProducts([]));
     dispatch(setHasMoreProducts(true));
     dispatch(setSort(sort));
-    dispatch(getProductsFromCategory(id, page, sort));
+    currentPage.includes("/category")
+      ? dispatch(getProductsFromCategory(id, page, sort))
+      : dispatch(searchProduct(id, page, sort));
   };
 
   return {
@@ -68,6 +85,8 @@ export default function useProduct() {
     category,
     productCount,
     productErrorMessage,
+    handleGetSearchProduct,
+    handleClickSearchMoreButton,
     handleClickVendorMoreButton,
     handleClickCategoryMoreButton,
     handleGetProductCategories,

@@ -40,10 +40,11 @@ const getProductsFromVendorAPI = (id, page) => {
   );
 };
 
-const searchProductAPI = (keyword) => {
-  return fetch(`${BASE_URL}/products/search?_keyword=${keyword}`).then((res) =>
-    res.json()
-  );
+const searchProductAPI = (keyword, page, queue) => {
+  let { sort, order } = changeProductSort(queue);
+  return fetch(
+    `${BASE_URL}/products/search?_keyword=${keyword}&_page=${page}&_sort=${sort}&_order=${order}`
+  ).then((res) => res.json());
 };
 
 const getProductAPI = (id) => {

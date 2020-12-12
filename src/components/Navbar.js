@@ -1,22 +1,22 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import { Nav, NormalButton } from './Button';
-import { Logo, IconComponent, SearchBar, CategoryItemBox } from '../components';
-import { useLocation } from 'react-router-dom';
-import useProduct from '../hooks/productHooks/useProduct';
-import useLogout from '../hooks/userHooks/useLogout';
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { Nav, NormalButton } from "./Button";
+import { Logo, IconComponent, SearchBar, CategoryItemBox } from "../components";
+import { useLocation } from "react-router-dom";
+import useProduct from "../hooks/productHooks/useProduct";
+import useLogout from "../hooks/userHooks/useLogout";
 import {
   selectUserId,
   selectIsUserLoading,
-} from '../redux/slices/generalSlice/generalSlice';
-import { useSelector } from 'react-redux';
+} from "../redux/slices/generalSlice/generalSlice";
+import { useSelector } from "react-redux";
+
 const NavbarContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: ${(props) => (props.$size === 'sm' ? '65px' : '110px')};
+  height: ${(props) => (props.$size === "sm" ? "65px" : "110px")};
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
   background: #fff;
   padding: 15px 0;
@@ -64,7 +64,7 @@ const Navbar = () => {
   const isUserLoading = useSelector(selectIsUserLoading);
 
   useEffect(() => {
-    if (currentPath === '/' || currentPath.includes('products')) {
+    if (currentPath === "/" || currentPath.includes("products")) {
       handleGetProductCategories();
     }
   }, []);
@@ -72,7 +72,7 @@ const Navbar = () => {
   return (
     <NavbarContainer
       $size={
-        currentPath === '/' || currentPath.includes('products') ? '' : 'sm'
+        currentPath === "/" || currentPath.includes("products") ? "" : "sm"
       }
     >
       <NavbarTop>
@@ -83,25 +83,25 @@ const Navbar = () => {
 
         <RightSide>
           <OptionList>
-            <IconComponent kind={'user-circle'} />
-            <IconComponent kind={'shopping-cart'} />
-            <IconComponent kind={'setting'} />
-            <IconComponent kind={'moon'} />
+            <IconComponent kind={"user-circle"} />
+            <IconComponent kind={"shopping-cart"} />
+            <IconComponent kind={"setting"} />
+            <IconComponent kind={"moon"} />
             {isUserLoading ? (
               <Empty />
             ) : (
               <>
                 {userId && (
-                  <NormalButton children="登出" onClick={handleLogout} />
+                  <NormalButton children='登出' onClick={handleLogout} />
                 )}
-                {!userId && <Nav children={'登入 / 註冊'} path={'/entrance'} />}
+                {!userId && <Nav children={"登入 / 註冊"} path={"/entrance"} />}
               </>
             )}
           </OptionList>
         </RightSide>
       </NavbarTop>
 
-      {(currentPath === '/' || currentPath.includes('products')) && (
+      {(currentPath === "/" || currentPath.includes("products")) && (
         <NavbarBottom>
           {productCategories.map((category) => (
             <CategoryItemBox

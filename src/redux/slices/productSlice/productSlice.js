@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 import {
   getProductsAPI,
   getProductCategoriesAPI,
@@ -119,10 +120,17 @@ export const getProductsFromVendor = (id, page) => (dispatch) => {
   });
 };
 
-export const searchProduct = (keyword) => (dispatch) => {
-  searchProductAPI(keyword).then((res) => {
+export const searchProduct = (keyword, page, queue) => (dispatch) => {
+  searchProductAPI(keyword, page, queue).then((res) => {
     if (res.ok === 0) {
+      if (res.message === "無更多商品") {
+        return dispatch(setHasMoreProducts(false));
+      }
+      dispatch(setHasMoreProducts(false));
       return dispatch(setErrorMessage(res ? res.message : "something wrong"));
+    }
+    if (res.data.length !== 10) {
+      dispatch(setHasMoreProducts(false));
     }
     dispatch(pushProducts(res.data));
   });

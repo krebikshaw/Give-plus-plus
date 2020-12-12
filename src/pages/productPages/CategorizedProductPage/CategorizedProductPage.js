@@ -5,12 +5,18 @@ import { COLOR, FONT } from "../../../constants/style";
 import styled from "styled-components";
 import { useParams, useNavigate } from "react-router-dom";
 import useProduct from "../../../hooks/productHooks/useProduct";
-
+import { useDispatch } from "react-redux";
 import {
   Products,
   MoreButton,
   ProductSort,
 } from "../../../components/productSystem";
+import {
+  setProducts,
+  setCategory,
+  setHasMoreProducts,
+  setErrorMessage,
+} from "../../../redux/slices/productSlice/productSlice";
 
 const CategoryTitleContainer = styled.section`
   margin-top: 220px;
@@ -34,6 +40,7 @@ const CategoryTitle = ({ id, category, handleChangeProductSort }) => {
 };
 
 const CategorizedProductPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
   const {
@@ -50,6 +57,12 @@ const CategorizedProductPage = () => {
 
   useEffect(() => {
     handleGetProductFromCategory(id, 1);
+    return () => {
+      dispatch(setProducts([]));
+      dispatch(setCategory([]));
+      dispatch(setErrorMessage(null));
+      dispatch(setHasMoreProducts(true));
+    };
   }, []);
   return (
     <>
