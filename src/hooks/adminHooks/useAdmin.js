@@ -2,7 +2,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   selectUsers,
   selectProducts,
-  getUnExamineProducts,
+  getUnCheckProducts,
+  updateProductStatus,
 } from '../../redux/slices/adminSlice/adminSlice';
 
 export default function useAdmin() {
@@ -10,8 +11,15 @@ export default function useAdmin() {
   const users = useSelector(selectUsers);
   const products = useSelector(selectProducts);
 
-  const handleGetUnExamineProducts = (page) =>
-    dispatch(getUnExamineProducts(page)).then((result) => result);
+  const handleGetUnCheckProducts = (page) =>
+    dispatch(getUnCheckProducts(page)).then((result) => result);
+  const handleUpdateProductStatus = (id, status) =>
+    dispatch(updateProductStatus(id, status)).then((result) => result);
 
-  return { users, products, handleGetUnExamineProducts };
+  return {
+    users,
+    products,
+    handleGetUnCheckProducts,
+    handleUpdateProductStatus,
+  };
 }

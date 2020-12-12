@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useAdmin from '../../hooks/adminHooks/useAdmin';
-import { COLOR, FONT, DISTANCE, EFFECT } from '../../constants/style';
-import { Nav } from '../../components/Button';
+import { DISTANCE } from '../../constants/style';
+import { ActionButton } from '../../components/Button';
 import { ExamineSelector } from '../../components/adminSystem';
 
 const ExamineProductContainer = styled.div`
@@ -31,6 +31,11 @@ const ProductImage = styled.img`
   min-width: 80px;
 `;
 
+const BottomContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const ProductsItem = ({ product }) => {
   return (
     <ProductTr>
@@ -50,15 +55,11 @@ const ProductsItem = ({ product }) => {
 };
 
 export default function ExamineProductComponent() {
-  const { products, handleGetUnExamineProducts } = useAdmin();
+  const { products, handleGetUnCheckProducts } = useAdmin();
 
   useEffect(() => {
-    handleGetUnExamineProducts();
+    handleGetUnCheckProducts();
   }, []);
-
-  useEffect(() => {
-    console.log(products);
-  }, [products]);
 
   return (
     <ExamineProductContainer>
@@ -80,6 +81,11 @@ export default function ExamineProductComponent() {
           ))}
         </ProductsTbody>
       </ProductsTable>
+      <BottomContainer>
+        <ActionButton onClick={() => window.location.reload()}>
+          送出
+        </ActionButton>
+      </BottomContainer>
     </ExamineProductContainer>
   );
 }

@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getUnExamineProductsAPI } from '../../../webAPI/adminAPI';
+import {
+  getUnCheckProductsAPI,
+  updateProductStatusAPI,
+} from '../../../webAPI/adminAPI';
 
 export const adminSlice = createSlice({
   name: 'admin',
@@ -23,15 +26,26 @@ export const adminSlice = createSlice({
 
 export const { setUsers, setProducts, setErrorMessage } = adminSlice.actions;
 
-export const getUnExamineProducts = (page) => (dispatch) => {
+export const getUnCheckProducts = (page) => (dispatch) => {
   dispatch(setProducts([]));
   dispatch(setErrorMessage(''));
-  return getUnExamineProductsAPI(page).then((result) => {
+  return getUnCheckProductsAPI(page).then((result) => {
     if (!result || result.ok === 0)
       return dispatch(
         setErrorMessage(result ? result.message : 'something wrong')
       );
     dispatch(setProducts(result.data));
+    return result;
+  });
+};
+
+export const updateProductStatus = (id, status) => (dispatch) => {
+  dispatch(setErrorMessage(''));
+  return updateProductStatusAPI(id, status).then((result) => {
+    if (!result || result.ok === 0)
+      return dispatch(
+        setErrorMessage(result ? result.message : 'something wrong')
+      );
     return result;
   });
 };

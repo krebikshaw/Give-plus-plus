@@ -68,45 +68,43 @@ const UserInfoPage = () => {
 
   useEffect(() => {
     handleGetMe().then((result) => {
+      if (!result.data) return navigate('/');
       if (result.data.is_vendor)
         return navigate(`/users/vendor/${result.data.userId}`);
     });
   }, []);
 
   return (
-    <>
-      <Navbar />
-      <ThickNavPage>
-        <Wrapper>
-          <Title>基本資料</Title>
-          <Announcement />
-          <ClientInfoForm setSuccessMode={setSuccessMode} />
-          {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
-          <Text>變更密碼</Text>
-          <ActionButton onClick={handleSetPassword} $margin={0}>
-            變更密碼
-          </ActionButton>
-          {isSettingPassword && (
-            <SetPasswordComponent
-              setSuccessMode={setSuccessMode}
-              setIsSettingPassword={setIsSettingPassword}
-            />
-          )}
-          <Text>變更頭貼</Text>
-          <SetAvatarComponent setSuccessMode={setSuccessMode} />
-          {successMode && (
-            <WrapperMask>
-              <SuccessMessage>
-                <p>編輯成功</p>
-                <ActionButton onClick={() => setSuccessMode(false)}>
-                  確定
-                </ActionButton>
-              </SuccessMessage>
-            </WrapperMask>
-          )}
-        </Wrapper>
-      </ThickNavPage>
-    </>
+    <ThickNavPage>
+      <Wrapper>
+        <Title>基本資料</Title>
+        <Announcement />
+        <ClientInfoForm setSuccessMode={setSuccessMode} />
+        {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
+        <Text>變更密碼</Text>
+        <ActionButton onClick={handleSetPassword} $margin={0}>
+          變更密碼
+        </ActionButton>
+        {isSettingPassword && (
+          <SetPasswordComponent
+            setSuccessMode={setSuccessMode}
+            setIsSettingPassword={setIsSettingPassword}
+          />
+        )}
+        <Text>變更頭貼</Text>
+        <SetAvatarComponent setSuccessMode={setSuccessMode} />
+        {successMode && (
+          <WrapperMask>
+            <SuccessMessage>
+              <p>編輯成功</p>
+              <ActionButton onClick={() => setSuccessMode(false)}>
+                確定
+              </ActionButton>
+            </SuccessMessage>
+          </WrapperMask>
+        )}
+      </Wrapper>
+    </ThickNavPage>
   );
 };
 

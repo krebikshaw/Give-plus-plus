@@ -77,6 +77,7 @@ const VendorInfoPage = () => {
   useEffect(() => {
     handleGetMe().then((result) => {
       const userId = location.pathname.split('/')[3];
+      if (!result.data) return navigate('/');
       if (result.data.is_admin) return doAdminStatusInit(userId);
       if (Number(userId) !== result.data.userId || !result.data.is_vendor)
         return navigate('/');
@@ -84,47 +85,44 @@ const VendorInfoPage = () => {
   }, []);
 
   return (
-    <>
-      <Navbar />
-      <ThickNavPage>
-        <Wrapper>
-          <Title>基本資料</Title>
-          <Announcement />
-          {isAdminStatus && (
-            <SetPermissionComponent setSuccessMode={setSuccessMode} />
-          )}
-          <VendorInfoForm
+    <ThickNavPage>
+      <Wrapper>
+        <Title>基本資料</Title>
+        <Announcement />
+        {isAdminStatus && (
+          <SetPermissionComponent setSuccessMode={setSuccessMode} />
+        )}
+        <VendorInfoForm
+          setSuccessMode={setSuccessMode}
+          isAdminStatus={isAdminStatus}
+        />
+        {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
+        <Text>變更密碼</Text>
+        <ActionButton onClick={handleSetPassword} $margin={0}>
+          變更密碼
+        </ActionButton>
+        {isSettingPassword && (
+          <SetPasswordComponent
             setSuccessMode={setSuccessMode}
-            isAdminStatus={isAdminStatus}
+            setIsSettingPassword={setIsSettingPassword}
           />
-          {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
-          <Text>變更密碼</Text>
-          <ActionButton onClick={handleSetPassword} $margin={0}>
-            變更密碼
-          </ActionButton>
-          {isSettingPassword && (
-            <SetPasswordComponent
-              setSuccessMode={setSuccessMode}
-              setIsSettingPassword={setIsSettingPassword}
-            />
-          )}
-          <Text>變更頭貼</Text>
-          <SetAvatarComponent setSuccessMode={setSuccessMode} />
-          <Text>變更封面</Text>
-          <SetBannerComponent setSuccessMode={setSuccessMode} />
-          {successMode && (
-            <WrapperMask>
-              <SuccessMessage>
-                <p>編輯成功</p>
-                <ActionButton onClick={() => setSuccessMode(false)}>
-                  確定
-                </ActionButton>
-              </SuccessMessage>
-            </WrapperMask>
-          )}
-        </Wrapper>
-      </ThickNavPage>
-    </>
+        )}
+        <Text>變更頭貼</Text>
+        <SetAvatarComponent setSuccessMode={setSuccessMode} />
+        <Text>變更封面</Text>
+        <SetBannerComponent setSuccessMode={setSuccessMode} />
+        {successMode && (
+          <WrapperMask>
+            <SuccessMessage>
+              <p>編輯成功</p>
+              <ActionButton onClick={() => setSuccessMode(false)}>
+                確定
+              </ActionButton>
+            </SuccessMessage>
+          </WrapperMask>
+        )}
+      </Wrapper>
+    </ThickNavPage>
   );
 };
 

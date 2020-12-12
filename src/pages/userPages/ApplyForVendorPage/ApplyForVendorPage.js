@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useUser from '../../../hooks/userHooks/useUser';
 import { useNavigate } from 'react-router-dom';
-import { Navbar } from '../../../components';
 import { WrapperMask } from '../../../components/userSystem/';
 import { COLOR, FONT, EFFECT, DISTANCE } from '../../../constants/style';
 import { ActionButton } from '../../../components/Button';
@@ -86,11 +85,9 @@ const ApplyForVendorPage = () => {
   const { handleApplyForVendor } = useUser();
   const navigate = useNavigate();
   const [successMode, setSuccessMode] = useState(false);
-  const [isSettingPassword, setIsSettingPassword] = useState(false);
   const [isCheck, setIsCheck] = useState(true);
   const { handleGetMe, errorMessage } = useUser();
 
-  const handleSetPassword = () => setIsSettingPassword(true);
   const handleCheck = () => {
     setIsCheck(false);
     handleApplyForVendor();
@@ -104,52 +101,45 @@ const ApplyForVendorPage = () => {
   }, []);
 
   return (
-    <>
-      <Navbar />
-      <ThickNavPage>
-        <Wrapper>
-          {isCheck && (
-            <CheckComponent>
-              <WrapperMask>
-                <CheckImage>
-                  <Title>是否要申請成為賣家？</Title>
-                  <TwoButton>
-                    <ActionButton $margin={0} onClick={handleCheck}>
-                      我要
-                    </ActionButton>
-                    <ActionButton
-                      $bg={'red'}
-                      $margin={0}
-                      onClick={handleCancel}
-                    >
-                      不要
-                    </ActionButton>
-                  </TwoButton>
-                </CheckImage>
-              </WrapperMask>
-            </CheckComponent>
-          )}
-          <Title>基本資料</Title>
-          <Announcement isApply={true} />
-          <VendorInfoForm setSuccessMode={setSuccessMode} />
-          {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
-          <Text>變更頭貼</Text>
-          <SetAvatarComponent setSuccessMode={setSuccessMode} />
-          <Text>變更封面</Text>
-          <SetBannerComponent setSuccessMode={setSuccessMode} />
-          {successMode && (
+    <ThickNavPage>
+      <Wrapper>
+        {isCheck && (
+          <CheckComponent>
             <WrapperMask>
-              <SuccessMessage>
-                <p>編輯成功</p>
-                <ActionButton onClick={() => setSuccessMode(false)}>
-                  確定
-                </ActionButton>
-              </SuccessMessage>
+              <CheckImage>
+                <Title>是否要申請成為賣家？</Title>
+                <TwoButton>
+                  <ActionButton $margin={0} onClick={handleCheck}>
+                    我要
+                  </ActionButton>
+                  <ActionButton $bg={'red'} $margin={0} onClick={handleCancel}>
+                    不要
+                  </ActionButton>
+                </TwoButton>
+              </CheckImage>
             </WrapperMask>
-          )}
-        </Wrapper>
-      </ThickNavPage>
-    </>
+          </CheckComponent>
+        )}
+        <Title>基本資料</Title>
+        <Announcement isApply={true} />
+        <VendorInfoForm setSuccessMode={setSuccessMode} />
+        {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
+        <Text>變更頭貼</Text>
+        <SetAvatarComponent setSuccessMode={setSuccessMode} />
+        <Text>變更封面</Text>
+        <SetBannerComponent setSuccessMode={setSuccessMode} />
+        {successMode && (
+          <WrapperMask>
+            <SuccessMessage>
+              <p>編輯成功</p>
+              <ActionButton onClick={() => setSuccessMode(false)}>
+                確定
+              </ActionButton>
+            </SuccessMessage>
+          </WrapperMask>
+        )}
+      </Wrapper>
+    </ThickNavPage>
   );
 };
 
