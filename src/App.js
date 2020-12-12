@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import GlobalStyle from './constants/globalStyle';
 import generalTheme from './constants/theme.js';
@@ -6,6 +6,8 @@ import { Navbar, Footer } from './components';
 import { HelperButton } from './components/Button';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getMe } from './redux/slices/generalSlice/generalSlice';
 
 import {
   HomePage,
@@ -15,7 +17,7 @@ import {
   RegisterPage,
   FAQPage,
   ContactUsPage,
-  RulesPage
+  RulesPage,
 } from './pages/';
 
 import {
@@ -53,13 +55,18 @@ import {
 const Root = styled.div``;
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
+
   return (
     <Root>
       <ThemeProvider theme={generalTheme}>
         <GlobalStyle />
         <BrowserRouter>
           <Navbar />
-          <Routes basename='/'>
+          <Routes basename="/">
             <Route path={'/'} element={<HomePage />} />
             <Route path={'/about'} element={<AboutUsPage />} />
             <Route path={'/entrance'} element={<EntrancePage />} />

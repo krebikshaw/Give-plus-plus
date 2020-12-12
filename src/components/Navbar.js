@@ -6,6 +6,11 @@ import { Logo, IconComponent, SearchBar, CategoryItemBox } from '../components';
 import { useLocation } from 'react-router-dom';
 import useProduct from '../hooks/productHooks/useProduct';
 import useLogout from '../hooks/userHooks/useLogout';
+import {
+  selectUserId,
+  selectIsUserLoading,
+} from '../redux/slices/generalSlice/generalSlice';
+import { useSelector } from 'react-redux';
 const NavbarContainer = styled.div`
   position: fixed;
   top: 0;
@@ -46,11 +51,17 @@ const OptionList = styled.div`
   align-items: center;
 `;
 
+const Empty = styled.div`
+  width: 90px;
+`;
+
 const Navbar = () => {
   const location = useLocation();
   const { productCategories, handleGetProductCategories } = useProduct();
-  const { handleLogout, userId } = useLogout();
+  const { handleLogout } = useLogout();
   const currentPath = location.pathname;
+  const userId = useSelector(selectUserId);
+  const isUserLoading = useSelector(selectIsUserLoading);
 
   useEffect(() => {
     if (currentPath === '/' || currentPath.includes('products')) {
@@ -76,10 +87,15 @@ const Navbar = () => {
             <IconComponent kind={'shopping-cart'} />
             <IconComponent kind={'setting'} />
             <IconComponent kind={'moon'} />
-            {userId ? (
-              <NormalButton children="登出" onClick={handleLogout} />
+            {isUserLoading ? (
+              <Empty />
             ) : (
-              <Nav children={'登入 / 註冊'} path={'/entrance'} />
+              <>
+                {userId && (
+                  <NormalButton children="登出" onClick={handleLogout} />
+                )}
+                {!userId && <Nav children={'登入 / 註冊'} path={'/entrance'} />}
+              </>
             )}
           </OptionList>
         </RightSide>
