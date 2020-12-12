@@ -4,6 +4,7 @@ import ExamineSelector from './ExamineSelector';
 import SearchBar from './SearchBar';
 import ManageUsersComponent from './ManageUsersComponent';
 import ManageProductsComponent from './ManageProductsComponent';
+import PaginationComponent from './PaginationComponent';
 
 export {
   OptionListComponent,
@@ -12,4 +13,5 @@ export {
   SearchBar,
   ManageUsersComponent,
   ManageProductsComponent,
+  PaginationComponent,
 };

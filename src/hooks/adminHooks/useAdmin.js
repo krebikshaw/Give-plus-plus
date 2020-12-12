@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   selectUsers,
   selectProducts,
+  selectCount,
   getUnCheckProducts,
   updateProductStatus,
   getUsers,
@@ -14,6 +15,7 @@ export default function useAdmin() {
   const dispatch = useDispatch();
   const users = useSelector(selectUsers);
   const products = useSelector(selectProducts);
+  const count = useSelector(selectCount);
 
   const handleGetUnCheckProducts = (page) =>
     dispatch(getUnCheckProducts(page)).then((result) => result);
@@ -25,12 +27,13 @@ export default function useAdmin() {
     dispatch(searchUsers(keyword)).then((result) => result);
   const handleGetProducts = (params) =>
     dispatch(getProducts(params)).then((result) => result);
-  const handleSearchProducts = (keyword) =>
-    dispatch(searchProducts(keyword)).then((result) => result);
+  const handleSearchProducts = (params) =>
+    dispatch(searchProducts(params)).then((result) => result);
 
   return {
     users,
     products,
+    count,
     handleGetUnCheckProducts,
     handleUpdateProductStatus,
     handleGetUsers,

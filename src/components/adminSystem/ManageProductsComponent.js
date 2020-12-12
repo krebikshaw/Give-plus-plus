@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
+import { SearchBar } from '../../components/adminSystem';
 import styled from 'styled-components';
 import useAdmin from '../../hooks/adminHooks/useAdmin';
 import { DISTANCE } from '../../constants/style';
 import { Nav } from '../../components/Button';
-import { ExamineSelector } from '../../components/adminSystem';
+import PaginationComponent from '../adminSystem/PaginationComponent';
 
 const ExamineProductContainer = styled.div`
   margin: ${DISTANCE.md} 0;
@@ -64,40 +65,55 @@ const ProductsItem = ({ product }) => {
 };
 
 export default function ManageProductsComponent() {
-  const { products, handleGetProducts } = useAdmin();
+  const { products, handleGetProducts, handleSearchProducts } = useAdmin();
+  const [isSearch, setIsSearch] = useState(false);
+  const [keyword, setKeyword] = useState('');
+  const [params, setParams] = useState({
+    status: 'all',
+    sort: 'createdAt',
+    order: 'DESC',
+  });
 
-  useEffect(() => {
-    const params = {
-      offset: 0,
-      limit: 10,
-      sort: 'createdAt',
-      order: 'DESC',
-      status: 'all',
-    };
-    handleGetProducts(params);
-  }, []);
-
+  const handleSearch = (value) => {
+    setKeyword(value);
+    setIsSearch(true);
+    setParams({
+      ...params,
+      keyword: value ? value : keyword,
+    });
+    handleSearchProducts({
+      ...params,
+      keyword: value ? value : keyword,
+    });
+  };
   return (
-    <ExamineProductContainer>
-      <ProductsTable>
-        <ProductsThead>
-          <ProductTr>
-            <ProductTh>id</ProductTh>
-            <ProductTh>圖片</ProductTh>
-            <ProductTh>商品名稱</ProductTh>
-            <ProductTh>類別</ProductTh>
-            <ProductTh>價格</ProductTh>
-            <ProductTh>刊登時間</ProductTh>
-            <ProductTh>審核狀態</ProductTh>
-            <ProductTh>詳細資訊</ProductTh>
-          </ProductTr>
-        </ProductsThead>
-        <ProductsTbody>
-          {products.map((product, index) => (
-            <ProductsItem key={index} product={product} />
-          ))}
-        </ProductsTbody>
-      </ProductsTable>
-    </ExamineProductContainer>
+    <>
+      <SearchBar handleSearch={handleSearch} />
+      <ExamineProductContainer>
+        <ProductsTable>
+          <ProductsThead>
+            <ProductTr>
+              <ProductTh>id</ProductTh>
+              <ProductTh>圖片</ProductTh>
+              <ProductTh>商品名稱</ProductTh>
+              <ProductTh>類別</ProductTh>
+              <ProductTh>價格</ProductTh>
+              <ProductTh>刊登時間</ProductTh>
+              <ProductTh>審核狀態</ProductTh>
+              <ProductTh>詳細資訊</ProductTh>
+            </ProductTr>
+          </ProductsThead>
+          <ProductsTbody>
+            {products.map((product, index) => (
+              <ProductsItem key={index} product={product} />
+            ))}
+          </ProductsTbody>
+        </ProductsTable>
+        <PaginationComponent
+          propsFunction={isSearch ? handleSearchProducts : handleGetProducts}
+          propsParams={params}
+        />
+      </ExamineProductContainer>
+    </>
   );
 }

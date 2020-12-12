@@ -12,8 +12,8 @@ const getUnCheckProductsAPI = (page) => {
 
 const getUsersAPI = (params) => {
   const token = localStorage.getItem('token');
-  const queryString = `_offset=${params.offset ? params.offset : ''}&_limit=${
-    params.limit ? params.limit : ''
+  const queryString = `_page=${params.page ? params.page : 1}&_limit=${
+    params.limit ? params.limit : 10
   }&_sort=${params.sort ? params.sort : ''}&_status=${
     params.status ? params.status : ''
   }&_order=${params.order ? params.order : ''}`;
@@ -24,9 +24,16 @@ const getUsersAPI = (params) => {
   }).then((res) => res.json());
 };
 
-const searchUsersAPI = (keyword) => {
+const searchUsersAPI = (params) => {
   const token = localStorage.getItem('token');
-  return fetch(`${BASE_URL}/users/search?_keyword=${keyword}`, {
+  const queryString = `_keyword=${params.keyword}&_page=${
+    params.page ? params.page : 1
+  }&_limit=${params.limit ? params.limit : 10}&_sort=${
+    params.sort ? params.sort : ''
+  }&_status=${params.status ? params.status : ''}&_order=${
+    params.order ? params.order : ''
+  }`;
+  return fetch(`${BASE_URL}/users/search?${queryString}`, {
     headers: {
       authorization: `Bearer ${token}`,
     },
@@ -49,21 +56,28 @@ const updateProductStatusAPI = (id, status) => {
 
 const getProductsAPI = (params) => {
   const token = localStorage.getItem('token');
-  const queryString = `_offset=${params.offset ? params.offset : ''}&_limit=${
+  const queryString = `_offset=${params.offset ? params.offset : 0}&_limit=${
     params.limit ? params.limit : ''
-  }&_sort=${params.sort ? params.sort : ''}&_status=${
+  }&_page=${params.page}&_sort=${params.sort ? params.sort : ''}&_status=${
     params.status ? params.status : ''
   }&_order=${params.order ? params.order : ''}`;
-  return fetch(`${BASE_URL}/products?${queryString}`, {
+  return fetch(`${BASE_URL}/products/admin?${queryString}`, {
     headers: {
       authorization: `Bearer ${token}`,
     },
   }).then((res) => res.json());
 };
 
-const searchProductsAPI = (keyword) => {
+const searchProductsAPI = (params) => {
   const token = localStorage.getItem('token');
-  return fetch(`${BASE_URL}/products/search?_keyword=${keyword}&_status=all`, {
+  const queryString = `_keyword=${params.keyword}&_page=${
+    params.page ? params.page : 1
+  }&_limit=${params.limit ? params.limit : 10}&_sort=${
+    params.sort ? params.sort : ''
+  }&_status=${params.status ? params.status : ''}&_order=${
+    params.order ? params.order : ''
+  }`;
+  return fetch(`${BASE_URL}/products/admin/search?${queryString}`, {
     headers: {
       authorization: `Bearer ${token}`,
     },

@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useUser from '../../../hooks/userHooks/useUser';
-import useAdmin from '../../../hooks/adminHooks/useAdmin';
-import { SearchBar } from '../../../components/adminSystem';
 import { useNavigate } from 'react-router-dom';
 import { COLOR, FONT, DISTANCE } from '../../../constants/style';
 import { ManageUsersComponent } from '../../../components/adminSystem';
@@ -23,11 +21,6 @@ const Title = styled.h1`
 const AdminUserPage = () => {
   const navigate = useNavigate();
   const { handleGetMe } = useUser();
-  const { handleSearchUsers } = useAdmin();
-
-  const handleSearch = (value) => {
-    handleSearchUsers(value);
-  };
 
   useEffect(() => {
     handleGetMe().then((result) => {
@@ -39,7 +32,6 @@ const AdminUserPage = () => {
     <ThickNavPage>
       <Wrapper>
         <Title>用戶管理</Title>
-        <SearchBar handleSearch={handleSearch} />
         <ManageUsersComponent />
       </Wrapper>
     </ThickNavPage>

@@ -12,6 +12,7 @@ export const adminSlice = createSlice({
   name: 'admin',
   initialState: {
     users: [],
+    count: 0,
     products: [],
     errorMessage: null,
   },
@@ -25,10 +26,18 @@ export const adminSlice = createSlice({
     setErrorMessage: (state, action) => {
       state.errorMessage = action.payload;
     },
+    setCount: (state, action) => {
+      state.count = action.payload;
+    },
   },
 });
 
-export const { setUsers, setProducts, setErrorMessage } = adminSlice.actions;
+export const {
+  setUsers,
+  setProducts,
+  setErrorMessage,
+  setCount,
+} = adminSlice.actions;
 
 export const getUnCheckProducts = (page) => (dispatch) => {
   dispatch(setProducts([]));
@@ -61,7 +70,8 @@ export const getUsers = (params) => (dispatch) => {
       return dispatch(
         setErrorMessage(result ? result.message : 'something wrong')
       );
-    dispatch(setUsers(result.data));
+    dispatch(setUsers(result.data.users));
+    dispatch(setCount(result.data.count));
     return result;
   });
 };
@@ -73,7 +83,8 @@ export const searchUsers = (keyword) => (dispatch) => {
       return dispatch(
         setErrorMessage(result ? result.message : 'something wrong')
       );
-    dispatch(setUsers(result.data));
+    dispatch(setUsers(result.data.users));
+    dispatch(setCount(result.data.count));
     return result;
   });
 };
@@ -85,23 +96,26 @@ export const getProducts = (params) => (dispatch) => {
       return dispatch(
         setErrorMessage(result ? result.message : 'something wrong')
       );
-    dispatch(setProducts(result.data));
+    dispatch(setProducts(result.data.products));
+    dispatch(setCount(result.data.count));
     return result;
   });
 };
 
-export const searchProducts = (keyword) => (dispatch) => {
+export const searchProducts = (params) => (dispatch) => {
   dispatch(setErrorMessage(''));
-  return searchProductsAPI(keyword).then((result) => {
+  return searchProductsAPI(params).then((result) => {
     if (!result || result.ok === 0)
       return dispatch(
         setErrorMessage(result ? result.message : 'something wrong')
       );
-    dispatch(setProducts(result.data));
+    dispatch(setProducts(result.data.products));
+    dispatch(setCount(result.data.count));
     return result;
   });
 };
 
+export const selectCount = (state) => state.admin.count;
 export const selectUsers = (state) => state.admin.users;
 export const selectProducts = (state) => state.admin.products;
 export default adminSlice.reducer;

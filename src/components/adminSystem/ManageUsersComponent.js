@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
+import { SearchBar } from '../../components/adminSystem';
 import styled from 'styled-components';
 import useAdmin from '../../hooks/adminHooks/useAdmin';
 import { DISTANCE, FONT, COLOR } from '../../constants/style';
 import { Nav } from '../../components/Button';
+import PaginationComponent from '../adminSystem/PaginationComponent';
 
 const ExamineUserContainer = styled.div`
   margin: ${DISTANCE.md} 0;
@@ -74,48 +76,60 @@ const UsersItem = ({ user }) => {
 };
 
 export default function ManageUsersComponent() {
-  const { users, handleGetUsers } = useAdmin();
+  const { users, handleGetUsers, handleSearchUsers } = useAdmin();
+  const [isSearch, setIsSearch] = useState(false);
+  const [keyword, setKeyword] = useState('');
+  const [params, setParams] = useState({
+    sort: 'createdAt',
+    order: 'DESC',
+  });
 
-  useEffect(() => {
-    const params = {
-      offset: 0,
-      limit: 10,
-      sort: 'createdAt',
-      order: 'DESC',
-    };
-    handleGetUsers(params);
-  }, []);
-
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
+  const handleSearch = (value) => {
+    setKeyword(value);
+    setIsSearch(true);
+    setParams({
+      ...params,
+      keyword: value ? value : keyword,
+    });
+    handleSearchUsers({
+      ...params,
+      keyword: value ? value : keyword,
+    });
+  };
 
   return (
-    <ExamineUserContainer>
-      <UsersTable>
-        <UsersThead>
-          <UserTr>
-            <UserTh>id</UserTh>
-            <UserTh>頭貼</UserTh>
-            <UserTh>帳號</UserTh>
-            <UserTh>名稱</UserTh>
-            <UserTh>賣家頁面</UserTh>
-            <UserTh>權限</UserTh>
-            <UserTh>詳細資訊</UserTh>
-          </UserTr>
-        </UsersThead>
-        <UsersTbody>
-          {users.length === 0 ? (
+    <>
+      <SearchBar handleSearch={handleSearch} />
+      <ExamineUserContainer>
+        <UsersTable>
+          <UsersThead>
             <UserTr>
-              <UserTd>
-                <ResultNotFound>查無資料</ResultNotFound>
-              </UserTd>
+              <UserTh>id</UserTh>
+              <UserTh>頭貼</UserTh>
+              <UserTh>帳號</UserTh>
+              <UserTh>名稱</UserTh>
+              <UserTh>賣家頁面</UserTh>
+              <UserTh>權限</UserTh>
+              <UserTh>詳細資訊</UserTh>
             </UserTr>
-          ) : (
-            users.map((user, index) => <UsersItem key={index} user={user} />)
-          )}
-        </UsersTbody>
-      </UsersTable>
-    </ExamineUserContainer>
+          </UsersThead>
+          <UsersTbody>
+            {users.length === 0 ? (
+              <UserTr>
+                <UserTd>
+                  <ResultNotFound>查無資料</ResultNotFound>
+                </UserTd>
+              </UserTr>
+            ) : (
+              users.map((user, index) => <UsersItem key={index} user={user} />)
+            )}
+          </UsersTbody>
+        </UsersTable>
+        <PaginationComponent
+          propsFunction={isSearch ? handleSearchUsers : handleGetUsers}
+          propsParams={params}
+        />
+      </ExamineUserContainer>
+    </>
   );
 }
