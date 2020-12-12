@@ -35,6 +35,7 @@ const Container = styled.p`
 `;
 const Table = styled.table`
   width: 100%;
+  min-width: 500px;
   text-align: center;
   table-layout: fixed;
   border-collapse: collapse;
@@ -90,7 +91,6 @@ useEffect(() => {
 
   return (
     <>
-      <Navbar />
       <ThickNavPage>
         <Container>
           <Title>訂單查詢</Title>
@@ -114,7 +114,13 @@ useEffect(() => {
                       {new Date(order.createdAt).toLocaleDateString()}
                     </Content>
                     <Content>{order.content}</Content>
-                    <Content>{order.is_sent ? "已出貨" : "未出貨"}</Content>
+                    <Content>
+                      {order.is_canceled
+                        ? "已取消"
+                        : order.is_sent
+                        ? "已出貨"
+                        : "未出貨"}
+                    </Content>
                   </ContentContainer>
                 ))}
             </Table>

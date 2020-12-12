@@ -5,6 +5,12 @@ import {
   getSellerOrder as getSellerOrderAPI,
   getDetailOrder as getDetailOrderAPI,
   cancelOrder as cancelOrderAPI,
+  sentOrder as sentOrderAPI,
+  deleteOrder as deleteOrderAPI,
+  getAllOrder as getAllOrderAPI,
+  payOrder as payOrderAPI,
+  completeOrder as completeOrderAPI,
+  createOrder as createOrderAPI,
 } from "../../../webAPI/orderAPI.js";
 import { setAuthToken, getAuthToken } from "../../../hooks/orderHooks/useOrder";
 export const orderSlice = createSlice({
@@ -16,6 +22,8 @@ export const orderSlice = createSlice({
     detailOrder: [],
     errorMessage: null,
     userData: null,
+    mask: false,
+    content: "",
   },
   reducers: {
     // reducer
@@ -31,9 +39,15 @@ export const orderSlice = createSlice({
     setOrder: (state, action) => {
       state.order = action.payload;
     },
-    setDetailOrders : (state, action) => {
+    setDetailOrders: (state, action) => {
       state.detailOrder = action.payload;
-    }
+    },
+    setMask: (state, action) => {
+      state.mask = action.payload;
+    },
+    setContent: (state, action) => {
+      state.content = action.payload;
+    },
   },
 });
 
@@ -41,8 +55,10 @@ export const {
   //action
   setErrorMessage,
   setUser,
+  setMask,
   setIsLoading,
   setOrder,
+  setContent,
   setDetailOrders,
 } = orderSlice.actions;
 
@@ -104,12 +120,37 @@ export const cancelOrder = (id) => dispatch => {
   dispatch(setIsLoading(true));
   return cancelOrderAPI(id)
     .then((res) => {
-      console.log(res.data);
       dispatch(setIsLoading(false));
       return res.data;
     })
-    
+  
 }
+
+export const sentOrder = (id) => dispatch => {
+  dispatch(setIsLoading(true));
+  return sentOrderAPI(id).then((res) => {
+    dispatch(setIsLoading(false));
+    return res.data;
+  });
+}
+export const completeOrder = (id) => (dispatch) => {
+  dispatch(setIsLoading(true));
+  return completeOrderAPI(id).then((res) => {
+    dispatch(setIsLoading(false));
+    return res.data;
+  });
+};
+
+export const payOrder = (id) => (dispatch) => {
+  dispatch(setIsLoading(true));
+  return payOrderAPI(id).then((res) => {
+    dispatch(setIsLoading(false));
+    return res.data;
+  });
+};
+
+export const selectContent = (state) => state.order.content;
+export const selectMask = (state) => state.order.mask;
 export const selectLoading = (state) => state.order.isLoading;
 export const selectError = (state) => state.order.errorMessage;
 export const selectOrder = (state) => state.order.order;

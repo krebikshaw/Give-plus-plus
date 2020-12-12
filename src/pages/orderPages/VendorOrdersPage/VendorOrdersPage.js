@@ -20,6 +20,7 @@ import {
 const Title = styled.p`
   color: ${COLOR.black};
   font-size: ${FONT.lg};
+  min-width: 500px;
 `;
 const Message = styled.p`
   color: ${COLOR.text_2};
@@ -82,7 +83,6 @@ const VendorOrdersPage = () => {
   }, [dispatch]);
   return (
     <>
-      <Navbar />
       <ThickNavPage>
         <Container>
           <Title>訂單查詢</Title>
