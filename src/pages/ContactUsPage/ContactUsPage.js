@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { COLOR, FONT } from '../../constants/style';
 import { Modal } from '../../components/general';
-import { InputComponent, TextAreaComponent } from '../../components/Input';
 import { NormalButton } from '../../components/Button';
+import { InputComponent, TextAreaComponent } from '../../components/Input';
+import useSendMail from '../../hooks/userHooks/useSendMail';
 
 const Page = styled.div`
   display: flex;
@@ -46,7 +47,7 @@ const Link = styled.a`
 `;
 
 const InputBox = styled.div`
-  margin: 20px 0;
+  margin: 15px 0;
 `;
 
 const Buttons = styled.div`
@@ -66,43 +67,110 @@ const ModalContent = styled.div`
   font-size: ${FONT.sm};
 `;
 
+const RemindMessage = styled.span`
+  margin-left: 5px;
+  color: ${COLOR.text_alert};
+`;
+
+const ErrorMessage = styled.div`
+  margin-top: 10px;
+  color: ${COLOR.text_alert};
+`;
+
+const Loading = styled.div``;
+
 const ContactUsPage = () => {
-  const [isModalShowed, setIsModalShowed] = useState(false);
-  const closeModal = () => setIsModalShowed(false);
-  const showModal = () => setIsModalShowed(true);
+  useEffect(() => window.scroll(0, 0), []);
+  const {
+    handleInputChange,
+    handleSendMail,
+    setName,
+    setContent,
+    setPhone,
+    setEmail,
+    goHomePage,
+    isNameValid,
+    isEmailValid,
+    isContentValid,
+    isModalShowed,
+    errorMessage,
+    isUserLoading,
+  } = useSendMail();
+
   return (
     <>
       <Page>
         <ContactForm>
           {isModalShowed && (
-            <Modal closeModalMessage={'返回首頁'} closeModal={closeModal}>
+            <Modal closeModalMessage={'返回首頁'} closeModal={goHomePage}>
               <ModalContent>
                 訊息成功送出！我們將盡快回覆您，謝謝！
               </ModalContent>
             </Modal>
           )}
           <Title>聯絡我們</Title>
+
           <Description>
             <Link href="tel:0912345678">Tel: 0912-345-678</Link> |{' '}
             <Link href="mailto:info@my-domain.com">info@giveplusplus.com</Link>
           </Description>
+
           <InputBox>
             <InputTitle>姓名</InputTitle>
-            <InputComponent $margin={0}></InputComponent>
+            <InputComponent
+              $margin={0}
+              onChange={handleInputChange(setName)}
+            ></InputComponent>
+            {isNameValid === false && (
+              <RemindMessage>請輸入正確的姓名</RemindMessage>
+            )}
           </InputBox>
+
           <InputBox>
             <InputTitle>信箱</InputTitle>
-            <InputComponent $margin={0}></InputComponent>
+            <InputComponent
+              $margin={0}
+              onChange={handleInputChange(setEmail)}
+            ></InputComponent>
+            {isEmailValid === false && (
+              <RemindMessage>請輸入正確的信箱</RemindMessage>
+            )}
           </InputBox>
+
+          <InputBox>
+            <InputTitle>手機</InputTitle>
+            <InputComponent
+              $margin={0}
+              onChange={handleInputChange(setPhone)}
+            ></InputComponent>
+          </InputBox>
+
           <InputBox>
             <InputTitle>內容</InputTitle>
-            <TextAreaComponent rows={'3'} $margin={0}></TextAreaComponent>
+            <TextAreaComponent
+              rows={'3'}
+              $margin={0}
+              onChange={handleInputChange(setContent)}
+            ></TextAreaComponent>
+            {isContentValid === false && (
+              <ErrorMessage>請輸入有效的內容</ErrorMessage>
+            )}
           </InputBox>
+
           <Buttons>
-            <Button onClick={showModal} $margin={0}>
-              送出
+            {isUserLoading ? (
+              <Loading>Loading...</Loading>
+            ) : (
+              <>
+                <ErrorMessage>{errorMessage}</ErrorMessage>
+                <Button onClick={handleSendMail} $margin={0}>
+                  送出
+                </Button>
+              </>
+            )}
+            <Button onClick={goHomePage} $margin={0}>
+              取消
             </Button>
-            <Button $margin={0}>取消</Button>
           </Buttons>
         </ContactForm>
       </Page>

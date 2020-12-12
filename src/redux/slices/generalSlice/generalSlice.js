@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { setAuthToken, getAuthToken } from '../../../utils';
-import { loginAPI, registerAPI, getMeAPI } from '../../../webAPI/generalAPI';
+import {
+  loginAPI,
+  registerAPI,
+  getMeAPI,
+  postMailAPI,
+} from '../../../webAPI/generalAPI';
 
 const generalSlice = createSlice({
   name: 'general',
@@ -68,6 +73,14 @@ export const logout = () => (dispatch) => {
   setAuthToken('');
   dispatch(setUserId(null));
   alert('登出成功');
+};
+
+export const postMail = (mail) => (dispatch) => {
+  dispatch(setIsUserLoading(true));
+  return postMailAPI(mail).then((res) => {
+    dispatch(setIsUserLoading(false));
+    return res;
+  });
 };
 
 export const selectUserId = (state) => state.general.userId;

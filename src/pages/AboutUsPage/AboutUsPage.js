@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { FONT, COLOR } from '../../constants/style';
 
@@ -67,6 +68,7 @@ const GoalPicture = styled.img`
 `;
 
 const AboutUsPage = () => {
+  useEffect(() => window.scroll(0, 0), []);
   return (
     <Page>
       <Banner src="/about-us-bg.jpg" alt="about-us-bg" />
@@ -97,7 +99,7 @@ const AboutUsPage = () => {
           second hand products.
         </SectionParagraph>
       </Section>
-      
+
       <GoalSection>
         <Goal>
           <GoalTitle>安心消費有保障</GoalTitle>

@@ -41,7 +41,7 @@ export const getMeAPI = () => {
 
 export const postMailAPI = (mail) => {
   const { name, email, content, phone } = mail;
-  return fetch(`${BASE_URL}/`, {
+  return fetch(`${BASE_URL}/users/mails`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
