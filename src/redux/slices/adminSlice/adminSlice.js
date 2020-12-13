@@ -6,6 +6,7 @@ import {
   searchUsersAPI,
   getProductsAPI,
   searchProductsAPI,
+  getMailsAPI,
 } from '../../../webAPI/adminAPI';
 
 export const adminSlice = createSlice({
@@ -14,6 +15,8 @@ export const adminSlice = createSlice({
     users: [],
     count: 0,
     products: [],
+    mails: [],
+    mail: {},
     errorMessage: null,
   },
   reducers: {
@@ -29,6 +32,12 @@ export const adminSlice = createSlice({
     setCount: (state, action) => {
       state.count = action.payload;
     },
+    setMails: (state, action) => {
+      state.mails = action.payload;
+    },
+    setMail: (state, action) => {
+      state.mail = action.payload;
+    },
   },
 });
 
@@ -37,6 +46,8 @@ export const {
   setProducts,
   setErrorMessage,
   setCount,
+  setMails,
+  setMail,
 } = adminSlice.actions;
 
 export const getUnCheckProducts = (page) => (dispatch) => {
@@ -115,7 +126,21 @@ export const searchProducts = (params) => (dispatch) => {
   });
 };
 
+export const getMails = () => (dispatch) => {
+  dispatch(setErrorMessage(''));
+  return getMailsAPI().then((result) => {
+    if (!result || result.ok === 0)
+      return dispatch(
+        setErrorMessage(result ? result.message : 'something wrong')
+      );
+    dispatch(setMails(result.data));
+    return result;
+  });
+};
+
 export const selectCount = (state) => state.admin.count;
 export const selectUsers = (state) => state.admin.users;
 export const selectProducts = (state) => state.admin.products;
+export const selectMails = (state) => state.admin.mails;
+export const selectMail = (state) => state.admin.mail;
 export default adminSlice.reducer;

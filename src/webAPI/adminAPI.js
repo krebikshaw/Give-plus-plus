@@ -84,6 +84,15 @@ const searchProductsAPI = (params) => {
   }).then((res) => res.json());
 };
 
+const getMailsAPI = () => {
+  const token = localStorage.getItem('token');
+  return fetch(`${BASE_URL}/manages/mails`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
+};
+
 export {
   getUnCheckProductsAPI,
   updateProductStatusAPI,
@@ -91,4 +100,5 @@ export {
   searchUsersAPI,
   getProductsAPI,
   searchProductsAPI,
+  getMailsAPI,
 };

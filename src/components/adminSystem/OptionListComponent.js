@@ -26,7 +26,7 @@ export default function OptionListComponent() {
           <Nav children={'用戶管理'} path={'/admin/users'} />
         </OptionItem>
         <OptionItem>
-          <Nav children={'查看意見箱'} path={'admin/mails'} $margin={0} />
+          <Nav children={'查看意見箱'} path={'/admin/mails'} $margin={0} />
         </OptionItem>
       </OptionList>
     </OptionListContainer>
