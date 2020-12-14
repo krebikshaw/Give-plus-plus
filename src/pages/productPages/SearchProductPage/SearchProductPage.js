@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
-import { Navbar } from "../../../components";
-import { StandardNavPage } from "../../../components/Page";
-import { COLOR, FONT } from "../../../constants/style";
-import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
-import useProduct from "../../../hooks/productHooks/useProduct";
+import React, { useEffect } from 'react';
+import { Navbar } from '../../../components';
+import { StandardNavPage } from '../../../components/Page';
+import { COLOR, FONT } from '../../../constants/style';
+import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import useProduct from '../../../hooks/productHooks/useProduct';
 import {
   Products,
   MoreButton,
   ProductSort,
-} from "../../../components/productSystem";
+} from '../../../components/productSystem';
 import {
   setProducts,
   setErrorMessage,
   setHasMoreProducts,
-} from "../../../redux/slices/productSlice/productSlice";
+} from '../../../redux/slices/productSlice/productSlice';
 
 const SearchTitleContainer = styled.section`
   margin-top: 220px;

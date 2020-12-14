@@ -1,18 +1,18 @@
-import React, { useEffect } from "react";
-import { Navbar } from "../../../components";
-import { StandardNavPage } from "../../../components/Page";
-import { COLOR, FONT } from "../../../constants/style";
-import styled from "styled-components";
-import { useParams, useNavigate } from "react-router-dom";
-import useProduct from "../../../hooks/productHooks/useProduct";
-import { useDispatch } from "react-redux";
-import { Products, ProductSort } from "../../../components/productSystem";
+import React, { useEffect } from 'react';
+import { Navbar } from '../../../components';
+import { StandardNavPage } from '../../../components/Page';
+import { COLOR, FONT } from '../../../constants/style';
+import styled from 'styled-components';
+import { useParams, useNavigate } from 'react-router-dom';
+import useProduct from '../../../hooks/productHooks/useProduct';
+import { useDispatch } from 'react-redux';
+import { Products, ProductSort } from '../../../components/productSystem';
 import {
   setProducts,
   setCategory,
   setHasMoreProducts,
   setErrorMessage,
-} from "../../../redux/slices/productSlice/productSlice";
+} from '../../../redux/slices/productSlice/productSlice';
 
 const CategoryTitleContainer = styled.section`
   margin-top: 220px;
@@ -49,7 +49,7 @@ const CategorizedProductPage = () => {
     handleChangeProductSort,
   } = useProduct();
 
-  if (productErrorMessage === "查無此分類") navigate("/");
+  if (productErrorMessage === '查無此分類') navigate('/');
 
   useEffect(() => {
     handleGetProductFromCategory(id, 1);

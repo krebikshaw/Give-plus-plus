@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import { COLOR, FONT, DISTANCE } from "../../../constants/style";
-import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { Navbar } from "../../../components";
-import { StandardNavPage } from "../../../components/Page";
-import useProduct from "../../../hooks/productHooks/useProduct";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { COLOR, FONT, DISTANCE } from '../../../constants/style';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Navbar } from '../../../components';
+import { StandardNavPage } from '../../../components/Page';
+import useProduct from '../../../hooks/productHooks/useProduct';
 import {
   Banner,
   SellerInfo,
   Announcement,
   Products,
-} from "../../../components/productSystem";
+} from '../../../components/productSystem';
 import {
   setProducts,
   setHasMoreProducts,
   setErrorMessage,
-} from "../../../redux/slices/productSlice/productSlice";
+} from '../../../redux/slices/productSlice/productSlice';
 
 const SellerProductTitle = styled.div`
   margin: ${DISTANCE.sm} auto;
