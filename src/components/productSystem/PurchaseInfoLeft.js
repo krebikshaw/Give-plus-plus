@@ -47,6 +47,7 @@ export const InfoBlock = styled.div`
 
 const ProductInfoWrap = styled(InfoBlock)`
   height: 180px;
+  width: 100%;
   font-weight: normal;
   color: ${COLOR.text_2};
 `;
