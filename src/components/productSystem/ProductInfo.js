@@ -1,7 +1,7 @@
-import { COLOR, FONT, DISTANCE } from "../../constants/style";
-import styled from "styled-components";
-import { ActionButton } from "../../components/Button";
-import { InfoBlock } from "../../components/productSystem";
+import { COLOR, FONT, DISTANCE } from '../../constants/style';
+import styled from 'styled-components';
+import { ActionButton } from '../../components/Button';
+import { InfoBlock } from '../../components/productSystem';
 
 const ProductName = styled.div`
   width: 500px;
@@ -18,7 +18,7 @@ const ProductPrice = styled.div`
   color: ${COLOR.text_1};
 
   &:before {
-    content: "NT$ ";
+    content: 'NT$ ';
   }
 `;
 
@@ -74,13 +74,13 @@ const ProductQuantitySelector = ({ quantity }) => {
 };
 
 const ShoppingCart = styled(ActionButton)`
-  width: 470px;
+  width: 100%;
 `;
 
 const RemindBlock = styled(InfoBlock)`
   margin-top: 20px;
   height: 100px;
-  width: 500px;
+  width: 100%;
   font-weight: normal;
   font-size: ${FONT.md};
   color: ${COLOR.text_2};
@@ -100,7 +100,7 @@ export const ProductInfo = ({ product }) => {
       <ProductName>{product.name}</ProductName>
       <ProductPrice>{product.price}</ProductPrice>
       <ProductQuantitySelector quantity={product.quantity} />
-      <ShoppingCart $margin={0} $size={"lg"}>
+      <ShoppingCart $margin={0} $size={'lg'}>
         放 入 購 物 車
       </ShoppingCart>
       <Remind />

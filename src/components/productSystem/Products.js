@@ -12,7 +12,7 @@ const ProductsWrap = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: ${(props) => props.$justify || 'flex-start'};
+  justify-content: ${(props) => props.$justify || 'space-between'};
 `;
 
 const ProductContainer = styled.div`

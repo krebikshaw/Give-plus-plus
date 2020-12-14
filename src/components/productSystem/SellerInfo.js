@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { COLOR, FONT, DISTANCE } from "../../constants/style";
-import { ActionButton, NormalButton } from "../../components/Button";
-import useProduct from "../../hooks/productHooks/useProduct";
+import styled from 'styled-components';
+import { COLOR, FONT, DISTANCE } from '../../constants/style';
+import { ActionButton, NormalButton } from '../../components/Button';
+import useProduct from '../../hooks/productHooks/useProduct';
 
 const InfoBlock = styled.section`
   display: flex;
@@ -15,7 +15,7 @@ const AvatarContainer = styled.div`
   height: 150px;
 
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -37,7 +37,7 @@ const Avatar = styled.img`
 const InfoContainer = styled.div`
   width: 55%;
   border-right: 1px solid ${COLOR.text_2};
-  padding-right: 120px;
+  padding-right: 40px;
   align-self: center;
 `;
 
@@ -76,8 +76,7 @@ const InfoNumber = styled.div`
 
 const ContactContainer = styled.div`
   width: 250px;
-  position: relative;
-  left: -${DISTANCE.sm};
+  margin-left: ${DISTANCE.sm};
   align-self: center;
   color: ${COLOR.text_2};
 `;
@@ -141,7 +140,7 @@ const InfoItem = () => {
       <InfoBottomItem>
         <InfoName>平均出貨速度</InfoName>
         <InfoNumber>
-          {averageShippingTime ? `${averageShippingTime} 日內` : "暫無商品"}
+          {averageShippingTime ? `${averageShippingTime} 日內` : '暫無商品'}
         </InfoNumber>
       </InfoBottomItem>
     </InfoBottom>
