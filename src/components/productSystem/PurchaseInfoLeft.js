@@ -6,7 +6,6 @@ import useProduct from '../../hooks/productHooks/useProduct';
 const ProductPictureContainer = styled.div`
   position: relative;
   margin-bottom: 65px;
-  width: 600px;
   height: 400px;
 
   &:before {
@@ -108,7 +107,9 @@ const FreightIntro = ({ product }) => {
   );
 };
 
-const PurchaseInfoLeftContainer = styled.section``;
+const PurchaseInfoLeftContainer = styled.section`
+  width: 50%;
+`;
 
 export const PurchaseInfoLeft = ({ product }) => {
   const { loaded, onLoad } = useProduct();
