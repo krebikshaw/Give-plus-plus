@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Nav, NormalButton } from './Button';
@@ -11,6 +10,7 @@ import {
   selectIsUserLoading,
 } from '../redux/slices/generalSlice/generalSlice';
 import { useSelector } from 'react-redux';
+
 const NavbarContainer = styled.div`
   position: fixed;
   top: 0;
@@ -92,7 +92,7 @@ const Navbar = () => {
             ) : (
               <>
                 {userId && (
-                  <NormalButton children="登出" onClick={handleLogout} />
+                  <NormalButton children='登出' onClick={handleLogout} />
                 )}
                 {!userId && <Nav children={'登入 / 註冊'} path={'/entrance'} />}
               </>

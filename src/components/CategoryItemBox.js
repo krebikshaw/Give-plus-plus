@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { IconComponent } from '../components';
 import { COLOR, EFFECT } from '../constants/style';
 
@@ -23,13 +23,16 @@ const ProductCategoryItem = styled.li`
 `;
 
 const CategoryItemBox = ({ text, id }) => {
+  const navigate = useNavigate();
+  const handleGetProductFromCategory = (id) => {
+    navigate(`/products/category/${id}`);
+    window.location.reload();
+  };
   return (
-    <NavLink to={`/products/category/${id}`}>
-      <ProductCategoryItem>
-        <IconComponent kind={`product_category_${id}`} />
-        <p>{text}</p>
-      </ProductCategoryItem>
-    </NavLink>
+    <ProductCategoryItem onClick={() => handleGetProductFromCategory(id)}>
+      <IconComponent kind={`product_category_${id}`} />
+      <p>{text}</p>
+    </ProductCategoryItem>
   );
 };
 
