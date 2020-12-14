@@ -4,6 +4,7 @@ import {
   loginAPI,
   registerAPI,
   getMeAPI,
+  getFaqAPI,
   postMailAPI,
 } from '../../../webAPI/generalAPI';
 
@@ -14,6 +15,7 @@ const generalSlice = createSlice({
     errorMessage: null,
     isUserLoading: false,
     currentRule: null,
+    faqs: [],
   },
   reducers: {
     setIsUserLoading(state, action) {
@@ -28,6 +30,9 @@ const generalSlice = createSlice({
     setCurrentRule(state, action) {
       state.currentRule = action.payload;
     },
+    setFaqs: (state, action) => {
+      state.faqs = action.payload;
+    },
   },
 });
 
@@ -36,6 +41,7 @@ export const {
   setErrorMessage,
   setIsUserLoading,
   setCurrentRule,
+  setFaqs,
 } = generalSlice.actions;
 
 const checkToken = (res, dispatch) => {
@@ -88,8 +94,17 @@ export const postMail = (mail) => (dispatch) => {
   });
 };
 
+export const getFaqs = () => (dispatch) => {
+  getFaqAPI().then((result) => {
+    !result || result.ok === 0
+      ? dispatch(setErrorMessage('伺服器錯誤，請稍後再訪問本站'))
+      : dispatch(setFaqs(result.data));
+  });
+};
+
 export const selectUserId = (state) => state.general.userId;
 export const selectErrorMessage = (state) => state.general.errorMessage;
 export const selectIsUserLoading = (state) => state.general.isUserLoading;
 export const selectCurrentRule = (state) => state.general.currentRule;
+export const selectFaqs = (state) => state.general.faqs;
 export default generalSlice.reducer;

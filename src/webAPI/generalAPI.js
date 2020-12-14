@@ -54,3 +54,7 @@ export const postMailAPI = (mail) => {
     }),
   }).then((res) => res.json());
 };
+
+export const getFaqAPI = () => {
+  return fetch(`${BASE_URL}/manages/faqs`).then((res) => res.json());
+};

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { COLOR, FONT } from '../../constants/style';
+import { COLOR, FONT, DISTANCE } from '../../constants/style';
 import { ThickNavTwoColumnsPage } from '../../components/Page';
 import useRegister from '../../hooks/userHooks/useRegister';
 import {
@@ -14,7 +14,7 @@ import {
 } from '../../components/general/';
 
 const Title = styled.h1`
-  margin-bottom: 30px;
+  margin-bottom: ${DISTANCE.md};
   color: ${COLOR.text_2};
   font-size: ${FONT.lg};
   font-weight: 400;

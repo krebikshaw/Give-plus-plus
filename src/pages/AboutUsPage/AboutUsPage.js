@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import { FONT, COLOR } from '../../constants/style';
+import { FONT, COLOR, DISTANCE } from '../../constants/style';
 
 const Page = styled.div`
   margin-top: 65px;
@@ -13,12 +13,12 @@ const Banner = styled.img`
 `;
 
 const Section = styled.div`
-  margin: 20px 10vw;
+  margin: ${DISTANCE.sm} 10vw;
   height: auto;
 `;
 
 const SectionParagraph = styled.div`
-  padding: 20px 10vw;
+  padding: ${DISTANCE.sm} 10vw;
   color: #31596f;
   line-height: 2.5;
   font-size: ${FONT.md};
@@ -33,7 +33,7 @@ const Avatars = styled.div`
 `;
 
 const Avatar = styled.div`
-  padding: 40px 60px;
+  padding: ${DISTANCE.md} ${DISTANCE.lg};
   max-width: 33.333%;
   min-width: 220px;
 `;
@@ -43,20 +43,20 @@ const AvatarPicture = styled.img`
 `;
 
 const GoalSection = styled.div`
+  margin: ${DISTANCE.lg} 0;
+  padding: ${DISTANCE.lg} 0;
   background: ${COLOR.bg_secondary};
-  padding: 70px 0;
   display: flex;
-  margin: 50px 0;
   justify-content: center;
 `;
 
 const Goal = styled.div`
-  padding: 0 40px;
+  padding: 0 ${DISTANCE.md};
   text-align-center;
 `;
 
 const GoalTitle = styled.h2`
-  margin-bottom: 30px;
+  margin-bottom: ${DISTANCE.md};
   font-size: ${FONT.lg};
   font-weight: 400;
   color: ${COLOR.text_2};

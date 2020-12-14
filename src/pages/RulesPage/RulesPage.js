@@ -1,13 +1,12 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { ThickNavPage } from '../../components/Page';
-import { FONT, COLOR } from '../../constants/style';
-import { useSelector } from 'react-redux';
-import { selectCurrentRule } from '../../redux/slices/generalSlice/generalSlice';
+import { FONT, COLOR, DISTANCE } from '../../constants/style';
+import useRule from '../../hooks/generalHooks/useRule';
 
 const Navigation = styled.div`
   position: fixed;
-  padding: 20px;
+  padding: ${DISTANCE.sm};
   top: 20vh;
   left: 10vw;
   width: 140px;
@@ -63,15 +62,12 @@ const RuleContent = styled.p`
 `;
 
 const RulesPage = () => {
-  const rule1 = useRef();
-  const rule2 = useRef();
-  const rule3 = useRef();
-  const currentRule = useSelector(selectCurrentRule);
+  const { rule1, rule2, rule3, currentRule } = useRule();
   useEffect(() => {
     if (currentRule === 'rule1') rule1.current.click();
     if (currentRule === 'rule2') rule2.current.click();
     if (currentRule === 'rule3') rule3.current.click();
-  }, [currentRule]);
+  }, [currentRule, rule1, rule2, rule3]);
   return (
     <ThickNavPage>
       <Navigation>
@@ -86,6 +82,7 @@ const RulesPage = () => {
           隱私權條款
         </RuleLink>
       </Navigation>
+
       <Container>
         <Rule name="rule1" id="rule1">
           <RuleTitle>免責聲明</RuleTitle>
@@ -106,6 +103,7 @@ const RulesPage = () => {
             所有來信諮詢的信件我們不會將資料轉發給其他方或商家，信箱及個人資訊僅供本站與用戶聯繫。
           </RuleContent>
         </Rule>
+
         <Rule name="rule2" id="rule2">
           <RuleTitle>退貨政策</RuleTitle>
           <RuleContent>
@@ -116,6 +114,7 @@ const RulesPage = () => {
             請保持商品包裝完整寄回，經賣方確認無誤後，即可申請退款。
           </RuleContent>
         </Rule>
+
         <Rule name="rule3" id="rule3">
           <RuleTitle>隱私權條款</RuleTitle>
           <RuleContent>

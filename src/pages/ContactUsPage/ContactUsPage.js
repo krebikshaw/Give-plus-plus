@@ -1,34 +1,34 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import { COLOR, FONT } from '../../constants/style';
+import { COLOR, FONT, DISTANCE } from '../../constants/style';
 import { Modal } from '../../components/general';
 import { NormalButton } from '../../components/Button';
 import { InputComponent, TextAreaComponent } from '../../components/Input';
-import useSendMail from '../../hooks/userHooks/useSendMail';
+import useSendMail from '../../hooks/generalHooks/useSendMail';
 
 const Page = styled.div`
   display: flex;
   margin-top: 65px;
-  padding: 20px 100px;
+  padding: ${DISTANCE.sm} 100px;
   height: calc(100vh - 65px);
   width: 100%;
   justify-items: center;
 `;
 
 const Title = styled.h1`
-  margin-bottom: 20px;
+  margin-bottom: ${DISTANCE.sm};
   color: ${COLOR.text_2};
   font-size: ${FONT.md};
 `;
 
 const ContactForm = styled.div`
   margin: 0 auto;
-  padding: 20px;
+  padding: ${DISTANCE.sm};
   width: 500px;
 `;
 
 const Description = styled.div`
-  margin: 10px 0;
+  margin: ${DISTANCE.xs} 0;
   color: ${COLOR.text_2};
   font-size: ${FONT.md};
 `;
@@ -56,11 +56,11 @@ const Buttons = styled.div`
 
 const Button = styled(NormalButton)`
   width: 70px;
-  margin-right: 20px;
+  margin-right: ${DISTANCE.sm};
 `;
 
 const ModalContent = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: ${DISTANCE.sm};
   line-height: 2;
   text-align: center;
   color: #5f6f9b;
@@ -73,7 +73,7 @@ const RemindMessage = styled.span`
 `;
 
 const ErrorMessage = styled.div`
-  margin-top: 10px;
+  margin-top: ${DISTANCE.xs};
   color: ${COLOR.text_alert};
 `;
 
