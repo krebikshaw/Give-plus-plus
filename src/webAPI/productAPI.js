@@ -1,20 +1,20 @@
-import { BASE_URL } from "../constants/unit";
+import { BASE_URL } from '../constants/unit';
 
 function changeProductSort(queue) {
   let sort;
   let order;
   switch (queue) {
-    case "lowToHight":
-      sort = "price";
-      order = "ASC";
+    case 'lowToHight':
+      sort = 'price';
+      order = 'ASC';
       break;
-    case "hightToLow":
-      sort = "price";
-      order = "DESC";
+    case 'hightToLow':
+      sort = 'price';
+      order = 'DESC';
       break;
     default:
-      sort = "id";
-      order = "ASC";
+      sort = 'id';
+      order = 'ASC';
   }
   return { sort, order };
 }
@@ -64,12 +64,12 @@ const postProductAPI = ({
   payment_method, // 付款方式 0:貨到付款
   remark, // 備註
 }) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
   return fetch(`${BASE_URL}/products/new`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "content-type": "application/json",
+      'content-type': 'application/json',
       authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
@@ -101,12 +101,12 @@ const updateProductAPI = ({
   payment_method, // 付款方式 0:貨到付款
   remark, // 備註
 }) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
   return fetch(`${BASE_URL}/products/new`, {
-    method: "PATCH",
+    method: 'PATCH',
     headers: {
-      "content-type": "application/json",
+      'content-type': 'application/json',
       authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
@@ -126,12 +126,12 @@ const updateProductAPI = ({
 };
 
 const deleteProductAPI = (id) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
   return fetch(`${BASE_URL}/products/${id}`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
-      "content-type": "application/json",
+      'content-type': 'application/json',
       authorization: `Bearer ${token}`,
     },
   }).then((res) => res.json());

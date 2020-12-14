@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import {
   setProducts,
   setHasMoreProducts,
@@ -21,7 +21,7 @@ import {
   getProductsFromVendor,
   selectHasMoreProducts,
   setPage,
-} from "../../redux/slices/productSlice/productSlice";
+} from '../../redux/slices/productSlice/productSlice';
 
 function averageTime(count, products) {
   let totalTime = 0;
@@ -88,7 +88,7 @@ export default function useProduct() {
     dispatch(setProducts([]));
     dispatch(setHasMoreProducts(true));
     dispatch(setSort(sort));
-    currentPage.includes("/category")
+    currentPage.includes('/category')
       ? dispatch(getProductsFromCategory(id, page, sort))
       : dispatch(searchProduct(id, page, sort));
   };

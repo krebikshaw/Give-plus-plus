@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { IconComponent } from "../components";
-import { COLOR, EFFECT } from "../constants/style";
+import React from 'react';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { IconComponent } from '../components';
+import { COLOR, EFFECT } from '../constants/style';
 
 const ProductCategoryItem = styled.li`
   margin: 0 10px;

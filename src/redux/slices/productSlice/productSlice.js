@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import {
   getProductsAPI,
   getProductCategoriesAPI,
@@ -9,14 +9,14 @@ import {
   postProductAPI,
   updateProductAPI,
   deleteProductAPI,
-} from "../../../webAPI/productAPI";
+} from '../../../webAPI/productAPI';
 
 export const productSlice = createSlice({
-  name: "product",
+  name: 'product',
   initialState: {
     vendorInfo: [],
     page: 1,
-    sort: "latest",
+    sort: 'latest',
     product: [],
     products: [],
     productCount: 0,
@@ -80,7 +80,7 @@ export const {
 export const getProducts = () => (dispatch) => {
   getProductsAPI().then((res) => {
     if (res.ok === 0) {
-      return dispatch(setErrorMessage(res ? res.message : "something wrong"));
+      return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
 
     dispatch(pushProducts(res.data.products));
@@ -90,7 +90,7 @@ export const getProducts = () => (dispatch) => {
 export const getProduct = (id) => (dispatch) => {
   return getProductAPI(id).then((res) => {
     if (res.ok === 0) {
-      return dispatch(setErrorMessage(res ? res.message : "something wrong"));
+      return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
     let { vendorInfo, category, product } = res.data;
     dispatch(setProduct(product));
@@ -103,7 +103,7 @@ export const getProductsFromCategory = (id, page, queue) => (dispatch) => {
   getProductsFromCategoryAPI(id, page, queue).then((res) => {
     if (res.ok === 0) {
       dispatch(setHasMoreProducts(false));
-      return dispatch(setErrorMessage(res ? res.message : "something wrong"));
+      return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
     let { category, count, products } = res.data;
     let remainder = count - products.length;
@@ -119,7 +119,7 @@ export const getProductsFromVendor = (id, page, limit) => (dispatch) => {
   getProductsFromVendorAPI(id, page, limit).then((res) => {
     if (res.ok === 0) {
       dispatch(setHasMoreProducts(false));
-      return dispatch(setErrorMessage(res ? res.message : "something wrong"));
+      return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
     let { vendorInfo, count, products } = res.data;
     let remainder = count - products.length;
@@ -136,7 +136,7 @@ export const searchProduct = (keyword, page, queue) => (dispatch) => {
   searchProductAPI(keyword, page, queue).then((res) => {
     if (res.ok === 0) {
       dispatch(setHasMoreProducts(false));
-      return dispatch(setErrorMessage(res ? res.message : "something wrong"));
+      return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
     let { count, products } = res.data;
     let remainder = count - products.length;
@@ -150,7 +150,7 @@ export const searchProduct = (keyword, page, queue) => (dispatch) => {
 export const getProductCategories = () => (dispatch) => {
   getProductCategoriesAPI().then((res) => {
     if (!res || res.ok === 0)
-      return dispatch(setErrorMessage(res ? res.message : "something wrong"));
+      return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     dispatch(setCategories(res.data));
   });
 };
@@ -182,7 +182,7 @@ export const postProduct = ({
     remark, // 備註
   }).then((res) => {
     if (res.ok === 0) {
-      return dispatch(setErrorMessage(res ? res.message : "something wrong"));
+      return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
     return res.message;
   });
@@ -215,7 +215,7 @@ export const updateProduct = ({
     remark, // 備註
   }).then((res) => {
     if (res.ok === 0) {
-      return dispatch(setErrorMessage(res ? res.message : "something wrong"));
+      return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
     return res.message;
   });

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { NormalButton } from "../../components/Button";
+import styled from 'styled-components';
+import { NormalButton } from '../../components/Button';
 
 const ButtonContainer = styled.div`
   display: flex;

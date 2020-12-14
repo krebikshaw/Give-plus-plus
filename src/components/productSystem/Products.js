@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import { COLOR, FONT, DISTANCE } from "../../constants/style";
-import { MoreButton, ErrorMessage } from "../../components/productSystem/";
-import useProduct from "../../hooks/productHooks/useProduct";
+import styled from 'styled-components';
+import { COLOR, FONT, DISTANCE } from '../../constants/style';
+import { MoreButton, ErrorMessage } from '../../components/productSystem/';
+import useProduct from '../../hooks/productHooks/useProduct';
 
 const ProductsContainer = styled.div`
-  padding: ${(props) => props.$padding || "50px 42px"};
+  padding: ${(props) => props.$padding || '50px 42px'};
 `;
 
 const ProductsWrap = styled.div`
@@ -12,18 +12,18 @@ const ProductsWrap = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: ${(props) => props.$justify || "flex-start"};
+  justify-content: ${(props) => props.$justify || 'flex-start'};
 `;
 
 const ProductContainer = styled.div`
   position: relative;
-  width: ${(props) => props.$width || "190px"};
-  height: ${(props) => props.$height || "190px"};
-  margin: ${(props) => props.$margin || "0 18px"};
+  width: ${(props) => props.$width || '190px'};
+  height: ${(props) => props.$height || '190px'};
+  margin: ${(props) => props.$margin || '0 18px'};
   margin-bottom: 150px;
 
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -35,8 +35,8 @@ const ProductContainer = styled.div`
 
 const ProductPicture = styled.img`
   position: relative;
-  width: ${(props) => props.$width || "190px"};
-  height: ${(props) => props.$height || "190px"};
+  width: ${(props) => props.$width || '190px'};
+  height: ${(props) => props.$height || '190px'};
   transition: opacity 0.2s;
   cursor: pointer;
 `;
@@ -70,7 +70,7 @@ const ProductPrice = styled.div`
   text-align: center;
 
   &:before {
-    content: "NT$ ";
+    content: 'NT$ ';
   }
 `;
 

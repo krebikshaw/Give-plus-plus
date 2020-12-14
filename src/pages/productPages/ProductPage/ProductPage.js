@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
-import { Navbar } from "../../../components";
-import { StandardNavPage } from "../../../components/Page";
-import styled from "styled-components";
-import { useParams, useNavigate } from "react-router-dom";
-import useProduct from "../../../hooks/productHooks/useProduct";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from 'react';
+import { Navbar } from '../../../components';
+import { StandardNavPage } from '../../../components/Page';
+import styled from 'styled-components';
+import { useParams, useNavigate } from 'react-router-dom';
+import useProduct from '../../../hooks/productHooks/useProduct';
+import { useDispatch } from 'react-redux';
 import {
   Breadcrumb,
   PurchaseInfoLeft,
   PurchaseInfoRight,
-} from "../../../components/productSystem";
+} from '../../../components/productSystem';
 import {
   setProducts,
   setCategory,
   setHasMoreProducts,
   setErrorMessage,
-} from "../../../redux/slices/productSlice/productSlice";
+} from '../../../redux/slices/productSlice/productSlice';
 
 const ProductInfoContainer = styled.section`
   margin-top: 20px;
