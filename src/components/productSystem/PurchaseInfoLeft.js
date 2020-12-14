@@ -1,7 +1,7 @@
-import { COLOR, FONT, DISTANCE } from "../../constants/style";
-import styled from "styled-components";
-import { NavLink } from "react-router-dom";
-import useProduct from "../../hooks/productHooks/useProduct";
+import { COLOR, FONT, DISTANCE } from '../../constants/style';
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+import useProduct from '../../hooks/productHooks/useProduct';
 
 const ProductPictureContainer = styled.div`
   position: relative;
@@ -10,7 +10,7 @@ const ProductPictureContainer = styled.div`
   height: 400px;
 
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -92,12 +92,12 @@ const FreightIntro = ({ product }) => {
       <InfoTitle>運送方式與其他資訊</InfoTitle>
       <InfoItem>
         <InfoItemTitle>運送方式</InfoItemTitle>
-        <InfoBlock>{product.delivery === "0" ? "面交" : "郵寄"}</InfoBlock>
+        <InfoBlock>{product.delivery === '0' ? '面交' : '郵寄'}</InfoBlock>
       </InfoItem>
       <InfoItem>
         <InfoItemTitle>付款方式</InfoItemTitle>
         <InfoBlock>
-          {product.payment_method === "0" ? "貨到付款" : ""}
+          {product.payment_method === '0' ? '貨到付款' : ''}
         </InfoBlock>
       </InfoItem>
       <InfoItem>
