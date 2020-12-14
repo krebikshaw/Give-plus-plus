@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { EFFECT, COLOR } from "../constants/style";
-import { IconComponent } from "../components";
-import { InputSearch } from "./Input";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { EFFECT, COLOR } from '../constants/style';
+import { IconComponent } from '../components';
+import { InputSearch } from './Input';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SearchBarContainer = styled.div`
   cursor: pointer;
@@ -29,33 +29,33 @@ const SearchArea = styled.div`
 const SearchBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   const handleChangeInput = (e) => setValue(e.target.value);
   const handleSearchProduct = (keyWord) => {
-    if (location.pathname.includes("search")) {
+    if (location.pathname.includes('search')) {
       navigate(`/products/search/${keyWord}`);
       window.location.reload();
     }
     navigate(`/products/search/${keyWord}`);
-    setValue("");
+    setValue('');
   };
 
   return (
     <SearchBarContainer>
       <SearchArea>
-        <IconComponent kind={"search"} />
+        <IconComponent kind={'search'} />
         <InputSearch
           value={value}
           onChange={handleChangeInput}
           placeholder='搜尋物品'
           onKeyDown={(e) => {
-            if (e.keyCode === 13 && value !== "") {
+            if (e.keyCode === 13 && value !== '') {
               handleSearchProduct(value);
             }
           }}
         />
       </SearchArea>
-      <IconComponent kind={"angle-down"} />
+      <IconComponent kind={'angle-down'} />
     </SearchBarContainer>
   );
 };
