@@ -71,10 +71,9 @@ const SearchProductPage = () => {
           keyword={keyword}
           handleChangeProductSort={handleChangeProductSort}
         />
-        <Products products={products} />
-        <MoreButton
-          id={keyword}
+        <Products
           products={products}
+          id={keyword}
           hasMoreProducts={hasMoreProducts}
           handler={handleClickSearchMoreButton}
           productErrorMessage={productErrorMessage}

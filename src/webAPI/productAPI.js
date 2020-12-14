@@ -34,10 +34,10 @@ const getProductsFromCategoryAPI = (id, page, queue) => {
   ).then((res) => res.json());
 };
 
-const getProductsFromVendorAPI = (id, page) => {
-  return fetch(`${BASE_URL}/products/vendor/${id}?_page=${page}`).then((res) =>
-    res.json()
-  );
+const getProductsFromVendorAPI = (id, page, limit) => {
+  return fetch(
+    `${BASE_URL}/products/vendor/${id}?_page=${page}&_limit=${limit}`
+  ).then((res) => res.json());
 };
 
 const searchProductAPI = (keyword, page, queue) => {

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IconComponent } from "../components";
 import { COLOR, EFFECT } from "../constants/style";
 
@@ -23,14 +23,10 @@ const ProductCategoryItem = styled.li`
 `;
 
 const CategoryItemBox = ({ text, id }) => {
-  const location = useLocation();
   const navigate = useNavigate();
   const handleGetProductFromCategory = (id) => {
-    if (location.pathname.includes("category")) {
-      navigate(`/products/category/${id}`);
-      window.location.reload();
-    }
     navigate(`/products/category/${id}`);
+    window.location.reload();
   };
   return (
     <ProductCategoryItem onClick={() => handleGetProductFromCategory(id)}>

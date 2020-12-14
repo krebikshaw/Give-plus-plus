@@ -6,11 +6,7 @@ import styled from "styled-components";
 import { useParams, useNavigate } from "react-router-dom";
 import useProduct from "../../../hooks/productHooks/useProduct";
 import { useDispatch } from "react-redux";
-import {
-  Products,
-  MoreButton,
-  ProductSort,
-} from "../../../components/productSystem";
+import { Products, ProductSort } from "../../../components/productSystem";
 import {
   setProducts,
   setCategory,
@@ -73,10 +69,9 @@ const CategorizedProductPage = () => {
           category={category}
           handleChangeProductSort={handleChangeProductSort}
         />
-        <Products products={products} />
-        <MoreButton
-          id={id}
+        <Products
           products={products}
+          id={id}
           hasMoreProducts={hasMoreProducts}
           handler={handleClickCategoryMoreButton}
           productErrorMessage={productErrorMessage}

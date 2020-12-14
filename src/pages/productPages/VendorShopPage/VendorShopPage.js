@@ -6,13 +6,11 @@ import { useDispatch } from "react-redux";
 import { Navbar } from "../../../components";
 import { StandardNavPage } from "../../../components/Page";
 import useProduct from "../../../hooks/productHooks/useProduct";
-import useUser from "../../../hooks/userHooks/useUser";
 import {
   Banner,
   SellerInfo,
   Announcement,
   Products,
-  MoreButton,
 } from "../../../components/productSystem";
 import {
   setProducts,
@@ -33,17 +31,18 @@ const VendorShopPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const {
+    loaded,
+    onLoad,
+    vendorInfo,
     products,
     hasMoreProducts,
     productErrorMessage,
     handleClickVendorMoreButton,
     handleGetProductsFromVendor,
   } = useProduct();
-  const { vendorInfo, userErrorMessage, handleGetVendorInfo } = useUser();
-  if (userErrorMessage) navigate("/");
+  // console.log(vendorInfo);
 
   useEffect(() => {
-    handleGetVendorInfo(id);
     handleGetProductsFromVendor(id, 1);
     return () => {
       dispatch(setProducts([]));
@@ -56,14 +55,22 @@ const VendorShopPage = () => {
     <>
       <Navbar />
       <StandardNavPage>
-        <Banner banner={vendorInfo.banner_url} />
-        <SellerInfo vendorInfo={vendorInfo} products={products} />
+        <Banner
+          banner={vendorInfo.banner_url}
+          loaded={loaded}
+          onLoad={onLoad}
+        />
+        <SellerInfo
+          vendorInfo={vendorInfo}
+          products={products}
+          loaded={loaded}
+          onLoad={onLoad}
+        />
         <Announcement announcement={vendorInfo.announcement} />
         <SellerProductTitle>刊登商品</SellerProductTitle>
-        <Products products={products} vendorName={vendorInfo.nickname} />
-        <MoreButton
-          id={id}
+        <Products
           products={products}
+          id={id}
           hasMoreProducts={hasMoreProducts}
           handler={handleClickVendorMoreButton}
           productErrorMessage={productErrorMessage}

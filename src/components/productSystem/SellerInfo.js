@@ -9,12 +9,29 @@ const InfoBlock = styled.section`
   justify-content: space-between;
   margin: 40px 0;
 `;
-const AvatarContainer = styled.div``;
-
-const Avatar = styled.div`
-  background: url(${(props) => props.avatar}) center/cover no-repeat;
-  height: 150px;
+const AvatarContainer = styled.div`
+  position: relative;
   width: 150px;
+  height: 150px;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: url(${process.env.PUBLIC_URL}/logo-g.svg) center/contain
+      no-repeat;
+  }
+`;
+
+const Avatar = styled.img`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.2s;
+  object-fit: cover;
 `;
 
 const InfoContainer = styled.div`
@@ -81,10 +98,14 @@ const Email = styled.p`
   font-size: ${FONT.xs};
 `;
 
-const InfoLeft = ({ avatar }) => {
+const InfoLeft = ({ avatar, onLoad, loaded }) => {
   return (
     <AvatarContainer>
-      <Avatar avatar={avatar} />
+      <Avatar
+        src={avatar}
+        style={{ opacity: loaded ? 1 : 0 }}
+        onLoad={onLoad}
+      />
     </AvatarContainer>
   );
 };
@@ -120,7 +141,7 @@ const InfoItem = () => {
       <InfoBottomItem>
         <InfoName>平均出貨速度</InfoName>
         <InfoNumber>
-          {averageShippingTime ? `${averageShippingTime} 日內` : ""}
+          {averageShippingTime ? `${averageShippingTime} 日內` : "暫無商品"}
         </InfoNumber>
       </InfoBottomItem>
     </InfoBottom>
@@ -139,10 +160,14 @@ const InfoRight = ({ email }) => {
   );
 };
 
-export const SellerInfo = ({ vendorInfo, products }) => {
+export const SellerInfo = ({ onLoad, loaded, vendorInfo, products }) => {
   return (
     <InfoBlock>
-      <InfoLeft avatar={vendorInfo.avatar_url} />
+      <InfoLeft
+        avatar={vendorInfo.avatar_url}
+        onLoad={onLoad}
+        loaded={loaded}
+      />
       <InfoMiddle nickname={vendorInfo.nickname} products={products} />
       <InfoRight email={vendorInfo.email} />
     </InfoBlock>

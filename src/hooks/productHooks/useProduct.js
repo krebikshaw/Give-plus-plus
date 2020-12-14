@@ -1,18 +1,21 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   setProducts,
   setHasMoreProducts,
   setSort,
+  selectVendorInfo,
   selectSort,
   selectProductCount,
   selectProductCategories,
+  selectProduct,
   selectProducts,
   selectPage,
-  selectProduct,
   selectCategory,
   selectErrorMessage,
   searchProduct,
+  getProduct,
   getProductCategories,
   getProductsFromCategory,
   getProductsFromVendor,
@@ -29,10 +32,16 @@ function averageTime(count, products) {
 }
 
 export default function useProduct() {
+  const [loaded, setLoaded] = useState(false);
+  const onLoad = () => {
+    setLoaded(true);
+  };
   const location = useLocation();
   const currentPage = location.pathname;
   const dispatch = useDispatch();
+  const vendorInfo = useSelector(selectVendorInfo);
   const productCategories = useSelector(selectProductCategories);
+  const product = useSelector(selectProduct);
   const products = useSelector(selectProducts);
   const productCount = useSelector(selectProductCount);
   const category = useSelector(selectCategory);
@@ -41,6 +50,14 @@ export default function useProduct() {
   const averageShippingTime = averageTime(products.length, products);
   let page = useSelector(selectPage);
   const sort = useSelector(selectSort);
+  let tempProducts = products;
+
+  const handleGetProduct = (id) => {
+    dispatch(getProduct(id)).then((userId) => {
+      dispatch(getProductsFromVendor(userId, page, 4));
+    });
+  };
+
   const handleGetProductCategories = () => dispatch(getProductCategories());
 
   const handleGetSearchProduct = (keyword) => {
@@ -52,7 +69,7 @@ export default function useProduct() {
   };
 
   const handleGetProductsFromVendor = (id) => {
-    dispatch(getProductsFromVendor(id, page));
+    dispatch(getProductsFromVendor(id, page, 10));
   };
 
   const handleClickSearchMoreButton = (keyword) => {
@@ -60,7 +77,7 @@ export default function useProduct() {
   };
 
   const handleClickVendorMoreButton = (id) => {
-    dispatch(getProductsFromVendor(id, ++page));
+    dispatch(getProductsFromVendor(id, ++page, 10));
   };
 
   const handleClickCategoryMoreButton = (id) => {
@@ -77,14 +94,20 @@ export default function useProduct() {
   };
 
   return {
+    loaded,
+    setLoaded,
+    onLoad,
     setProducts,
+    vendorInfo,
     hasMoreProducts,
     productCategories,
     averageShippingTime,
+    product,
     products,
     category,
     productCount,
     productErrorMessage,
+    handleGetProduct,
     handleGetSearchProduct,
     handleClickSearchMoreButton,
     handleClickVendorMoreButton,

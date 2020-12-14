@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 import {
   getProductsAPI,
   getProductCategoriesAPI,
@@ -15,6 +14,7 @@ import {
 export const productSlice = createSlice({
   name: "product",
   initialState: {
+    vendorInfo: [],
     page: 1,
     sort: "latest",
     product: [],
@@ -23,10 +23,12 @@ export const productSlice = createSlice({
     hasMoreProducts: true,
     category: [],
     categories: [],
-    isLoading: false,
     errorMessage: null,
   },
   reducers: {
+    setVendorInfo: (state, action) => {
+      state.vendorInfo = action.payload;
+    },
     setSort: (state, action) => {
       state.sort = action.payload;
     },
@@ -34,7 +36,7 @@ export const productSlice = createSlice({
       state.page = action.payload;
     },
     pushProducts: (state, action) => {
-      console.log("action:", action);
+      //console.log("action:", action);
       state.products.push(...action.payload);
     },
     setProducts: (state, action) => {
@@ -62,6 +64,7 @@ export const productSlice = createSlice({
 });
 
 export const {
+  setVendorInfo,
   setSort,
   setPage,
   pushProducts,
@@ -79,16 +82,20 @@ export const getProducts = () => (dispatch) => {
     if (res.ok === 0) {
       return dispatch(setErrorMessage(res ? res.message : "something wrong"));
     }
-    dispatch(pushProducts(res.data));
+
+    dispatch(pushProducts(res.data.products));
   });
 };
 
 export const getProduct = (id) => (dispatch) => {
-  getProductAPI(id).then((res) => {
+  return getProductAPI(id).then((res) => {
     if (res.ok === 0) {
       return dispatch(setErrorMessage(res ? res.message : "something wrong"));
     }
-    dispatch(setProduct(res.data));
+    let { vendorInfo, category, product } = res.data;
+    dispatch(setProduct(product));
+    dispatch(setCategory(category));
+    return vendorInfo.id;
   });
 };
 
@@ -98,41 +105,45 @@ export const getProductsFromCategory = (id, page, queue) => (dispatch) => {
       dispatch(setHasMoreProducts(false));
       return dispatch(setErrorMessage(res ? res.message : "something wrong"));
     }
-    if (res.data.products.length !== 10) {
+    let { category, count, products } = res.data;
+    let remainder = count - products.length;
+    if (remainder <= 0 || products.length !== 10) {
       dispatch(setHasMoreProducts(false));
     }
-    dispatch(setCategory(res.data.category));
-    dispatch(pushProducts(res.data.products));
+    dispatch(setCategory(category));
+    dispatch(pushProducts(products));
   });
 };
 
-export const getProductsFromVendor = (id, page) => (dispatch) => {
-  getProductsFromVendorAPI(id, page).then((res) => {
+export const getProductsFromVendor = (id, page, limit) => (dispatch) => {
+  getProductsFromVendorAPI(id, page, limit).then((res) => {
     if (res.ok === 0) {
       dispatch(setHasMoreProducts(false));
       return dispatch(setErrorMessage(res ? res.message : "something wrong"));
     }
-    if (res.data.products.length !== 10) {
+    let { vendorInfo, count, products } = res.data;
+    let remainder = count - products.length;
+    if (remainder <= 0 || products.length !== 10) {
       dispatch(setHasMoreProducts(false));
     }
-    dispatch(pushProducts(res.data.products));
-    dispatch(setProductCount(res.data.count));
+    dispatch(setVendorInfo(vendorInfo));
+    dispatch(pushProducts(products));
+    dispatch(setProductCount(count));
   });
 };
 
 export const searchProduct = (keyword, page, queue) => (dispatch) => {
   searchProductAPI(keyword, page, queue).then((res) => {
     if (res.ok === 0) {
-      if (res.message === "無更多商品") {
-        return dispatch(setHasMoreProducts(false));
-      }
       dispatch(setHasMoreProducts(false));
       return dispatch(setErrorMessage(res ? res.message : "something wrong"));
     }
-    if (res.data.length !== 10) {
+    let { count, products } = res.data;
+    let remainder = count - products.length;
+    if (remainder <= 0 || products.length !== 10) {
       dispatch(setHasMoreProducts(false));
     }
-    dispatch(pushProducts(res.data));
+    dispatch(pushProducts(products));
   });
 };
 
@@ -223,4 +234,5 @@ export const selectProductCount = (state) => state.product.productCount;
 export const selectHasMoreProducts = (state) => state.product.hasMoreProducts;
 export const selectPage = (state) => state.product.page;
 export const selectSort = (state) => state.product.sort;
+export const selectVendorInfo = (state) => state.product.vendorInfo;
 export default productSlice.reducer;
