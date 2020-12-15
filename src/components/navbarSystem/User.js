@@ -9,18 +9,18 @@ const UserContainer = styled.div`
   &:hover {
     & div {
       opacity: 1;
+      visibility: visible;
     }
   }
 `;
 
 const OptionWrapper = styled.div`
   z-index: 1;
-  display: block;
-
+  visibility: hidden;
   opacity: 0;
   transition: visibility 0s, opacity 0.2s linear;
   position: absolute;
-  top: 23px;
+  top: 30px;
   right: 0;
   &::before {
     content: '';
