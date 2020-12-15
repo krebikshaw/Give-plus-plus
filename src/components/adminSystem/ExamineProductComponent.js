@@ -24,6 +24,8 @@ const ProductTh = styled.th``;
 
 const ProductTd = styled.td`
   text-align: center;
+  max-width: 100px;
+  padding: 0 10px;
 `;
 
 const ProductImage = styled.img`

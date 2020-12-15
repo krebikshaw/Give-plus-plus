@@ -25,6 +25,8 @@ const ProductTh = styled.th``;
 
 const ProductTd = styled.td`
   text-align: center;
+  max-width: 100px;
+  padding: 0 10px;
   & a {
     justify-content: center;
   }

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import useUser from '../../hooks/userHooks/useUser';
 import { COLOR, FONT, DISTANCE, EFFECT } from '../../constants/style';
 import { ActionButton } from '../../components/Button';
+import { useNavigate } from 'react-router-dom';
 
 const SetPermissionContainer = styled.div`
   display: flex;
@@ -65,6 +66,7 @@ const PermissionSelector = ({ permissionState, setPermissionState }) => {
 };
 
 export default function SetPermissionComponent({ setSuccessMode }) {
+  const navigate = useNavigate();
   const { user, handleUpdatePermission } = useUser();
   const [permissionState, setPermissionState] = useState(0);
   const [permissionError, setPermissionError] = useState('');
@@ -78,6 +80,7 @@ export default function SetPermissionComponent({ setSuccessMode }) {
     handleUpdatePermission(data).then((result) => {
       if (result) return;
       setSuccessMode(true);
+      navigate(-1);
     });
   };
   useEffect(() => {

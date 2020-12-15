@@ -25,6 +25,8 @@ const UserTh = styled.th``;
 
 const UserTd = styled.td`
   text-align: center;
+  max-width: 100px;
+  padding: 0 10px;
   & a {
     justify-content: center;
   }
