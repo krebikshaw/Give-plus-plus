@@ -50,7 +50,7 @@ const SearchProductPage = () => {
     category,
     hasMoreProducts,
     productErrorMessage,
-    handleClickSearchMoreButton,
+    handleSearchProductMoreButton,
     handleChangeProductSort,
     handleGetSearchProduct,
   } = useProduct();
@@ -75,7 +75,7 @@ const SearchProductPage = () => {
           products={products}
           id={keyword}
           hasMoreProducts={hasMoreProducts}
-          handler={handleClickSearchMoreButton}
+          handler={handleSearchProductMoreButton}
           productErrorMessage={productErrorMessage}
         />
       </StandardNavPage>

@@ -39,7 +39,7 @@ const ProductPage = () => {
     category,
     hasMoreProducts,
     productErrorMessage,
-    handleClickVendorMoreButton,
+    handleVendorProductMoreButton,
     handleGetProduct,
   } = useProduct();
 
@@ -67,7 +67,7 @@ const ProductPage = () => {
               productId={id}
               vendorInfo={vendorInfo}
               hasMoreProducts={hasMoreProducts}
-              handler={handleClickVendorMoreButton}
+              handler={handleVendorProductMoreButton}
               productErrorMessage={productErrorMessage}
             />
           </PurchaseInfo>

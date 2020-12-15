@@ -37,7 +37,7 @@ const VendorShopPage = () => {
     products,
     hasMoreProducts,
     productErrorMessage,
-    handleClickVendorMoreButton,
+    handleVendorProductMoreButton,
     handleGetProductsFromVendor,
   } = useProduct();
   // console.log(vendorInfo);
@@ -72,7 +72,7 @@ const VendorShopPage = () => {
           products={products}
           id={id}
           hasMoreProducts={hasMoreProducts}
-          handler={handleClickVendorMoreButton}
+          handler={handleVendorProductMoreButton}
           productErrorMessage={productErrorMessage}
         />
       </StandardNavPage>

@@ -12,7 +12,7 @@ const ProductsWrap = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: ${(props) => props.$justify || 'space-between'};
+  justify-content: ${(props) => props.$justify || 'flex-start'};
 `;
 
 const ProductContainer = styled.div`
@@ -68,13 +68,15 @@ const ProductPrice = styled.div`
   font-size: ${FONT.xs};
   color: ${COLOR.text_2};
   text-align: center;
-
-  &:before {
-    content: 'NT$ ';
-  }
 `;
 
 const Product = ({ product, onLoad, loaded, $width, $height, $margin }) => {
+  const formatter = new Intl.NumberFormat('zh-TW', {
+    style: 'currency',
+    currency: 'NTD',
+    minimumFractionDigits: 0,
+  });
+
   return (
     <ProductContainer $width={$width} $height={$height} $margin={$margin}>
       <a href={`/products/${product.id}`}>
@@ -94,7 +96,7 @@ const Product = ({ product, onLoad, loaded, $width, $height, $margin }) => {
           {product.User.nickname}
         </a>
       </VendorName>
-      <ProductPrice>{product.price}</ProductPrice>
+      <ProductPrice>{formatter.format(product.price)}</ProductPrice>
     </ProductContainer>
   );
 };
@@ -105,8 +107,6 @@ export const Products = ({
   hasMoreProducts,
   handler,
   productErrorMessage,
-  filter,
-  productId,
   $width,
   $height,
   $margin,
@@ -114,42 +114,25 @@ export const Products = ({
   $justify,
 }) => {
   const { loaded, onLoad } = useProduct();
+
   return (
     <>
       <ProductsContainer $padding={$padding}>
         <ProductsWrap $justify={$justify}>
           <>
-            {filter === true
-              ? products
-                  .filter((product) => {
-                    return product.id !== Number(productId);
-                  })
-                  .map((product) => {
-                    return (
-                      <Product
-                        key={product.id}
-                        product={product}
-                        onLoad={onLoad}
-                        loaded={loaded}
-                        $width={$width}
-                        $height={$height}
-                        $margin={$margin}
-                      />
-                    );
-                  })
-              : products.map((product) => {
-                  return (
-                    <Product
-                      key={product.id}
-                      product={product}
-                      onLoad={onLoad}
-                      loaded={loaded}
-                      $width={$width}
-                      $height={$height}
-                      $margin={$margin}
-                    />
-                  );
-                })}
+            {products.map((product) => {
+              return (
+                <Product
+                  key={product.id}
+                  product={product}
+                  onLoad={onLoad}
+                  loaded={loaded}
+                  $width={$width}
+                  $height={$height}
+                  $margin={$margin}
+                />
+              );
+            })}
           </>
         </ProductsWrap>
       </ProductsContainer>

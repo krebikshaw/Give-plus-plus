@@ -24,6 +24,7 @@ import {
 } from '../../redux/slices/productSlice/productSlice';
 
 function averageTime(count, products) {
+  console.log('count:', count, 'products:', products);
   let totalTime = 0;
   for (let i = 0; i < count; i++) {
     totalTime += products[i].delivery_time;
@@ -50,11 +51,18 @@ export default function useProduct() {
   const averageShippingTime = averageTime(products.length, products);
   let page = useSelector(selectPage);
   const sort = useSelector(selectSort);
-  let tempProducts = products;
 
   const handleGetProduct = (id) => {
     dispatch(getProduct(id)).then((userId) => {
-      dispatch(getProductsFromVendor(userId, page, 4));
+      dispatch(getProductsFromVendor(userId, page, 4)).then((products) => {
+        let tempProducts = products.filter((product) => {
+          return product.id !== Number(id);
+        });
+        if (tempProducts.length > 3) {
+          tempProducts.pop();
+        }
+        return dispatch(setProducts(tempProducts));
+      });
     });
   };
 
@@ -72,15 +80,15 @@ export default function useProduct() {
     dispatch(getProductsFromVendor(id, page, 10));
   };
 
-  const handleClickSearchMoreButton = (keyword) => {
+  const handleSearchProductMoreButton = (keyword) => {
     dispatch(searchProduct(keyword, ++page, sort));
   };
 
-  const handleClickVendorMoreButton = (id) => {
+  const handleVendorProductMoreButton = (id) => {
     dispatch(getProductsFromVendor(id, ++page, 10));
   };
 
-  const handleClickCategoryMoreButton = (id) => {
+  const handleCategoryProductMoreButton = (id) => {
     dispatch(getProductsFromCategory(id, ++page, sort));
   };
 
@@ -109,9 +117,9 @@ export default function useProduct() {
     productErrorMessage,
     handleGetProduct,
     handleGetSearchProduct,
-    handleClickSearchMoreButton,
-    handleClickVendorMoreButton,
-    handleClickCategoryMoreButton,
+    handleSearchProductMoreButton,
+    handleVendorProductMoreButton,
+    handleCategoryProductMoreButton,
     handleGetProductCategories,
     handleGetProductFromCategory,
     handleGetProductsFromVendor,

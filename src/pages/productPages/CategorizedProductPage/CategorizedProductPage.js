@@ -44,7 +44,7 @@ const CategorizedProductPage = () => {
     category,
     hasMoreProducts,
     productErrorMessage,
-    handleClickCategoryMoreButton,
+    handleCategoryProductMoreButton,
     handleGetProductFromCategory,
     handleChangeProductSort,
   } = useProduct();
@@ -73,7 +73,7 @@ const CategorizedProductPage = () => {
           products={products}
           id={id}
           hasMoreProducts={hasMoreProducts}
-          handler={handleClickCategoryMoreButton}
+          handler={handleCategoryProductMoreButton}
           productErrorMessage={productErrorMessage}
         />
       </StandardNavPage>
