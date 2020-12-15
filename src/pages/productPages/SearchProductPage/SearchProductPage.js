@@ -4,13 +4,9 @@ import { StandardNavPage } from '../../../components/Page';
 import { COLOR, FONT } from '../../../constants/style';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import useProduct from '../../../hooks/productHooks/useProduct';
-import {
-  Products,
-  MoreButton,
-  ProductSort,
-} from '../../../components/productSystem';
+import { Products, ProductSort } from '../../../components/productSystem';
 import {
   setProducts,
   setErrorMessage,
@@ -47,7 +43,6 @@ const SearchProductPage = () => {
   const { keyword } = useParams();
   const {
     products,
-    category,
     hasMoreProducts,
     productErrorMessage,
     handleSearchProductMoreButton,
@@ -62,7 +57,7 @@ const SearchProductPage = () => {
       dispatch(setErrorMessage(null));
       dispatch(setHasMoreProducts(true));
     };
-  }, []);
+  }, [keyword, dispatch]);
   return (
     <>
       <Navbar />

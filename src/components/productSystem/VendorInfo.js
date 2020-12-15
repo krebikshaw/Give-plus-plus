@@ -104,7 +104,6 @@ const InfoItemBlock = styled(InfoBlock)`
 
 const VendorInfoItem = () => {
   const { averageShippingTime, productCount } = useProduct();
-  console.log('averageShippingTime', averageShippingTime);
   return (
     <InfoWrap>
       <InfoItem>

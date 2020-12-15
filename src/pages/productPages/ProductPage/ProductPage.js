@@ -11,6 +11,7 @@ import {
   PurchaseInfoRight,
 } from '../../../components/productSystem';
 import {
+  setProduct,
   setProducts,
   setCategory,
   setHasMoreProducts,
@@ -29,8 +30,8 @@ const PurchaseInfo = styled.section`
 `;
 
 const ProductPage = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { id } = useParams();
   const {
     product,
@@ -46,12 +47,13 @@ const ProductPage = () => {
   useEffect(() => {
     handleGetProduct(id);
     return () => {
+      dispatch(setProduct([]));
       dispatch(setProducts([]));
       dispatch(setCategory([]));
       dispatch(setErrorMessage(null));
       dispatch(setHasMoreProducts(true));
     };
-  }, []);
+  }, [id, dispatch]);
   return (
     <>
       <Navbar />

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { COLOR, FONT, DISTANCE } from '../../../constants/style';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Navbar } from '../../../components';
 import { StandardNavPage } from '../../../components/Page';
@@ -28,7 +28,6 @@ const SellerProductTitle = styled.div`
 
 const VendorShopPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { id } = useParams();
   const {
     loaded,
@@ -40,7 +39,6 @@ const VendorShopPage = () => {
     handleVendorProductMoreButton,
     handleGetProductsFromVendor,
   } = useProduct();
-  // console.log(vendorInfo);
 
   useEffect(() => {
     handleGetProductsFromVendor(id, 1);
@@ -49,7 +47,7 @@ const VendorShopPage = () => {
       dispatch(setErrorMessage(null));
       dispatch(setHasMoreProducts(true));
     };
-  }, []);
+  }, [id, dispatch]);
 
   return (
     <>

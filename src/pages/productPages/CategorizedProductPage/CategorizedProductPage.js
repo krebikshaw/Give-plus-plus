@@ -59,7 +59,7 @@ const CategorizedProductPage = () => {
       dispatch(setErrorMessage(null));
       dispatch(setHasMoreProducts(true));
     };
-  }, []);
+  }, [id, dispatch]);
   return (
     <>
       <Navbar />
