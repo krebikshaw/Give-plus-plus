@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import useUser from '../../hooks/userHooks/useUser';
 import IconComponent from '../Icon';
-import { COLOR, EFFECT } from '../../constants/style';
+import { COLOR, DISTANCE, FONT } from '../../constants/style';
 
-const SettingContainer = styled.div`
+const UserContainer = styled.div`
   position: relative;
   &:hover {
     & div {
@@ -52,37 +51,41 @@ const OptionInner = styled.div`
   padding-top: 9px;
   z-index: 1;
   position: relative;
-  width: 100px;
+  width: 200px;
   background: ${COLOR.bg_primary};
 `;
 
 const OptionList = styled.ul`
   border: 1px solid #e5e5e6;
+  border-radius: 5px;
+  padding: 30px 30px 50px 30px;
+  display: flex;
+  justify-content: center;
 `;
 
-const OptionItem = styled.li``;
+const OptionItem = styled.li`
+  margin: ${DISTANCE.xs} 0;
+`;
 
-export default function Setting() {
-  const [nickname, setNickname] = useState('');
-  const { handleGetMe } = useUser();
+const OptionName = styled.p`
+  color: ${COLOR.black};
+  font-size: ${FONT.xs};
+  cursor: pointer;
+`;
 
-  useEffect(() => {
-    handleGetMe().then((result) => {
-      if (!result || result.ok === 0) return;
-      setNickname(result.data.nickname);
-    });
-  }, []);
-
+export default function Notification() {
   return (
-    <SettingContainer>
-      <IconComponent kind={'setting'} />
+    <UserContainer>
+      <IconComponent kind={'bell'} />
       <OptionWrapper>
         <OptionInner>
           <OptionList>
-            <OptionItem>設定</OptionItem>
+            <OptionItem>
+              <OptionName>暫無新通知</OptionName>
+            </OptionItem>
           </OptionList>
         </OptionInner>
       </OptionWrapper>
-    </SettingContainer>
+    </UserContainer>
   );
 }

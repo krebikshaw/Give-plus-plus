@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Nav, NormalButton } from './Button';
-import { User, Cart, Setting } from './navbarSystem';
+import { User, Cart, Notification } from './navbarSystem';
 import { Logo, IconComponent, SearchBar, CategoryItemBox } from '../components';
 import { useLocation } from 'react-router-dom';
+import useUser from '../hooks/userHooks/useUser';
 import useProduct from '../hooks/productHooks/useProduct';
 import useLogout from '../hooks/userHooks/useLogout';
 import {
@@ -63,11 +64,22 @@ const Navbar = () => {
   const currentPath = location.pathname;
   const userId = useSelector(selectUserId);
   const isUserLoading = useSelector(selectIsUserLoading);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const { handleGetMe } = useUser();
+
+  const handleClickLogout = () => {
+    handleLogout();
+    setIsAdmin(false);
+  };
 
   useEffect(() => {
     if (currentPath === '/' || currentPath.includes('products')) {
       handleGetProductCategories();
     }
+    handleGetMe().then((result) => {
+      if (!result || result.ok === 0 || !result.data) return;
+      setIsAdmin(result.data.is_admin);
+    });
   }, []);
 
   return (
@@ -84,11 +96,12 @@ const Navbar = () => {
 
         <RightSide>
           <OptionList>
+            {isAdmin && <Nav children={'管理後台'} path={'/admin'} />}
             {userId && (
               <>
                 <User />
                 <Cart />
-                <Setting />
+                <Notification />
                 <IconComponent kind={'moon'} />
               </>
             )}
@@ -97,7 +110,7 @@ const Navbar = () => {
             ) : (
               <>
                 {userId && (
-                  <NormalButton children='登出' onClick={handleLogout} />
+                  <NormalButton children='登出' onClick={handleClickLogout} />
                 )}
                 {!userId && <Nav children={'登入 / 註冊'} path={'/entrance'} />}
               </>

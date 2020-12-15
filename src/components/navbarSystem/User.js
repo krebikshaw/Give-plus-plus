@@ -53,14 +53,14 @@ const OptionInner = styled.div`
   padding-top: 9px;
   z-index: 1;
   position: relative;
-  width: 140px;
+  width: 150px;
   background: ${COLOR.bg_primary};
 `;
 
 const OptionList = styled.ul`
   border: 1px solid #e5e5e6;
   border-radius: 5px;
-  padding: 5px 15px 15px 15px;
+  padding: 10px 30px 20px 30px;
 `;
 
 const OptionItem = styled.li`
@@ -96,7 +96,11 @@ export default function User() {
       <OptionWrapper>
         <OptionInner>
           <OptionList>
-            {nickname && <OptionItem>{nickname}</OptionItem>}
+            {nickname && (
+              <OptionItem style={{ color: COLOR.text_1, margin: '15px 0' }}>
+                {nickname}
+              </OptionItem>
+            )}
             <OptionItem>
               <OptionName onClick={() => navigate('/users/me')}>
                 編輯個人資料

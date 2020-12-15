@@ -1,5 +1,5 @@
 import User from './User';
 import Cart from './Cart';
-import Setting from './Setting';
+import Notification from './Notification';
 
-export { User, Cart, Setting };
+export { User, Cart, Notification };
