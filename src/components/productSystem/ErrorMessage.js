@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { COLOR, FONT } from "../../constants/style";
+import styled from 'styled-components';
+import { COLOR, FONT } from '../../constants/style';
 
 const ErrorMessageContainer = styled.div`
   display: flex;
@@ -7,7 +7,7 @@ const ErrorMessageContainer = styled.div`
   align-items: center;
   font-size: ${FONT.lg};
   font-weight: bold;
-  color: ${COLOR.text_alert};
+  color: ${COLOR.hover};
 `;
 
 export const ErrorMessage = ({ productErrorMessage }) => {

@@ -16,10 +16,6 @@ const ProductPrice = styled.div`
   font-weight: bold;
   font-size: ${FONT.xs};
   color: ${COLOR.text_1};
-
-  &:before {
-    content: 'NT$ ';
-  }
 `;
 
 const ProductQuantityContainer = styled.div`
@@ -95,10 +91,16 @@ const Remind = () => {
 };
 
 export const ProductInfo = ({ product }) => {
+  const formatter = new Intl.NumberFormat('zh-TW', {
+    style: 'currency',
+    currency: 'NTD',
+    minimumFractionDigits: 0,
+  });
+
   return (
     <>
-      <ProductName>{product.name}</ProductName>
-      <ProductPrice>{product.price}</ProductPrice>
+      <ProductName>{product.name || '商品載入中...'}</ProductName>
+      <ProductPrice>{formatter.format(product.price)}</ProductPrice>
       <ProductQuantitySelector quantity={product.quantity} />
       <ShoppingCart $margin={0} $size={'lg'}>
         放 入 購 物 車

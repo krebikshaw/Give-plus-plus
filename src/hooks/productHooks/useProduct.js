@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   setProducts,
   setHasMoreProducts,
@@ -16,11 +16,11 @@ import {
   selectErrorMessage,
   searchProduct,
   getProduct,
+  getProducts,
   getProductCategories,
   getProductsFromCategory,
   getProductsFromVendor,
   selectHasMoreProducts,
-  setPage,
 } from '../../redux/slices/productSlice/productSlice';
 
 function averageTime(count, products) {
@@ -36,6 +36,7 @@ export default function useProduct() {
   const onLoad = () => {
     setLoaded(true);
   };
+  const navigate = useNavigate();
   const location = useLocation();
   const currentPage = location.pathname;
   const dispatch = useDispatch();
@@ -50,13 +51,27 @@ export default function useProduct() {
   const averageShippingTime = averageTime(products.length, products);
   let page = useSelector(selectPage);
   const sort = useSelector(selectSort);
-  let tempProducts = products;
 
   const handleGetProduct = (id) => {
-    dispatch(getProduct(id)).then((userId) => {
-      dispatch(getProductsFromVendor(userId, page, 4));
+    dispatch(getProduct(id)).then((res) => {
+      if (Number(res.product.status) !== 1) {
+        navigate('/');
+      }
+      dispatch(getProductsFromVendor(res.vendorInfo.id, page, 4)).then(
+        (products) => {
+          let tempProducts = products.filter((product) => {
+            return product.id !== Number(id);
+          });
+          if (tempProducts.length > 3) {
+            tempProducts.pop();
+          }
+          return dispatch(setProducts(tempProducts));
+        }
+      );
     });
   };
+
+  const handleGetProducts = (page) => dispatch(getProducts(page));
 
   const handleGetProductCategories = () => dispatch(getProductCategories());
 
@@ -69,18 +84,24 @@ export default function useProduct() {
   };
 
   const handleGetProductsFromVendor = (id) => {
-    dispatch(getProductsFromVendor(id, page, 10));
+    dispatch(getProductsFromVendor(id, page, 10)).then((res) => {
+      if (res === '非賣家') navigate('/');
+    });
   };
 
-  const handleClickSearchMoreButton = (keyword) => {
+  const handleGetProductsMoreButton = (page) => dispatch(getProducts(++page));
+
+  const handleSearchProductMoreButton = (keyword) => {
     dispatch(searchProduct(keyword, ++page, sort));
   };
 
-  const handleClickVendorMoreButton = (id) => {
-    dispatch(getProductsFromVendor(id, ++page, 10));
+  const handleVendorProductMoreButton = (id) => {
+    dispatch(getProductsFromVendor(id, ++page, 10)).then((res) => {
+      if (res === '非賣家') navigate('/');
+    });
   };
 
-  const handleClickCategoryMoreButton = (id) => {
+  const handleCategoryProductMoreButton = (id) => {
     dispatch(getProductsFromCategory(id, ++page, sort));
   };
 
@@ -107,11 +128,13 @@ export default function useProduct() {
     category,
     productCount,
     productErrorMessage,
+    handleGetProducts,
     handleGetProduct,
     handleGetSearchProduct,
-    handleClickSearchMoreButton,
-    handleClickVendorMoreButton,
-    handleClickCategoryMoreButton,
+    handleGetProductsMoreButton,
+    handleSearchProductMoreButton,
+    handleVendorProductMoreButton,
+    handleCategoryProductMoreButton,
     handleGetProductCategories,
     handleGetProductFromCategory,
     handleGetProductsFromVendor,

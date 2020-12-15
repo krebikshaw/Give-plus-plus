@@ -10,7 +10,6 @@ export const PurchaseInfoRight = ({
   product,
   products,
   id,
-  productId,
   hasMoreProducts,
   handler,
   productErrorMessage,
@@ -20,10 +19,8 @@ export const PurchaseInfoRight = ({
     <PurchaseInfoRightContainer>
       <ProductInfo product={product} />
       <VendorIntro
-        product={product}
         products={products}
         id={id}
-        productId={productId}
         vendorInfo={vendorInfo}
         hasMoreProducts={hasMoreProducts}
         handler={handler}
