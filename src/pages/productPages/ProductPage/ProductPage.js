@@ -19,7 +19,7 @@ import {
 } from '../../../redux/slices/productSlice/productSlice';
 
 const ProductInfoContainer = styled.section`
-  margin-top: 220px;
+  margin-top: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
