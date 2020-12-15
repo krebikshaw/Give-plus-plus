@@ -3,6 +3,7 @@ import Form from './Form';
 import Title from './Title';
 import Modal from './Modal';
 import FaqBox from './FaqBox';
+import GoalBox from './GoalBox';
 import JoinButton from './JoinButton';
 import JoinInput from './JoinInput';
 import NavButton from './NavButton';
@@ -13,6 +14,7 @@ export {
   Form,
   Modal,
   Title,
+  GoalBox,
   JoinInput,
   JoinButton,
   NavButton,
