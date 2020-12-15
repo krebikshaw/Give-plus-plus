@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useUser from '../../hooks/userHooks/useUser';
 import IconComponent from '../Icon';
-import { COLOR, EFFECT } from '../../constants/style';
+import { COLOR, DISTANCE, EFFECT, FONT } from '../../constants/style';
+import { useNavigate } from 'react-router-dom';
 
 const UserContainer = styled.div`
   position: relative;
@@ -52,23 +53,39 @@ const OptionInner = styled.div`
   padding-top: 9px;
   z-index: 1;
   position: relative;
-  width: 100px;
+  width: 140px;
   background: ${COLOR.bg_primary};
 `;
 
 const OptionList = styled.ul`
   border: 1px solid #e5e5e6;
+  border-radius: 5px;
+  padding: 5px 15px 15px 15px;
 `;
 
-const OptionItem = styled.li``;
+const OptionItem = styled.li`
+  margin: ${DISTANCE.xs} 0;
+`;
+
+const OptionName = styled.p`
+  color: ${COLOR.black};
+  font-size: ${FONT.xs};
+  cursor: pointer;
+  &:hover {
+    color: ${COLOR.btn_primary};
+  }
+`;
 
 export default function User() {
+  const navigate = useNavigate();
   const [nickname, setNickname] = useState('');
+  const [isVendor, setIsVendor] = useState(false);
   const { handleGetMe } = useUser();
 
   useEffect(() => {
     handleGetMe().then((result) => {
       if (!result || result.ok === 0) return;
+      setIsVendor(result.data.is_vendor);
       setNickname(result.data.nickname);
     });
   }, []);
@@ -80,7 +97,30 @@ export default function User() {
         <OptionInner>
           <OptionList>
             {nickname && <OptionItem>{nickname}</OptionItem>}
-            <OptionItem>2</OptionItem>
+            <OptionItem>
+              <OptionName onClick={() => navigate('/users/me')}>
+                編輯個人資料
+              </OptionName>
+            </OptionItem>
+            <OptionItem>
+              <OptionName onClick={() => navigate('/orders/client')}>
+                購買訂單
+              </OptionName>
+            </OptionItem>
+            {isVendor && (
+              <OptionItem>
+                <OptionName onClick={() => navigate('/orders/vendor')}>
+                  銷售訂單
+                </OptionName>
+              </OptionItem>
+            )}
+            {isVendor && (
+              <OptionItem>
+                <OptionName onClick={() => navigate('/users/backstage')}>
+                  賣家後台
+                </OptionName>
+              </OptionItem>
+            )}
           </OptionList>
         </OptionInner>
       </OptionWrapper>

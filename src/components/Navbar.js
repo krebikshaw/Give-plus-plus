@@ -84,13 +84,14 @@ const Navbar = () => {
 
         <RightSide>
           <OptionList>
-            <User />
-            {/* <Cart /> */}
-            {/* <Setting /> */}
-            <IconComponent kind={'user-circle'} />
-            <IconComponent kind={'shopping-cart'} />
-            <IconComponent kind={'setting'} />
-            <IconComponent kind={'moon'} />
+            {userId && (
+              <>
+                <User />
+                <Cart />
+                <Setting />
+                <IconComponent kind={'moon'} />
+              </>
+            )}
             {isUserLoading ? (
               <Empty />
             ) : (
