@@ -1,10 +1,8 @@
-import { COLOR } from "../../constants/style";
-import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { COLOR } from '../../constants/style';
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
-const BreadcrumbContainer = styled.section`
-  margin-top: 180px;
-`;
+const BreadcrumbContainer = styled.section``;
 
 const BreadcrumbRoute = styled.nav`
   display: block;
@@ -26,7 +24,7 @@ const BreadcrumbLi = styled.li`
       padding-right: 0.5rem;
       padding-left: 0.5rem;
       color: #6c757d;
-      content: "/";
+      content: '/';
     }
   }
 

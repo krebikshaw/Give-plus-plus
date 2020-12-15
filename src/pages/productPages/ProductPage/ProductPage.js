@@ -18,7 +18,13 @@ import {
 } from '../../../redux/slices/productSlice/productSlice';
 
 const ProductInfoContainer = styled.section`
-  margin-top: 20px;
+  margin-top: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const PurchaseInfo = styled.section`
   display: flex;
 `;
 
@@ -50,19 +56,21 @@ const ProductPage = () => {
     <>
       <Navbar />
       <StandardNavPage>
-        <Breadcrumb category={category} product={product} />
         <ProductInfoContainer>
-          <PurchaseInfoLeft product={product} />
-          <PurchaseInfoRight
-            product={product}
-            products={products}
-            id={vendorInfo.id}
-            productId={id}
-            vendorInfo={vendorInfo}
-            hasMoreProducts={hasMoreProducts}
-            handler={handleClickVendorMoreButton}
-            productErrorMessage={productErrorMessage}
-          />
+          <Breadcrumb category={category} product={product} />
+          <PurchaseInfo>
+            <PurchaseInfoLeft product={product} category={category} />
+            <PurchaseInfoRight
+              product={product}
+              products={products}
+              id={vendorInfo.id}
+              productId={id}
+              vendorInfo={vendorInfo}
+              hasMoreProducts={hasMoreProducts}
+              handler={handleClickVendorMoreButton}
+              productErrorMessage={productErrorMessage}
+            />
+          </PurchaseInfo>
         </ProductInfoContainer>
       </StandardNavPage>
     </>

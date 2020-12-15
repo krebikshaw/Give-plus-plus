@@ -1,13 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const BannerContainer = styled.div`
   position: relative;
   margin: 0 auto;
-  width: 1200px;
   height: 250px;
 
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
