@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import { COLOR } from "../../constants/style";
+import styled from 'styled-components';
+import { COLOR } from '../../constants/style';
 import {
   Products,
   InfoTitle,
   InfoItem,
   VendorInfo,
-} from "../../components/productSystem";
+} from '../../components/productSystem';
 
 const OtherProductWrap = styled(InfoItem)`
   padding-bottom: 0;
@@ -28,10 +28,8 @@ const MoreLink = styled.a`
 `;
 
 export const VendorIntro = ({
-  product,
   products,
   id,
-  productId,
   hasMoreProducts,
   handler,
   productErrorMessage,
@@ -41,24 +39,30 @@ export const VendorIntro = ({
     <>
       <InfoTitle>賣家</InfoTitle>
       <VendorInfo />
-      <OtherProductWrap>
-        <OtherProductTitle>賣家其他商品</OtherProductTitle>
-        <MoreLink href={`/products/vendor/${vendorInfo.id}`}>看更多</MoreLink>
-      </OtherProductWrap>
-      <Products
-        products={products}
-        id={id}
-        productId={productId}
-        hasMoreProducts={hasMoreProducts}
-        handler={handler}
-        productErrorMessage={productErrorMessage}
-        filter={true}
-        $padding={"20px 10px"}
-        $width={"150px"}
-        $height={"150px"}
-        $margin={"0 5px"}
-        $justify={"space-between"}
-      />
+      {products.length !== 0 ? (
+        <>
+          <OtherProductWrap>
+            <OtherProductTitle>賣家其他商品</OtherProductTitle>
+            <MoreLink href={`/products/vendor/${vendorInfo.id}`}>
+              看更多
+            </MoreLink>
+          </OtherProductWrap>
+          <Products
+            products={products}
+            id={id}
+            hasMoreProducts={hasMoreProducts}
+            handler={handler}
+            productErrorMessage={productErrorMessage}
+            $padding={'20px 10px'}
+            $width={'150px'}
+            $height={'150px'}
+            $margin={'0 5px'}
+            $justify={'space-between'}
+          />
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 };

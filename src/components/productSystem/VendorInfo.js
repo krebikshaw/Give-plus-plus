@@ -1,13 +1,12 @@
-import { COLOR, FONT } from "../../constants/style";
-import styled from "styled-components";
-import { ActionButton } from "../Button";
-import { useNavigate } from "react-router-dom";
-import useProduct from "../../hooks/productHooks/useProduct";
+import { COLOR, FONT } from '../../constants/style';
+import styled from 'styled-components';
+import { ActionButton } from '../Button';
+import useProduct from '../../hooks/productHooks/useProduct';
 import {
   InfoBlock,
   InfoItem,
   InfoItemTitle,
-} from "../../components/productSystem";
+} from '../../components/productSystem';
 
 const VendorInfoContainer = styled.div`
   display: flex;
@@ -32,7 +31,7 @@ const AvatarContainer = styled.div`
   height: 75px;
 
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -69,7 +68,7 @@ const Buttons = () => {
   return (
     <ButtonsContainer>
       <FollowButton $margin={0}>加入關注</FollowButton>
-      <ContactButton $margin={0} $bg={"red"}>
+      <ContactButton $margin={0} $bg={'red'}>
         聯絡賣家
       </ContactButton>
     </ButtonsContainer>
@@ -85,7 +84,7 @@ const InfoWrap = styled(InfoItem)`
     font-size: ${FONT.sm};
 
     &:after {
-      content: " : ";
+      content: ' : ';
     }
   }
 
@@ -122,7 +121,7 @@ const VendorInfoItem = () => {
       <InfoItem>
         <InfoItemTitle>平均出貨速度</InfoItemTitle>
         <InfoItemBlock>
-          {averageShippingTime ? `${averageShippingTime} 日內` : "暫無商品"}
+          {averageShippingTime ? `${averageShippingTime} 日內` : '暫無商品'}
         </InfoItemBlock>
       </InfoItem>
     </InfoWrap>
@@ -130,22 +129,18 @@ const VendorInfoItem = () => {
 };
 
 export const VendorInfo = () => {
-  const navigate = useNavigate();
   const { loaded, onLoad, vendorInfo } = useProduct();
-  const handleClickSeller = (id) => {
-    navigate(`/products/vendor/${id}`);
-    window.location.reload();
-  };
   return (
     <VendorInfoContainer>
       <VendorInfoTop>
         <AvatarContainer>
-          <VendorAvatar
-            src={vendorInfo.avatar_url}
-            style={{ opacity: loaded ? 1 : 0 }}
-            onLoad={onLoad}
-            onClick={() => handleClickSeller(vendorInfo.id)}
-          />
+          <a href={`/products/vendor/${vendorInfo.id}`}>
+            <VendorAvatar
+              src={vendorInfo.avatar_url}
+              style={{ opacity: loaded ? 1 : 0 }}
+              onLoad={onLoad}
+            />
+          </a>
         </AvatarContainer>
         <VendorName>{vendorInfo.nickname}</VendorName>
       </VendorInfoTop>

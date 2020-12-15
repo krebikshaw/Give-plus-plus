@@ -77,13 +77,19 @@ export const {
   setErrorMessage,
 } = productSlice.actions;
 
-export const getProducts = () => (dispatch) => {
-  getProductsAPI().then((res) => {
+export const getProducts = (page) => (dispatch) => {
+  getProductsAPI(page).then((res) => {
     if (res.ok === 0) {
+      dispatch(setHasMoreProducts(false));
       return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
-
-    dispatch(pushProducts(res.data.products));
+    let { count, products } = res.data;
+    let remainder = count - products.length;
+    if (remainder <= 0 || products.length !== 10) {
+      dispatch(setHasMoreProducts(false));
+    }
+    dispatch(pushProducts(products));
+    dispatch(setProductCount(count));
   });
 };
 
@@ -92,10 +98,10 @@ export const getProduct = (id) => (dispatch) => {
     if (res.ok === 0) {
       return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
-    let { vendorInfo, category, product } = res.data;
+    let { category, product } = res.data;
     dispatch(setProduct(product));
     dispatch(setCategory(category));
-    return vendorInfo.id;
+    return res.data;
   });
 };
 
@@ -116,10 +122,11 @@ export const getProductsFromCategory = (id, page, queue) => (dispatch) => {
 };
 
 export const getProductsFromVendor = (id, page, limit) => (dispatch) => {
-  getProductsFromVendorAPI(id, page, limit).then((res) => {
+  return getProductsFromVendorAPI(id, page, limit).then((res) => {
     if (res.ok === 0) {
       dispatch(setHasMoreProducts(false));
-      return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
+      dispatch(setErrorMessage(res ? res.message : 'something wrong'));
+      return res.message;
     }
     let { vendorInfo, count, products } = res.data;
     let remainder = count - products.length;
@@ -129,6 +136,7 @@ export const getProductsFromVendor = (id, page, limit) => (dispatch) => {
     dispatch(setVendorInfo(vendorInfo));
     dispatch(pushProducts(products));
     dispatch(setProductCount(count));
+    return products;
   });
 };
 
