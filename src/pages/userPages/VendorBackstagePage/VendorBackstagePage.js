@@ -77,43 +77,36 @@ const VendorBackstagePage = () => {
   }, []);
 
   return (
-    <>
-      <Navbar />
-      <StandardNavPage>
-        <Banner
-          banner={vendorInfo.banner_url}
-          loaded={loaded}
-          onLoad={onLoad}
+    <StandardNavPage>
+      <Banner banner={vendorInfo.banner_url} loaded={loaded} onLoad={onLoad} />
+      <SellerInfo
+        vendorInfo={vendorInfo}
+        products={products}
+        loaded={loaded}
+        onLoad={onLoad}
+      />
+      <ButtonContainer>
+        <NormalButton onClick={handleSetAnnouncement}>編輯公告</NormalButton>
+      </ButtonContainer>
+      {isSettingAnnouncement && (
+        <SetAnnouncementComponent
+          setIsSettingAnnouncement={setIsSettingAnnouncement}
         />
-        <SellerInfo
-          vendorInfo={vendorInfo}
-          products={products}
-          loaded={loaded}
-          onLoad={onLoad}
-        />
-        <ButtonContainer>
-          <NormalButton onClick={handleSetAnnouncement}>編輯公告</NormalButton>
-        </ButtonContainer>
-        {isSettingAnnouncement && (
-          <SetAnnouncementComponent
-            setIsSettingAnnouncement={setIsSettingAnnouncement}
-          />
-        )}
-        <Announcement announcement={user.announcement} />
+      )}
+      <Announcement announcement={user.announcement} />
 
-        <SellerProductTitle>
-          <p>刊登商品 </p>
-          <Nav children={'新增商品'} path={'/products/post'} />
-        </SellerProductTitle>
-        <Products
-          products={products}
-          id={id}
-          hasMoreProducts={hasMoreProducts}
-          handler={handleClickVendorMoreButton}
-          productErrorMessage={productErrorMessage}
-        />
-      </StandardNavPage>
-    </>
+      <SellerProductTitle>
+        <p>刊登商品 </p>
+        <Nav children={'新增商品'} path={'/products/post'} />
+      </SellerProductTitle>
+      <Products
+        products={products}
+        id={id}
+        hasMoreProducts={hasMoreProducts}
+        handler={handleClickVendorMoreButton}
+        productErrorMessage={productErrorMessage}
+      />
+    </StandardNavPage>
   );
 };
 
