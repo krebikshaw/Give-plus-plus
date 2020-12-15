@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Nav, NormalButton } from './Button';
+import { User, Cart, Setting } from './navbarSystem';
 import { Logo, IconComponent, SearchBar, CategoryItemBox } from '../components';
 import { useLocation } from 'react-router-dom';
 import useProduct from '../hooks/productHooks/useProduct';
@@ -83,6 +84,9 @@ const Navbar = () => {
 
         <RightSide>
           <OptionList>
+            <User />
+            {/* <Cart /> */}
+            {/* <Setting /> */}
             <IconComponent kind={'user-circle'} />
             <IconComponent kind={'shopping-cart'} />
             <IconComponent kind={'setting'} />
