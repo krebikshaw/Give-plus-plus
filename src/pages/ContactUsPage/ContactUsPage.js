@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { COLOR, FONT, DISTANCE } from '../../constants/style';
-import { Modal } from '../../components/general';
+import { Modal, Title } from '../../components/general';
 import { NormalButton } from '../../components/Button';
 import { InputComponent, TextAreaComponent } from '../../components/Input';
 import useSendMail from '../../hooks/generalHooks/useSendMail';
@@ -13,12 +13,6 @@ const Page = styled.div`
   height: calc(100vh - 65px);
   width: 100%;
   justify-items: center;
-`;
-
-const Title = styled.h1`
-  margin-bottom: ${DISTANCE.sm};
-  color: ${COLOR.text_2};
-  font-size: ${FONT.md};
 `;
 
 const ContactForm = styled.div`

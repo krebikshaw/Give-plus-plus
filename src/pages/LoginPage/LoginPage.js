@@ -2,23 +2,17 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { COLOR, FONT, DISTANCE } from '../../constants/style';
+import { COLOR, FONT } from '../../constants/style';
 import { ThickNavTwoColumnsPage } from '../../components/Page';
 import useLogin from '../../hooks/userHooks/useLogin';
 import {
+  Title,
   Column,
   BackgroundColumn,
   Form,
   JoinButton,
   JoinInput,
 } from '../../components/general/';
-
-const Title = styled.h1`
-  margin-bottom: ${DISTANCE.md};
-  font-size: ${FONT.lg};
-  font-weight: 400;
-  color: ${COLOR.text_2};
-`;
 
 const Description = styled.div`
   color: ${COLOR.text_2};
@@ -63,7 +57,7 @@ const LoginPage = () => {
       <ThickNavTwoColumnsPage>
         <Column>
           <Form>
-            <Title>以 Give++ 帳號登入</Title>
+            <Title $isLarge>以 Give++ 帳號登入</Title>
             <JoinInput
               title="帳號"
               type="username"
