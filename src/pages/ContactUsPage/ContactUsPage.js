@@ -4,6 +4,7 @@ import { COLOR, FONT, DISTANCE } from '../../constants/style';
 import { Modal, Title } from '../../components/general';
 import { NormalButton } from '../../components/Button';
 import { InputComponent, TextAreaComponent } from '../../components/Input';
+import { useDispatch } from 'react-redux';
 import useSendMail from '../../hooks/generalHooks/useSendMail';
 
 const Page = styled.div`
@@ -74,7 +75,6 @@ const ErrorMessage = styled.div`
 const Loading = styled.div``;
 
 const ContactUsPage = () => {
-  useEffect(() => window.scroll(0, 0), []);
   const {
     handleInputChange,
     handleSendMail,
@@ -89,8 +89,15 @@ const ContactUsPage = () => {
     isModalShowed,
     errorMessage,
     isUserLoading,
+    setErrorMessage,
   } = useSendMail();
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    window.scroll(0, 0);
+    dispatch(setErrorMessage(null));
+  }, []);
+  
   return (
     <>
       <Page>

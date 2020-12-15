@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { DISTANCE } from '../../constants/style';
 import { GoalBox, Title } from '../../components/general';
 import { Products } from '../../components/productSystem';
-import products from '../../fakeProducts'
+import products from '../../fakeProducts';
+import Carousel from 'nuka-carousel';
 
 const Page = styled.div`
   margin-top: 110px;
-  padding-top: 40px;
   height: fit-content;
   width: 100%;
 `;
@@ -26,10 +26,26 @@ const HomePage = () => {
   useEffect(() => window.scroll(0, 0), []);
   return (
     <Page>
+      <Carousel
+        autoplay={true}
+        wrapAround={true}
+        defaultControlsConfig={{
+          nextButtonText: '>',
+          prevButtonText: '<',
+          pagingDotsStyle: {
+            fill: 'white',
+            margin: '0 5px',
+          },
+        }}
+      >
+        <img src={process.env.PUBLIC_URL + '/homepage-banner1.jpg'} alt="" />
+        <img src={process.env.PUBLIC_URL + '/homepage-banner2.jpg'} alt="" />
+        <img src={process.env.PUBLIC_URL + '/homepage-banner3.jpg'} alt="" />
+      </Carousel>
       <Section>
         <Title $isLarge>最新商品</Title>
         <HomePageProducts>
-          <Products products={products} />
+          <Products products={products} $justify={'flex-start'} />
         </HomePageProducts>
       </Section>
       <GoalBox />

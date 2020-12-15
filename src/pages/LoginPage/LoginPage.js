@@ -48,9 +48,7 @@ const LoginPage = () => {
     setErrorMessage,
   } = useLogin();
 
-  useEffect(() => {
-    dispatch(setErrorMessage(null));
-  }, [dispatch, setErrorMessage]);
+  useEffect(() => dispatch(setErrorMessage(null)), [dispatch, setErrorMessage]);
 
   return (
     <>

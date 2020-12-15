@@ -90,5 +90,6 @@ export default function useSendMail() {
     isModalShowed,
     errorMessage,
     isUserLoading,
+    setErrorMessage,
   };
 }

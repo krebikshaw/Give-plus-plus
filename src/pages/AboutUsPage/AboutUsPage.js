@@ -37,6 +37,11 @@ const Avatar = styled.div`
   padding: ${DISTANCE.md} ${DISTANCE.lg};
   max-width: 33.333%;
   min-width: 220px;
+  transition: all 0.1s linear;
+  :hover {
+    transition: all 0.3s linear;
+    transform: translateY(-3%);
+  }
 `;
 
 const AvatarPicture = styled.img`

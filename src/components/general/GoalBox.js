@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { FONT, COLOR, DISTANCE } from '../../constants/style';
 
 const GoalSection = styled.div`
-  margin: ${DISTANCE.lg} 0;
+  margin: ${DISTANCE.md} 0;
   padding: ${DISTANCE.lg} 0;
   background: ${COLOR.bg_secondary};
   display: flex;
