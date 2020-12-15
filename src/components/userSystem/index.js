@@ -8,6 +8,9 @@ import VendorInfoForm from './VendorInfoForm';
 import SetQRCode from './SetQRCode';
 import SetBannerComponent from './SetBannerComponent';
 import SetPermissionComponent from './SetPermissionComponent';
+import SellerInfo from './SellerInfo';
+import SetAnnouncementComponent from './SetAnnouncementComponent';
+import Products from './Products';
 
 export {
   Announcement,
@@ -19,5 +22,8 @@ export {
   SetQRCode,
   SetBannerComponent,
   SetPermissionComponent,
+  SellerInfo,
+  SetAnnouncementComponent,
   WrapperMask,
+  Products,
 };

@@ -172,6 +172,20 @@ const applyForVendorAPI = () => {
   });
 };
 
+const updateAnnouncementAPI = (data) => {
+  const token = localStorage.getItem('token');
+  return fetch(`${BASE_URL}/users/announcement`, {
+    method: 'PATCH',
+    headers: {
+      'content-type': 'application/json',
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      announcement: data,
+    }),
+  }).then((res) => res.json());
+};
+
 export {
   getMeAPI,
   updateUserAPI,
@@ -183,4 +197,5 @@ export {
   getUserByIdAPI,
   updateUserInfoAPI,
   applyForVendorAPI,
+  updateAnnouncementAPI,
 };

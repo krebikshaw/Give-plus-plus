@@ -10,6 +10,7 @@ import {
   getUserByIdAPI,
   updateUserInfoAPI,
   applyForVendorAPI,
+  updateAnnouncementAPI,
 } from '../../../webAPI/userAPI';
 
 export const userSlice = createSlice({
@@ -54,7 +55,7 @@ export const updateUser = (data) => (dispatch) => {
       dispatch(setErrorMessage(result ? result.message : 'something wrong'));
       return result;
     }
-    getMe();
+    dispatch(getMe());
   });
 };
 
@@ -65,7 +66,7 @@ export const updatePassword = (data) => (dispatch) => {
       dispatch(setErrorMessage(result ? result.message : 'something wrong'));
       return result;
     }
-    getMe();
+    dispatch(getMe());
   });
 };
 
@@ -76,7 +77,7 @@ export const uploadAvatar = (data) => (dispatch) => {
       return dispatch(
         setErrorMessage(result ? result.message : 'something wrong')
       );
-    getMe();
+    dispatch(getMe());
     return result;
   });
 };
@@ -93,7 +94,7 @@ export const uploadBanner = (data) => (dispatch) => {
       return dispatch(
         setErrorMessage(result ? result.message : 'something wrong')
       );
-    getMe();
+    dispatch(getMe());
     return result;
   });
 };
@@ -138,6 +139,17 @@ export const applyForVendor = () => (dispatch) => {
       dispatch(setErrorMessage(result ? result.message : 'something wrong'));
       return result;
     }
+  });
+};
+
+export const updateAnnouncement = (data) => (dispatch) => {
+  dispatch(setErrorMessage(''));
+  return updateAnnouncementAPI(data).then((result) => {
+    if (!result || result.ok === 0) {
+      dispatch(setErrorMessage(result ? result.message : 'something wrong'));
+      return result;
+    }
+    dispatch(getMe());
   });
 };
 

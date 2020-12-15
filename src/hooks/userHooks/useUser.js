@@ -12,6 +12,7 @@ import {
   getUserById,
   updateUserInfo,
   applyForVendor,
+  updateAnnouncement,
 } from '../../redux/slices/userSlice/userSlice';
 
 export default function useUser() {
@@ -38,6 +39,8 @@ export default function useUser() {
     dispatch(updateUserInfo(id, data)).then((result) => result);
   const handleApplyForVendor = () =>
     dispatch(applyForVendor()).then((result) => result);
+  const handleUpdateAnnouncement = (data) =>
+    dispatch(updateAnnouncement(data)).then((result) => result);
 
   return {
     user,
@@ -51,6 +54,7 @@ export default function useUser() {
     handleGetUserById,
     handleUpdateUserInfo,
     handleApplyForVendor,
+    handleUpdateAnnouncement,
     errorMessage,
   };
 }
