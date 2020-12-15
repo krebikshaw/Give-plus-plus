@@ -19,7 +19,7 @@ const Container = styled.div`
   border-radius: 8px 8px;
   margin-bottom: 40px;
   position: absolute;
-  top: 35%;
+  top: 28%;
   right: 10%;
   transform: translate(20%, -10%);
 `;

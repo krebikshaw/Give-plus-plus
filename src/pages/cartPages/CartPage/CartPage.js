@@ -60,10 +60,6 @@ const CartPage = () => {
       <ThickNavPage>
         <Container>
           <Title>購物車</Title>
-          <SelectTotal>
-            <Check />
-            <Text>選擇全部</Text>
-          </SelectTotal>
             {carts && carts.map((cart) => <CartItem cart={cart} />)}
             <OrderPrice />
         </Container>
