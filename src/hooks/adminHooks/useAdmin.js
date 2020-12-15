@@ -37,6 +37,14 @@ export default function useAdmin() {
     dispatch(searchProducts(params)).then((result) => result);
   const handleGetMails = () => dispatch(getMails()).then((result) => result);
 
+  const formatter = new Intl.NumberFormat('zh-TW', {
+    style: 'currency',
+    currency: 'NTD',
+    minimumFractionDigits: 0,
+  });
+
+  const setThousandths = (price) => formatter.format(price);
+
   return {
     users,
     products,
@@ -50,5 +58,6 @@ export default function useAdmin() {
     handleGetProducts,
     handleSearchProducts,
     handleGetMails,
+    setThousandths,
   };
 }

@@ -42,6 +42,8 @@ const BottomContainer = styled.div`
 `;
 
 const ProductsItem = ({ product }) => {
+  const { setThousandths } = useAdmin();
+
   return (
     <ProductTr>
       <ProductTd>{product.id}</ProductTd>
@@ -50,7 +52,7 @@ const ProductsItem = ({ product }) => {
       </ProductTd>
       <ProductTd>{product.name}</ProductTd>
       <ProductTd>{product.Product_category.name}</ProductTd>
-      <ProductTd>{product.price}</ProductTd>
+      <ProductTd>{setThousandths(product.price)}</ProductTd>
       <ProductTd>{product.createdAt.split('T')[0]}</ProductTd>
       <ProductTd>
         {product.status === '0' && '待審查'}
