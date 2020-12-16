@@ -1,5 +1,5 @@
 import { BASE_URL } from '../constants/unit';
-import { getAuthToken } from "../hooks/orderHooks/useOrder";
+import { getAuthToken } from "../utils";
 
 export const getMe = () => {
   const token = getAuthToken();

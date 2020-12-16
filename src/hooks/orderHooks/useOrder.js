@@ -7,25 +7,16 @@ import {
   selectContent,
   selectDetailOrder,
   selectMask,
-} from "../../redux/slices/orderSlice/orderSlice";
-import {
-  useParams,
-} from "react-router-dom";
-import {
   cancelOrder,
   sentOrder,
   setMask,
   completeOrder,
   payOrder,
 } from "../../redux/slices/orderSlice/orderSlice";
-const TOKEN_NAME = "token";
+import {
+  useParams,
+} from "react-router-dom";
 
-export const setAuthToken = (token) => {
-  localStorage.setItem(TOKEN_NAME, token);
-};
-export const getAuthToken = () => {
-  return localStorage.getItem(TOKEN_NAME);
-};
 
 export default function useOrder() {
   const dispatch = useDispatch();
@@ -36,7 +27,11 @@ export default function useOrder() {
   const errorMessage = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
   const mask = useSelector(selectMask);
-
+  const formatter = new Intl.NumberFormat("zh-TW", {
+    style: "currency",
+    currency: "NTD",
+    minimumFractionDigits: 0,
+  });
   const order_number = detailOrder.map(
     (data) => Object.values(data)[11].order_number
   );
@@ -65,8 +60,15 @@ export default function useOrder() {
   );
   const handleCancelOrder = () => {
     dispatch(cancelOrder(id));
-    dispatch(setMask(true));
+    dispatch(setMask(false));
+     window.location.reload(true);
   };
+  const handleCloseModal = () => {
+    dispatch(setMask(false));
+  };
+   const handleModal = () => {
+     dispatch(setMask(true));
+   };
   const handleSentOrder = () => {
     dispatch(sentOrder(id));
     window.location.reload(true);
@@ -105,5 +107,8 @@ export default function useOrder() {
     handleSentOrder,
     handleCompleteOrder,
     handlePayOrder,
+    formatter,
+    handleModal,
+    handleCloseModal,
   };
 }

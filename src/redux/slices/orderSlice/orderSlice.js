@@ -12,7 +12,7 @@ import {
   completeOrder as completeOrderAPI,
   createOrder as createOrderAPI,
 } from "../../../webAPI/orderAPI.js";
-import { setAuthToken, getAuthToken } from "../../../hooks/orderHooks/useOrder";
+import { setAuthToken, getAuthToken } from "../../../utils";
 export const orderSlice = createSlice({
   name: "order",
   initialState: {

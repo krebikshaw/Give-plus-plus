@@ -8,7 +8,7 @@ import {
 } from "../../../redux/slices/orderSlice/orderSlice";
 import { Navbar } from "../../../components";
 import { ThickNavPage } from "../../../components/Page";
-import { getAuthToken} from "../../../hooks/orderHooks/useOrder";
+import { getAuthToken} from "../../../utils";
 import useOrder from "../../../hooks/orderHooks/useOrder";
 import {
   COLOR,
@@ -101,7 +101,7 @@ useEffect(() => {
               <NameContainer>
                 <Name>編號</Name>
                 <Name>成立日期</Name>
-                <Name>備註</Name>
+                <Name>總金額</Name>
                 <Name>狀態</Name>
               </NameContainer>
               {orders &&
