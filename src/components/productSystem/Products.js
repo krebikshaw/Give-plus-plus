@@ -80,7 +80,7 @@ const Product = ({ product, onLoad, loaded, $width, $height, $margin }) => {
     currency: 'NTD',
     minimumFractionDigits: 0,
   });
-  console.log(product);
+
   return (
     <ProductContainer $width={$width} $height={$height} $margin={$margin}>
       <a href={`/products/${product.id}`}>

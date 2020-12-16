@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Navbar } from '../../../components';
 import { StandardNavPage } from '../../../components/Page';
 import { COLOR, FONT } from '../../../constants/style';
 import styled from 'styled-components';
@@ -50,8 +49,8 @@ const CategorizedProductPage = () => {
   } = useProduct();
 
   if (productErrorMessage === '查無此分類') navigate('/');
-
   useEffect(() => {
+    window.scroll(0, 0);
     handleGetProductFromCategory(id, 1);
     return () => {
       dispatch(setProducts([]));
@@ -62,7 +61,6 @@ const CategorizedProductPage = () => {
   }, [id, dispatch]);
   return (
     <>
-      <Navbar />
       <StandardNavPage>
         <CategoryTitle
           id={id}

@@ -36,7 +36,6 @@ export const productSlice = createSlice({
       state.page = action.payload;
     },
     pushProducts: (state, action) => {
-      //console.log("action:", action);
       state.products.push(...action.payload);
     },
     setProducts: (state, action) => {
