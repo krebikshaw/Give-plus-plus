@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import IconComponent from '../Icon';
-import { Nav, ActionButton } from '../Button';
+import { Nav } from '../Button';
 import { COLOR, DISTANCE, EFFECT, FONT } from '../../constants/style';
 
 const UserContainer = styled.div`

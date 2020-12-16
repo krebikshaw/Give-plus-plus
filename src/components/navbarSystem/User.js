@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useUser from '../../hooks/userHooks/useUser';
 import IconComponent from '../Icon';
-import { COLOR, DISTANCE, EFFECT, FONT } from '../../constants/style';
+import { COLOR, DISTANCE, FONT } from '../../constants/style';
 import { useNavigate } from 'react-router-dom';
 
 const UserContainer = styled.div`

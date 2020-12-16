@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Nav, NormalButton } from './Button';
 import { User, Cart, Notification } from './navbarSystem';
-import { Logo, IconComponent, SearchBar, CategoryItemBox } from '../components';
+import { Logo, SearchBar, CategoryItemBox } from '../components';
 import { useLocation } from 'react-router-dom';
 import useUser from '../hooks/userHooks/useUser';
 import useProduct from '../hooks/productHooks/useProduct';
