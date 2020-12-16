@@ -4,22 +4,21 @@ import { MoreButton, ErrorMessage } from '../../components/productSystem/';
 import useProduct from '../../hooks/productHooks/useProduct';
 
 const ProductsContainer = styled.div`
-  padding: ${(props) => props.$padding || '50px 42px'};
+  padding: ${(props) => props.$padding || '50px 25px'};
 `;
 
 const ProductsWrap = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: ${(props) => props.$justify || 'flex-start'};
+  justify-content: ${(props) => props.$justify || 'center'};
 `;
 
 const ProductContainer = styled.div`
   position: relative;
   width: ${(props) => props.$width || '190px'};
   height: ${(props) => props.$height || '190px'};
-  margin: ${(props) => props.$margin || '0 18px'};
+  margin: ${(props) => props.$margin || '0 20px'};
   margin-bottom: 150px;
 
   &:before {
@@ -31,6 +30,11 @@ const ProductContainer = styled.div`
     width: 100%;
     background: url(${process.env.PUBLIC_URL}/logo-g.svg) center/cover;
   }
+`;
+
+const Placeholder = styled.div`
+  width: ${(props) => props.$width || '190px'};
+  margin: ${(props) => props.$margin || '0 20px'};
 `;
 
 const ProductPicture = styled.img`
@@ -76,7 +80,7 @@ const Product = ({ product, onLoad, loaded, $width, $height, $margin }) => {
     currency: 'NTD',
     minimumFractionDigits: 0,
   });
-
+  console.log(product);
   return (
     <ProductContainer $width={$width} $height={$height} $margin={$margin}>
       <a href={`/products/${product.id}`}>
@@ -114,7 +118,6 @@ export const Products = ({
   $justify,
 }) => {
   const { loaded, onLoad } = useProduct();
-
   return (
     <>
       <ProductsContainer $padding={$padding}>
@@ -134,6 +137,10 @@ export const Products = ({
               );
             })}
           </>
+          <Placeholder $width={$width} $margin={$margin} />
+          <Placeholder $width={$width} $margin={$margin} />
+          <Placeholder $width={$width} $margin={$margin} />
+          <Placeholder $width={$width} $margin={$margin} />
         </ProductsWrap>
       </ProductsContainer>
       {loaded && !productErrorMessage ? (
