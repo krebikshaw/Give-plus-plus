@@ -77,9 +77,7 @@ const navigate = useNavigate();
 const location = useLocation();
 const currentPath = location.pathname;
 const dispatch = useDispatch();
-const {
-  orders
-} = useOrder();
+const { orders, formatter } = useOrder();
 useEffect(() => {
   if (getAuthToken()) {
     dispatch(getUser());
@@ -113,7 +111,7 @@ useEffect(() => {
                     <Content>
                       {new Date(order.createdAt).toLocaleDateString()}
                     </Content>
-                    <Content>{order.content}</Content>
+                    <Content>{formatter.format(order.total_amount)}</Content>
                     <Content>
                       {order.is_canceled
                         ? "已取消"

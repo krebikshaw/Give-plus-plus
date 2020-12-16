@@ -41,16 +41,19 @@ export const getDetailOrder = (id) => {
     }).then((res) => res.json());
 }
 // 訂單取消
-export const cancelOrder = (id) => {
-   const token = getAuthToken();
-   return fetch(`${BASE_URL}/orders/${id}/cancel`, {
-     method: "PATCH",
-     headers: {
-       "content-type": "application/json",
-       authorization: `Bearer ${token}`,
-     },
-   }).then((res) => res.json());
-}
+export const cancelOrder = (id, cancelReason) => {
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/orders/${id}/cancel`, {
+    method: "PATCH",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      cancelReason,
+    }),
+  }).then((res) => res.json());
+};
 // 訂單出貨
 export const sentOrder = (id) => {
     const token = getAuthToken();

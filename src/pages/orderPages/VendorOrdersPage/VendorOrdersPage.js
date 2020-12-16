@@ -72,7 +72,7 @@ const Content = styled.td`
 `;
 const VendorOrdersPage = () => {
   const dispatch = useDispatch();
-  const { orders } = useOrder();
+  const { orders, formatter } = useOrder();
   useEffect(() => {
     if (getAuthToken()) {
       dispatch(getUser());
@@ -105,7 +105,7 @@ const VendorOrdersPage = () => {
                     <Content>
                       {new Date(order.createdAt).toLocaleDateString()}
                     </Content>
-                    <Content>{order.content}</Content>
+                    <Content>{formatter.format(order.total_amount)}</Content>
                     <Content>{order.is_sent ? "已出貨" : "未出貨"}</Content>
                   </ContentContainer>
                 ))}

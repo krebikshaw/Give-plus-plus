@@ -23,7 +23,7 @@ export const orderSlice = createSlice({
     errorMessage: null,
     userData: null,
     mask: false,
-    content: "",
+
   },
   reducers: {
     // reducer
@@ -45,9 +45,7 @@ export const orderSlice = createSlice({
     setMask: (state, action) => {
       state.mask = action.payload;
     },
-    setContent: (state, action) => {
-      state.content = action.payload;
-    },
+    
   },
 });
 
@@ -58,7 +56,6 @@ export const {
   setMask,
   setIsLoading,
   setOrder,
-  setContent,
   setDetailOrders,
 } = orderSlice.actions;
 
@@ -116,15 +113,13 @@ export const getDetailOrder = (id) => dispatch => {
     })
 }
 
-export const cancelOrder = (id) => dispatch => {
+export const cancelOrder = (id, cancelReason) => (dispatch) => {
   dispatch(setIsLoading(true));
-  return cancelOrderAPI(id)
-    .then((res) => {
-      dispatch(setIsLoading(false));
-      return res.data;
-    })
-  
-}
+  return cancelOrderAPI(id, cancelReason).then((res) => {
+    dispatch(setIsLoading(false));
+    return res.data;
+  });
+};
 
 export const sentOrder = (id) => dispatch => {
   dispatch(setIsLoading(true));
@@ -149,7 +144,6 @@ export const payOrder = (id) => (dispatch) => {
   });
 };
 
-export const selectContent = (state) => state.order.content;
 export const selectMask = (state) => state.order.mask;
 export const selectLoading = (state) => state.order.isLoading;
 export const selectError = (state) => state.order.errorMessage;

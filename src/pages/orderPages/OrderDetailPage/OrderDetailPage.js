@@ -28,7 +28,7 @@ const Title = styled.p`
   border-bottom: solid 1px ${COLOR.text_2};
 `;
 const Message = styled.p`
-  color: red;
+  color: #835858;
   font-size: ${FONT.md};
   width: 30%;
   padding: ${DISTANCE.xs};
@@ -232,8 +232,8 @@ const OrderDetailPage = () => {
     detailOrder,
     user,
     mask,
-    content,
     isLoading,
+    totalAmount,
     order_number,
     is_sent,
     is_paid,
@@ -251,6 +251,7 @@ const OrderDetailPage = () => {
     handlePayOrder,
     formatter,
     handleModal,
+    cancelReason,
   } = useOrder();
   let navigate = useNavigate();
   useEffect(() => {
@@ -308,10 +309,12 @@ const OrderDetailPage = () => {
             <ContentContainer>
               <Content></Content>
               <Content></Content>
-              <Content>小記</Content>
               <Content></Content>
+              <Content>小計</Content>
+              <Content>{formatter.format(totalAmount[0])}</Content>
             </ContentContainer>
             <ContentContainer>
+              <Content></Content>
               <Content></Content>
               <Content></Content>
               <Content>運費</Content>
@@ -320,8 +323,9 @@ const OrderDetailPage = () => {
             <ContentContainer>
               <Content></Content>
               <Content></Content>
+              <Content></Content>
               <Content>總額</Content>
-              <Content>500</Content>
+              <Content>{formatter.format(totalAmount[0])}</Content>
             </ContentContainer>
           </TotalTable>
           <PayTitle>付款方式及配送</PayTitle>
@@ -349,7 +353,7 @@ const OrderDetailPage = () => {
             <ContentContainer>
               <Content>備註</Content>
               <Content>
-                {detailOrder && is_canceled[0] ? content : null}
+                {detailOrder && is_canceled[0] ? cancelReason[0] : null}
               </Content>
               <Content>日期</Content>
               <Content>
