@@ -1,5 +1,5 @@
 import { BASE_URL } from '../constants/unit';
-import { getAuthToken } from "../hooks/cartHooks/useCart";
+import { getAuthToken } from "../utils";
 
 // 取得購物車內的商品
 export const getItem = () => {

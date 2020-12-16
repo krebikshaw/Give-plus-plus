@@ -2,16 +2,23 @@ import styled from "styled-components";
 import React, { useEffect } from "react";
 import { IconComponent } from "../../components";
 import { COLOR, FONT, DISTANCE, MEDIA_QUERY_MD } from "../../constants/style";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import ChooseQuantity from "./ChooseQuantity";
-
+import useOrder from "../../hooks/orderHooks/useOrder";
 import cartOrder from "../../hooks/cartHooks/useCart";
+import { LoopCircleLoading } from "react-loadingg";
+import {
+  getUser,
+} from "../../redux/slices/orderSlice/orderSlice";
 import {
   getCartItem,
   updateCartItem,
   deleteCartItem,
   deleteCartItemsBySeller,
+  addCurrentQuantity,
+  minusCurrentQuantity,
+ 
 } from "../../redux/slices/cartSlice/cartSlice";
 const CartInfo = styled.div`
   display: flex;
@@ -40,22 +47,46 @@ const Price = styled.p`
   color: ${COLOR.text_1};
   font-size: ${FONT.sm};
 `;
+const Container = styled.div`
+  
+`;
+const LoadingBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: ${COLOR.bg_mask};
+  z-index: 2;
+`;
 export default function ItemDetail({Items}) {
-  const { id } = useParams();
   const dispatch = useDispatch();
-  const { carts, errorMessage, isLoading } = cartOrder();
-   const handleDelete = (id) => {
-     dispatch(deleteCartItem(id));
-   };
+  const navigate = useNavigate();
+  const {
+    user,
+  } = useOrder();
+  const { carts, errorMessage, isLoading, handleDelete } = cartOrder();
+ 
+   
+   
   return (
-    <CartInfo>
-      <Photo>
-        <PhotoImg src={Items.pictureUrl}></PhotoImg>
-      </Photo>
-      <ProductName>{Items.productName}</ProductName>
-      <ChooseQuantity Items={Items} />
-      <Price>NT${Items.price}</Price>
-      <IconComponent kind={"delete"} onClick={() => handleDelete(id)} />
-    </CartInfo>
+    <>
+      {isLoading && (
+        <LoadingBackground>
+          <LoopCircleLoading />;
+        </LoadingBackground>
+      )}
+      <CartInfo>
+        <Photo>
+          <PhotoImg src={Items.pictureUrl}></PhotoImg>
+        </Photo>
+        <ProductName>{Items.productName}</ProductName>
+        <ChooseQuantity Items={Items} />
+        <Price>NT${Items.price}</Price>
+        <Container onClick={() => handleDelete(Items.cartItemId)}>
+          <IconComponent kind={"delete"} />
+        </Container>
+      </CartInfo>
+    </>
   );
 }

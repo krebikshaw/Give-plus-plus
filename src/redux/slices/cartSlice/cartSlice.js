@@ -36,7 +36,7 @@ export const {
   setErrorMessage,
   setCart,
   setIsLoading,
- 
+  
 } = cartSlice.actions;
 
 export const getCartItem = () => (dispatch) => {
@@ -57,9 +57,10 @@ export const addCartItem = (productId, quantity) => (dispatch) => {
     return res;
   });
 };
-export const updateCartItem = (quantity) => (dispatch) => {
+export const addQuantity = (quantity) => (dispatch) => {
   dispatch(setIsLoading(true));
   return updateItem(quantity).then((res) => {
+    quantity += 1
     dispatch(setIsLoading(false));
     return res;
   });
@@ -67,7 +68,6 @@ export const updateCartItem = (quantity) => (dispatch) => {
 export const deleteCartItem = (id) => (dispatch) => {
   dispatch(setIsLoading(true));
   return deleteItem(id).then((res) => {
-    console.log(res);
     dispatch(setIsLoading(false));
     return res;
   });
@@ -79,6 +79,7 @@ export const deleteCartItemsBySeller = (id) => (dispatch) => {
     return res;
   });
 };
+
 
 
 export const selectError = (state) => state.cart.errorMessage;

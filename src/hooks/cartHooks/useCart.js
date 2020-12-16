@@ -4,25 +4,29 @@ import {
   selectCart,
   selectError,
   selectLoading,
-
+  deleteCartItemsBySeller,
+  deleteCartItem,
 } from "../../redux/slices/cartSlice/cartSlice";
 const TOKEN_NAME = "token";
-export const setAuthToken = (token) => {
-  localStorage.setItem(TOKEN_NAME, token);
-};
-export const getAuthToken = () => {
-  return localStorage.getItem(TOKEN_NAME);
-};
+
 
 export default function useCart() {
   const dispatch = useDispatch();
-  const { id } = useParams();
+
   const carts = useSelector(selectCart);
   const errorMessage = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
+  const handleDelete = (id) => {
+    dispatch(deleteCartItem(id));
+    window.location.reload();
+  };
+  const handleDeleteSeller = (id) => {
+    dispatch(deleteCartItemsBySeller(id));
+    window.location.reload();
+  };
 
   
-  return { carts, errorMessage, isLoading };
+  return { carts, errorMessage, isLoading, handleDelete, handleDeleteSeller };
 }
 
 

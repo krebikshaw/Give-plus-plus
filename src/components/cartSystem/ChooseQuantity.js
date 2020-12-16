@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import cartOrder from "../../hooks/cartHooks/useCart";
 import {
   getCartItem,
-  updateCartItem,
+  addQuantity,
   deleteCartItem,
   deleteCartItemsBySeller,
 } from "../../redux/slices/cartSlice/cartSlice";
@@ -23,16 +23,27 @@ const Wrapper = styled.div`
   display: flex;
 
 `;
+const Container = styled.div`
+  
+`;
+
 
 export default function ChooseQuantity({ Items }) {
   const dispatch = useDispatch();
   const { carts, errorMessage, isLoading } = cartOrder();
- 
+  const { cartItemId, cartQuantity } = Items;
+  const handlePlus = (cartItemId, cartQuantity) => {
+      dispatch(addQuantity(cartItemId, cartQuantity)); 
+  };
   return (
     <Wrapper>
-      <IconComponent kind={"minus"} />
+      <Container>
+        <IconComponent kind={"minus"} />
+      </Container>
       <Quantity>{Items.cartQuantity}</Quantity>
-      <IconComponent kind={"plus"} />
+      <Container onClick={() => handlePlus}>
+        <IconComponent kind={"plus"} />
+      </Container>
     </Wrapper>
   );
 }

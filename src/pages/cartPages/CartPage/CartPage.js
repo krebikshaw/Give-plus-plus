@@ -44,23 +44,19 @@ const SelectTotal = styled.label`
 
 `;
 
-const Text = styled.p`
-  color: ${COLOR.text_2};
-  font-size: ${FONT.sm};
-  margin-left: 10px;
 
-`;
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  useEffect(() => dispatch(getCartItem()), [dispatch]);
+  useEffect(() => dispatch(getCartItem()), []);
   const { carts} = useCart();
+  
   return (
     <>
       <ThickNavPage>
         <Container>
           <Title>購物車</Title>
-            {carts && carts.map((cart) => <CartItem cart={cart} />)}
+            {carts && carts.map((cart, index) => <CartItem key={index} cart={cart} />)}
             <OrderPrice />
         </Container>
       </ThickNavPage>

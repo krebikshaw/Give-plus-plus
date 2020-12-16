@@ -6,7 +6,7 @@ import { useParams, NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import ItemDetail from "./ItemDetail";
-import cartOrder from "../../hooks/cartHooks/useCart";
+import useCart from "../../hooks/cartHooks/useCart";
 import {
   getCartItem,
   updateCartItem,
@@ -71,15 +71,15 @@ const Select = styled.select`
   width: 15%;
   margin: 10px 0 10px 0;
 `;
+const IconContainer = styled.div`
+`;
 
 export default function CartItem({ cart }) {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { carts, errorMessage, isLoading } = cartOrder();
-   const handleDelete = (id) => {
-     dispatch(deleteCartItemsBySeller(id));
-   };
-
+  const { carts, errorMessage, isLoading, handleDeleteSeller } = useCart();
+  const SellerId = cart.cartDetail.map((data) => Object.values(data)[1]);
+  
   return (
     <Container>
       <Top>
@@ -87,10 +87,12 @@ export default function CartItem({ cart }) {
           <Check type="checkbox"></Check>
           <Name>{cart.sellerName}</Name>
         </Seller>
-        <IconComponent kind={"close"} onClick={() => handleDelete(id)} />
+        <IconContainer onClick={() => handleDeleteSeller(SellerId)}>
+          <IconComponent kind={"close"} />
+        </IconContainer>
       </Top>
       {cart.cartDetail.map((Items) => (
-        <ItemDetail Items={Items} />
+        <ItemDetail Items={Items} key={Items.productId} />
       ))}
       <SendDetail>
         <Hr />
