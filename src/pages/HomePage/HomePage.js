@@ -1,10 +1,15 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { DISTANCE } from '../../constants/style';
-import { GoalBox, Title } from '../../components/general';
+import { GoalBox, Title, CarouselBox } from '../../components/general';
+import { useDispatch } from 'react-redux';
 import { Products } from '../../components/productSystem';
-import products from '../../fakeProducts';
-import Carousel from 'nuka-carousel';
+import useProduct from '../../hooks/productHooks/useProduct';
+import {
+  setProducts,
+  setHasMoreProducts,
+  setErrorMessage,
+} from '../../redux/slices/productSlice/productSlice';
 
 const Page = styled.div`
   margin-top: 110px;
@@ -23,29 +28,37 @@ const HomePageProducts = styled.div`
 `;
 
 const HomePage = () => {
-  useEffect(() => window.scroll(0, 0), []);
+  const dispatch = useDispatch();
+  const {
+    products,
+    hasMoreProducts,
+    productErrorMessage,
+    handleGetProducts,
+    handleGetProductsMoreButton,
+  } = useProduct();
+
+  useEffect(() => {
+    window.scroll(0, 0);
+    handleGetProducts(1);
+    return () => {
+      dispatch(setProducts([]));
+      dispatch(setErrorMessage(null));
+      dispatch(setHasMoreProducts(true));
+    };
+  }, [dispatch]);
+
   return (
     <Page>
-      <Carousel
-        autoplay={true}
-        wrapAround={true}
-        defaultControlsConfig={{
-          nextButtonText: '>',
-          prevButtonText: '<',
-          pagingDotsStyle: {
-            fill: 'white',
-            margin: '0 5px',
-          },
-        }}
-      >
-        <img src={process.env.PUBLIC_URL + '/homepage-banner1.jpg'} alt="" />
-        <img src={process.env.PUBLIC_URL + '/homepage-banner2.jpg'} alt="" />
-        <img src={process.env.PUBLIC_URL + '/homepage-banner3.jpg'} alt="" />
-      </Carousel>
+      <CarouselBox />
       <Section>
         <Title $isLarge>最新商品</Title>
         <HomePageProducts>
-          <Products products={products} $justify={'flex-start'} />
+          <Products
+            products={products}
+            hasMoreProducts={hasMoreProducts}
+            handler={handleGetProductsMoreButton}
+            productErrorMessage={productErrorMessage}
+          />
         </HomePageProducts>
       </Section>
       <GoalBox />

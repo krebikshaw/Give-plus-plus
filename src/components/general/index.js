@@ -7,6 +7,7 @@ import GoalBox from './GoalBox';
 import JoinButton from './JoinButton';
 import JoinInput from './JoinInput';
 import NavButton from './NavButton';
+import CarouselBox from './CarouselBox';
 import FaqCategoryBox from './FaqCategoryBox';
 import SocialMediaButton from './SocialMediaButton';
 
@@ -15,6 +16,7 @@ export {
   Modal,
   Title,
   GoalBox,
+  CarouselBox,
   JoinInput,
   JoinButton,
   NavButton,
