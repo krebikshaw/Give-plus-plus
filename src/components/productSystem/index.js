@@ -18,6 +18,7 @@ import { VendorIntro } from './VendorIntro';
 import { PurchaseInfoRight } from './PurchaseInfoRight';
 import { VendorInfo } from './VendorInfo';
 import { VendorContactComponent } from './VendorContactComponent';
+import { SetAvatarComponent } from './SetAvatarComponent';
 
 export {
   Banner,
@@ -38,4 +39,5 @@ export {
   PurchaseInfoRight,
   VendorInfo,
   VendorContactComponent,
+  SetAvatarComponent,
 };
