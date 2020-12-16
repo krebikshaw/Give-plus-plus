@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import IconComponent from '../Icon';
-import { Nav } from '../Button';
+import { Nav, ActionButton } from '../Button';
 import { COLOR, DISTANCE, EFFECT, FONT } from '../../constants/style';
 
 const UserContainer = styled.div`
@@ -60,6 +60,10 @@ const OptionList = styled.ul`
   border: 1px solid #e5e5e6;
   border-radius: 5px;
   padding: 10px 0 20px 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const OptionItem = styled.li`
@@ -74,8 +78,9 @@ const OptionItem = styled.li`
 `;
 
 const CartDetail = styled.li`
+  width: 100%;
   padding: 10px 15px;
-  background: #6dd0cd30;
+  background: #6dd0cd17;
 `;
 
 const VendorName = styled.p`
@@ -103,6 +108,18 @@ const ProductName = styled.p``;
 
 const ProductPrice = styled.p``;
 
+const TotalPrice = styled.p`
+  text-align: right;
+  color: ${COLOR.text_alert};
+  & span {
+    color: ${COLOR.black};
+  }
+`;
+
+const CartBottom = styled.div`
+  margin-top: 15px;
+`;
+
 const CartItem = ({ cartItem }) => {
   const formatter = new Intl.NumberFormat('zh-TW', {
     style: 'currency',
@@ -123,6 +140,13 @@ const CartItem = ({ cartItem }) => {
             </ProductInfo>
           </ProductItem>
         ))}
+
+        <TotalPrice>
+          <span>合計：</span>
+          {formatter.format(
+            cartItem.cartDetail.reduce((acc, cur) => acc + cur.price, 0)
+          )}
+        </TotalPrice>
       </ProductsDetail>
     </CartDetail>
   );
@@ -217,11 +241,13 @@ export default function Cart() {
             <OptionList>
               <OptionItem>
                 <p>購物車</p>
-                <Nav children={'查看'} path={'/cart'} />
               </OptionItem>
               {cart.map((cartItem, index) => (
                 <CartItem cartItem={cartItem} key={index} />
               ))}
+              <CartBottom>
+                <Nav children={'前往結帳'} path={'/cart'} />
+              </CartBottom>
             </OptionList>
           ) : (
             <OptionList>

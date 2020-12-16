@@ -51,14 +51,14 @@ const OptionInner = styled.div`
   padding-top: 9px;
   z-index: 1;
   position: relative;
-  width: 200px;
+  width: 110px;
   background: ${COLOR.bg_primary};
 `;
 
 const OptionList = styled.ul`
   border: 1px solid #e5e5e6;
   border-radius: 5px;
-  padding: 30px 30px 50px 30px;
+  padding: 5px 15px 10px 15px;
   display: flex;
   justify-content: center;
 `;

@@ -102,7 +102,6 @@ const Navbar = () => {
                 <User />
                 <Cart />
                 <Notification />
-                <IconComponent kind={'moon'} />
               </>
             )}
             {isUserLoading ? (
