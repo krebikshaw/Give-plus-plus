@@ -8,7 +8,7 @@ const WrapperMask = styled.div`
   right: 0;
   bottom: 0;
   background: ${COLOR.bg_mask};
-  z-index: 5;
+  z-index: 15;
 `;
 
 export default WrapperMask;

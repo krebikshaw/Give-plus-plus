@@ -46,16 +46,21 @@ const ProductName = styled.div`
   margin-top: ${DISTANCE.md};
   text-align: center;
   cursor: pointer;
+
   a {
     display: block;
     font-size: ${FONT.md};
     color: ${COLOR.black};
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 
 const VendorName = styled.div`
   margin-top: ${DISTANCE.sm};
   text-align: center;
+  overflow-break: break-all;
   cursor: pointer;
   a {
     display: block;

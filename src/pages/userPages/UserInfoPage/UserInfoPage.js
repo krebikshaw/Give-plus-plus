@@ -67,6 +67,7 @@ const UserInfoPage = () => {
   const handleSetPassword = () => setIsSettingPassword(true);
 
   useEffect(() => {
+    window.scroll(0, 0);
     handleGetMe().then((result) => {
       if (!result.data) return navigate('/');
       if (result.data.is_vendor)

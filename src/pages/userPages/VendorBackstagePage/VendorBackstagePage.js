@@ -64,6 +64,7 @@ const VendorBackstagePage = () => {
   };
 
   useEffect(() => {
+    window.scroll(0, 0);
     handleGetMe().then((result) => {
       if (!result.data.is_vendor) navigate('/');
       setId(result.data.userId);

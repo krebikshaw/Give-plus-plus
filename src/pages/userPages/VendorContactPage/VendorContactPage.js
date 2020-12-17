@@ -56,6 +56,7 @@ export default function VendorContactComponent({ setIsShowContact }) {
   const { vendorInfo, handleGetProductsFromVendor } = useProduct();
 
   useEffect(() => {
+    window.scroll(0, 0);
     handleGetMe().then((result) => {
       handleGetProductsFromVendor(result.data.userId, 1);
     });

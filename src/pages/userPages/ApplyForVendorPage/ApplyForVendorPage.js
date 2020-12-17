@@ -95,6 +95,7 @@ const ApplyForVendorPage = () => {
   const handleCancel = () => navigate('/');
 
   useEffect(() => {
+    window.scroll(0, 0);
     handleGetMe().then((result) => {
       if (result.data.is_vendor) return navigate('/');
     });

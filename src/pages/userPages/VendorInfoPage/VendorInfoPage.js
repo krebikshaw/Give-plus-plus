@@ -75,6 +75,7 @@ const VendorInfoPage = () => {
     handleGetUserById(userId);
   };
   useEffect(() => {
+    window.scroll(0, 0);
     handleGetMe().then((result) => {
       const userId = location.pathname.split('/')[3];
       if (!result.data) return navigate('/');
