@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAllOf } from '@reduxjs/toolkit';
 import {
   getItem,
   addItem,
@@ -14,7 +14,10 @@ export const cartSlice = createSlice({
     cart: [],
     errorMessage: null,
     isLoading: false,
-    mask: false,
+    isSelect: false,
+    isPaying: false,
+    filter: "all",
+    
   },
   reducers: {
     // reducer
@@ -27,8 +30,14 @@ export const cartSlice = createSlice({
     setIsLoading: (state, action) => {
       state.isLoading = action.payload;
     },
-    setMask: (state, action) => {
-      state.mask = action.payload;
+    setIsSelect: (state, action) => {
+      state.isSelect = action.payload;
+    },
+    setIsPaying: (state, action) => {
+      state.isPaying = action.payload;
+    },
+    setFilter: (state, action) => {
+      state.filter = action.payload;
     },
   },
 });
@@ -38,7 +47,9 @@ export const {
   setErrorMessage,
   setCart,
   setIsLoading,
-  setMask,
+  setIsSelect,
+  setIsPaying,
+  setFilter,
 } = cartSlice.actions;
 
 export const getCartItem = () => (dispatch) => {
@@ -71,10 +82,11 @@ export const minusQuantity = (quantity, id) => (dispatch) => {
 };
 export const addQuantity = (quantity, id) => (dispatch) => {
   dispatch(setIsLoading(true)); 
-  console.log(quantity);
-  quantity++;
+  console.log("加一之前的數量:",quantity);
+  quantity++ ;
   return updateItem(quantity, id).then((res) => {
-    console.log(quantity);
+    console.log("加一之後的數量:", quantity);
+    dispatch(getCartItem());
     dispatch(setIsLoading(false));
     return res;
   });
@@ -93,9 +105,9 @@ export const deleteCartItemsBySeller = (id) => (dispatch) => {
     return res;
   });
 };
-
-
-export const selectMask = (state) => state.order.mask;
+export const selectFilter = (state) => state.cart.filter;
+export const selectIsPaying = (state) => state.cart.isPaying;
+export const selectIsSelect = (state) => state.cart.isSelect;
 export const selectError = (state) => state.cart.errorMessage;
 export const selectLoading = (state) => state.cart.isLoading;
 export const selectCart = (state) => state.cart.cart;

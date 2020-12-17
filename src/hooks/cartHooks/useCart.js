@@ -6,19 +6,24 @@ import {
   selectLoading,
   deleteCartItemsBySeller,
   deleteCartItem,
-  selectMask,
-  setMask,
+  selectIsSelect,
+  selectIsPaying,
+  selectFilter,
 } from "../../redux/slices/cartSlice/cartSlice";
-const TOKEN_NAME = "token";
-
 
 export default function useCart() {
   const dispatch = useDispatch();
-
+  const formatter = new Intl.NumberFormat("zh-TW", {
+    style: "currency",
+    currency: "NTD",
+    minimumFractionDigits: 0,
+  });
   const carts = useSelector(selectCart);
   const errorMessage = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
-  const mask = useSelector(selectMask);
+  const isSelect = useSelector(selectIsSelect);
+  const isPaying = useSelector(selectIsPaying);
+  const filter = useSelector(selectFilter);
   const handleDelete = (id) => {
     dispatch(deleteCartItem(id));
     window.location.reload();
@@ -30,8 +35,11 @@ export default function useCart() {
 
   
   return {
-    mask,
+    isSelect,
+    isPaying,
+    filter,
     carts,
+    formatter,
     errorMessage,
     isLoading,
     handleDelete,

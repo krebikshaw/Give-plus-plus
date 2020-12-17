@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React, { useEffect } from "react";
+import { IconComponent } from "../../components";
 import { ActionButton } from "../../components/Button";
 import { COLOR, FONT, DISTANCE, MEDIA_QUERY_MD } from "../../constants/style";
 import { NavLink } from "react-router-dom";
@@ -59,7 +60,7 @@ const Hr = styled.hr`
   border: solid 0.2px #f6f5f5;
   margin-bottom: 20px;
 `;
-export default function OrderPrice({ cart }) {
+export default function PayDetail() {
   const dispatch = useDispatch();
   const {
     carts,
@@ -71,19 +72,17 @@ export default function OrderPrice({ cart }) {
   } = useCart();
   const handlePay = () => {
     dispatch(setIsPaying(true));
-    dispatch(setFilter("select"))
-  }
+    dispatch(setFilter("select"));
+  };
   return (
     <Container>
       <Top>
-        <Title>訂單摘要</Title>
+        <Title>收件資訊</Title>
       </Top>
       <Count>
         <Wrapper>
           <TotalAmountTitle>商品總計</TotalAmountTitle>
-          <TotalAmount>
-            
-          </TotalAmount>
+          <TotalAmount></TotalAmount>
         </Wrapper>
         <Wrapper>
           <TotalAmountTitle>運費總計</TotalAmountTitle>
@@ -94,7 +93,11 @@ export default function OrderPrice({ cart }) {
           <TotalAmountTitle>結帳總金額</TotalAmountTitle>
           <TotalAmount></TotalAmount>
         </Wrapper>
-        <ActionButton $margin={0} style={{ background: "#b6deea" }} onClick={() => handlePay()}>
+        <ActionButton
+          $margin={0}
+          style={{ background: "#b6deea" }}
+          onClick={() => handlePay()}
+        >
           前往結帳
         </ActionButton>
       </Count>

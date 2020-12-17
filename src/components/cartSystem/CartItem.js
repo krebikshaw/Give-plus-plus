@@ -12,6 +12,7 @@ import {
   updateCartItem,
   deleteCartItem,
   deleteCartItemsBySeller,
+  setIsSelect,
 } from "../../redux/slices/cartSlice/cartSlice";
 const Container = styled.p`
   margin: 20px auto;
@@ -75,24 +76,36 @@ const IconContainer = styled.div`
 `;
 
 export default function CartItem({ cart }) {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const { carts, errorMessage, isLoading, handleDeleteSeller } = useCart();
-  const SellerId = cart.cartDetail.map((data) => Object.values(data)[1]);
   
+  const dispatch = useDispatch();
+  const {
+    carts,
+    errorMessage,
+    isLoading,
+    handleDeleteSeller,
+    isSelect,
+    isPaying,
+  } = useCart();
+  const SellerId = cart.cartDetail.map((data) => Object.values(data)[1]);
+  const handleSelect = (id) => {
+    dispatch(setIsSelect(id));
+  }
   return (
     <Container>
       <Top>
         <Seller>
-          <Check type="checkbox"></Check>
-          <Name>{cart.sellerName}</Name>
+          <Check
+            type="checkbox"
+            onClick={() => handleSelect(SellerId[0])}
+          ></Check>
+          <Name isSelect={isSelect}>{cart.sellerName}</Name>
         </Seller>
         <IconContainer onClick={() => handleDeleteSeller(SellerId)}>
           <IconComponent kind={"close"} />
         </IconContainer>
       </Top>
-      {cart.cartDetail.map((Items) => (
-        <ItemDetail Items={Items} key={Items.productId} />
+      {cart.cartDetail.map((Item) => (
+        <ItemDetail Item={Item} key={Item.productId} />
       ))}
       <SendDetail>
         <Hr />

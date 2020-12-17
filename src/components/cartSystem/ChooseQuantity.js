@@ -4,7 +4,7 @@ import { IconComponent } from "../../components";
 import { COLOR, FONT, DISTANCE, MEDIA_QUERY_MD } from "../../constants/style";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import cartOrder from "../../hooks/cartHooks/useCart";
+import useCart from "../../hooks/cartHooks/useCart";
 import {
   getCartItem,
   addQuantity,
@@ -53,12 +53,19 @@ const Form = styled.form`
   border-radius: 9px;
   background: ${COLOR.white};
 `;
+const IconContainer = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+`;
 
-export default function ChooseQuantity({ Items }) {
+export default function ChooseQuantity({ Item }) {
   const dispatch = useDispatch();
-  
-  const { carts, errorMessage, isLoading } = cartOrder();
-  const { cartItemId, cartQuantity, productQuantity } = Items;
+  const { carts, errorMessage, isLoading, handleDeleteSeller } = useCart();
+  const { cartItemId, cartQuantity, productQuantity } = Item;
+  console.log("state 裡面存的 資料庫的數量:",cartQuantity);
   const handlePlus = () => {
     if (cartQuantity >= productQuantity) {
       dispatch(
@@ -67,22 +74,16 @@ export default function ChooseQuantity({ Items }) {
       return;
     }
       dispatch(addQuantity(cartQuantity, cartItemId));
-    window.location.reload(true);
+     
+      //window.location.reload(true);
   };
   const handleMinus = () => {
-    if (cartQuantity >= productQuantity) {
-      dispatch(
-        setErrorMessage("抱歉，本次結帳最多購買" + productQuantity + "件")
-      )
+    if (cartQuantity <= 1) {
+      dispatch(setErrorMessage("抱歉，結帳最少購買1件"));
       return;
-    }else if (cartQuantity <= 1){
-       dispatch(
-         setErrorMessage("抱歉，本次結帳最少購買1件")
-       )
-       return
     }
       dispatch(minusQuantity(cartQuantity, cartItemId));
-    window.location.reload(true);
+      window.location.reload(true);
   };
    const handleClose = () => {
        dispatch(setErrorMessage(false))
@@ -91,17 +92,19 @@ export default function ChooseQuantity({ Items }) {
     <>
       {errorMessage && (
         <Modal>
-          <Container onClick={() => handleClose}>
-            <IconComponent kind={"close"} />
-          </Container>
-          <Form>{errorMessage}</Form>
+          <Form>
+            <IconContainer onClick={handleClose}>
+              <IconComponent kind={"close"} />
+            </IconContainer>
+            {errorMessage}
+          </Form>
         </Modal>
       )}
       <Wrapper>
         <Container onClick={() => handleMinus(cartQuantity, cartItemId)}>
           <IconComponent kind={"minus"} />
         </Container>
-        <Quantity>{Items.cartQuantity}</Quantity>
+        <Quantity>{Item.cartQuantity}</Quantity>
         <Container onClick={() => handlePlus(cartQuantity, cartItemId)}>
           <IconComponent kind={"plus"} />
         </Container>

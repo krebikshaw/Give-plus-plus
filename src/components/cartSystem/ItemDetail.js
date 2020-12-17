@@ -6,7 +6,7 @@ import { useParams, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import ChooseQuantity from "./ChooseQuantity";
 import useOrder from "../../hooks/orderHooks/useOrder";
-import cartOrder from "../../hooks/cartHooks/useCart";
+import useCart from "../../hooks/cartHooks/useCart";
 import { LoopCircleLoading } from "react-loadingg";
 import {
   getUser,
@@ -59,16 +59,14 @@ const LoadingBackground = styled.div`
   background: ${COLOR.bg_mask};
   z-index: 2;
 `;
-export default function ItemDetail({Items}) {
+export default function ItemDetail({Item}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
     user,
   } = useOrder();
-  const { carts, errorMessage, isLoading, handleDelete } = cartOrder();
+    const { carts, errorMessage, isLoading, handleDeleteSeller } = useCart();
  
-   
-   
   return (
     <>
       {isLoading && (
@@ -78,12 +76,12 @@ export default function ItemDetail({Items}) {
       )}
       <CartInfo>
         <Photo>
-          <PhotoImg src={Items.pictureUrl}></PhotoImg>
+          <PhotoImg src={Item.pictureUrl}></PhotoImg>
         </Photo>
-        <ProductName>{Items.productName}</ProductName>
-        <ChooseQuantity Items={Items} />
-        <Price>NT${Items.price}</Price>
-        <Container onClick={() => handleDelete(Items.cartItemId)}>
+        <ProductName>{Item.productName}</ProductName>
+        <ChooseQuantity Item={Item} />
+        <Price>NT${Item.price}</Price>
+        <Container onClick={() => handleDelete(Item.cartItemId)}>
           <IconComponent kind={"delete"} />
         </Container>
       </CartInfo>
