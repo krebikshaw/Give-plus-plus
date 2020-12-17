@@ -26,7 +26,6 @@ export default function useRegister() {
   const handleLogin = (e) => {
     e.preventDefault();
     dispatch(login({ username, password })).then((userId) => {
-      console.log(userId);
       if (userId) {
         navigate('/');
       } else {

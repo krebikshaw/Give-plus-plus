@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { COLOR } from '../../constants/style';
+import { COLOR, DISTANCE } from '../../constants/style';
 
 const NavButton = styled(NavLink)`
-  padding: 10px 40px;
-  margin: 0px 20px;
+  padding: ${DISTANCE.xs} 40px;
+  margin: 0px ${DISTANCE.sm};
   display: inline-block;
   transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out,
     color 0.1s ease-in-out;
-  border-radius: 10px;
+  border-radius: ${DISTANCE.xs};
   border: solid 1px ${COLOR.black};
   background-color: ${COLOR.bg_primary};
   text-align: center;
