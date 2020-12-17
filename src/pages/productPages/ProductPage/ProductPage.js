@@ -44,6 +44,7 @@ const ProductPage = () => {
   } = useProduct();
 
   useEffect(() => {
+    window.scroll(0, 0);
     handleGetProduct(id);
     return () => {
       dispatch(setProduct([]));

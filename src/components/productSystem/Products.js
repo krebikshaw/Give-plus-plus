@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { COLOR, FONT, DISTANCE } from '../../constants/style';
 import { MoreButton, ErrorMessage } from '../../components/productSystem/';
 import useProduct from '../../hooks/productHooks/useProduct';
+import { NavLink } from 'react-router-dom';
 
 const ProductsContainer = styled.div`
   padding: ${(props) => props.$padding || '50px 25px'};
@@ -83,7 +84,7 @@ const Product = ({ product, onLoad, loaded, $width, $height, $margin }) => {
 
   return (
     <ProductContainer $width={$width} $height={$height} $margin={$margin}>
-      <a href={`/products/${product.id}`}>
+      <NavLink to={`/products/${product.id}`}>
         <ProductPicture
           src={product.picture_url}
           style={{ opacity: loaded ? 1 : 0 }}
@@ -91,14 +92,14 @@ const Product = ({ product, onLoad, loaded, $width, $height, $margin }) => {
           $width={$width}
           $height={$height}
         />
-      </a>
+      </NavLink>
       <ProductName>
-        <a href={`/products/${product.id}`}>{product.name}</a>
+        <NavLink to={`/products/${product.id}`}>{product.name}</NavLink>
       </ProductName>
       <VendorName>
-        <a href={`/products/vendor/${product.User.id}`}>
+        <NavLink to={`/products/vendor/${product.User.id}`}>
           {product.User.nickname}
-        </a>
+        </NavLink>
       </VendorName>
       <ProductPrice>{formatter.format(product.price)}</ProductPrice>
     </ProductContainer>
