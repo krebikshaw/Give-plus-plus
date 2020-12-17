@@ -29,6 +29,7 @@ const Title = styled.h1`
 const TwoButton = styled.div`
   margin: ${DISTANCE.md} auto;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -67,9 +68,7 @@ export default function SetAnnouncementComponent({ setIsSettingAnnouncement }) {
         />
         {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
         <TwoButton>
-          <ActionButton $margin={0} onClick={handleSubmit}>
-            送出
-          </ActionButton>
+          <ActionButton onClick={handleSubmit}>送出</ActionButton>
           <ActionButton
             $bg={'red'}
             onClick={() => setIsSettingAnnouncement(false)}
