@@ -65,7 +65,13 @@ export default function ItemDetail({Item}) {
   const {
     user,
   } = useOrder();
-    const { carts, errorMessage, isLoading, handleDeleteSeller } = useCart();
+    const {
+      carts,
+      errorMessage,
+      isLoading,
+      handleDeleteSeller,
+      handleDelete,
+    } = useCart();
  
   return (
     <>
