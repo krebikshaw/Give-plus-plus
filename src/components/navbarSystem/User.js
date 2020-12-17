@@ -78,7 +78,7 @@ const OptionName = styled.p`
 
 export default function User() {
   const navigate = useNavigate();
-  const [nickname, setNickname] = useState('');
+  const [username, setUsername] = useState('');
   const [isVendor, setIsVendor] = useState(false);
   const { handleGetMe } = useUser();
 
@@ -86,7 +86,7 @@ export default function User() {
     handleGetMe().then((result) => {
       if (!result || result.ok === 0) return;
       setIsVendor(result.data.is_vendor);
-      setNickname(result.data.nickname);
+      setUsername(result.data.username);
     });
   }, []);
 
@@ -96,9 +96,15 @@ export default function User() {
       <OptionWrapper>
         <OptionInner>
           <OptionList>
-            {nickname && (
-              <OptionItem style={{ color: COLOR.text_1, margin: '15px 0' }}>
-                {nickname}
+            {username && (
+              <OptionItem
+                style={{
+                  color: COLOR.text_1,
+                  margin: '15px 0',
+                  overflow: 'hidden',
+                }}
+              >
+                {username}
               </OptionItem>
             )}
             <OptionItem>
@@ -108,13 +114,20 @@ export default function User() {
             </OptionItem>
             <OptionItem>
               <OptionName onClick={() => navigate('/orders/client')}>
-                購買訂單
+                購買清單
               </OptionName>
             </OptionItem>
+            {!isVendor && (
+              <OptionItem>
+                <OptionName onClick={() => navigate('/users/apply')}>
+                  申請成為賣家
+                </OptionName>
+              </OptionItem>
+            )}
             {isVendor && (
               <OptionItem>
                 <OptionName onClick={() => navigate('/orders/vendor')}>
-                  銷售訂單
+                  我的銷售
                 </OptionName>
               </OptionItem>
             )}
