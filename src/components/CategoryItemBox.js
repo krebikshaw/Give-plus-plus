@@ -26,7 +26,6 @@ const CategoryItemBox = ({ text, id }) => {
   const navigate = useNavigate();
   const handleGetProductFromCategory = (id) => {
     navigate(`/products/category/${id}`);
-    window.location.reload();
   };
   return (
     <ProductCategoryItem onClick={() => handleGetProductFromCategory(id)}>

@@ -54,10 +54,12 @@ const BreadcrumbItems = ({ category, product }) => {
             <NavLink to='/'>Home</NavLink>
           </BreadcrumbLi>
           <BreadcrumbLi>
-            <a href={`/products/category/${category.id}`}>{category.name}</a>
+            <a href={`/products/category/${product.ProductCategoryId}`}>
+              {category}
+            </a>
           </BreadcrumbLi>
           <BreadcrumbLi>
-            <NavLink to='#'>{product}</NavLink>
+            <NavLink to='#'>{product.name}</NavLink>
           </BreadcrumbLi>
         </BreadcrumbOl>
       ) : (
@@ -75,7 +77,7 @@ export const Breadcrumb = ({ category, product }) => {
   return (
     <BreadcrumbContainer>
       <BreadcrumbRoute>
-        <BreadcrumbItems category={category} product={product.name} />
+        <BreadcrumbItems category={category} product={product} />
       </BreadcrumbRoute>
     </BreadcrumbContainer>
   );

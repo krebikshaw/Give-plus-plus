@@ -19,8 +19,8 @@ function changeProductSort(queue) {
   return { sort, order };
 }
 
-const getProductsAPI = () => {
-  return fetch(`${BASE_URL}/products`).then((res) => res.json());
+const getProductsAPI = (page) => {
+  return fetch(`${BASE_URL}/products?_page=${page}`).then((res) => res.json());
 };
 
 const getProductCategoriesAPI = () => {

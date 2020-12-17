@@ -11,6 +11,7 @@ import {
   PurchaseInfoRight,
 } from '../../../components/productSystem';
 import {
+  setProduct,
   setProducts,
   setCategory,
   setHasMoreProducts,
@@ -18,7 +19,7 @@ import {
 } from '../../../redux/slices/productSlice/productSlice';
 
 const ProductInfoContainer = styled.section`
-  margin-top: 220px;
+  margin-top: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -29,8 +30,8 @@ const PurchaseInfo = styled.section`
 `;
 
 const ProductPage = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { id } = useParams();
   const {
     product,
@@ -39,19 +40,20 @@ const ProductPage = () => {
     category,
     hasMoreProducts,
     productErrorMessage,
-    handleClickVendorMoreButton,
+    handleVendorProductMoreButton,
     handleGetProduct,
   } = useProduct();
 
   useEffect(() => {
     handleGetProduct(id);
     return () => {
+      dispatch(setProduct([]));
       dispatch(setProducts([]));
       dispatch(setCategory([]));
       dispatch(setErrorMessage(null));
       dispatch(setHasMoreProducts(true));
     };
-  }, []);
+  }, [id, dispatch]);
   return (
     <>
       <Navbar />
@@ -67,7 +69,7 @@ const ProductPage = () => {
               productId={id}
               vendorInfo={vendorInfo}
               hasMoreProducts={hasMoreProducts}
-              handler={handleClickVendorMoreButton}
+              handler={handleVendorProductMoreButton}
               productErrorMessage={productErrorMessage}
             />
           </PurchaseInfo>

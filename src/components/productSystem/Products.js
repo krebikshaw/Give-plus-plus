@@ -4,22 +4,21 @@ import { MoreButton, ErrorMessage } from '../../components/productSystem/';
 import useProduct from '../../hooks/productHooks/useProduct';
 
 const ProductsContainer = styled.div`
-  padding: ${(props) => props.$padding || '50px 42px'};
+  padding: ${(props) => props.$padding || '50px 25px'};
 `;
 
 const ProductsWrap = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: ${(props) => props.$justify || 'space-between'};
+  justify-content: ${(props) => props.$justify || 'center'};
 `;
 
 const ProductContainer = styled.div`
   position: relative;
   width: ${(props) => props.$width || '190px'};
   height: ${(props) => props.$height || '190px'};
-  margin: ${(props) => props.$margin || '0 18px'};
+  margin: ${(props) => props.$margin || '0 20px'};
   margin-bottom: 150px;
 
   &:before {
@@ -31,6 +30,11 @@ const ProductContainer = styled.div`
     width: 100%;
     background: url(${process.env.PUBLIC_URL}/logo-g.svg) center/cover;
   }
+`;
+
+const Placeholder = styled.div`
+  width: ${(props) => props.$width || '190px'};
+  margin: ${(props) => props.$margin || '0 20px'};
 `;
 
 const ProductPicture = styled.img`
@@ -68,13 +72,15 @@ const ProductPrice = styled.div`
   font-size: ${FONT.xs};
   color: ${COLOR.text_2};
   text-align: center;
-
-  &:before {
-    content: 'NT$ ';
-  }
 `;
 
 const Product = ({ product, onLoad, loaded, $width, $height, $margin }) => {
+  const formatter = new Intl.NumberFormat('zh-TW', {
+    style: 'currency',
+    currency: 'NTD',
+    minimumFractionDigits: 0,
+  });
+  console.log(product);
   return (
     <ProductContainer $width={$width} $height={$height} $margin={$margin}>
       <a href={`/products/${product.id}`}>
@@ -94,7 +100,7 @@ const Product = ({ product, onLoad, loaded, $width, $height, $margin }) => {
           {product.User.nickname}
         </a>
       </VendorName>
-      <ProductPrice>{product.price}</ProductPrice>
+      <ProductPrice>{formatter.format(product.price)}</ProductPrice>
     </ProductContainer>
   );
 };
@@ -105,8 +111,6 @@ export const Products = ({
   hasMoreProducts,
   handler,
   productErrorMessage,
-  filter,
-  productId,
   $width,
   $height,
   $margin,
@@ -119,38 +123,24 @@ export const Products = ({
       <ProductsContainer $padding={$padding}>
         <ProductsWrap $justify={$justify}>
           <>
-            {filter === true
-              ? products
-                  .filter((product) => {
-                    return product.id !== Number(productId);
-                  })
-                  .map((product) => {
-                    return (
-                      <Product
-                        key={product.id}
-                        product={product}
-                        onLoad={onLoad}
-                        loaded={loaded}
-                        $width={$width}
-                        $height={$height}
-                        $margin={$margin}
-                      />
-                    );
-                  })
-              : products.map((product) => {
-                  return (
-                    <Product
-                      key={product.id}
-                      product={product}
-                      onLoad={onLoad}
-                      loaded={loaded}
-                      $width={$width}
-                      $height={$height}
-                      $margin={$margin}
-                    />
-                  );
-                })}
+            {products.map((product) => {
+              return (
+                <Product
+                  key={product.id}
+                  product={product}
+                  onLoad={onLoad}
+                  loaded={loaded}
+                  $width={$width}
+                  $height={$height}
+                  $margin={$margin}
+                />
+              );
+            })}
           </>
+          <Placeholder $width={$width} $margin={$margin} />
+          <Placeholder $width={$width} $margin={$margin} />
+          <Placeholder $width={$width} $margin={$margin} />
+          <Placeholder $width={$width} $margin={$margin} />
         </ProductsWrap>
       </ProductsContainer>
       {loaded && !productErrorMessage ? (
