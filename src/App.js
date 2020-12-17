@@ -80,14 +80,8 @@ const App = () => {
               <Route path={'/me'} element={<UserInfoPage />}></Route>
               <Route path={'/:id'} element={<UserInfoPage />}></Route>
               <Route path={'/apply'} element={<ApplyForVendorPage />}></Route>
-              <Route
-                path={'/backstage'}
-                element={<VendorBackstagePage />}
-              ></Route>
-              <Route
-                path={'/contact/:id'}
-                element={<VendorContactPage />}
-              ></Route>
+              <Route path={'/backstage'} element={<VendorBackstagePage />}></Route>
+              <Route path={'/contact/:id'} element={<VendorContactPage />}></Route>
               <Route path={'/vendor/:id'} element={<VendorInfoPage />}></Route>
             </Route>
 
@@ -95,14 +89,8 @@ const App = () => {
               <Route path={'/:id'} element={<ProductPage />}></Route>
               <Route path={'/edit/:id'} element={<EditProductPage />}></Route>
               <Route path={'/post'} element={<PostProductPage />}></Route>
-              <Route
-                path={'/search/:keyword'}
-                element={<SearchProductPage />}
-              ></Route>
-              <Route
-                path={'/category/:id'}
-                element={<CategorizedProductPage />}
-              ></Route>
+              <Route path={'/search/:keyword'} element={<SearchProductPage />}></Route>
+              <Route path={'/category/:id'} element={<CategorizedProductPage />}></Route>
               <Route path={'/vendor/:id'} element={<VendorShopPage />}></Route>
             </Route>
 

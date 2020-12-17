@@ -1,24 +1,18 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
-import { COLOR, FONT } from '../../constants/style';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { COLOR, FONT } from '../../constants/style';
 import { ThickNavTwoColumnsPage } from '../../components/Page';
+import useRegister from '../../hooks/userHooks/useRegister';
 import {
+  Title,
+  Form,
+  JoinInput,
+  JoinButton,
   Column,
   BackgroundColumn,
-  Form,
-  JoinButton,
-  JoinInput,
 } from '../../components/general/';
-import useRegister from '../../hooks/userHooks/useRegister';
-import { useDispatch } from 'react-redux';
-
-const Title = styled.h1`
-  color: ${COLOR.text_2};
-  font-size: ${FONT.lg};
-  font-weight: 400;
-  margin-bottom: 30px;
-`;
 
 const Description = styled.div`
   color: ${COLOR.text_2};
@@ -67,7 +61,7 @@ const RegisterPage = () => {
       <ThickNavTwoColumnsPage>
         <Column>
           <Form>
-            <Title>立即註冊 Give++ 帳號</Title>
+            <Title $isLarge>立即註冊 Give++ 帳號</Title>
 
             <JoinInput
               title="帳號"
@@ -112,7 +106,7 @@ const RegisterPage = () => {
             )}
           </Form>
         </Column>
-        <BackgroundColumn />
+        <BackgroundColumn $picture={'register-bg'} />
       </ThickNavTwoColumnsPage>
     </>
   );

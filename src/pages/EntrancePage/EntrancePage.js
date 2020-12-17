@@ -1,7 +1,5 @@
-import React from 'react';
 import styled from 'styled-components';
 import { COLOR, FONT } from '../../constants/style';
-import { Navbar } from '../../components';
 import { ThickNavTwoColumnsPage } from '../../components/Page';
 import {
   Column,
@@ -50,10 +48,9 @@ const EntrancePage = () => {
               <NavButton children={'登入'} to="/login" />
               <NavButton children={'註冊'} to="/register" />
             </Section>
-
           </Container>
         </Column>
-        <BackgroundColumn />
+        <BackgroundColumn $picture={'entrance-bg'}/>
       </ThickNavTwoColumnsPage>
     </>
   );
