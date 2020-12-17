@@ -68,6 +68,7 @@ export default function ClientInfoForm({ setSuccessMode }) {
         <InputComponent
           type='text'
           name='nickname'
+          maxLength='20'
           $margin={0}
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}

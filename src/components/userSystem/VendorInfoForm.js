@@ -88,6 +88,7 @@ export default function VendorInfoForm({ setSuccessMode, isAdminStatus }) {
           type='text'
           name='nickname'
           $margin={0}
+          maxLength='20'
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
         />
