@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
@@ -11,13 +11,17 @@ export default function useProduct() {
   const [productName, setProductName] = useState('');
   const [productInfo, setProductInfo] = useState('');
   const [productCategory, setProductCategory] = useState('');
+  const [productPictureUrl, setProductPictureUrl] = useState(
+    'https://i.imgur.com/uqZxFCm.png'
+  );
   const [productPrice, setProductPrice] = useState('');
   const [deliveryTime, setDeliveryTime] = useState('');
-  const [deliveryLocation, setDeliveryLocation] = useState('');
+  const [deliveryLocation, setDeliveryLocation] = useState('台灣');
   const [delivery, setDelivery] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('');
   const [remark, setRemark] = useState('');
   const [productQuantity, setProductQuantity] = useState('');
+  const [isSubmitClicked, setIsSubmitClicked] = useState(false);
 
   const [hasProductName, setHasProductName] = useState();
   const [hasProductInfo, setHasProductInfo] = useState();
@@ -28,79 +32,80 @@ export default function useProduct() {
   const [hasDelivery, setHasDelivery] = useState();
   const [hasPaymentMethod, setHasPaymentMethod] = useState();
   const [hasProductQuantity, setHasProductQuantity] = useState();
-  const [hasError, setHasError] = useState(false);
+
+  let hasError = false;
 
   const handleChange = (setValue) => (e) => setValue(e.target.value);
 
+  const checkNumber = (str) => {
+    let NumberRgexp = /^([1-9]\d*|[0]{1,1})$/;
+    return NumberRgexp.test(str);
+  };
+
+  const checkInteger = (str) => {
+    let IntegerRgexp = /^[0-9]*[1-9][0-9]*$/;
+    return IntegerRgexp.test(str);
+  };
+
   const checkDataValidity = () => {
-    const checkNumber = (str) => {
-      let NumberRgexp = /^([1-9]\d*|[0]{1,1})$/;
-      return NumberRgexp.test(str);
-    };
-
-    const checkInteger = (str) => {
-      let IntegerRgexp = /^[0-9]*[1-9][0-9]*$/;
-      return IntegerRgexp.test(str);
-    };
-
     if (!productName || !productName.trim()) {
-      setHasError(true);
+      hasError = true;
       setHasProductName(false);
     } else {
       setHasProductName(true);
     }
 
     if (!deliveryLocation || !deliveryLocation.trim()) {
-      setHasError(true);
+      hasError = true;
       setHasDeliveryLocation(false);
     } else {
       setHasDeliveryLocation(true);
     }
 
     if (!productCategory || !productCategory.trim()) {
-      setHasError(true);
+      hasError = true;
       setHasProductCategory(false);
     } else {
       setHasProductCategory(true);
     }
 
     if (!productInfo || !productInfo.trim()) {
-      setHasError(true);
+      hasError = true;
       setHasProductInfo(false);
     } else {
       setHasProductInfo(true);
     }
 
     if (!checkInteger(productPrice)) {
-      setHasError(true);
+      hasError = true;
       setHasProductPrice(false);
     } else {
       setHasProductPrice(true);
     }
 
     if (!checkInteger(productQuantity)) {
-      setHasError(true);
+      hasError = true;
       setHasProductQuantity(false);
     } else {
       setHasProductQuantity(true);
     }
 
     if (!checkNumber(delivery)) {
-      setHasError(true);
+      hasError = true;
       setHasDelivery(false);
     } else {
       setHasDelivery(true);
     }
 
     if (!checkInteger(deliveryTime)) {
-      setHasError(true);
+      hasError = true;
       setHasDeliveryTime(false);
     } else {
       setHasDeliveryTime(true);
     }
 
     if (!checkNumber(paymentMethod)) {
-      setHasError(true);
+      hasError = true;
       setHasPaymentMethod(false);
     } else {
       setHasPaymentMethod(true);
@@ -110,7 +115,7 @@ export default function useProduct() {
   let formData = {
     ProductCategoryId: productCategory,
     name: productName,
-    picture_url: '',
+    picture_url: productPictureUrl,
     info: productInfo,
     price: productPrice,
     quantity: productQuantity,
@@ -118,21 +123,33 @@ export default function useProduct() {
     delivery_location: deliveryLocation, // 出貨地點的欄位
     delivery_time: deliveryTime, // 備貨時間的欄位
     payment_method: paymentMethod, // 付款方式 0:貨到付款
-    remark: remark, // 備註
+    remark
   };
+
+  useEffect(() => {
+    if (isSubmitClicked === true) {
+      checkDataValidity();
+    }
+  }, [formData]);
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
     checkDataValidity();
+    setIsSubmitClicked(true);
+    console.log(formData);
     if (!hasError) {
       dispatch(postProduct(formData));
     }
   };
 
   return {
+    deliveryLocation,
+    productPrice,
+    productPictureUrl,
     setProductName,
     setProductInfo,
     setProductCategory,
+    setProductPictureUrl,
     setProductPrice,
     setDeliveryTime,
     setDeliveryLocation,
@@ -141,7 +158,6 @@ export default function useProduct() {
     setRemark,
     setProductQuantity,
     handleChange,
-    hasError,
     hasProductName,
     hasProductInfo,
     hasProductCategory,

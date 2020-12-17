@@ -65,7 +65,6 @@ const postProductAPI = ({
   remark, // 備註
 }) => {
   const token = localStorage.getItem('token');
-
   return fetch(`${BASE_URL}/products/new`, {
     method: 'POST',
     headers: {
@@ -85,7 +84,9 @@ const postProductAPI = ({
       payment_method,
       remark,
     }),
-  }).then((res) => res.json());
+  })
+    .then((res) => res.json())
+    .then((res) => res);
 };
 
 const updateProductAPI = ({
