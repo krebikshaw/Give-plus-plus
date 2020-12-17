@@ -97,7 +97,7 @@ const ContactUsPage = () => {
     window.scroll(0, 0);
     dispatch(setErrorMessage(null));
   }, []);
-  
+
   return (
     <>
       <Page>
@@ -120,6 +120,7 @@ const ContactUsPage = () => {
             <InputTitle>姓名</InputTitle>
             <InputComponent
               $margin={0}
+              maxLength={20}
               onChange={handleInputChange(setName)}
             ></InputComponent>
             {isNameValid === false && (
@@ -151,6 +152,7 @@ const ContactUsPage = () => {
             <TextAreaComponent
               rows={'3'}
               $margin={0}
+              maxLength={500}
               onChange={handleInputChange(setContent)}
             ></TextAreaComponent>
             {isContentValid === false && (
