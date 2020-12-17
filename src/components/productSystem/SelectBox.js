@@ -13,11 +13,11 @@ const Select = styled.select`
   padding: 3px;
 `;
 
-export const SelectBox = ({ options, handleChange, value }) => {
+export const SelectBox = ({ options, handleChange, value, oldValue }) => {
   return (
     <Select value={value} onChange={handleChange}>
       {options.map((option) => (
-        <option value={option} key={option}>
+        <option value={option} key={option} defaultValue={oldValue === option}>
           {option}
         </option>
       ))}

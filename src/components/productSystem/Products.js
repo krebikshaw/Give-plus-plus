@@ -50,10 +50,14 @@ const ProductName = styled.div`
   margin-top: ${DISTANCE.md};
   text-align: center;
   cursor: pointer;
+}
   a {
     display: block;
     font-size: ${FONT.md};
     color: ${COLOR.black};
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
   }
 `;
 
@@ -65,6 +69,9 @@ const VendorName = styled.div`
     display: block;
     font-size: ${FONT.xs};
     color: ${COLOR.text_2};
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
   }
 `;
 

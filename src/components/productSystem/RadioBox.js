@@ -7,7 +7,7 @@ const RadioContainer = styled.div`
   justify-content: flex-start;
 `;
 
-export const RadioBox = ({ title, options, handleChange }) => {
+export const RadioBox = ({ title, options, handleChange, oldValue }) => {
   return (
     <RadioContainer>
       {options.map((option) => (
@@ -17,6 +17,7 @@ export const RadioBox = ({ title, options, handleChange }) => {
           value={option.id}
           children={option.name}
           handleChange={handleChange}
+          checked={oldValue === option.id}
         />
       ))}
     </RadioContainer>

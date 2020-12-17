@@ -32,6 +32,7 @@ export const InputItem = ({
   productPictureUrl,
   setProductPictureUrl,
   textareaRows,
+  value,
 }) => {
   return (
     <QuestionBox>
@@ -39,6 +40,7 @@ export const InputItem = ({
 
       {type === 'input' && (
         <InputComponent
+          value={value}
           $margin={0}
           $size={title === '商品名稱' && 'lg'}
           placeholder={isNumber && '請輸入正整數'}
@@ -52,15 +54,25 @@ export const InputItem = ({
           $size={'lg'}
           rows={textareaRows}
           onChange={handleChange}
-        />
+          value={value}
+        ></TextAreaComponent>
       )}
 
       {type === 'radio' && (
-        <RadioBox title={title} options={options} handleChange={handleChange} />
+        <RadioBox
+          title={title}
+          options={options}
+          handleChange={handleChange}
+          oldValue={value}
+        />
       )}
 
       {type === 'select' && (
-        <SelectBox options={options} handleChange={handleChange} />
+        <SelectBox
+          options={options}
+          handleChange={handleChange}
+          oldValue={value}
+        />
       )}
 
       {type === 'picture' && (

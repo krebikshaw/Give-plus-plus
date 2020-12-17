@@ -20,7 +20,7 @@ const Title = styled.h1`
 `;
 
 const PostProductPage = () => {
-  const { productCategories } = useProduct();
+  const { productCategories, productErrorMessage } = useProduct();
   const {
     setProductName,
     setProductInfo,
@@ -43,7 +43,7 @@ const PostProductPage = () => {
     hasDelivery,
     hasPaymentMethod,
     hasProductQuantity,
-    handleSubmitForm,
+    handleSubmitAddForm,
     productPictureUrl,
     deliveryLocation,
   } = useProductFrom();
@@ -150,7 +150,10 @@ const PostProductPage = () => {
             handleChange={handleChange(setRemark)}
           />
 
-          <ButtonsBox handleSubmitForm={handleSubmitForm} />
+          <ButtonsBox
+            handler={handleSubmitAddForm}
+            productErrorMessage={productErrorMessage}
+          />
         </FormWrap>
       </Wrapper>
     </StandardNavPage>

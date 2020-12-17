@@ -10,17 +10,29 @@ const RadioLabel = styled.label`
   margin: 5px 0;
 `;
 
-export const Radio = ({ children, value, name, handleChange }) => {
+export const Radio = ({ children, value, name, handleChange, checked }) => {
   return (
     <RadioLabel>
-      <RadioInput
-        $margin={0}
-        rows="15"
-        type="radio"
-        value={value}
-        name={name}
-        onChange={handleChange}
-      ></RadioInput>
+      {checked ? (
+        <RadioInput
+          $margin={0}
+          rows='15'
+          type='radio'
+          value={value}
+          name={name}
+          onChange={handleChange}
+          checked={true}
+        ></RadioInput>
+      ) : (
+        <RadioInput
+          $margin={0}
+          rows='15'
+          type='radio'
+          value={value}
+          name={name}
+          onChange={handleChange}
+        ></RadioInput>
+      )}
       {children}
     </RadioLabel>
   );

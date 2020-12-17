@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   postProduct,
   updateProduct,
 } from '../../redux/slices/productSlice/productSlice';
 
-export default function useProduct() {
+export default function useProductForm(id) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [productName, setProductName] = useState('');
   const [productInfo, setProductInfo] = useState('');
@@ -23,15 +24,15 @@ export default function useProduct() {
   const [productQuantity, setProductQuantity] = useState('');
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
 
-  const [hasProductName, setHasProductName] = useState();
-  const [hasProductInfo, setHasProductInfo] = useState();
-  const [hasProductCategory, setHasProductCategory] = useState();
-  const [hasDeliveryLocation, setHasDeliveryLocation] = useState();
-  const [hasProductPrice, setHasProductPrice] = useState();
-  const [hasDeliveryTime, setHasDeliveryTime] = useState();
-  const [hasDelivery, setHasDelivery] = useState();
-  const [hasPaymentMethod, setHasPaymentMethod] = useState();
-  const [hasProductQuantity, setHasProductQuantity] = useState();
+  const [hasProductName, setHasProductName] = useState('');
+  const [hasProductInfo, setHasProductInfo] = useState('');
+  const [hasProductCategory, setHasProductCategory] = useState('');
+  const [hasDeliveryLocation, setHasDeliveryLocation] = useState('');
+  const [hasProductPrice, setHasProductPrice] = useState('');
+  const [hasDeliveryTime, setHasDeliveryTime] = useState('');
+  const [hasDelivery, setHasDelivery] = useState('');
+  const [hasPaymentMethod, setHasPaymentMethod] = useState('');
+  const [hasProductQuantity, setHasProductQuantity] = useState('');
 
   let hasError = false;
 
@@ -62,7 +63,7 @@ export default function useProduct() {
       setHasDeliveryLocation(true);
     }
 
-    if (!productCategory || !productCategory.trim()) {
+    if (!productCategory || !productInfo.trim()) {
       hasError = true;
       setHasProductCategory(false);
     } else {
@@ -112,6 +113,22 @@ export default function useProduct() {
     }
   };
 
+  const changeProductValue = (product) => {
+    if (product) {
+      setProductName(product.name);
+      setProductInfo(product.info);
+      setProductCategory(product.ProductCategoryId);
+      setProductPictureUrl(product.picture_url);
+      setProductPrice(product.price);
+      setProductQuantity(product.quantity);
+      setDeliveryTime(product.delivery_time);
+      setDeliveryLocation(product.delivery_location);
+      setDelivery(product.delivery);
+      setPaymentMethod(product.payment_method);
+      setRemark(product.remark);
+    }
+  };
+
   let formData = {
     ProductCategoryId: productCategory,
     name: productName,
@@ -123,7 +140,7 @@ export default function useProduct() {
     delivery_location: deliveryLocation, // 出貨地點的欄位
     delivery_time: deliveryTime, // 備貨時間的欄位
     payment_method: paymentMethod, // 付款方式 0:貨到付款
-    remark
+    remark,
   };
 
   useEffect(() => {
@@ -132,20 +149,43 @@ export default function useProduct() {
     }
   }, [formData]);
 
-  const handleSubmitForm = (e) => {
+  const handleSubmitAddForm = (e) => {
+    console.log(formData);
     e.preventDefault();
     checkDataValidity();
     setIsSubmitClicked(true);
     console.log(formData);
     if (!hasError) {
       dispatch(postProduct(formData));
+      navigate('/users/backstage');
+    }
+  };
+
+  const handleSubmitEditForm = (e) => {
+    console.log(formData);
+    e.preventDefault();
+    checkDataValidity();
+    setIsSubmitClicked(true);
+    console.log(formData);
+    if (!hasError) {
+      dispatch(updateProduct(id, formData));
+      navigate('/users/backstage');
     }
   };
 
   return {
-    deliveryLocation,
+    changeProductValue,
+    productCategory,
+    productName,
+    productInfo,
     productPrice,
+    productQuantity,
+    delivery,
+    deliveryTime,
+    deliveryLocation,
+    paymentMethod,
     productPictureUrl,
+    remark,
     setProductName,
     setProductInfo,
     setProductCategory,
@@ -167,6 +207,7 @@ export default function useProduct() {
     hasDelivery,
     hasPaymentMethod,
     hasProductQuantity,
-    handleSubmitForm,
+    handleSubmitAddForm,
+    handleSubmitEditForm,
   };
 }
