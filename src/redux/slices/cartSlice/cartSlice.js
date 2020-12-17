@@ -14,7 +14,7 @@ export const cartSlice = createSlice({
     cart: [],
     errorMessage: null,
     isLoading: false,
-    
+    mask: false,
   },
   reducers: {
     // reducer
@@ -27,7 +27,9 @@ export const cartSlice = createSlice({
     setIsLoading: (state, action) => {
       state.isLoading = action.payload;
     },
-    
+    setMask: (state, action) => {
+      state.mask = action.payload;
+    },
   },
 });
 
@@ -36,7 +38,7 @@ export const {
   setErrorMessage,
   setCart,
   setIsLoading,
-  
+  setMask,
 } = cartSlice.actions;
 
 export const getCartItem = () => (dispatch) => {
@@ -57,10 +59,22 @@ export const addCartItem = (productId, quantity) => (dispatch) => {
     return res;
   });
 };
-export const addQuantity = (quantity) => (dispatch) => {
+export const minusQuantity = (quantity, id) => (dispatch) => {
   dispatch(setIsLoading(true));
-  return updateItem(quantity).then((res) => {
-    quantity += 1
+  console.log(quantity);
+  quantity--;
+  return updateItem(quantity, id).then((res) => {
+    console.log(quantity);
+    dispatch(setIsLoading(false));
+    return res;
+  });
+};
+export const addQuantity = (quantity, id) => (dispatch) => {
+  dispatch(setIsLoading(true)); 
+  console.log(quantity);
+  quantity++;
+  return updateItem(quantity, id).then((res) => {
+    console.log(quantity);
     dispatch(setIsLoading(false));
     return res;
   });
@@ -81,7 +95,7 @@ export const deleteCartItemsBySeller = (id) => (dispatch) => {
 };
 
 
-
+export const selectMask = (state) => state.order.mask;
 export const selectError = (state) => state.cart.errorMessage;
 export const selectLoading = (state) => state.cart.isLoading;
 export const selectCart = (state) => state.cart.cart;

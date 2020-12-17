@@ -6,6 +6,8 @@ import {
   selectLoading,
   deleteCartItemsBySeller,
   deleteCartItem,
+  selectMask,
+  setMask,
 } from "../../redux/slices/cartSlice/cartSlice";
 const TOKEN_NAME = "token";
 
@@ -16,6 +18,7 @@ export default function useCart() {
   const carts = useSelector(selectCart);
   const errorMessage = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
+  const mask = useSelector(selectMask);
   const handleDelete = (id) => {
     dispatch(deleteCartItem(id));
     window.location.reload();
@@ -26,7 +29,14 @@ export default function useCart() {
   };
 
   
-  return { carts, errorMessage, isLoading, handleDelete, handleDeleteSeller };
+  return {
+    mask,
+    carts,
+    errorMessage,
+    isLoading,
+    handleDelete,
+    handleDeleteSeller,
+  };
 }
 
 

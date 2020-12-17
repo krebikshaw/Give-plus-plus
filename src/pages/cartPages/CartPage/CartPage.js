@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import CartItem from "../../../components/cartSystem/CartItem"
 import OrderPrice from "../../../components/cartSystem/OrderPrice";
 import Check from "../../../components/cartSystem/Check";
+import { LoopCircleLoading } from "react-loadingg";
 import {
   getCartItem,
   updateCartItem,
@@ -44,20 +45,34 @@ const SelectTotal = styled.label`
 
 `;
 
-
+const LoadingMessage = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: ${COLOR.bg_mask};
+  z-index: 2;
+`;
 
 const CartPage = () => {
   const dispatch = useDispatch();
   useEffect(() => dispatch(getCartItem()), []);
-  const { carts} = useCart();
+  const { carts, isLoading } = useCart();
   
   return (
     <>
+      {isLoading && (
+        <LoadingMessage>
+          <LoopCircleLoading />;
+        </LoadingMessage>
+      )}
       <ThickNavPage>
         <Container>
           <Title>購物車</Title>
-            {carts && carts.map((cart, index) => <CartItem key={index} cart={cart} />)}
-            <OrderPrice />
+          {carts &&
+            carts.map((cart, index) => <CartItem key={index} cart={cart} />)}
+          <OrderPrice />
         </Container>
       </ThickNavPage>
     </>

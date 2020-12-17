@@ -8,15 +8,17 @@ import cartOrder from "../../hooks/cartHooks/useCart";
 import {
   getCartItem,
   addQuantity,
+  minusQuantity,
   deleteCartItem,
+  setErrorMessage,
   deleteCartItemsBySeller,
+  setMask,
 } from "../../redux/slices/cartSlice/cartSlice";
 const Quantity = styled.p`
   color: ${COLOR.text_2};
   font-size: ${FONT.sm};
   border: solid 1px #f1f1f1;
   outline: none;
-  border-radius: 7px;
   padding: 6px 20px;
 `;
 const Wrapper = styled.div`
@@ -24,26 +26,86 @@ const Wrapper = styled.div`
 
 `;
 const Container = styled.div`
-  
+  border: solid 1px #f1f1f1;
+  &:hover {
+    background: #f1f1f1;
+  }
 `;
-
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: ${COLOR.bg_mask};
+  z-index: 2;
+`;
+const Form = styled.form`
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 80px auto;
+  height: 300px;
+  width: 40%;
+  min-width: 300px;
+  border-radius: 9px;
+  background: ${COLOR.white};
+`;
 
 export default function ChooseQuantity({ Items }) {
   const dispatch = useDispatch();
+  
   const { carts, errorMessage, isLoading } = cartOrder();
-  const { cartItemId, cartQuantity } = Items;
-  const handlePlus = (cartItemId, cartQuantity) => {
-      dispatch(addQuantity(cartItemId, cartQuantity)); 
+  const { cartItemId, cartQuantity, productQuantity } = Items;
+  const handlePlus = () => {
+    if (cartQuantity >= productQuantity) {
+      dispatch(
+        setErrorMessage("抱歉，本次結帳最多購買" + productQuantity + "件")
+      );
+      return;
+    }
+      dispatch(addQuantity(cartQuantity, cartItemId));
+    window.location.reload(true);
   };
+  const handleMinus = () => {
+    if (cartQuantity >= productQuantity) {
+      dispatch(
+        setErrorMessage("抱歉，本次結帳最多購買" + productQuantity + "件")
+      )
+      return;
+    }else if (cartQuantity <= 1){
+       dispatch(
+         setErrorMessage("抱歉，本次結帳最少購買1件")
+       )
+       return
+    }
+      dispatch(minusQuantity(cartQuantity, cartItemId));
+    window.location.reload(true);
+  };
+   const handleClose = () => {
+       dispatch(setErrorMessage(false))
+   }
   return (
-    <Wrapper>
-      <Container>
-        <IconComponent kind={"minus"} />
-      </Container>
-      <Quantity>{Items.cartQuantity}</Quantity>
-      <Container onClick={() => handlePlus}>
-        <IconComponent kind={"plus"} />
-      </Container>
-    </Wrapper>
+    <>
+      {errorMessage && (
+        <Modal>
+          <Container onClick={() => handleClose}>
+            <IconComponent kind={"close"} />
+          </Container>
+          <Form>{errorMessage}</Form>
+        </Modal>
+      )}
+      <Wrapper>
+        <Container onClick={() => handleMinus(cartQuantity, cartItemId)}>
+          <IconComponent kind={"minus"} />
+        </Container>
+        <Quantity>{Items.cartQuantity}</Quantity>
+        <Container onClick={() => handlePlus(cartQuantity, cartItemId)}>
+          <IconComponent kind={"plus"} />
+        </Container>
+      </Wrapper>
+    </>
   );
 }
