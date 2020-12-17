@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import { COLOR } from '../../constants/style';
+import { COLOR, DISTANCE } from '../../constants/style';
 
 const SocialMediaWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 20px;
+  margin: 0 ${DISTANCE.sm};
   border-radius: 15px;
   border: 1px solid #707070;
-  width: 60px;
-  height: 60px;
+  width: ${DISTANCE.lg};
+  height: ${DISTANCE.lg};
   cursor: pointer;
   background-color: ${(props) => props.$color};
   &:hover {

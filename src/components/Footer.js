@@ -3,104 +3,80 @@ import styled from 'styled-components';
 import { COLOR, FONT } from '../constants/style';
 import IconComponent from '../components/Icon';
 import { NavLink, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setCurrentRule } from '../redux/slices/generalSlice/generalSlice';
 
 const FooterContainer = styled.div`
-  height: 150px;
-  background: ${COLOR.bg_secondary};
-  padding: 50px 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  padding: 50px 0;
+  background: ${COLOR.bg_secondary};
 `;
 
 const FooterItems = styled.ul`
-  width: 60%;
-  margin: 10px auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  width: 60%;
   min-width: fit-content;
 `;
 
-const ItemContainer = styled.div`
-  display: flex;
-  cursor: pointer;
-`;
-
-const Item = styled.div`
+const Nav = styled(NavLink)`
   font-size: ${FONT.xs};
   font-weight: bold;
   color: ${COLOR.black};
-  margin-bottom: 10px;
+  :hover {
+    color: ${COLOR.hover};
+  }
 `;
 
-const IconsContainer = styled.ul`
-  width: 60%;
-  margin: 10px auto;
+const Items = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
 `;
 
-const IconItem = styled.li`
-  display: flex;
-  cursor: pointer;
-`;
+const Item = styled.span``;
 
 const Footer = () => {
   const location = useLocation();
   const currentPath = location.pathname;
+  const dispatch = useDispatch();
   return currentPath === '/entrance' ||
     currentPath === '/login' ||
     currentPath === '/register' ? null : (
     <FooterContainer>
       <FooterItems>
-        <ItemContainer>
-          <NavLink to={'/faq'}>
-            <Item>FAQ</Item>
-          </NavLink>
-        </ItemContainer>
-        <ItemContainer>
-          <NavLink to={'/rules/1'}>
-            <Item>免責聲明</Item>
-          </NavLink>
-        </ItemContainer>
-        <ItemContainer>
-          <NavLink to={'/rules/2'}>
-            <Item>退貨政策</Item>
-          </NavLink>
-        </ItemContainer>
-        <ItemContainer>
-          <NavLink to={'/rules/3'}>
-            <Item>隱私權條款</Item>
-          </NavLink>
-        </ItemContainer>
-        <ItemContainer>
-          <NavLink to={'/about'}>
-            <Item>關於我們</Item>
-          </NavLink>
-        </ItemContainer>
-        <ItemContainer>
-          <NavLink to={'/contact'}>
-            <Item>聯絡我們</Item>
-          </NavLink>
-        </ItemContainer>
-        <ItemContainer>
-          <IconsContainer>
-            <IconItem>
-              <IconComponent kind={'facebook'} />
-            </IconItem>
-            <IconItem>
-              <IconComponent kind={'twitter'} />
-            </IconItem>
-            <IconItem>
-              <IconComponent kind={'line'} />
-            </IconItem>
-            <IconItem>
-              <IconComponent kind={'github'} />
-            </IconItem>
-          </IconsContainer>
-        </ItemContainer>
+        <Nav to={'/faq'} children={'FAQ'} />
+        <Nav
+          onClick={() => dispatch(setCurrentRule('rule1'))}
+          to={'/rules#rule1'}
+          children={'免責聲明'}
+        />
+        <Nav
+          onClick={() => dispatch(setCurrentRule('rule2'))}
+          to={'/rules#rule2'}
+          children={'退貨政策'}
+        />
+        <Nav
+          onClick={() => dispatch(setCurrentRule('rule3'))}
+          to={'/rules#rule3'}
+          children={'隱私權條款'}
+        />
+        <Nav to={'/about'} children={'關於我們'} />
+        <Nav to={'/contact'} children={'聯絡我們'} />
+        <Items>
+          <Item>
+            <IconComponent kind={'facebook'} />
+          </Item>
+          <Item>
+            <IconComponent kind={'twitter'} />
+          </Item>
+          <Item>
+            <IconComponent kind={'line'} />
+          </Item>
+          <Item>
+            <IconComponent kind={'github'} />
+          </Item>
+        </Items>
       </FooterItems>
     </FooterContainer>
   );

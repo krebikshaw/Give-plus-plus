@@ -8,6 +8,11 @@ export const Column = styled.div`
   min-width: 480px;
 `;
 
-export const BackgroundColumn = styled(Column)`
-  background: url(${process.env.PUBLIC_URL}/login-bg.jpg) center/cover;
+const Background = styled(Column)`
+  background: url(${process.env.PUBLIC_URL}/${(props) => props.$picture}.jpg)
+    center/cover;
 `;
+
+export const BackgroundColumn = ({ $picture }) => {
+  return <Background $picture={$picture} />;
+};

@@ -1,24 +1,18 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
-import { COLOR, FONT } from '../../constants/style';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { COLOR, FONT } from '../../constants/style';
 import { ThickNavTwoColumnsPage } from '../../components/Page';
+import useLogin from '../../hooks/userHooks/useLogin';
 import {
+  Title,
   Column,
   BackgroundColumn,
   Form,
   JoinButton,
   JoinInput,
 } from '../../components/general/';
-import useLogin from '../../hooks/userHooks/useLogin';
-import { useDispatch } from 'react-redux';
-
-const Title = styled.h1`
-  color: ${COLOR.text_2};
-  font-size: ${FONT.lg};
-  font-weight: 400;
-  margin-bottom: 30px;
-`;
 
 const Description = styled.div`
   color: ${COLOR.text_2};
@@ -54,16 +48,14 @@ const LoginPage = () => {
     setErrorMessage,
   } = useLogin();
 
-  useEffect(() => {
-    dispatch(setErrorMessage(null));
-  }, [dispatch, setErrorMessage]);
+  useEffect(() => dispatch(setErrorMessage(null)), [dispatch, setErrorMessage]);
 
   return (
     <>
       <ThickNavTwoColumnsPage>
         <Column>
           <Form>
-            <Title>以 Give++ 帳號登入</Title>
+            <Title $isLarge>以 Give++ 帳號登入</Title>
             <JoinInput
               title="帳號"
               type="username"
@@ -95,7 +87,7 @@ const LoginPage = () => {
             )}
           </Form>
         </Column>
-        <BackgroundColumn />
+        <BackgroundColumn $picture={'login-bg'} />
       </ThickNavTwoColumnsPage>
     </>
   );

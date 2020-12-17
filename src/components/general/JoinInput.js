@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 import { IconComponent } from '../../components';
-import { COLOR, FONT } from '../../constants/style';
+import { COLOR, FONT, DISTANCE } from '../../constants/style';
 import { NavLink } from 'react-router-dom';
 
 const InputBox = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: ${DISTANCE.sm};
   width: 70%;
 `;
 
 const InputTitle = styled.h2`
-  margin: 0 0 10px 15px;
+  margin: 0 0 ${DISTANCE.xs} 15px;
   font-size: ${FONT.xs};
   font-weight: 400;
   color: ${COLOR.text_2};
@@ -17,7 +17,7 @@ const InputTitle = styled.h2`
 
 const InputWrapper = styled.div`
   display: flex;
-  padding: 3px 10px;
+  padding: 3px ${DISTANCE.xs};
   width: 100%;
   border-radius: 25px;
   border: 1px solid ${COLOR.text_2};
@@ -35,12 +35,12 @@ const Input = styled.input`
 `;
 
 const ErrorMessage = styled.div`
-  margin-top: 10px;
+  margin-top: ${DISTANCE.xs};
   color: ${COLOR.text_alert};
 `;
 
 const Links = styled.div`
-  margin-top: 10px;
+  margin-top: ${DISTANCE.xs};
   text-align: center;
   color: ${COLOR.text_2};
 `;
