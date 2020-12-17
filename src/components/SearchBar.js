@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { EFFECT, COLOR } from '../constants/style';
 import { IconComponent } from '../components';
 import { InputSearch } from './Input';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SearchBarContainer = styled.div`
   cursor: pointer;
@@ -27,10 +27,15 @@ const SearchArea = styled.div`
 `;
 
 const SearchBar = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [value, setValue] = useState('');
   const handleChangeInput = (e) => setValue(e.target.value);
   const handleSearchProduct = (keyWord) => {
+    if (location.pathname.includes('search')) {
+      navigate(`/products/search/${keyWord}`);
+      window.location.reload();
+    }
     navigate(`/products/search/${keyWord}`);
     setValue('');
   };
@@ -42,7 +47,7 @@ const SearchBar = () => {
         <InputSearch
           value={value}
           onChange={handleChangeInput}
-          placeholder="搜尋物品"
+          placeholder='搜尋物品'
           onKeyDown={(e) => {
             if (e.keyCode === 13 && value !== '') {
               handleSearchProduct(value);

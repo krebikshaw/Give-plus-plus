@@ -66,7 +66,7 @@ const App = () => {
         <GlobalStyle />
         <BrowserRouter>
           <Navbar />
-          <Routes basename="/">
+          <Routes basename='/'>
             <Route path={'/'} element={<HomePage />} />
             <Route path={'/about'} element={<AboutUsPage />} />
             <Route path={'/entrance'} element={<EntrancePage />} />

@@ -1,9 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Nav, NormalButton } from './Button';
-import { Logo, IconComponent, SearchBar, CategoryItemBox } from '../components';
+import { User, Cart, Notification } from './navbarSystem';
+import { Logo, SearchBar, CategoryItemBox } from '../components';
 import { useLocation } from 'react-router-dom';
+import useUser from '../hooks/userHooks/useUser';
 import useProduct from '../hooks/productHooks/useProduct';
 import useLogout from '../hooks/userHooks/useLogout';
 import {
@@ -11,6 +12,7 @@ import {
   selectIsUserLoading,
 } from '../redux/slices/generalSlice/generalSlice';
 import { useSelector } from 'react-redux';
+
 const NavbarContainer = styled.div`
   position: fixed;
   top: 0;
@@ -62,11 +64,22 @@ const Navbar = () => {
   const currentPath = location.pathname;
   const userId = useSelector(selectUserId);
   const isUserLoading = useSelector(selectIsUserLoading);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const { handleGetMe } = useUser();
+
+  const handleClickLogout = () => {
+    handleLogout();
+    setIsAdmin(false);
+  };
 
   useEffect(() => {
     if (currentPath === '/' || currentPath.includes('products')) {
       handleGetProductCategories();
     }
+    handleGetMe().then((result) => {
+      if (!result || result.ok === 0 || !result.data) return;
+      setIsAdmin(result.data.is_admin);
+    });
   }, []);
 
   return (
@@ -83,16 +96,20 @@ const Navbar = () => {
 
         <RightSide>
           <OptionList>
-            <IconComponent kind={'user-circle'} />
-            <IconComponent kind={'shopping-cart'} />
-            <IconComponent kind={'setting'} />
-            <IconComponent kind={'moon'} />
+            {isAdmin && <Nav children={'管理後台'} path={'/admin'} />}
+            {userId && (
+              <>
+                <User />
+                <Cart />
+                <Notification />
+              </>
+            )}
             {isUserLoading ? (
               <Empty />
             ) : (
               <>
                 {userId && (
-                  <NormalButton children="登出" onClick={handleLogout} />
+                  <NormalButton children='登出' onClick={handleClickLogout} />
                 )}
                 {!userId && <Nav children={'登入 / 註冊'} path={'/entrance'} />}
               </>
