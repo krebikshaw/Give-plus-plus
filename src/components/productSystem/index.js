@@ -18,9 +18,12 @@ import { VendorIntro } from './VendorIntro';
 import { PurchaseInfoRight } from './PurchaseInfoRight';
 import { VendorInfo } from './VendorInfo';
 import { VendorContactComponent } from './VendorContactComponent';
-
+import { ButtonsBox } from './ButtonsBox';
+import { InputItem } from './InputItem'
 export {
   Banner,
+  ButtonsBox,
+  InputItem,
   SellerInfo,
   Announcement,
   Products,
