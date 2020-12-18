@@ -150,11 +150,9 @@ export default function useProductForm(id) {
   }, [formData]);
 
   const handleSubmitAddForm = (e) => {
-    console.log(formData);
     e.preventDefault();
     checkDataValidity();
     setIsSubmitClicked(true);
-    console.log(formData);
     if (!hasError) {
       dispatch(postProduct(formData));
       navigate('/users/backstage');
@@ -162,11 +160,9 @@ export default function useProductForm(id) {
   };
 
   const handleSubmitEditForm = (e) => {
-    console.log(formData);
     e.preventDefault();
     checkDataValidity();
     setIsSubmitClicked(true);
-    console.log(formData);
     if (!hasError) {
       dispatch(updateProduct(id, formData));
       navigate('/users/backstage');

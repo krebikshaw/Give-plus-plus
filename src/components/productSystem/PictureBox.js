@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import { COLOR, FONT, DISTANCE, EFFECT } from '../../constants/style';
 
@@ -63,7 +62,7 @@ export function PictureBox({ pictureUrl, setPictureUrl }) {
 
   return (
     <SetPictureContainer>
-      <PreviewPicture src={pictureUrl} alt="圖片載入失敗" />
+      <PreviewPicture src={pictureUrl} alt='圖片載入失敗' />
       <RightSide>
         <Description>
           從電腦中選取圖檔
@@ -71,7 +70,7 @@ export function PictureBox({ pictureUrl, setPictureUrl }) {
           最佳大小為 600px x 600px
         </Description>
         <Label>
-          <InputFile type="file" onChange={handleChangeFile} />
+          <InputFile type='file' onChange={handleChangeFile} />
           選擇圖片
         </Label>
       </RightSide>
