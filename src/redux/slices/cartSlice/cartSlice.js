@@ -22,7 +22,7 @@ export const cartSlice = createSlice({
     payWay: false,
     completeOrder: false,
     orderNumber: false,
-    quantity: "",
+    quantity: 1,
     hasAdd: false,
   },
   reducers: {

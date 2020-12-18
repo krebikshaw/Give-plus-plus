@@ -153,7 +153,7 @@ export const ProductInfo = ({ product }) => {
    
   const handleAddProduct = (productId, quantity, userId) => {
     dispatch(addCartItem(productId, quantity, userId)).then((res) => {
-      if (res.ok === 1){
+      if (res.ok === 1 || quantity === 1) {
         dispatch(setHasAdd(true));
       }
     })
