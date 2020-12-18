@@ -3,6 +3,7 @@ import { COLOR, FONT, DISTANCE } from '../../constants/style';
 import { MoreButton, ErrorMessage } from '../../components/productSystem/';
 import { Nav } from '../../components/Button';
 import useProduct from '../../hooks/productHooks/useProduct';
+import { NavLink } from 'react-router-dom';
 
 const ProductsContainer = styled.div`
   padding: ${(props) => props.$padding || '50px 42px'};
@@ -12,8 +13,7 @@ const ProductsWrap = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: ${(props) => props.$justify || 'space-between'};
+  justify-content: ${(props) => props.$justify || 'center'};
 `;
 
 const ProductContainer = styled.div`
@@ -34,6 +34,11 @@ const ProductContainer = styled.div`
   }
 `;
 
+const Placeholder = styled.div`
+  width: ${(props) => props.$width || '190px'};
+  margin: ${(props) => props.$margin || '0 20px'};
+`;
+
 const ProductPicture = styled.img`
   position: relative;
   width: ${(props) => props.$width || '190px'};
@@ -46,13 +51,13 @@ const ProductName = styled.div`
   margin-top: ${DISTANCE.md};
   text-align: center;
   cursor: pointer;
-
+}
   a {
     display: block;
     font-size: ${FONT.md};
     color: ${COLOR.black};
-    white-space: nowrap;
     overflow: hidden;
+    white-space: pre;
     text-overflow: ellipsis;
   }
 `;
@@ -60,12 +65,14 @@ const ProductName = styled.div`
 const VendorName = styled.div`
   margin-top: ${DISTANCE.sm};
   text-align: center;
-  overflow-break: break-all;
   cursor: pointer;
   a {
     display: block;
     font-size: ${FONT.xs};
     color: ${COLOR.text_2};
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
   }
 `;
 
@@ -74,10 +81,6 @@ const ProductPrice = styled.div`
   font-size: ${FONT.xs};
   color: ${COLOR.text_2};
   text-align: center;
-
-  &:before {
-    content: 'NT$ ';
-  }
 `;
 
 const ButtonContainer = styled.div`
@@ -94,12 +97,18 @@ const ButtonContainer = styled.div`
 `;
 
 const Product = ({ product, onLoad, loaded, $width, $height, $margin }) => {
+  const formatter = new Intl.NumberFormat('zh-TW', {
+    style: 'currency',
+    currency: 'NTD',
+    minimumFractionDigits: 0,
+  });
+
   return (
     <ProductContainer $width={$width} $height={$height} $margin={$margin}>
       <ButtonContainer>
         <Nav children={'編輯商品'} path={`/products/edit/${product.id}`} />
       </ButtonContainer>
-      <a href={`/products/${product.id}`}>
+      <NavLink to={`/products/${product.id}`}>
         <ProductPicture
           src={product.picture_url}
           style={{ opacity: loaded ? 1 : 0 }}
@@ -107,16 +116,16 @@ const Product = ({ product, onLoad, loaded, $width, $height, $margin }) => {
           $width={$width}
           $height={$height}
         />
-      </a>
+      </NavLink>
       <ProductName>
-        <a href={`/products/${product.id}`}>{product.name}</a>
+        <NavLink to={`/products/${product.id}`}>{product.name}</NavLink>
       </ProductName>
       <VendorName>
-        <a href={`/products/vendor/${product.User.id}`}>
+        <NavLink to={`/products/vendor/${product.User.id}`}>
           {product.User.nickname}
-        </a>
+        </NavLink>
       </VendorName>
-      <ProductPrice>{product.price}</ProductPrice>
+      <ProductPrice>{formatter.format(product.price)}</ProductPrice>
     </ProductContainer>
   );
 };
@@ -141,38 +150,24 @@ export default function Products({
       <ProductsContainer $padding={$padding}>
         <ProductsWrap $justify={$justify}>
           <>
-            {filter === true
-              ? products
-                  .filter((product) => {
-                    return product.id !== Number(productId);
-                  })
-                  .map((product) => {
-                    return (
-                      <Product
-                        key={product.id}
-                        product={product}
-                        onLoad={onLoad}
-                        loaded={loaded}
-                        $width={$width}
-                        $height={$height}
-                        $margin={$margin}
-                      />
-                    );
-                  })
-              : products.map((product) => {
-                  return (
-                    <Product
-                      key={product.id}
-                      product={product}
-                      onLoad={onLoad}
-                      loaded={loaded}
-                      $width={$width}
-                      $height={$height}
-                      $margin={$margin}
-                    />
-                  );
-                })}
+            {products.map((product) => {
+              return (
+                <Product
+                  key={product.id}
+                  product={product}
+                  onLoad={onLoad}
+                  loaded={loaded}
+                  $width={$width}
+                  $height={$height}
+                  $margin={$margin}
+                />
+              );
+            })}
           </>
+          <Placeholder $width={$width} $margin={$margin} />
+          <Placeholder $width={$width} $margin={$margin} />
+          <Placeholder $width={$width} $margin={$margin} />
+          <Placeholder $width={$width} $margin={$margin} />
         </ProductsWrap>
       </ProductsContainer>
       {loaded && !productErrorMessage ? (

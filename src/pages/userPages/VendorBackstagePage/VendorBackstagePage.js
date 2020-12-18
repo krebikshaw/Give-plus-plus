@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { COLOR, FONT, DISTANCE } from '../../../constants/style';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Navbar } from '../../../components';
 import { StandardNavPage } from '../../../components/Page';
 import useUser from '../../../hooks/userHooks/useUser';
 import useProduct from '../../../hooks/productHooks/useProduct';
@@ -55,7 +54,7 @@ const VendorBackstagePage = () => {
     products,
     hasMoreProducts,
     productErrorMessage,
-    handleClickVendorMoreButton,
+    handleVendorProductMoreButton,
     handleGetProductsFromVendor,
   } = useProduct();
 
@@ -104,7 +103,7 @@ const VendorBackstagePage = () => {
         products={products}
         id={id}
         hasMoreProducts={hasMoreProducts}
-        handler={handleClickVendorMoreButton}
+        handler={handleVendorProductMoreButton}
         productErrorMessage={productErrorMessage}
       />
     </StandardNavPage>
