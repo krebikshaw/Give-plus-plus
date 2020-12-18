@@ -36,7 +36,6 @@ export const productSlice = createSlice({
       state.page = action.payload;
     },
     pushProducts: (state, action) => {
-      //console.log("action:", action);
       state.products.push(...action.payload);
     },
     setProducts: (state, action) => {
@@ -196,20 +195,23 @@ export const postProduct = ({
   });
 };
 
-export const updateProduct = ({
-  ProductCategoryId,
-  name,
-  picture_url,
-  info,
-  price,
-  quantity,
-  delivery, // 出貨方式  0:面交、1:郵寄
-  delivery_location, // 出貨地點的欄位
-  delivery_time, // 備貨時間的欄位
-  payment_method, // 付款方式 0:貨到付款
-  remark, // 備註
-}) => (dispatch) => {
-  return updateProductAPI({
+export const updateProduct = (
+  id,
+  {
+    ProductCategoryId,
+    name,
+    picture_url,
+    info,
+    price,
+    quantity,
+    delivery, // 出貨方式  0:面交、1:郵寄
+    delivery_location, // 出貨地點的欄位
+    delivery_time, // 備貨時間的欄位
+    payment_method, // 付款方式 0:貨到付款
+    remark, // 備註
+  }
+) => (dispatch) => {
+  return updateProductAPI(id, {
     ProductCategoryId,
     name,
     picture_url,

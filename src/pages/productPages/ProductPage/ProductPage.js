@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Navbar } from '../../../components';
 import { StandardNavPage } from '../../../components/Page';
 import styled from 'styled-components';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -45,6 +44,7 @@ const ProductPage = () => {
   } = useProduct();
 
   useEffect(() => {
+    window.scroll(0, 0);
     handleGetProduct(id);
     return () => {
       dispatch(setProduct([]));
@@ -56,7 +56,6 @@ const ProductPage = () => {
   }, [id, dispatch]);
   return (
     <>
-      <Navbar />
       <StandardNavPage>
         <ProductInfoContainer>
           <Breadcrumb category={category} product={product} />
