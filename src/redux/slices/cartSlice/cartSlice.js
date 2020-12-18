@@ -5,6 +5,7 @@ import {
   updateItem,
   deleteItem,
   deleteItemsBySeller,
+  createOrder as createOrderAPI
 } from "../../../webAPI/cartAPI";
 
 export const cartSlice = createSlice({
@@ -20,6 +21,7 @@ export const cartSlice = createSlice({
     price: 0,
     payWay: false,
     completeOrder: false,
+    orderNumber: false,
   },
   reducers: {
     // reducer
@@ -50,6 +52,9 @@ export const cartSlice = createSlice({
     setComplete: (state, action) => {
       state.completeOrder = action.payload;
     },
+    setOrderNumber: (state, action) => {
+      state.orderNumber = action.payload;
+    },
   },
 });
 
@@ -64,6 +69,7 @@ export const {
   setPrice,
   setPayWay,
   setComplete,
+  setOrderNumber,
 } = cartSlice.actions;
 
 export const getCartItem = () => (dispatch) => {
@@ -120,6 +126,16 @@ export const deleteCartItemsBySeller = (id) => (dispatch) => {
     return res;
   });
 };
+export const createOrder = (quantity, productId, sellerId, id) => (dispatch) => {
+  console.log(quantity, productId, sellerId, id);
+  dispatch(setIsLoading(true));
+  return createOrderAPI(quantity, productId, sellerId, id).then((res) => {
+    dispatch(setIsLoading(false));
+    console.log(res.orderNumber);
+    dispatch(setOrderNumber(res.orderNumber));
+  });
+};
+export const selectOrderNumber = (state) => state.cart.orderNumber;
 export const selectComplete = (state) => state.cart.completeOrder;
 export const selectPayWay = (state) => state.cart.payWay;
 export const selectPrice = (state) => state.cart.price;

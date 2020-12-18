@@ -21,6 +21,7 @@ import {
   setFilter,
   setPayWay,
   setComplete,
+  createOrder,
 } from "../../redux/slices/cartSlice/cartSlice";
 const Container = styled.div`
   width: 300px;
@@ -129,6 +130,7 @@ export default function PayDetail({cart}) {
     isPaying,
     payWay,
     completeOrder,
+    orderNumber,
   } = useCart();
   const {
     user
@@ -141,19 +143,25 @@ export default function PayDetail({cart}) {
     dispatch(setFilter("select"));
   };
   const productId = cart.cartDetail.map((data) => Object.values(data)[3]);
+  const quantity = cart.cartDetail.map((data) => Object.values(data)[7]);
+  const sellerId = cart.cartDetail.map((data) => Object.values(data)[1]);
+  const id = cart.cartDetail.map((data) => Object.values(data)[0]);
   useEffect(() => {
     dispatch(getUser());
     dispatch(getProduct(productId[0]))
+    
   }, [dispatch, productId[0]]);
   const handleToCheckOutCartPage = () => {
     if (payWay === true){
         navigate("/cart/checkout");
     }
     dispatch(setComplete(true));
+    dispatch(createOrder(quantity[0], productId[0], sellerId[0],id[0]))
   }
   const handlePayWay = () => {
     dispatch(setPayWay(true));
   }
+  
   return (
     <WrapperAll>
       <Container>
@@ -198,7 +206,14 @@ export default function PayDetail({cart}) {
           <ActionButton
             $margin={0}
             style={{ background: "#b6deea", width: "100%" }}
-            onClick={handleToCheckOutCartPage}
+            onClick={() =>
+              handleToCheckOutCartPage(
+                quantity[0],
+                productId[0],
+                sellerId[0],
+                id[0]
+              )
+            }
           >
             確認付款
           </ActionButton>

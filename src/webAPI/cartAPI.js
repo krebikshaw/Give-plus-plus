@@ -63,3 +63,23 @@ export const deleteItemsBySeller = (id) => {
     },
   }).then((res) => res.json());
 };
+
+// 成立訂單
+export const createOrder = (quantity,productId,sellerId,id) => {
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/orders/new`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify([
+      {
+        quantity,
+        productId,
+        sellerId,
+        id,
+      },
+    ]),
+  }).then((res) => res.json());
+};

@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 import CartItem from "../../../components/cartSystem/CartItem";
 import OrderPrice from "../../../components/cartSystem/OrderPrice";
 import PayDetail from "../../../components/cartSystem/PayDetail.js";
-
 import { LoopCircleLoading } from "react-loadingg";
 import {
   getCartItem,
@@ -36,6 +35,7 @@ const PayTitle = styled.p`
   width: 30%;
   padding: ${DISTANCE.xs};
   letter-spacing: 1px;
+  white-space: nowrap;
 `;
 const Container = styled.div`
   margin-top: 100px;
@@ -59,6 +59,18 @@ const LoadingMessage = styled.div`
   background: ${COLOR.bg_mask};
   z-index: 2;
 `;
+const BuyAnother = styled(Link)`
+  color: #825959;
+  font-size: ${FONT.md};
+  width: 30%;
+  padding: ${DISTANCE.xs};
+  letter-spacing: 1px;
+  white-space: nowrap;
+  cursor: pointer;
+  &:hover {
+    color: #d4b5b0;
+  }
+`;
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();
@@ -71,6 +83,7 @@ const CheckoutPage = () => {
     filter,
     payWay,
     completeOrder,
+    orderNumber,
   } = useCart();
   const handleToCart = () => {
     dispatch(setIsPaying(false));
@@ -86,7 +99,10 @@ const CheckoutPage = () => {
       <ThickNavPage>
         <Container>
           {completeOrder ? (
-            <PayTitle>恭喜你完成訂單！訂單編號 :  </PayTitle>
+            <>
+              <PayTitle>恭喜你完成訂單！訂單編號 : {orderNumber} </PayTitle>
+              <BuyAnother to="/">回到首頁繼續購物</BuyAnother>
+            </>
           ) : isPaying ? (
             <Wrapper>
               <IconWrapper onClick={() => handleToCart()}>
