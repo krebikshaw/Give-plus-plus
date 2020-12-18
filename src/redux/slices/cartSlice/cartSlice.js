@@ -72,20 +72,21 @@ export const addCartItem = (productId, quantity) => (dispatch) => {
 };
 export const minusQuantity = (quantity, id) => (dispatch) => {
   dispatch(setIsLoading(true));
-  console.log(quantity);
+  //console.log(quantity);
   quantity--;
   return updateItem(quantity, id).then((res) => {
-    console.log(quantity);
+    //console.log(quantity);
+    dispatch(getCartItem());
     dispatch(setIsLoading(false));
     return res;
   });
 };
 export const addQuantity = (quantity, id) => (dispatch) => {
   dispatch(setIsLoading(true)); 
-  console.log("加一之前的數量:",quantity);
+  //console.log("加一之前的數量:",quantity);
   quantity++ ;
   return updateItem(quantity, id).then((res) => {
-    console.log("加一之後的數量:", quantity);
+    //console.log("加一之後的數量:", quantity);
     dispatch(getCartItem());
     dispatch(setIsLoading(false));
     return res;

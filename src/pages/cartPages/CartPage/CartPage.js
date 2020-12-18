@@ -99,13 +99,9 @@ const CartPage = () => {
               .map((cart, index) => (
                 <>
                   <CartItem key={index} cart={cart} />
+                  {isPaying ? <PayDetail /> : <OrderPrice cart={cart} />}
                 </>
               ))}
-          
-            {isPaying ? (<PayDetail/>):
-            (<OrderPrice  />)
-             }
-            
         </Container>
       </ThickNavPage>
     </>

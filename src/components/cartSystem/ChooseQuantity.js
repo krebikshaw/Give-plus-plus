@@ -63,9 +63,9 @@ const IconContainer = styled.div`
 
 export default function ChooseQuantity({ Item }) {
   const dispatch = useDispatch();
-  const { carts, errorMessage, isLoading, handleDeleteSeller } = useCart();
+  const { carts, errorMessage, isLoading } = useCart();
   const { cartItemId, cartQuantity, productQuantity } = Item;
-  console.log("state 裡面存的 資料庫的數量:",cartQuantity);
+  //console.log("state 裡面存的 資料庫的數量:",cartQuantity);
   const handlePlus = () => {
     if (cartQuantity >= productQuantity) {
       dispatch(
@@ -74,7 +74,6 @@ export default function ChooseQuantity({ Item }) {
       return;
     }
       dispatch(addQuantity(cartQuantity, cartItemId));
-     
       //window.location.reload(true);
   };
   const handleMinus = () => {
@@ -83,7 +82,7 @@ export default function ChooseQuantity({ Item }) {
       return;
     }
       dispatch(minusQuantity(cartQuantity, cartItemId));
-      window.location.reload(true);
+      //window.location.reload(true);
   };
    const handleClose = () => {
        dispatch(setErrorMessage(false))

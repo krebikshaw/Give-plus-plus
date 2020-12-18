@@ -68,6 +68,7 @@ export default function OrderPrice({ cart }) {
     handleDeleteSeller,
     formatter,
     isPaying,
+    isSelect,
   } = useCart();
   const handlePay = () => {
     dispatch(setIsPaying(true));
@@ -79,22 +80,28 @@ export default function OrderPrice({ cart }) {
         <Title>訂單摘要</Title>
       </Top>
       <Count>
-        <Wrapper>
-          <TotalAmountTitle>商品總計</TotalAmountTitle>
-          <TotalAmount>
-            
-          </TotalAmount>
-        </Wrapper>
-        <Wrapper>
-          <TotalAmountTitle>運費總計</TotalAmountTitle>
-          <TotalAmount>NT$ 0</TotalAmount>
-        </Wrapper>
-        <Hr />
-        <Wrapper>
-          <TotalAmountTitle>結帳總金額</TotalAmountTitle>
-          <TotalAmount></TotalAmount>
-        </Wrapper>
-        <ActionButton $margin={0} style={{ background: "#b6deea" }} onClick={() => handlePay()}>
+            <Wrapper>
+              <TotalAmountTitle>商品總計</TotalAmountTitle>
+
+              <TotalAmount>{formatter.format()}</TotalAmount>
+            </Wrapper>
+            <Wrapper>
+              <TotalAmountTitle>運費總計</TotalAmountTitle>
+              <TotalAmount>NT$ 0</TotalAmount>
+            </Wrapper>
+            <Hr />
+            <Wrapper>
+              <TotalAmountTitle>結帳總金額</TotalAmountTitle>
+              <TotalAmount>
+                {" "}
+                {formatter.format()}
+              </TotalAmount>
+            </Wrapper>
+        <ActionButton
+          $margin={0}
+          style={{ background: "#b6deea" }}
+          onClick={() => handlePay()}
+        >
           前往結帳
         </ActionButton>
       </Count>
