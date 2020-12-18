@@ -71,7 +71,7 @@ export default function useOrder() {
    const handleModal = () => {
      dispatch(setMask(true));
    };
-  const handleSentOrder = () => {
+  const handleSentOrder = (id) => {
     dispatch(sentOrder(id));
     window.location.reload(true);
   }

@@ -420,7 +420,7 @@ const OrderDetailPage = () => {
                         style={{
                           "margin-bottom": "40px",
                         }}
-                        onClick={handleSentOrder}
+                        onClick={() => handleSentOrder(id)}
                       >
                         完成出貨
                       </NormalButton>

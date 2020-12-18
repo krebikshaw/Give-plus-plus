@@ -9,6 +9,7 @@ import {
   getSellerOrder,
 } from "../../../redux/slices/orderSlice/orderSlice";
 import { getAuthToken } from "../../../utils";
+import { LoopCircleLoading } from "react-loadingg";
 import useOrder from "../../../hooks/orderHooks/useOrder";
 import {
   COLOR,
@@ -70,9 +71,18 @@ const Content = styled.td`
     color: ${COLOR.hover};
   }
 `;
+const LoadingMessage = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: ${COLOR.bg_mask};
+  z-index: 2;
+`;
 const VendorOrdersPage = () => {
   const dispatch = useDispatch();
-  const { orders, formatter } = useOrder();
+  const { orders, formatter, isLoading } = useOrder();
   useEffect(() => {
     if (getAuthToken()) {
       dispatch(getUser());
@@ -86,8 +96,10 @@ const VendorOrdersPage = () => {
       <ThickNavPage>
         <Container>
           <Title>訂單查詢</Title>
-          {!orders || orders.length === 0 ? (
-            <Message>尚無訂單</Message>
+          {!orders || orders.length === 0 || isLoading ? (
+            <LoadingMessage>
+              <LoopCircleLoading />;
+            </LoadingMessage>
           ) : (
             <Table>
               <NameContainer>

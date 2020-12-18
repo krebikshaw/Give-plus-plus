@@ -10,6 +10,7 @@ import { Navbar } from "../../../components";
 import { ThickNavPage } from "../../../components/Page";
 import { getAuthToken} from "../../../utils";
 import useOrder from "../../../hooks/orderHooks/useOrder";
+import { LoopCircleLoading } from "react-loadingg";
 import {
   COLOR,
   FONT,
@@ -71,13 +72,22 @@ const OrderContent = styled(Link)`
     color: ${COLOR.hover};
   }
 `;
+const LoadingMessage = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: ${COLOR.bg_mask};
+  z-index: 2;
+`;
 
 const ClientOrdersPage = () => {
 const navigate = useNavigate();
 const location = useLocation();
 const currentPath = location.pathname;
 const dispatch = useDispatch();
-const { orders, formatter } = useOrder();
+const { orders, formatter, isLoading } = useOrder();
 useEffect(() => {
   if (getAuthToken()) {
     dispatch(getUser());
@@ -92,8 +102,10 @@ useEffect(() => {
       <ThickNavPage>
         <Container>
           <Title>訂單查詢</Title>
-          {!orders || orders.length === 0 ? (
-            <Message>尚無訂單</Message>
+          {!orders || orders.length === 0 || isLoading ? (
+            <LoadingMessage>
+              <LoopCircleLoading />;
+            </LoadingMessage>
           ) : (
             <Table>
               <NameContainer>
