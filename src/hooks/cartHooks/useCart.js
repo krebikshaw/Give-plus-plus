@@ -13,6 +13,8 @@ import {
   selectPayWay,
   selectComplete,
   selectOrderNumber,
+  selectQuantity,
+  selectAdd,
 } from "../../redux/slices/cartSlice/cartSlice";
 
 export default function useCart() {
@@ -32,6 +34,8 @@ export default function useCart() {
   const payWay = useSelector(selectPayWay);
   const completeOrder = useSelector(selectComplete);
   const orderNumber = useSelector(selectOrderNumber);
+  const SelectQuantity = useSelector(selectQuantity);
+  const hasAdd = useSelector(selectAdd);
   const handleDelete = (id) => {
     dispatch(deleteCartItem(id));
     window.location.reload();
@@ -56,6 +60,8 @@ export default function useCart() {
     handleDelete,
     handleDeleteSeller,
     orderNumber,
+    SelectQuantity,
+    hasAdd,
   };
 }
 

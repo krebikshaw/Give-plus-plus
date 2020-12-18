@@ -22,6 +22,8 @@ export const cartSlice = createSlice({
     payWay: false,
     completeOrder: false,
     orderNumber: false,
+    quantity: "",
+    hasAdd: false,
   },
   reducers: {
     // reducer
@@ -55,6 +57,12 @@ export const cartSlice = createSlice({
     setOrderNumber: (state, action) => {
       state.orderNumber = action.payload;
     },
+    setQuantity: (state, action) => {
+      state.quantity = action.payload;
+    },
+    setHasAdd: (state, action) => {
+      state.hasAdd = action.payload;
+    },
   },
 });
 
@@ -70,6 +78,8 @@ export const {
   setPayWay,
   setComplete,
   setOrderNumber,
+  setQuantity,
+  setHasAdd,
 } = cartSlice.actions;
 
 export const getCartItem = () => (dispatch) => {
@@ -83,9 +93,9 @@ export const getCartItem = () => (dispatch) => {
   });
 };
 
-export const addCartItem = (productId, quantity) => (dispatch) => {
+export const addCartItem = (productId, quantity, id) => (dispatch) => {
   dispatch(setIsLoading(true));
-  return addItem(productId, quantity).then((res) => {
+  return addItem(productId, quantity, id).then((res) => {
     dispatch(setIsLoading(false));
     return res;
   });
@@ -135,6 +145,8 @@ export const createOrder = (quantity, productId, sellerId, id) => (dispatch) => 
     dispatch(setOrderNumber(res.orderNumber));
   });
 };
+export const selectAdd = (state) => state.cart.hasAdd;
+export const selectQuantity = (state) => state.cart.quantity;
 export const selectOrderNumber = (state) => state.cart.orderNumber;
 export const selectComplete = (state) => state.cart.completeOrder;
 export const selectPayWay = (state) => state.cart.payWay;

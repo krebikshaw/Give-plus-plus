@@ -13,7 +13,7 @@ export const getItem = () => {
   }).then((res) => res.json());
 };
 // 加入商品到購物車
-export const addItem = (productId, quantity) => {
+export const addItem = (productId, quantity,id) => {
   const token = getAuthToken();
   return fetch(`${BASE_URL}/carts/cart-items/new`, {
     method: "POST",
@@ -24,6 +24,7 @@ export const addItem = (productId, quantity) => {
     body: JSON.stringify({
       productId,
       quantity,
+      id
     }),
   }).then((res) => res.json());
 };
