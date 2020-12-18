@@ -1,5 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from "react-router-dom";
 import {
   selectCart,
   selectError,
@@ -15,6 +14,7 @@ import {
   selectOrderNumber,
   selectQuantity,
   selectAdd,
+  selectUpdate,
 } from "../../redux/slices/cartSlice/cartSlice";
 
 export default function useCart() {
@@ -36,6 +36,7 @@ export default function useCart() {
   const orderNumber = useSelector(selectOrderNumber);
   const SelectQuantity = useSelector(selectQuantity);
   const hasAdd = useSelector(selectAdd);
+  const update = useSelector(selectUpdate);
   const handleDelete = (id) => {
     dispatch(deleteCartItem(id));
     window.location.reload();
@@ -47,6 +48,7 @@ export default function useCart() {
 
   
   return {
+    update,
     isSelect,
     completeOrder,
     price,

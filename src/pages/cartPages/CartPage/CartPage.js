@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { COLOR, FONT, MEDIA_QUERY_MD,
   DISTANCE, } from "../../../constants/style";
 import { ThickNavPage } from "../../../components/Page";
 import { IconComponent } from "../../../components";
-import { Link } from "react-router-dom";
 import CartItem from "../../../components/cartSystem/CartItem"
 import OrderPrice from "../../../components/cartSystem/OrderPrice";
 import PayDetail from "../../../components/cartSystem/PayDetail.js";
@@ -13,9 +12,6 @@ import PayDetail from "../../../components/cartSystem/PayDetail.js";
 import { LoopCircleLoading } from "react-loadingg";
 import {
   getCartItem,
-  updateCartItem,
-  deleteCartItem,
-  deleteCartItemsBySeller,
   setIsPaying,
   setFilter
 } from "../../../redux/slices/cartSlice/cartSlice";
@@ -30,7 +26,7 @@ const PayTitle = styled.p`
   color: ${COLOR.text_1};
   font-size: ${FONT.md};
   width: 30%;
-  padding: ${DISTANCE.xs};
+  
 `;
 const Container = styled.div`
   margin-top: 100px;
@@ -42,7 +38,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  align-items: baseline;
+  align-items: center;
 `;
 const IconWrapper = styled.div`
   
@@ -59,7 +55,7 @@ const LoadingMessage = styled.div`
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  useEffect(() => dispatch(getCartItem()), []);
+  useEffect(() => dispatch(getCartItem()), [dispatch]);
   const { carts, isLoading, isPaying, isSelect, filter } = useCart();
   const handleToCart = () => {
     dispatch(setIsPaying(false));

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import {
   COLOR,
@@ -16,9 +16,6 @@ import PayDetail from "../../../components/cartSystem/PayDetail.js";
 import { LoopCircleLoading } from "react-loadingg";
 import {
   getCartItem,
-  updateCartItem,
-  deleteCartItem,
-  deleteCartItemsBySeller,
   setIsPaying,
   setFilter,
 } from "../../../redux/slices/cartSlice/cartSlice";
@@ -74,14 +71,13 @@ const BuyAnother = styled(Link)`
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();
-  useEffect(() => dispatch(getCartItem()), []);
+  useEffect(() => dispatch(getCartItem()), [dispatch]);
   const {
     carts,
     isLoading,
     isPaying,
     isSelect,
     filter,
-    payWay,
     completeOrder,
     orderNumber,
   } = useCart();

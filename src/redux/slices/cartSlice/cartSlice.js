@@ -24,6 +24,7 @@ export const cartSlice = createSlice({
     orderNumber: false,
     quantity: 1,
     hasAdd: false,
+    update: false,
   },
   reducers: {
     // reducer
@@ -63,6 +64,9 @@ export const cartSlice = createSlice({
     setHasAdd: (state, action) => {
       state.hasAdd = action.payload;
     },
+    setUpdate: (state, action) => {
+      state.update = action.payload;
+    },
   },
 });
 
@@ -80,6 +84,7 @@ export const {
   setOrderNumber,
   setQuantity,
   setHasAdd,
+  setUpdate,
 } = cartSlice.actions;
 
 export const getCartItem = () => (dispatch) => {
@@ -145,6 +150,7 @@ export const createOrder = (quantity, productId, sellerId, id) => (dispatch) => 
     dispatch(setOrderNumber(res.orderNumber));
   });
 };
+export const selectUpdate = (state) => state.cart.update;
 export const selectAdd = (state) => state.cart.hasAdd;
 export const selectQuantity = (state) => state.cart.quantity;
 export const selectOrderNumber = (state) => state.cart.orderNumber;

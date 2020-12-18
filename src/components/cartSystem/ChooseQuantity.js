@@ -1,19 +1,13 @@
 import styled from "styled-components";
-import React, { useEffect } from "react";
+import React from "react";
 import { IconComponent } from "../../components";
-import { COLOR, FONT, DISTANCE, MEDIA_QUERY_MD } from "../../constants/style";
-import { NavLink } from "react-router-dom";
+import { COLOR, FONT } from "../../constants/style";
 import { useDispatch } from "react-redux";
 import useCart from "../../hooks/cartHooks/useCart";
 import {
-  getCartItem,
   addQuantity,
   minusQuantity,
-  deleteCartItem,
   setErrorMessage,
-  deleteCartItemsBySeller,
-  setMask,
-  setPrice,
 } from "../../redux/slices/cartSlice/cartSlice";
 const Quantity = styled.p`
   color: ${COLOR.text_2};
@@ -70,7 +64,7 @@ const IconContainer = styled.div`
 
 export default function ChooseQuantity({ Item }) {
   const dispatch = useDispatch();
-  const { carts, errorMessage, isLoading, isSelect, isPaying } = useCart();
+  const { errorMessage, isSelect, isPaying } = useCart();
   const { cartItemId, cartQuantity, productQuantity } = Item;
   //console.log("state 裡面存的 資料庫的數量:",cartQuantity);
   const handlePlus = () => {

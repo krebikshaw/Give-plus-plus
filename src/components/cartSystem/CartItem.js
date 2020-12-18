@@ -1,17 +1,12 @@
 import styled from "styled-components";
-import React, { useEffect } from "react";
-import { Navbar, IconComponent } from "../../components";
-import { COLOR, FONT, DISTANCE, MEDIA_QUERY_MD } from "../../constants/style";
-import { useParams, NavLink } from "react-router-dom";
+import React from "react";
+import { IconComponent } from "../../components";
+import { COLOR, FONT, MEDIA_QUERY_MD } from "../../constants/style";
 import { useDispatch } from "react-redux";
 
 import ItemDetail from "./ItemDetail";
 import useCart from "../../hooks/cartHooks/useCart";
 import {
-  getCartItem,
-  updateCartItem,
-  deleteCartItem,
-  deleteCartItemsBySeller,
   setIsSelect,
   setPrice,
   setFilter,
@@ -20,8 +15,6 @@ const Container = styled.p`
   margin: 20px auto;
   width: 95%;
   min-width: ${MEDIA_QUERY_MD.md};
-  
-  
   border: solid 1px #f6f5f5;
   border-radius: 8px 8px;
   margin-bottom: 40px;
@@ -101,14 +94,10 @@ export default function CartItem({ cart }) {
   
   const dispatch = useDispatch();
   const {
-    carts,
-    errorMessage,
-    isLoading,
     handleDeleteSeller,
     isSelect,
     isPaying,
     formatter,
-    price,
     completeOrder,
   } = useCart();
   const SellerId = cart.cartDetail.map((data) => Object.values(data)[1]);

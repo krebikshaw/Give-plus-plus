@@ -1,27 +1,21 @@
 import styled from "styled-components";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { IconComponent } from "../../components";
+import { InputComponent } from "../../components/Input";
 import { ActionButton } from "../../components/Button";
-import { COLOR, FONT, DISTANCE, MEDIA_QUERY_MD } from "../../constants/style";
-import { NavLink, useNavigate, useLocation, Link } from "react-router-dom";
+import { COLOR, FONT} from "../../constants/style";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
-import ItemDetail from "./ItemDetail";
 import useCart from "../../hooks/cartHooks/useCart";
 import useOrder from "../../hooks/orderHooks/useOrder";
 import useProduct from "../../hooks/productHooks/useProduct";
 import { getUser } from "../../redux/slices/orderSlice/orderSlice";
 import { getProduct } from "../../redux/slices/productSlice/productSlice";
 import {
-  getCartItem,
-  updateCartItem,
-  deleteCartItem,
-  deleteCartItemsBySeller,
-  setIsPaying,
-  setFilter,
   setPayWay,
   setComplete,
   createOrder,
+  setUpdate,
 } from "../../redux/slices/cartSlice/cartSlice";
 const Container = styled.div`
   width: 300px;
@@ -64,6 +58,12 @@ const Title = styled.p`
   font-size: ${FONT.sm};
   letter-spacing: 1px;
 `;
+const UpdateTitle = styled.p`
+  color: ${COLOR.text_2};
+  font-size: ${FONT.sm};
+  letter-spacing: 1px;
+  margin: 20px 0;
+`;
 const Name = styled.p`
   color: ${COLOR.text_2};
   font-size: ${FONT.sm};
@@ -96,6 +96,13 @@ const PayWrapper = styled.div`
 const WrapperAll = styled.div`
 
 `;
+const IconClose = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+`;
 const ReceiveDetail = styled.p`
   color: ${COLOR.text_1};
   font-size: ${FONT.sm};
@@ -114,23 +121,37 @@ const Hr = styled.hr`
 const Radio = styled.input`
   margin: 0 12px 0 4px;
 `;
-
-
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: ${COLOR.bg_mask};
+  z-index: 2;
+`;
+const Form = styled.form`
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 80px auto;
+  width: 40%;
+  min-width: 300px;
+  border-radius: 9px;
+  background: ${COLOR.white};
+`;
 export default function PayDetail({cart}) {
-  const location = useLocation();
-  const currentPath = location.pathname;
+  const [receiver, setReceiver] = useState('')
+  const [receiveAddress, setReceiveAddress] = useState("");
+  const [buyer, setBuyer] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
-    carts,
-    errorMessage,
-    isLoading,
-    handleDeleteSeller,
-    formatter,
-    isPaying,
     payWay,
     completeOrder,
-    orderNumber,
+    update,
   } = useCart();
   const {
     user
@@ -138,10 +159,6 @@ export default function PayDetail({cart}) {
   const {
     product,
   } = useProduct();
-  const handlePay = () => {
-    dispatch(setIsPaying(true));
-    dispatch(setFilter("select"));
-  };
   const productId = cart.cartDetail.map((data) => Object.values(data)[3]);
   const quantity = cart.cartDetail.map((data) => Object.values(data)[7]);
   const sellerId = cart.cartDetail.map((data) => Object.values(data)[1]);
@@ -150,7 +167,7 @@ export default function PayDetail({cart}) {
     dispatch(getUser());
     dispatch(getProduct(productId[0]))
     
-  }, [dispatch, productId[0]]);
+  }, [dispatch, productId]);
   const handleToCheckOutCartPage = () => {
     if (payWay === true){
         navigate("/cart/checkout");
@@ -161,64 +178,120 @@ export default function PayDetail({cart}) {
   const handlePayWay = () => {
     dispatch(setPayWay(true));
   }
-  
+  const handleUpdateReceiveInfo = () => {
+    dispatch(setUpdate(true));
+  }
+  const handleClose = () => {
+    dispatch(setUpdate(false));
+  }
+    const handleUpdateReceiver = (e) => {
+       setReceiver(e.target.value);
+    };
+   const handleUpdateAddress = (e) => {
+       setReceiveAddress(e.target.value);
+   };
+    const handleUpdateBuyer = (e) => {
+       setBuyer(e.target.value);
+    };
+    const handleUpdateInfo = () => {
+        dispatch(setUpdate(false));
+    }
+    
   return (
-    <WrapperAll>
-      <Container>
-        <ReceiveInfo>
-          <Top>
-            <Title>收件資訊</Title>
-            {completeOrder ? null : (
-              <IconContainer>
-                <IconComponent kind={"update"} />
-              </IconContainer>
-            )}
-          </Top>
-          <Name>{user && user.username}</Name>
-          <Address>{user && user.address}</Address>
-          <Name>購買人：{user && user.username}</Name>
-        </ReceiveInfo>
-        <ReceiveWay>
-          <Wrapper>
-            <ReceiveTitle>
-              運送方式 : {product.delivery === 0 ? "面交" : "郵寄"}
-            </ReceiveTitle>
-            <ReceiveDetail></ReceiveDetail>
-          </Wrapper>
-        </ReceiveWay>
-      </Container>
-      {completeOrder ? null : (
-        <PayContainer>
-          <Title>付款方式</Title>
-          <Hr />
-          <PayWrapper>
-            <Radio type="radio" name="radio" onClick={handlePayWay}></Radio>
-            <Title>面交時付款</Title>
-          </PayWrapper>
-          <PayWrapper>
-            <Radio type="radio" name="radio" onClick={handlePayWay}></Radio>
-            <Title>超商取貨付款</Title>
-          </PayWrapper>
-          <PayWrapper>
-            <Radio type="radio" name="radio" onClick={handlePayWay}></Radio>
-            <Title>Apple Pay</Title>
-          </PayWrapper>
-          <ActionButton
-            $margin={0}
-            style={{ background: "#b6deea", width: "100%" }}
-            onClick={() =>
-              handleToCheckOutCartPage(
-                quantity[0],
-                productId[0],
-                sellerId[0],
-                id[0]
-              )
-            }
-          >
-            確認付款
-          </ActionButton>
-        </PayContainer>
+    <>
+      {update && (
+        <Modal>
+          <Form>
+            <IconClose onClick={handleClose}>
+              <IconComponent kind={"close"} />
+            </IconClose>
+            <UpdateTitle>請填寫收件人與購買人資訊</UpdateTitle>
+            <Title>收件人</Title>
+            <InputComponent
+              value={receiver}
+              placeholder="收件人姓名"
+              onChange={handleUpdateReceiver}
+            ></InputComponent>
+            <InputComponent
+              value={receiveAddress}
+              placeholder="收件地址"
+              onChange={handleUpdateAddress}
+            ></InputComponent>
+            <Title>購買人</Title>
+            <InputComponent
+              value={buyer}
+              placeholder="購買人姓名"
+              onChange={handleUpdateBuyer}
+            ></InputComponent>
+            <ActionButton
+              $margin={0}
+              style={{ background: "#b6deea", "margin-bottom": "20px" }}
+              onClick={handleUpdateInfo}
+            >
+              確認更新
+            </ActionButton>
+          </Form>
+        </Modal>
       )}
-    </WrapperAll>
+      <WrapperAll>
+        <Container>
+          <ReceiveInfo>
+            <Top>
+              <Title>收件資訊</Title>
+              {completeOrder ? null : (
+                <IconContainer onClick={handleUpdateReceiveInfo}>
+                  <IconComponent kind={"update"} />
+                </IconContainer>
+              )}
+            </Top>
+            <Name>{receiver ? receiver : user && user.username}</Name>
+            <Address>
+              {receiveAddress ? receiveAddress : user && user.address}
+            </Address>
+            <Name>購買人：{buyer ? buyer : user && user.username}</Name>
+          </ReceiveInfo>
+          <ReceiveWay>
+            <Wrapper>
+              <ReceiveTitle>
+                運送方式 : {product.delivery === 0 ? "面交" : "郵寄"}
+              </ReceiveTitle>
+              <ReceiveDetail></ReceiveDetail>
+            </Wrapper>
+          </ReceiveWay>
+        </Container>
+        {completeOrder ? null : (
+          <PayContainer>
+            <Title>付款方式</Title>
+            <Hr />
+            <PayWrapper>
+              <Radio type="radio" name="radio" onClick={handlePayWay}></Radio>
+              <Title>面交時付款</Title>
+            </PayWrapper>
+            <PayWrapper>
+              <Radio type="radio" name="radio" onClick={handlePayWay}></Radio>
+              <Title>超商取貨付款</Title>
+            </PayWrapper>
+            <PayWrapper>
+              <Radio type="radio" name="radio" onClick={handlePayWay}></Radio>
+              <Title>Apple Pay</Title>
+            </PayWrapper>
+            <ActionButton
+              $margin={0}
+              style={{ background: "#b6deea", width: "100%" }}
+              onClick={() =>
+                handleToCheckOutCartPage(
+                  quantity[0],
+                  productId[0],
+                  sellerId[0],
+                  id[0]
+                )
+              }
+            >
+              確認付款
+            </ActionButton>
+          </PayContainer>
+        )}
+      </WrapperAll>
+    </>
   );
 }

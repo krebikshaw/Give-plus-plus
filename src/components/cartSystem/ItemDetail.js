@@ -1,25 +1,11 @@
 import styled from "styled-components";
-import React, { useEffect } from "react";
+import React from "react";
 import { IconComponent } from "../../components";
-import { COLOR, FONT, DISTANCE, MEDIA_QUERY_MD } from "../../constants/style";
-import { useParams, NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { COLOR, FONT } from "../../constants/style";
 import ChooseQuantity from "./ChooseQuantity";
-import useOrder from "../../hooks/orderHooks/useOrder";
 import useCart from "../../hooks/cartHooks/useCart";
 import { LoopCircleLoading } from "react-loadingg";
-import {
-  getUser,
-} from "../../redux/slices/orderSlice/orderSlice";
-import {
-  getCartItem,
-  updateCartItem,
-  deleteCartItem,
-  deleteCartItemsBySeller,
-  addCurrentQuantity,
-  minusCurrentQuantity,
- 
-} from "../../redux/slices/cartSlice/cartSlice";
+
 const CartInfo = styled.div`
   display: flex;
   padding: 40px;
@@ -60,16 +46,8 @@ const LoadingBackground = styled.div`
   z-index: 2;
 `;
 export default function ItemDetail({Item}) {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const {
-    user,
-  } = useOrder();
     const {
-      carts,
-      errorMessage,
       isLoading,
-      handleDeleteSeller,
       handleDelete,
       formatter,
       isSelect,

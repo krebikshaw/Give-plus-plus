@@ -1,20 +1,12 @@
 import styled from "styled-components";
-import React, { useEffect } from "react";
+import React from "react";
 import { ActionButton } from "../../components/Button";
-import { COLOR, FONT, DISTANCE, MEDIA_QUERY_MD } from "../../constants/style";
-import { NavLink } from "react-router-dom";
+import { COLOR, FONT } from "../../constants/style";
 import { useDispatch } from "react-redux";
-
-import ItemDetail from "./ItemDetail";
 import useCart from "../../hooks/cartHooks/useCart";
 import {
-  getCartItem,
-  updateCartItem,
-  deleteCartItem,
-  deleteCartItemsBySeller,
   setIsPaying,
   setFilter,
-  setPrice,
 } from "../../redux/slices/cartSlice/cartSlice";
 const Container = styled.div`
   width: 300px;
@@ -63,13 +55,7 @@ const Hr = styled.hr`
 export default function OrderPrice({ cart }) {
   const dispatch = useDispatch();
   const {
-    carts,
-    errorMessage,
-    isLoading,
-    handleDeleteSeller,
     formatter,
-    isPaying,
-    isSelect,
     price,
   } = useCart();
   const handlePay = () => {
