@@ -54,8 +54,8 @@ export default function useProduct() {
 
   const handleGetProduct = (id) => {
     dispatch(getProduct(id)).then((res) => {
-      if (Number(res.product.status) !== 1) {
-        navigate('/');
+      if (!res.product || Number(res.product.status) !== 1) {
+        return navigate('/');
       }
       dispatch(getProductsFromVendor(res.vendorInfo.id, page, 4)).then(
         (products) => {
@@ -71,7 +71,7 @@ export default function useProduct() {
     });
   };
 
-  const handleGetProducts = (page) => dispatch(getProducts(page));
+  const handleGetProducts = () => dispatch(getProducts(page));
 
   const handleGetProductCategories = () => dispatch(getProductCategories());
 
@@ -89,7 +89,7 @@ export default function useProduct() {
     });
   };
 
-  const handleGetProductsMoreButton = (page) => dispatch(getProducts(++page));
+  const handleGetProductsMoreButton = () => dispatch(getProducts(++page));
 
   const handleSearchProductMoreButton = (keyword) => {
     dispatch(searchProduct(keyword, ++page, sort));

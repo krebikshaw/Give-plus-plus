@@ -65,7 +65,6 @@ const postProductAPI = ({
   remark, // 備註
 }) => {
   const token = localStorage.getItem('token');
-
   return fetch(`${BASE_URL}/products/new`, {
     method: 'POST',
     headers: {
@@ -85,25 +84,30 @@ const postProductAPI = ({
       payment_method,
       remark,
     }),
-  }).then((res) => res.json());
+  })
+    .then((res) => res.json())
+    .then((res) => res);
 };
 
-const updateProductAPI = ({
-  ProductCategoryId,
-  name,
-  picture_url,
-  info,
-  price,
-  quantity,
-  delivery, // 出貨方式  0:面交、1:郵寄
-  delivery_location, // 出貨地點的欄位
-  delivery_time, // 備貨時間的欄位
-  payment_method, // 付款方式 0:貨到付款
-  remark, // 備註
-}) => {
+const updateProductAPI = (
+  id,
+  {
+    ProductCategoryId,
+    name,
+    picture_url,
+    info,
+    price,
+    quantity,
+    delivery, // 出貨方式  0:面交、1:郵寄
+    delivery_location, // 出貨地點的欄位
+    delivery_time, // 備貨時間的欄位
+    payment_method, // 付款方式 0:貨到付款
+    remark, // 備註
+  }
+) => {
   const token = localStorage.getItem('token');
 
-  return fetch(`${BASE_URL}/products/new`, {
+  return fetch(`${BASE_URL}/products/${id}`, {
     method: 'PATCH',
     headers: {
       'content-type': 'application/json',

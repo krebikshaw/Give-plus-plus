@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { COLOR, FONT, DISTANCE } from '../../../constants/style';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Navbar } from '../../../components';
 import { StandardNavPage } from '../../../components/Page';
 import useProduct from '../../../hooks/productHooks/useProduct';
 import {
@@ -51,7 +50,6 @@ const VendorShopPage = () => {
 
   return (
     <>
-      <Navbar />
       <StandardNavPage>
         <Banner
           banner={vendorInfo.banner_url}

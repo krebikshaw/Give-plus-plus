@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Navbar } from '../../../components';
 import { StandardNavPage } from '../../../components/Page';
 import { COLOR, FONT } from '../../../constants/style';
 import styled from 'styled-components';
@@ -60,7 +59,6 @@ const SearchProductPage = () => {
   }, [keyword, dispatch]);
   return (
     <>
-      <Navbar />
       <StandardNavPage>
         <SearchTitle
           keyword={keyword}
