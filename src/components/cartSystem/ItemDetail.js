@@ -71,6 +71,10 @@ export default function ItemDetail({Item}) {
       isLoading,
       handleDeleteSeller,
       handleDelete,
+      formatter,
+      isSelect,
+      isPaying,
+      completeOrder,
     } = useCart();
  
   return (
@@ -86,10 +90,16 @@ export default function ItemDetail({Item}) {
         </Photo>
         <ProductName>{Item.productName}</ProductName>
         <ChooseQuantity Item={Item} />
-        <Price>NT${Item.price}</Price>
-        <Container onClick={() => handleDelete(Item.cartItemId)}>
-          <IconComponent kind={"delete"} />
-        </Container>
+        {completeOrder ? (
+          <Price>{formatter.format(Item.price * Item.cartQuantity)}</Price>
+        ) : (
+          <Price>{formatter.format(Item.price)}</Price>
+        )}
+        {isSelect || isPaying ? null : (
+          <Container onClick={() => handleDelete(Item.cartItemId)}>
+            <IconComponent kind={"delete"} />
+          </Container>
+        )}
       </CartInfo>
     </>
   );

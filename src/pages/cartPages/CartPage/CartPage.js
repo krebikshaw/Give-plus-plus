@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import CartItem from "../../../components/cartSystem/CartItem"
 import OrderPrice from "../../../components/cartSystem/OrderPrice";
 import PayDetail from "../../../components/cartSystem/PayDetail.js";
-import Check from "../../../components/cartSystem/Check";
+
 import { LoopCircleLoading } from "react-loadingg";
 import {
   getCartItem,
@@ -99,7 +99,11 @@ const CartPage = () => {
               .map((cart, index) => (
                 <>
                   <CartItem key={index} cart={cart} />
-                  {isPaying ? <PayDetail /> : <OrderPrice cart={cart} />}
+                  {isPaying ? (
+                    <PayDetail cart={cart}/>
+                  ) : (
+                    <OrderPrice cart={cart} />
+                  )}
                 </>
               ))}
         </Container>

@@ -13,17 +13,19 @@ import {
   deleteCartItem,
   deleteCartItemsBySeller,
   setIsSelect,
+  setPrice,
+  setFilter,
 } from "../../redux/slices/cartSlice/cartSlice";
 const Container = styled.p`
   margin: 20px auto;
-  min-width: 500px;
   width: 95%;
   min-width: ${MEDIA_QUERY_MD.md};
-  height: 420px;
-  overflow: auto;
-  border:solid 1px #f6f5f5;
+  
+  
+  border: solid 1px #f6f5f5;
   border-radius: 8px 8px;
   margin-bottom: 40px;
+  position: relative;
 `;
 
 const Top = styled.div`
@@ -74,6 +76,26 @@ const Select = styled.select`
 `;
 const IconContainer = styled.div`
 `;
+const Section = styled.div`
+  position: fix;
+  right: 0;
+  margin-left: 535px;
+ 
+`;
+const Wrapper = styled.div`
+  display: flex;
+  margin: 20px 0;
+`;
+const Price = styled.p`
+  color: ${COLOR.text_1};
+  font-size: ${FONT.sm};
+  font-weight: bold;
+`;
+const TotalAmountTitle = styled.p`
+  color: ${COLOR.text_2};
+  font-size: ${FONT.sm};
+  margin-right: 20px;
+`;
 
 export default function CartItem({ cart }) {
   
@@ -85,37 +107,69 @@ export default function CartItem({ cart }) {
     handleDeleteSeller,
     isSelect,
     isPaying,
+    formatter,
+    price,
+    completeOrder,
   } = useCart();
   const SellerId = cart.cartDetail.map((data) => Object.values(data)[1]);
-  const handleSelect = (id) => {
+  const TotalAmount = cart.cartDetail.map(
+    (data) => Object.values(data)[6] * Object.values(data)[7]
+  );
+  const handleSelect = (id, TotalAmount) => {
     dispatch(setIsSelect(id));
-  }
+    dispatch(setPrice(TotalAmount));
+    dispatch(setFilter("select"));
+  };
   return (
     <Container>
       <Top>
         <Seller>
-          <Check
-            type="checkbox"
-            onClick={() => handleSelect(SellerId[0])}
-          ></Check>
+          {isPaying ? null : (
+            <Check
+              type="checkbox"
+              onClick={() => handleSelect(SellerId[0], TotalAmount[0])}
+            ></Check>
+          )}
           <Name isSelect={isSelect}>{cart.sellerName}</Name>
         </Seller>
-        <IconContainer onClick={() => handleDeleteSeller(SellerId)}>
-          <IconComponent kind={"close"} />
-        </IconContainer>
+        {isPaying || isSelect ? null : (
+          <IconContainer onClick={() => handleDeleteSeller(SellerId)}>
+            <IconComponent kind={"close"} />
+          </IconContainer>
+        )}
       </Top>
       {cart.cartDetail.map((Item) => (
         <ItemDetail Item={Item} key={Item.productId} />
       ))}
       <SendDetail>
-        <Hr />
-        <Title>選擇收件地與運送方式</Title>
-        <Select name="地區">
-          <option value="台灣">台灣</option>
-        </Select>
-        <Select name="交貨方式">
-          <option value="面交">面交</option>
-        </Select>
+        {completeOrder ? null : <Hr />}
+        {completeOrder ? null : isPaying ? (
+          <Section>
+            <Wrapper>
+              <TotalAmountTitle>商品總計</TotalAmountTitle>
+              <Price>{formatter.format(TotalAmount[0])}</Price>
+            </Wrapper>
+            <Wrapper>
+              <TotalAmountTitle>運費總計</TotalAmountTitle>
+              <Price>{formatter.format(0)}</Price>
+            </Wrapper>
+            <Hr />
+            <Wrapper>
+              <TotalAmountTitle>總共金額</TotalAmountTitle>
+              <Price>{formatter.format(TotalAmount[0])}</Price>
+            </Wrapper>
+          </Section>
+        ) : (
+          <>
+            <Title>選擇收件地與運送方式</Title>
+            <Select name="地區">
+              <option value="台灣">台灣</option>
+            </Select>
+            <Select name="交貨方式">
+              <option value="面交">面交</option>
+            </Select>
+          </>
+        )}
       </SendDetail>
     </Container>
   );

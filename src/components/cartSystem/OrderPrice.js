@@ -14,6 +14,7 @@ import {
   deleteCartItemsBySeller,
   setIsPaying,
   setFilter,
+  setPrice,
 } from "../../redux/slices/cartSlice/cartSlice";
 const Container = styled.div`
   width: 300px;
@@ -69,6 +70,7 @@ export default function OrderPrice({ cart }) {
     formatter,
     isPaying,
     isSelect,
+    price,
   } = useCart();
   const handlePay = () => {
     dispatch(setIsPaying(true));
@@ -80,23 +82,20 @@ export default function OrderPrice({ cart }) {
         <Title>訂單摘要</Title>
       </Top>
       <Count>
-            <Wrapper>
-              <TotalAmountTitle>商品總計</TotalAmountTitle>
+        <Wrapper>
+          <TotalAmountTitle>商品總計</TotalAmountTitle>
 
-              <TotalAmount>{formatter.format()}</TotalAmount>
-            </Wrapper>
-            <Wrapper>
-              <TotalAmountTitle>運費總計</TotalAmountTitle>
-              <TotalAmount>NT$ 0</TotalAmount>
-            </Wrapper>
-            <Hr />
-            <Wrapper>
-              <TotalAmountTitle>結帳總金額</TotalAmountTitle>
-              <TotalAmount>
-                {" "}
-                {formatter.format()}
-              </TotalAmount>
-            </Wrapper>
+          <TotalAmount>{formatter.format(price)}</TotalAmount>
+        </Wrapper>
+        <Wrapper>
+          <TotalAmountTitle>運費總計</TotalAmountTitle>
+          <TotalAmount>NTD 0</TotalAmount>
+        </Wrapper>
+        <Hr />
+        <Wrapper>
+          <TotalAmountTitle>總共金額</TotalAmountTitle>
+          <TotalAmount> {formatter.format(price)}</TotalAmount>
+        </Wrapper>
         <ActionButton
           $margin={0}
           style={{ background: "#b6deea" }}

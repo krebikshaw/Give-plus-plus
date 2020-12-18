@@ -17,7 +17,9 @@ export const cartSlice = createSlice({
     isSelect: false,
     isPaying: false,
     filter: "all",
-    
+    price: 0,
+    payWay: false,
+    completeOrder: false,
   },
   reducers: {
     // reducer
@@ -39,6 +41,15 @@ export const cartSlice = createSlice({
     setFilter: (state, action) => {
       state.filter = action.payload;
     },
+    setPrice: (state, action) => {
+      state.price = action.payload;
+    },
+    setPayWay: (state, action) => {
+      state.payWay = action.payload;
+    },
+    setComplete: (state, action) => {
+      state.completeOrder = action.payload;
+    },
   },
 });
 
@@ -50,6 +61,9 @@ export const {
   setIsSelect,
   setIsPaying,
   setFilter,
+  setPrice,
+  setPayWay,
+  setComplete,
 } = cartSlice.actions;
 
 export const getCartItem = () => (dispatch) => {
@@ -106,6 +120,9 @@ export const deleteCartItemsBySeller = (id) => (dispatch) => {
     return res;
   });
 };
+export const selectComplete = (state) => state.cart.completeOrder;
+export const selectPayWay = (state) => state.cart.payWay;
+export const selectPrice = (state) => state.cart.price;
 export const selectFilter = (state) => state.cart.filter;
 export const selectIsPaying = (state) => state.cart.isPaying;
 export const selectIsSelect = (state) => state.cart.isSelect;

@@ -13,11 +13,18 @@ import {
   setErrorMessage,
   deleteCartItemsBySeller,
   setMask,
+  setPrice,
 } from "../../redux/slices/cartSlice/cartSlice";
 const Quantity = styled.p`
   color: ${COLOR.text_2};
   font-size: ${FONT.sm};
   border: solid 1px #f1f1f1;
+  outline: none;
+  padding: 6px 20px;
+`;
+const CartQuantity = styled.p`
+  color: ${COLOR.text_2};
+  font-size: ${FONT.sm};
   outline: none;
   padding: 6px 20px;
 `;
@@ -63,7 +70,7 @@ const IconContainer = styled.div`
 
 export default function ChooseQuantity({ Item }) {
   const dispatch = useDispatch();
-  const { carts, errorMessage, isLoading } = useCart();
+  const { carts, errorMessage, isLoading, isSelect, isPaying } = useCart();
   const { cartItemId, cartQuantity, productQuantity } = Item;
   //console.log("state 裡面存的 資料庫的數量:",cartQuantity);
   const handlePlus = () => {
@@ -74,6 +81,7 @@ export default function ChooseQuantity({ Item }) {
       return;
     }
       dispatch(addQuantity(cartQuantity, cartItemId));
+      
       //window.location.reload(true);
   };
   const handleMinus = () => {
@@ -82,6 +90,7 @@ export default function ChooseQuantity({ Item }) {
       return;
     }
       dispatch(minusQuantity(cartQuantity, cartItemId));
+      
       //window.location.reload(true);
   };
    const handleClose = () => {
@@ -99,15 +108,19 @@ export default function ChooseQuantity({ Item }) {
           </Form>
         </Modal>
       )}
-      <Wrapper>
-        <Container onClick={() => handleMinus(cartQuantity, cartItemId)}>
-          <IconComponent kind={"minus"} />
-        </Container>
-        <Quantity>{Item.cartQuantity}</Quantity>
-        <Container onClick={() => handlePlus(cartQuantity, cartItemId)}>
-          <IconComponent kind={"plus"} />
-        </Container>
-      </Wrapper>
+      {isSelect || isPaying ? (
+        <CartQuantity>x {Item.cartQuantity}</CartQuantity>
+      ) : (
+        <Wrapper>
+          <Container onClick={() => handleMinus(cartQuantity, cartItemId)}>
+            <IconComponent kind={"minus"} />
+          </Container>
+          <Quantity>{Item.cartQuantity}</Quantity>
+          <Container onClick={() => handlePlus(cartQuantity, cartItemId)}>
+            <IconComponent kind={"plus"} />
+          </Container>
+        </Wrapper>
+      )}
     </>
   );
 }

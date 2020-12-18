@@ -9,6 +9,9 @@ import {
   selectIsSelect,
   selectIsPaying,
   selectFilter,
+  selectPrice,
+  selectPayWay,
+  selectComplete,
 } from "../../redux/slices/cartSlice/cartSlice";
 
 export default function useCart() {
@@ -24,6 +27,9 @@ export default function useCart() {
   const isSelect = useSelector(selectIsSelect);
   const isPaying = useSelector(selectIsPaying);
   const filter = useSelector(selectFilter);
+  const price = useSelector(selectPrice);
+  const payWay = useSelector(selectPayWay);
+  const completeOrder = useSelector(selectComplete);
   const handleDelete = (id) => {
     dispatch(deleteCartItem(id));
     window.location.reload();
@@ -36,7 +42,10 @@ export default function useCart() {
   
   return {
     isSelect,
+    completeOrder,
+    price,
     isPaying,
+    payWay,
     filter,
     carts,
     formatter,
