@@ -109,7 +109,7 @@ export const completeOrder = (id) => {
   }).then((res) => res.json());
 };
 // 成立訂單
-export const createOrder = () => {
+export const createOrder = (quantity, productId, sellerId) => {
   const token = getAuthToken();
   return fetch(`${BASE_URL}/orders/new`, {
     method: "POST",
@@ -117,5 +117,10 @@ export const createOrder = () => {
       "content-type": "application/json",
       authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify({
+      productId,
+      quantity,
+      sellerId,
+    }),
   }).then((res) => res.json());
 };
