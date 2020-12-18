@@ -11,6 +11,7 @@ import {
   addCartItem,
   setQuantity,
   setHasAdd,
+  setErrorMessage,
 } from "../../redux/slices/cartSlice/cartSlice";
 import { getUser } from "../../redux/slices/orderSlice/orderSlice";
 const ProductName = styled.div`
@@ -141,7 +142,7 @@ const Remind = () => {
 export const ProductInfo = ({ product }) => {
   const dispatch = useDispatch();
   const { user } = useOrder();
-  const { SelectQuantity, hasAdd } = useCart();
+  const { SelectQuantity, hasAdd, errorMessage } = useCart();
   const formatter = new Intl.NumberFormat('zh-TW', {
     style: 'currency',
     currency: 'NTD',
@@ -152,6 +153,7 @@ export const ProductInfo = ({ product }) => {
   }, [dispatch]);
    
   const handleAddProduct = (productId, quantity, userId) => {
+    
     dispatch(addCartItem(productId, quantity, userId)).then((res) => {
       if (res.ok === 1 || quantity === 1) {
         dispatch(setHasAdd(true));
@@ -160,10 +162,26 @@ export const ProductInfo = ({ product }) => {
   };
   const handleClose = () => {
     dispatch(setHasAdd(false));
+    dispatch(setErrorMessage(false));
   }
+  const handleAlert = () => {
+    if (!user) {
+      dispatch(setErrorMessage("請先登入再購買商品，謝謝"));
+    }
+  };
 
   return (
     <>
+      {errorMessage && (
+        <Modal>
+          <Form>
+            <IconContainer onClick={handleClose}>
+              <IconComponent kind={"close"} />
+            </IconContainer>
+            {errorMessage}
+          </Form>
+        </Modal>
+      )}
       {hasAdd && (
         <Modal>
           <Form>
@@ -177,13 +195,21 @@ export const ProductInfo = ({ product }) => {
       <ProductName>{product.name || "商品載入中..."}</ProductName>
       <ProductPrice>{formatter.format(product.price)}</ProductPrice>
       <ProductQuantitySelector quantity={product.quantity} />
-      {user && (
+      {user ? (
         <ShoppingCart
           $margin={0}
           $size={"lg"}
           onClick={() =>
             handleAddProduct(product.id, SelectQuantity, user.userId)
           }
+        >
+          放 入 購 物 車
+        </ShoppingCart>
+      ) : (
+        <ShoppingCart
+          $margin={0}
+          $size={"lg"}
+          onClick={handleAlert}
         >
           放 入 購 物 車
         </ShoppingCart>
