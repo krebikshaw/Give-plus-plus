@@ -2,9 +2,10 @@ import { StandardNavPage } from '../../../components/Page';
 import styled from 'styled-components';
 import { COLOR, FONT, DISTANCE } from '../../../constants/style';
 import { InputItem, ButtonsBox } from '../../../components/productSystem/';
+import useUser from '../../../hooks/userHooks/useUser';
 import useProduct from '../../../hooks/productHooks/useProduct';
 import useProductForm from '../../../hooks/productHooks/useProductForm';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getProduct } from '../../../redux/slices/productSlice/productSlice';
 import { useDispatch } from 'react-redux';
@@ -24,8 +25,10 @@ const Title = styled.h1`
 `;
 
 const EditProductPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
+  const { handleGetMe } = useUser();
   const { productCategories, productErrorMessage } = useProduct();
   const {
     setProductName,
@@ -69,6 +72,13 @@ const EditProductPage = () => {
       changeProductValue(res.product);
     });
   }, [id, dispatch]);
+
+  useEffect(() => {
+    window.scroll(0, 0);
+    handleGetMe().then((result) => {
+      if (!result.data || !result.data.is_vendor) navigate('/');
+    });
+  }, []);
 
   return (
     <StandardNavPage>

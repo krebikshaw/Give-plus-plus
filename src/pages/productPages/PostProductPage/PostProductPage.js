@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
 import { StandardNavPage } from '../../../components/Page';
 import styled from 'styled-components';
 import { COLOR, FONT, DISTANCE } from '../../../constants/style';
 import { InputItem, ButtonsBox } from '../../../components/productSystem/';
+import useUser from '../../../hooks/userHooks/useUser';
 import useProduct from '../../../hooks/productHooks/useProduct';
 import useProductFrom from '../../../hooks/productHooks/useProductForm';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   width: 50vw;
@@ -20,6 +23,8 @@ const Title = styled.h1`
 `;
 
 const PostProductPage = () => {
+  const navigate = useNavigate();
+  const { handleGetMe } = useUser();
   const { productCategories, productErrorMessage } = useProduct();
   const {
     setProductName,
@@ -47,6 +52,13 @@ const PostProductPage = () => {
     productPictureUrl,
     deliveryLocation,
   } = useProductFrom();
+
+  useEffect(() => {
+    window.scroll(0, 0);
+    handleGetMe().then((result) => {
+      if (!result.data || !result.data.is_vendor) navigate('/');
+    });
+  }, []);
 
   return (
     <StandardNavPage>
