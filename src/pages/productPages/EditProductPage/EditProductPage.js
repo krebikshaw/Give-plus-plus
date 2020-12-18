@@ -68,7 +68,7 @@ const EditProductPage = () => {
     dispatch(getProduct(id)).then((res) => {
       changeProductValue(res.product);
     });
-  }, [id]);
+  }, [id, dispatch]);
 
   return (
     <StandardNavPage>
@@ -131,7 +131,7 @@ const EditProductPage = () => {
             handleChange={handleChange(setProductQuantity)}
             value={productQuantity}
           />
-          {/* 
+
           <InputItem
             isNumber
             title={'備貨時間'}
@@ -140,7 +140,7 @@ const EditProductPage = () => {
             errorMessage={'請輸入備貨時間'}
             handleChange={handleChange(setDeliveryTime)}
             value={deliveryTime}
-          /> */}
+          />
 
           <InputItem
             title={'出貨地點'}
@@ -180,7 +180,7 @@ const EditProductPage = () => {
             type={'textArea'}
             textareaRows={2}
             handleChange={handleChange(setRemark)}
-            value={remark}
+            value={remark || ''}
           />
 
           <ButtonsBox
