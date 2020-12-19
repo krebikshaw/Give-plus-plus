@@ -1,10 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAllOf } from '@reduxjs/toolkit';
 import {
   getItem,
   addItem,
   updateItem,
   deleteItem,
   deleteItemsBySeller,
+  createOrder as createOrderAPI
 } from "../../../webAPI/cartAPI";
 
 export const cartSlice = createSlice({
@@ -14,7 +15,16 @@ export const cartSlice = createSlice({
     cart: [],
     errorMessage: null,
     isLoading: false,
-    
+    isSelect: false,
+    isPaying: false,
+    filter: "all",
+    price: 0,
+    payWay: false,
+    completeOrder: false,
+    orderNumber: false,
+    quantity: 1,
+    hasAdd: false,
+    update: false,
   },
   reducers: {
     // reducer
@@ -27,7 +37,36 @@ export const cartSlice = createSlice({
     setIsLoading: (state, action) => {
       state.isLoading = action.payload;
     },
-    
+    setIsSelect: (state, action) => {
+      state.isSelect = action.payload;
+    },
+    setIsPaying: (state, action) => {
+      state.isPaying = action.payload;
+    },
+    setFilter: (state, action) => {
+      state.filter = action.payload;
+    },
+    setPrice: (state, action) => {
+      state.price = action.payload;
+    },
+    setPayWay: (state, action) => {
+      state.payWay = action.payload;
+    },
+    setComplete: (state, action) => {
+      state.completeOrder = action.payload;
+    },
+    setOrderNumber: (state, action) => {
+      state.orderNumber = action.payload;
+    },
+    setQuantity: (state, action) => {
+      state.quantity = action.payload;
+    },
+    setHasAdd: (state, action) => {
+      state.hasAdd = action.payload;
+    },
+    setUpdate: (state, action) => {
+      state.update = action.payload;
+    },
   },
 });
 
@@ -36,7 +75,16 @@ export const {
   setErrorMessage,
   setCart,
   setIsLoading,
- 
+  setIsSelect,
+  setIsPaying,
+  setFilter,
+  setPrice,
+  setPayWay,
+  setComplete,
+  setOrderNumber,
+  setQuantity,
+  setHasAdd,
+  setUpdate,
 } = cartSlice.actions;
 
 export const getCartItem = () => (dispatch) => {
@@ -50,16 +98,31 @@ export const getCartItem = () => (dispatch) => {
   });
 };
 
-export const addCartItem = (productId, quantity) => (dispatch) => {
+export const addCartItem = (productId, quantity, id) => (dispatch) => {
   dispatch(setIsLoading(true));
-  return addItem(productId, quantity).then((res) => {
+  return addItem(productId, quantity, id).then((res) => {
     dispatch(setIsLoading(false));
     return res;
   });
 };
-export const updateCartItem = (quantity) => (dispatch) => {
+export const minusQuantity = (quantity, id) => (dispatch) => {
   dispatch(setIsLoading(true));
-  return updateItem(quantity).then((res) => {
+  //console.log(quantity);
+  quantity--;
+  return updateItem(quantity, id).then((res) => {
+    //console.log(quantity);
+    dispatch(getCartItem());
+    dispatch(setIsLoading(false));
+    return res;
+  });
+};
+export const addQuantity = (quantity, id) => (dispatch) => {
+  dispatch(setIsLoading(true)); 
+  //console.log("加一之前的數量:",quantity);
+  quantity++ ;
+  return updateItem(quantity, id).then((res) => {
+    //console.log("加一之後的數量:", quantity);
+    dispatch(getCartItem());
     dispatch(setIsLoading(false));
     return res;
   });
@@ -67,7 +130,6 @@ export const updateCartItem = (quantity) => (dispatch) => {
 export const deleteCartItem = (id) => (dispatch) => {
   dispatch(setIsLoading(true));
   return deleteItem(id).then((res) => {
-    console.log(res);
     dispatch(setIsLoading(false));
     return res;
   });
@@ -79,8 +141,25 @@ export const deleteCartItemsBySeller = (id) => (dispatch) => {
     return res;
   });
 };
-
-
+export const createOrder = (quantity, productId, sellerId, id) => (dispatch) => {
+  console.log(quantity, productId, sellerId, id);
+  dispatch(setIsLoading(true));
+  return createOrderAPI(quantity, productId, sellerId, id).then((res) => {
+    dispatch(setIsLoading(false));
+    console.log(res.orderNumber);
+    dispatch(setOrderNumber(res.orderNumber));
+  });
+};
+export const selectUpdate = (state) => state.cart.update;
+export const selectAdd = (state) => state.cart.hasAdd;
+export const selectQuantity = (state) => state.cart.quantity;
+export const selectOrderNumber = (state) => state.cart.orderNumber;
+export const selectComplete = (state) => state.cart.completeOrder;
+export const selectPayWay = (state) => state.cart.payWay;
+export const selectPrice = (state) => state.cart.price;
+export const selectFilter = (state) => state.cart.filter;
+export const selectIsPaying = (state) => state.cart.isPaying;
+export const selectIsSelect = (state) => state.cart.isSelect;
 export const selectError = (state) => state.cart.errorMessage;
 export const selectLoading = (state) => state.cart.isLoading;
 export const selectCart = (state) => state.cart.cart;

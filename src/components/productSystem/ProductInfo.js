@@ -1,8 +1,19 @@
 import { COLOR, FONT, DISTANCE } from '../../constants/style';
+import React, { useEffect, useState } from "react";
 import styled from 'styled-components';
+import { useDispatch } from "react-redux";
+import useOrder from "../../hooks/orderHooks/useOrder";
+import useCart from "../../hooks/cartHooks/useCart";
 import { ActionButton } from '../../components/Button';
+import { IconComponent } from "../../components";
 import { InfoBlock } from '../../components/productSystem';
-
+import {
+  addCartItem,
+  setQuantity,
+  setHasAdd,
+  setErrorMessage,
+} from "../../redux/slices/cartSlice/cartSlice";
+import { getUser } from "../../redux/slices/orderSlice/orderSlice";
 const ProductName = styled.div`
   width: 500px;
   word-break: break-all;
@@ -45,6 +56,39 @@ const ProductCountSelect = styled.select`
   background-image: url(data:image/svg+xml,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath class='color' d='M0 0h10L5 6z' fill='%23D3D3D5' fill-rule='evenodd'/%3E%3C/svg%3E%0A);
 }
 `;
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: ${COLOR.bg_mask};
+  z-index: 2;
+  padding-top: 90px;
+`;
+const Form = styled.form`
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 80px auto;
+  height: 300px;
+  width: 40%;
+  min-width: 300px;
+  border-radius: 9px;
+  background: ${COLOR.white};
+  letter-spacing: 1px;
+  color: ${COLOR.text_1};
+  font-size: ${FONT.md};
+`;
+const IconContainer = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+`;
 
 const Options = ({ quantity }) => {
   let options = [];
@@ -59,10 +103,15 @@ const Options = ({ quantity }) => {
 };
 
 const ProductQuantitySelector = ({ quantity }) => {
+  const dispatch = useDispatch();
+  const handleSelectQuantity = (e) => {
+    dispatch(setQuantity(e.target.value))
+
+  };
   return (
     <ProductQuantityContainer>
       <label>數量</label>
-      <ProductCountSelect>
+      <ProductCountSelect  onChange={handleSelectQuantity}>
         <Options quantity={quantity} />
       </ProductCountSelect>
     </ProductQuantityContainer>
@@ -91,20 +140,80 @@ const Remind = () => {
 };
 
 export const ProductInfo = ({ product }) => {
+  const dispatch = useDispatch();
+  const { user } = useOrder();
+  const { SelectQuantity, hasAdd, errorMessage } = useCart();
   const formatter = new Intl.NumberFormat('zh-TW', {
     style: 'currency',
     currency: 'NTD',
     minimumFractionDigits: 0,
   });
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+   
+  const handleAddProduct = (productId, quantity, userId) => {
+    
+    dispatch(addCartItem(productId, quantity, userId)).then((res) => {
+      if (res.ok === 1 || quantity === 1) {
+        dispatch(setHasAdd(true));
+      }
+    })
+  };
+  const handleClose = () => {
+    dispatch(setHasAdd(false));
+    dispatch(setErrorMessage(false));
+  }
+  const handleAlert = () => {
+    if (!user) {
+      dispatch(setErrorMessage("請先登入再購買商品，謝謝"));
+    }
+  };
 
   return (
     <>
-      <ProductName>{product.name || '商品載入中...'}</ProductName>
+      {errorMessage && (
+        <Modal>
+          <Form>
+            <IconContainer onClick={handleClose}>
+              <IconComponent kind={"close"} />
+            </IconContainer>
+            {errorMessage}
+          </Form>
+        </Modal>
+      )}
+      {hasAdd && (
+        <Modal>
+          <Form>
+            <IconContainer onClick={handleClose}>
+              <IconComponent kind={"close"} />
+            </IconContainer>
+            商品已成功加入購物車囉！
+          </Form>
+        </Modal>
+      )}
+      <ProductName>{product.name || "商品載入中..."}</ProductName>
       <ProductPrice>{formatter.format(product.price)}</ProductPrice>
       <ProductQuantitySelector quantity={product.quantity} />
-      <ShoppingCart $margin={0} $size={'lg'}>
-        放 入 購 物 車
-      </ShoppingCart>
+      {user ? (
+        <ShoppingCart
+          $margin={0}
+          $size={"lg"}
+          onClick={() =>
+            handleAddProduct(product.id, SelectQuantity, user.userId)
+          }
+        >
+          放 入 購 物 車
+        </ShoppingCart>
+      ) : (
+        <ShoppingCart
+          $margin={0}
+          $size={"lg"}
+          onClick={handleAlert}
+        >
+          放 入 購 物 車
+        </ShoppingCart>
+      )}
       <Remind />
     </>
   );

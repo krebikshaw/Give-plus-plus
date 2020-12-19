@@ -1100,7 +1100,11 @@
     regenerator-runtime "^0.13.4"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4":
+=======
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.10.3", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4":
+>>>>>>> master
 =======
 "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.3", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4":
 >>>>>>> master
@@ -9061,9 +9065,13 @@ prompts@2.4.0, prompts@^2.0.1:
     sisteransi "^1.0.5"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 prop-types@^15.5.4, prop-types@^15.7.2:
 =======
 prop-types@^15.6.0, prop-types@^15.7.2:
+>>>>>>> master
+=======
+prop-types@^15.5.4, prop-types@^15.6.0, prop-types@^15.7.2:
 >>>>>>> master
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
@@ -9285,13 +9293,20 @@ react-is@^17.0.1:
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> master
 react-loadingg@^1.7.2:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/react-loadingg/-/react-loadingg-1.7.2.tgz#2fe943eee0495bb3679c2b72f54ccceec75f456d"
   integrity sha512-sy2HI7ZacW1t/ChosR7CZa2FJS1uAInLNl7wgO7e9Pseak4FdPKqZYIjl1H3G+tBQ+S9pa/8CKXdGQxVrW2CBQ==
   dependencies:
     styled-components "^4.3.2"
+<<<<<<< HEAD
 =======
+=======
+
+>>>>>>> master
 react-move@^6.1.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/react-move/-/react-move-6.4.0.tgz#9163a87c62fff94bf6e6980685c713739192650e"
@@ -9300,6 +9315,9 @@ react-move@^6.1.0:
     "@babel/runtime" "^7.10.3"
     kapellmeister "^3.0.1"
     prop-types "^15.7.2"
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 
 react-redux@^7.1.3:
@@ -9398,6 +9416,11 @@ react-scripts@4.0.1:
     workbox-webpack-plugin "5.1.4"
   optionalDependencies:
     fsevents "^2.1.3"
+
+react-snowfall@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-snowfall/-/react-snowfall-1.0.2.tgz#cafdeacea28638ea710687f101ec4c8e92550e9c"
+  integrity sha512-wmKa7Vhl26Ixo5hBp3lgM9z7o43itLv7LF7IuuD0vZPh3TclfM2wokujQb/gg5Ml2c6r6hyU7WXmvMg63TkhtA==
 
 react@^17.0.1:
   version "17.0.1"

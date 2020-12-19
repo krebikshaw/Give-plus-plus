@@ -1,5 +1,5 @@
 import { BASE_URL } from '../constants/unit';
-import { getAuthToken } from "../hooks/cartHooks/useCart";
+import { getAuthToken } from "../utils";
 
 // 取得購物車內的商品
 export const getItem = () => {
@@ -13,7 +13,7 @@ export const getItem = () => {
   }).then((res) => res.json());
 };
 // 加入商品到購物車
-export const addItem = (productId, quantity) => {
+export const addItem = (productId, quantity,id) => {
   const token = getAuthToken();
   return fetch(`${BASE_URL}/carts/cart-items/new`, {
     method: "POST",
@@ -24,6 +24,7 @@ export const addItem = (productId, quantity) => {
     body: JSON.stringify({
       productId,
       quantity,
+      id
     }),
   }).then((res) => res.json());
 };
@@ -61,5 +62,25 @@ export const deleteItemsBySeller = (id) => {
       "content-type": "application/json",
       authorization: `Bearer ${token}`,
     },
+  }).then((res) => res.json());
+};
+
+// 成立訂單
+export const createOrder = (quantity,productId,sellerId,id) => {
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/orders/new`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify([
+      {
+        quantity,
+        productId,
+        sellerId,
+        id,
+      },
+    ]),
   }).then((res) => res.json());
 };

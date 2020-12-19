@@ -1,17 +1,12 @@
 import styled from "styled-components";
-import React, { useEffect } from "react";
+import React from "react";
 import { ActionButton } from "../../components/Button";
-import { COLOR, FONT, DISTANCE, MEDIA_QUERY_MD } from "../../constants/style";
-import { NavLink } from "react-router-dom";
+import { COLOR, FONT } from "../../constants/style";
 import { useDispatch } from "react-redux";
-
-import ItemDetail from "./ItemDetail";
-import cartOrder from "../../hooks/cartHooks/useCart";
+import useCart from "../../hooks/cartHooks/useCart";
 import {
-  getCartItem,
-  updateCartItem,
-  deleteCartItem,
-  deleteCartItemsBySeller,
+  setIsPaying,
+  setFilter,
 } from "../../redux/slices/cartSlice/cartSlice";
 const Container = styled.div`
   width: 300px;
@@ -19,7 +14,7 @@ const Container = styled.div`
   border-radius: 8px 8px;
   margin-bottom: 40px;
   position: absolute;
-  top: 35%;
+  top: 28%;
   right: 10%;
   transform: translate(20%, -10%);
 `;
@@ -57,9 +52,16 @@ const Hr = styled.hr`
   border: solid 0.2px #f6f5f5;
   margin-bottom: 20px;
 `;
-export default function OrderPrice() {
+export default function OrderPrice({ cart }) {
   const dispatch = useDispatch();
-  const { carts, errorMessage, isLoading } = cartOrder();
+  const {
+    formatter,
+    price,
+  } = useCart();
+  const handlePay = () => {
+    dispatch(setIsPaying(true));
+    dispatch(setFilter("select"))
+  }
   return (
     <Container>
       <Top>
@@ -68,18 +70,23 @@ export default function OrderPrice() {
       <Count>
         <Wrapper>
           <TotalAmountTitle>商品總計</TotalAmountTitle>
-          <TotalAmount>NT$</TotalAmount>
+
+          <TotalAmount>{formatter.format(price)}</TotalAmount>
         </Wrapper>
         <Wrapper>
           <TotalAmountTitle>運費總計</TotalAmountTitle>
-          <TotalAmount>NT$  0</TotalAmount>
+          <TotalAmount>NTD 0</TotalAmount>
         </Wrapper>
         <Hr />
         <Wrapper>
-          <TotalAmountTitle>結帳總金額</TotalAmountTitle>
-          <TotalAmount>NT$</TotalAmount>
+          <TotalAmountTitle>總共金額</TotalAmountTitle>
+          <TotalAmount> {formatter.format(price)}</TotalAmount>
         </Wrapper>
-        <ActionButton $margin={0} style={{  background: "#b6deea" }}>
+        <ActionButton
+          $margin={0}
+          style={{ background: "#b6deea" }}
+          onClick={() => handlePay()}
+        >
           前往結帳
         </ActionButton>
       </Count>

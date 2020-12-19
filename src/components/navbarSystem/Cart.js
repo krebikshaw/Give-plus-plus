@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import IconComponent from '../Icon';
 import { Nav } from '../Button';
 import { COLOR, DISTANCE, EFFECT, FONT } from '../../constants/style';
+import { selectCart } from "../../redux/slices/cartSlice/cartSlice";
+import { useSelector } from "react-redux";
 
 const UserContainer = styled.div`
   position: relative;
@@ -97,7 +99,7 @@ const ProductItem = styled.li`
 const ProductImg = styled.img`
   width: 50px;
   height: 50px;
-  image-rendering: pixelated;
+  object-fit: cover;
 `;
 
 const ProductInfo = styled.div`
@@ -126,7 +128,6 @@ const CartItem = ({ cartItem }) => {
     currency: 'NTD',
     minimumFractionDigits: 0,
   });
-
   return (
     <CartDetail>
       <VendorName>{cartItem.sellerName}</VendorName>
@@ -153,84 +154,7 @@ const CartItem = ({ cartItem }) => {
 };
 
 export default function Cart() {
-  const cart = [
-    {
-      sellerName: 'Seller02',
-      cartDetail: [
-        {
-          cartItemId: 7,
-          sellerId: 36,
-          sellerName: 'Seller02',
-          productId: 33,
-          productName: '大樹',
-          pictureUrl: 'https://i.imgur.com/uRwmXwn.jpg',
-          price: 5000,
-          cartQuantity: 1,
-          productQuantity: 1,
-        },
-        {
-          cartItemId: 8,
-          sellerId: 36,
-          sellerName: 'Seller02',
-          productId: 34,
-          productName: '狗狗',
-          pictureUrl: 'https://i.imgur.com/fihu4ZV.jpg',
-          price: 5000,
-          cartQuantity: 1,
-          productQuantity: 1,
-        },
-        {
-          cartItemId: 9,
-          sellerId: 36,
-          sellerName: 'Seller02',
-          productId: 35,
-          productName: '麋路',
-          pictureUrl: 'https://i.imgur.com/hAGj1RE.jpg',
-          price: 5000,
-          cartQuantity: 1,
-          productQuantity: 1,
-        },
-        {
-          cartItemId: 10,
-          sellerId: 36,
-          sellerName: 'Seller02',
-          productId: 36,
-          productName: '兔子',
-          pictureUrl: 'https://i.imgur.com/EYV9VAS.gif',
-          price: 5000,
-          cartQuantity: 1,
-          productQuantity: 1,
-        },
-      ],
-    },
-    {
-      sellerName: 'Seller03',
-      cartDetail: [
-        {
-          cartItemId: 7,
-          sellerId: 36,
-          sellerName: 'Seller02',
-          productId: 33,
-          productName: '帆船',
-          pictureUrl: 'https://i.imgur.com/uRwmXwn.jpg',
-          price: 5000,
-          cartQuantity: 1,
-          productQuantity: 1,
-        },
-        {
-          cartItemId: 8,
-          sellerId: 36,
-          sellerName: 'Seller02',
-          productId: 34,
-          productName: '長頸鹿',
-          pictureUrl: 'https://i.imgur.com/fihu4ZV.jpg',
-          price: 5000,
-          cartQuantity: 1,
-          productQuantity: 1,
-        },
-      ],
-    },
-  ];
+  const cart = useSelector(selectCart);
 
   return (
     <UserContainer>

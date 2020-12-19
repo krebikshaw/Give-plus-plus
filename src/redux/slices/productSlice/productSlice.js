@@ -79,8 +79,12 @@ export const {
 export const getProducts = (page) => (dispatch) => {
   getProductsAPI(page).then((res) => {
     if (res.ok === 0) {
+      if (typeof res.message === 'object') {
+        dispatch(setHasMoreProducts(false));
+        return dispatch(setErrorMessage('something wrong'));
+      }
       dispatch(setHasMoreProducts(false));
-      return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
+      return dispatch(setErrorMessage(res.message));
     }
     let { count, products } = res.data;
     let remainder = count - products.length;
@@ -156,8 +160,12 @@ export const searchProduct = (keyword, page, queue) => (dispatch) => {
 
 export const getProductCategories = () => (dispatch) => {
   getProductCategoriesAPI().then((res) => {
-    if (!res || res.ok === 0)
+    if (!res || res.ok === 0) {
+      if (typeof res.message === 'object') {
+        return dispatch(setErrorMessage('something wrong'));
+      }
       return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
+    }
     dispatch(setCategories(res.data));
   });
 };
