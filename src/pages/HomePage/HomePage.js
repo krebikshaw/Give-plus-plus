@@ -5,6 +5,7 @@ import { GoalBox, Title, CarouselBox } from '../../components/general';
 import { useDispatch } from 'react-redux';
 import { Products } from '../../components/productSystem';
 import useProduct from '../../hooks/productHooks/useProduct';
+import Snowfall from 'react-snowfall';
 import {
   setProducts,
   setHasMoreProducts,
@@ -50,6 +51,7 @@ const HomePage = () => {
   return (
     <Page>
       <CarouselBox />
+      <Snowfall color='#e8f2f7' />
       <Section>
         <Title $isLarge>最新商品</Title>
         <HomePageProducts>
