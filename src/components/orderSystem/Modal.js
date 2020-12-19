@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 import React, { useState } from "react";
 import { InputComponent } from "../../components/Input";
+import { IconComponent } from "../../components";
 import { ActionButton } from "../../components/Button";
 import { COLOR, FONT } from '../../constants/style';
-
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   setContent,
   setErrorMessage,
+  setMask,
+  cancelOrder,
 } from "../../redux/slices/orderSlice/orderSlice";
 import useOrder from "../../hooks/orderHooks/useOrder";
 const Form = styled.form`
@@ -21,6 +24,7 @@ const Form = styled.form`
   min-width: 300px;
   border-radius: 9px;
   background: ${COLOR.white};
+  position: relative;
 `;
 const Container = styled.div`
   position: fixed;
@@ -32,37 +36,55 @@ const Container = styled.div`
   z-index: 2;
 `;
 const ErrorMessage = styled.div`
-  font-size: ${FONT.md};
-  color: red;
+  font-size: ${FONT.sm};
+  color: #a07676;
+  margin-top: 10px;
+  letter-spacing: 1px;
 `;
 const Title = styled.div`
   color: ${COLOR.text_2};
   font-size: ${FONT.md};
 `;
+const Wrapper = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+`;
+
 export default function Modal() {
-  const [value, setValue] = useState("");
+  const [cancelReason, setCancelReason] = useState("");
   const dispatch = useDispatch();
+  const { id } = useParams();
   const setError = () => dispatch(setErrorMessage(null));
-  const { errorMessage } = useOrder();
+  const { errorMessage, handleCancelOrder, handleCloseModal } = useOrder();
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!value.trim()) return;
-      dispatch(setContent(value));
+    if (!cancelReason || !cancelReason.trim()) {
+      return dispatch(setErrorMessage("請務必填寫取消訂單原因後再送出"));
+    }
+    dispatch(cancelOrder(id, cancelReason));
+      dispatch(setMask(false));
       window.location.reload(true);
     };
+   
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
-        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+        <Wrapper onClick={handleCloseModal}>
+          <IconComponent kind={"close"} />
+        </Wrapper>
         <Title>訂單取消原因</Title>
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
         <InputComponent
           $size={"lg"}
           placeholder="取消原因... "
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => setCancelReason(e.target.value)}
           onFocus={setError}
-          value={value}
+          value={cancelReason}
           style={{
-            margin: "40px auto",
+            margin: "30px auto",
             width: "70%",
             height: "20%",
           }}

@@ -1,5 +1,5 @@
 import { BASE_URL } from '../constants/unit';
-import { getAuthToken } from "../hooks/orderHooks/useOrder";
+import { getAuthToken } from "../utils";
 
 export const getMe = () => {
   const token = getAuthToken();
@@ -41,16 +41,19 @@ export const getDetailOrder = (id) => {
     }).then((res) => res.json());
 }
 // 訂單取消
-export const cancelOrder = (id) => {
-   const token = getAuthToken();
-   return fetch(`${BASE_URL}/orders/${id}/cancel`, {
-     method: "PATCH",
-     headers: {
-       "content-type": "application/json",
-       authorization: `Bearer ${token}`,
-     },
-   }).then((res) => res.json());
-}
+export const cancelOrder = (id, cancelReason) => {
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/orders/${id}/cancel`, {
+    method: "PATCH",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      cancelReason,
+    }),
+  }).then((res) => res.json());
+};
 // 訂單出貨
 export const sentOrder = (id) => {
     const token = getAuthToken();
@@ -106,7 +109,7 @@ export const completeOrder = (id) => {
   }).then((res) => res.json());
 };
 // 成立訂單
-export const createOrder = () => {
+export const createOrder = (quantity, productId, sellerId) => {
   const token = getAuthToken();
   return fetch(`${BASE_URL}/orders/new`, {
     method: "POST",
@@ -114,5 +117,10 @@ export const createOrder = () => {
       "content-type": "application/json",
       authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify({
+      productId,
+      quantity,
+      sellerId,
+    }),
   }).then((res) => res.json());
 };

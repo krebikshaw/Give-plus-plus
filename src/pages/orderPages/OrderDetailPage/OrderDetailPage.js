@@ -28,7 +28,7 @@ const Title = styled.p`
   border-bottom: solid 1px ${COLOR.text_2};
 `;
 const Message = styled.p`
-  color: red;
+  color: #835858;
   font-size: ${FONT.md};
   width: 30%;
   padding: ${DISTANCE.xs};
@@ -79,15 +79,7 @@ const Content = styled.td`
   padding: ${DISTANCE.sm};
   cursor: pointer;
 `;
-const ProductContent = styled.td`
-  font-size: ${FONT.md};
-  color: ${COLOR.black};
-  padding: ${DISTANCE.sm};
-  cursor: pointer;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-`;
+
 const Photo = styled.div`
   width: 90px;
   height: 90px;
@@ -240,8 +232,8 @@ const OrderDetailPage = () => {
     detailOrder,
     user,
     mask,
-    content,
     isLoading,
+    totalAmount,
     order_number,
     is_sent,
     is_paid,
@@ -257,6 +249,9 @@ const OrderDetailPage = () => {
     handleSentOrder,
     handleCompleteOrder,
     handlePayOrder,
+    formatter,
+    handleModal,
+    cancelReason,
   } = useOrder();
   let navigate = useNavigate();
   useEffect(() => {
@@ -283,24 +278,29 @@ const OrderDetailPage = () => {
           <Detail>詳細</Detail>
           <Table>
             <NameContainer>
+              <Name></Name>
               <Name>商品</Name>
               <Name>金額</Name>
               <Name>數量</Name>
-              <Name>小記</Name>
+              <Name>小計</Name>
             </NameContainer>
             {detailOrder &&
               detailOrder.map((data) => (
                 <ContentContainer>
-                  <ProductContent>
+                  <Content>
                     <Photo>
                       <PhotoImg src={data.product_picture_url} />
                     </Photo>
+                  </Content>
+                  <Content>
                     <Product>{data.product_name}</Product>
-                  </ProductContent>
-                  <Content>NT${data.product_price}</Content>
+                  </Content>
+                  <Content>{formatter.format(data.product_price)}</Content>
                   <Content>{data.product_quantity}</Content>
                   <Content>
-                    NT${data.product_price * data.product_quantity}
+                    {formatter.format(
+                      data.product_price * data.product_quantity
+                    )}
                   </Content>
                 </ContentContainer>
               ))}
@@ -309,20 +309,23 @@ const OrderDetailPage = () => {
             <ContentContainer>
               <Content></Content>
               <Content></Content>
-              <Content>小記</Content>
               <Content></Content>
+              <Content>小計</Content>
+              <Content>{formatter.format(totalAmount[0])}</Content>
             </ContentContainer>
             <ContentContainer>
+              <Content></Content>
               <Content></Content>
               <Content></Content>
               <Content>運費</Content>
-              <Content>NT$0</Content>
+              <Content>NTD$ 0</Content>
             </ContentContainer>
             <ContentContainer>
               <Content></Content>
               <Content></Content>
+              <Content></Content>
               <Content>總額</Content>
-              <Content>NT$500</Content>
+              <Content>{formatter.format(totalAmount[0])}</Content>
             </ContentContainer>
           </TotalTable>
           <PayTitle>付款方式及配送</PayTitle>
@@ -350,7 +353,7 @@ const OrderDetailPage = () => {
             <ContentContainer>
               <Content>備註</Content>
               <Content>
-                {detailOrder && is_canceled[0] ? content : null}
+                {detailOrder && is_canceled[0] ? cancelReason[0] : null}
               </Content>
               <Content>日期</Content>
               <Content>
@@ -403,7 +406,7 @@ const OrderDetailPage = () => {
                     style={{
                       "margin-bottom": "40px",
                     }}
-                    onClick={handleCancelOrder}
+                    onClick={handleModal}
                   >
                     取消訂單
                   </NormalButton>
@@ -417,7 +420,7 @@ const OrderDetailPage = () => {
                         style={{
                           "margin-bottom": "40px",
                         }}
-                        onClick={handleSentOrder}
+                        onClick={() => handleSentOrder(id)}
                       >
                         完成出貨
                       </NormalButton>

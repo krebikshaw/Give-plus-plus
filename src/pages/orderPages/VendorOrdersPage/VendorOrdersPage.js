@@ -8,7 +8,8 @@ import {
   getUser,
   getSellerOrder,
 } from "../../../redux/slices/orderSlice/orderSlice";
-import { getAuthToken } from "../../../hooks/orderHooks/useOrder";
+import { getAuthToken } from "../../../utils";
+import { LoopCircleLoading } from "react-loadingg";
 import useOrder from "../../../hooks/orderHooks/useOrder";
 import {
   COLOR,
@@ -70,9 +71,18 @@ const Content = styled.td`
     color: ${COLOR.hover};
   }
 `;
+const LoadingMessage = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: ${COLOR.bg_mask};
+  z-index: 2;
+`;
 const VendorOrdersPage = () => {
   const dispatch = useDispatch();
-  const { orders } = useOrder();
+  const { orders, formatter, isLoading } = useOrder();
   useEffect(() => {
     if (getAuthToken()) {
       dispatch(getUser());
@@ -86,14 +96,16 @@ const VendorOrdersPage = () => {
       <ThickNavPage>
         <Container>
           <Title>訂單查詢</Title>
-          {!orders || orders.length === 0 ? (
-            <Message>尚無訂單</Message>
+          {!orders || orders.length === 0 || isLoading ? (
+            <LoadingMessage>
+              <LoopCircleLoading />;
+            </LoadingMessage>
           ) : (
             <Table>
               <NameContainer>
                 <Name>編號</Name>
                 <Name>成立日期</Name>
-                <Name>備註</Name>
+                <Name>總金額</Name>
                 <Name>狀態</Name>
               </NameContainer>
               {orders &&
@@ -105,7 +117,7 @@ const VendorOrdersPage = () => {
                     <Content>
                       {new Date(order.createdAt).toLocaleDateString()}
                     </Content>
-                    <Content>{order.content}</Content>
+                    <Content>{formatter.format(order.total_amount)}</Content>
                     <Content>{order.is_sent ? "已出貨" : "未出貨"}</Content>
                   </ContentContainer>
                 ))}

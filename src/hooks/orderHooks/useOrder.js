@@ -4,39 +4,32 @@ import {
   selectUser,
   selectLoading,
   selectError,
-  selectContent,
   selectDetailOrder,
   selectMask,
-} from "../../redux/slices/orderSlice/orderSlice";
-import {
-  useParams,
-} from "react-router-dom";
-import {
   cancelOrder,
   sentOrder,
   setMask,
   completeOrder,
   payOrder,
 } from "../../redux/slices/orderSlice/orderSlice";
-const TOKEN_NAME = "token";
+import {
+  useParams,
+} from "react-router-dom";
 
-export const setAuthToken = (token) => {
-  localStorage.setItem(TOKEN_NAME, token);
-};
-export const getAuthToken = () => {
-  return localStorage.getItem(TOKEN_NAME);
-};
 
 export default function useOrder() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const content = useSelector(selectContent);
   const orders = useSelector(selectOrder);
   const detailOrder = useSelector(selectDetailOrder);
   const errorMessage = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
   const mask = useSelector(selectMask);
-
+  const formatter = new Intl.NumberFormat("zh-TW", {
+    style: "currency",
+    currency: "NTD",
+    minimumFractionDigits: 0,
+  });
   const order_number = detailOrder.map(
     (data) => Object.values(data)[11].order_number
   );
@@ -49,11 +42,19 @@ export default function useOrder() {
     (data) => Object.values(data)[11].is_completed
   );
    const is_paid = detailOrder.map((data) => Object.values(data)[11].is_paid);
-  const contentData = detailOrder.map((data) => Object.values(data)[11].content);
   const createdAt = detailOrder.map((data) => Object.values(data)[10]);
+  const cancelReason = detailOrder.map(
+    (data) => Object.values(data)[11].cancelReason
+  );
+  console.log(cancelReason);
+  const totalAmount = detailOrder.map(
+    (data) => Object.values(data)[11].total_amount
+  );
+  console.log(totalAmount);
   const seller_name = detailOrder.map(
     (data) => Object.values(data)[11].seller_name
   );
+  console.log(seller_name);
   const seller_email = detailOrder.map(
     (data) => Object.values(data)[11].seller_email
   );
@@ -63,11 +64,14 @@ export default function useOrder() {
   const client_address = detailOrder.map(
     (data) => Object.values(data)[11].client_address
   );
-  const handleCancelOrder = () => {
-    dispatch(cancelOrder(id));
-    dispatch(setMask(true));
+ 
+  const handleCloseModal = () => {
+    dispatch(setMask(false));
   };
-  const handleSentOrder = () => {
+   const handleModal = () => {
+     dispatch(setMask(true));
+   };
+  const handleSentOrder = (id) => {
     dispatch(sentOrder(id));
     window.location.reload(true);
   }
@@ -86,7 +90,8 @@ export default function useOrder() {
     user,
     mask,
     errorMessage,
-    content,
+    cancelReason,
+    totalAmount,
     isLoading,
     detailOrder,
     order_number,
@@ -95,15 +100,16 @@ export default function useOrder() {
     product_delivery,
     is_canceled,
     is_completed,
-    contentData,
     createdAt,
     seller_name,
     client_name,
     seller_email,
     client_address,
-    handleCancelOrder,
     handleSentOrder,
     handleCompleteOrder,
     handlePayOrder,
+    formatter,
+    handleModal,
+    handleCloseModal,
   };
 }
