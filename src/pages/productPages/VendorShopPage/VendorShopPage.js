@@ -40,6 +40,7 @@ const VendorShopPage = () => {
   } = useProduct();
 
   useEffect(() => {
+    window.scroll(0, 0);
     handleGetProductsFromVendor(id, 1);
     return () => {
       dispatch(setProducts([]));

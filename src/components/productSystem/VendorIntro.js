@@ -57,7 +57,7 @@ export const VendorIntro = ({
             $width={'150px'}
             $height={'150px'}
             $margin={'0 5px'}
-            $justify={'space-between'}
+            $justify={'space-around'}
           />
         </>
       ) : (

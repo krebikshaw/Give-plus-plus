@@ -40,25 +40,20 @@ export const InfoBlock = styled.div`
   width: 400px;
   height: 100px;
   font-weight: bold;
+  line-height: 1.5rem;
   color: ${COLOR.black};
   white-space: pre-line;
   word-break: break-all;
 `;
 
-const ProductInfoWrap = styled(InfoBlock)`
-  height: 180px;
+const ProductInfoWrap = styled.div`
+  min-height: 180px;
+  line-height: 1.5rem;
   width: 100%;
   font-weight: normal;
   color: ${COLOR.text_2};
-`;
-
-const Return = styled(NavLink)`
-  color: #007bff;
-  display: inline-block;
-  &:hover {
-    color: ${COLOR.hover};
-    text-decoration: underline;
-  }
+  white-space: pre-line;
+  word-break: break-all;
 `;
 
 export const InfoItem = styled.div`
@@ -102,7 +97,11 @@ const FreightIntro = ({ product }) => {
       </InfoItem>
       <InfoItem>
         <InfoItemTitle>退款換貨須知</InfoItemTitle>
-        <Return to='#'>點我了解設計館的退款換貨須知</Return>
+        <InfoBlock>
+          台灣境內交易七天鑑賞期
+          台灣境內交易，根據台灣消保法第十九條規範，享有收到商品後隔日起算七天內無條件退換貨的服務，且商品退回運費由賣方承擔。
+          請保持商品包裝完整寄回，經賣方確認無誤後，即可申請退款。
+        </InfoBlock>
       </InfoItem>
     </>
   );
