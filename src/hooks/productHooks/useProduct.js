@@ -21,6 +21,7 @@ import {
   getProductsFromCategory,
   getProductsFromVendor,
   selectHasMoreProducts,
+  getUserById,
 } from '../../redux/slices/productSlice/productSlice';
 
 function averageTime(count, products) {
@@ -83,6 +84,10 @@ export default function useProduct() {
     dispatch(getProductsFromCategory(id, page));
   };
 
+  const handleGetUserById = (id) => {
+    dispatch(getUserById(id));
+  };
+
   const handleGetProductsFromVendor = (id) => {
     dispatch(getProductsFromVendor(id, page, 10)).then((res) => {
       if (res === '非賣家') navigate('/');
@@ -139,5 +144,6 @@ export default function useProduct() {
     handleGetProductFromCategory,
     handleGetProductsFromVendor,
     handleChangeProductSort,
+    handleGetUserById,
   };
 }
