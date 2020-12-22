@@ -3,6 +3,7 @@ import Form from './Form';
 import Title from './Title';
 import Modal from './Modal';
 import FaqBox from './FaqBox';
+import AlertFooter from './AlertFooter';
 import GoalBox from './GoalBox';
 import JoinButton from './JoinButton';
 import JoinInput from './JoinInput';
@@ -17,6 +18,7 @@ export {
   Title,
   GoalBox,
   CarouselBox,
+  AlertFooter,
   JoinInput,
   JoinButton,
   NavButton,

@@ -13,6 +13,6 @@ export const ThickNavPage = styled.div`
 export const ThickNavTwoColumnsPage = styled.div`
   display: flex;
   margin-top: 65px;
-  height: calc(100vh - 65px);
+  height: calc(100vh - 95px);
   width: 100%;
 `

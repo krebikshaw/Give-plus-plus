@@ -12,6 +12,7 @@ import {
   Form,
   JoinButton,
   JoinInput,
+  AlertFooter
 } from '../../components/general/';
 
 const Description = styled.div`
@@ -89,6 +90,7 @@ const LoginPage = () => {
         </Column>
         <BackgroundColumn $picture={'login-bg'} />
       </ThickNavTwoColumnsPage>
+      <AlertFooter />
     </>
   );
 };
