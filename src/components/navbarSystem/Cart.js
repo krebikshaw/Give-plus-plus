@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import IconComponent from '../Icon';
 import { Nav } from '../Button';
 import { COLOR, DISTANCE, EFFECT, FONT } from '../../constants/style';
-import { selectCart } from "../../redux/slices/cartSlice/cartSlice";
-import { useSelector } from "react-redux";
+import { selectCart } from '../../redux/slices/cartSlice/cartSlice';
+import { useSelector } from 'react-redux';
 
 const UserContainer = styled.div`
   position: relative;
@@ -145,7 +145,10 @@ const CartItem = ({ cartItem }) => {
         <TotalPrice>
           <span>合計：</span>
           {formatter.format(
-            cartItem.cartDetail.reduce((acc, cur) => acc + cur.price, 0)
+            cartItem.cartDetail.reduce(
+              (acc, cur) => acc + cur.price * cur.cartQuantity,
+              0
+            )
           )}
         </TotalPrice>
       </ProductsDetail>

@@ -59,6 +59,7 @@ const Empty = styled.div`
 
 const Navbar = () => {
   const location = useLocation();
+  const { user } = useUser();
   const { productCategories, handleGetProductCategories } = useProduct();
   const { handleLogout } = useLogout();
   const currentPath = location.pathname;
@@ -81,6 +82,10 @@ const Navbar = () => {
       setIsAdmin(result.data.is_admin);
     });
   }, []);
+
+  useEffect(() => {
+    setIsAdmin(user.is_admin);
+  }, [user]);
 
   return (
     <NavbarContainer
