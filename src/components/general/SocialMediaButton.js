@@ -10,9 +10,10 @@ const SocialMediaWrapper = styled.div`
   border: 1px solid #707070;
   width: ${DISTANCE.lg};
   height: ${DISTANCE.lg};
-  cursor: pointer;
+  cursor: not-allowed;
   background-color: ${(props) => props.$color};
   &:hover {
+    filter: grayscale(1);
     border-color: ${COLOR.hover};
     color: ${COLOR.hover};
     transform: scale(1.05);

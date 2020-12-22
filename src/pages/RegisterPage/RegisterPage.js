@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { COLOR, FONT } from '../../constants/style';
+import { AlertFooter } from '../../components/general';
 import { ThickNavTwoColumnsPage } from '../../components/Page';
 import useRegister from '../../hooks/userHooks/useRegister';
 import {
@@ -93,7 +94,11 @@ const RegisterPage = () => {
 
             <Description>
               按下註冊鈕的同時，表示您已詳閱我們的
-              <RuleLink to={'/rules'} children={'資料使用政策與使用條款'} />
+              <RuleLink
+                target="_blank"
+                to={'/rules'}
+                children={'資料使用政策與使用條款'}
+              />
             </Description>
 
             {isUserLoading ? (
@@ -108,6 +113,7 @@ const RegisterPage = () => {
         </Column>
         <BackgroundColumn $picture={'register-bg'} />
       </ThickNavTwoColumnsPage>
+      <AlertFooter />
     </>
   );
 };

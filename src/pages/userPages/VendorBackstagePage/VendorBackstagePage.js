@@ -56,6 +56,7 @@ const VendorBackstagePage = () => {
     productErrorMessage,
     handleVendorProductMoreButton,
     handleGetProductsFromVendor,
+    handleGetUserById,
   } = useProduct();
 
   const handleSetAnnouncement = () => {
@@ -67,6 +68,7 @@ const VendorBackstagePage = () => {
     handleGetMe().then((result) => {
       if (!result.data.is_vendor) navigate('/');
       setId(result.data.userId);
+      handleGetUserById(result.data.userId);
       handleGetProductsFromVendor(result.data.userId, 1);
     });
     return () => {
