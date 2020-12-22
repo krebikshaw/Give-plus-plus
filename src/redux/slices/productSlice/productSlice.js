@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getUserByIdAPI } from '../../../webAPI/userAPI';
 import {
   getProductsAPI,
   getProductCategoriesAPI,
@@ -136,7 +137,6 @@ export const getProductsFromVendor = (id, page, limit) => (dispatch) => {
     if (remainder <= 0 || products.length !== 10) {
       dispatch(setHasMoreProducts(false));
     }
-    dispatch(setVendorInfo(vendorInfo));
     dispatch(pushProducts(products));
     dispatch(setProductCount(count));
     return products;
@@ -167,6 +167,19 @@ export const getProductCategories = () => (dispatch) => {
       return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
     dispatch(setCategories(res.data));
+  });
+};
+
+export const getUserById = (id) => (dispatch) => {
+  dispatch(setVendorInfo({}));
+  dispatch(setErrorMessage(''));
+  return getUserByIdAPI(id).then((result) => {
+    if (!result || result.ok === 0)
+      return dispatch(
+        setErrorMessage(result ? result.message : 'something wrong')
+      );
+    dispatch(setVendorInfo(result.data));
+    return result;
   });
 };
 
