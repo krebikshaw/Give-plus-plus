@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
+  setPage,
   setProducts,
-  setHasMoreProducts,
   setSort,
   selectVendorInfo,
   selectSort,
@@ -20,7 +20,6 @@ import {
   getProductCategories,
   getProductsFromCategory,
   getProductsFromVendor,
-  selectHasMoreProducts,
 } from '../../redux/slices/productSlice/productSlice';
 
 function averageTime(count, products) {
@@ -40,6 +39,7 @@ export default function useProduct() {
   const location = useLocation();
   const currentPage = location.pathname;
   const dispatch = useDispatch();
+  const page = useSelector(selectPage);
   const vendorInfo = useSelector(selectVendorInfo);
   const productCategories = useSelector(selectProductCategories);
   const product = useSelector(selectProduct);
@@ -47,9 +47,7 @@ export default function useProduct() {
   const productCount = useSelector(selectProductCount);
   const category = useSelector(selectCategory);
   const productErrorMessage = useSelector(selectErrorMessage);
-  const hasMoreProducts = useSelector(selectHasMoreProducts);
   const averageShippingTime = averageTime(products.length, products);
-  let page = useSelector(selectPage);
   const sort = useSelector(selectSort);
 
   const handleGetProduct = (id) => {
@@ -71,7 +69,10 @@ export default function useProduct() {
     });
   };
 
-  const handleGetProducts = () => dispatch(getProducts(page));
+  const handleGetProducts = (page) => {
+    dispatch(setPage(page));
+    dispatch(getProducts(page));
+  };
 
   const handleGetProductCategories = () => dispatch(getProductCategories());
 
@@ -80,7 +81,7 @@ export default function useProduct() {
   };
 
   const handleGetProductFromCategory = (id) => {
-    dispatch(getProductsFromCategory(id, page));
+    dispatch(getProductsFromCategory(id, 1));
   };
 
   const handleGetProductsFromVendor = (id) => {
@@ -89,25 +90,28 @@ export default function useProduct() {
     });
   };
 
-  const handleGetProductsMoreButton = () => dispatch(getProducts(++page));
+  const handleGetProductsMoreButton = () => {
+    dispatch(setPage(page + 1));
+    dispatch(getProducts(page + 1));
+  };
 
   const handleSearchProductMoreButton = (keyword) => {
-    dispatch(searchProduct(keyword, ++page, sort));
+    dispatch(searchProduct(keyword, page, sort));
   };
 
   const handleVendorProductMoreButton = (id) => {
-    dispatch(getProductsFromVendor(id, ++page, 10)).then((res) => {
+    dispatch(getProductsFromVendor(id, page, 10)).then((res) => {
       if (res === '非賣家') navigate('/');
     });
   };
 
   const handleCategoryProductMoreButton = (id) => {
-    dispatch(getProductsFromCategory(id, ++page, sort));
+    dispatch(setPage(page + 1));
+    dispatch(getProductsFromCategory(id, page + 1, sort));
   };
 
   const handleChangeProductSort = (id, sort) => {
     dispatch(setProducts([]));
-    dispatch(setHasMoreProducts(true));
     dispatch(setSort(sort));
     currentPage.includes('/category')
       ? dispatch(getProductsFromCategory(id, page, sort))
@@ -115,12 +119,12 @@ export default function useProduct() {
   };
 
   return {
+    page,
     loaded,
     setLoaded,
     onLoad,
     setProducts,
     vendorInfo,
-    hasMoreProducts,
     productCategories,
     averageShippingTime,
     product,

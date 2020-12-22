@@ -13,7 +13,6 @@ import {
   setProduct,
   setProducts,
   setCategory,
-  setHasMoreProducts,
   setErrorMessage,
 } from '../../../redux/slices/productSlice/productSlice';
 
@@ -37,7 +36,6 @@ const ProductPage = () => {
     vendorInfo,
     products,
     category,
-    hasMoreProducts,
     productErrorMessage,
     handleVendorProductMoreButton,
     handleGetProduct,
@@ -51,7 +49,6 @@ const ProductPage = () => {
       dispatch(setProducts([]));
       dispatch(setCategory([]));
       dispatch(setErrorMessage(null));
-      dispatch(setHasMoreProducts(true));
     };
   }, [id, dispatch]);
   return (
@@ -67,7 +64,6 @@ const ProductPage = () => {
               id={vendorInfo.id}
               productId={id}
               vendorInfo={vendorInfo}
-              hasMoreProducts={hasMoreProducts}
               handler={handleVendorProductMoreButton}
               productErrorMessage={productErrorMessage}
             />

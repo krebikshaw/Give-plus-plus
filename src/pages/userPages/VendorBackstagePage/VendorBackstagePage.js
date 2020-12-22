@@ -15,7 +15,6 @@ import {
 import { Banner, Announcement } from '../../../components/productSystem';
 import {
   setProducts,
-  setHasMoreProducts,
   setErrorMessage,
 } from '../../../redux/slices/productSlice/productSlice';
 
@@ -52,7 +51,6 @@ const VendorBackstagePage = () => {
     onLoad,
     vendorInfo,
     products,
-    hasMoreProducts,
     productErrorMessage,
     handleVendorProductMoreButton,
     handleGetProductsFromVendor,
@@ -72,7 +70,6 @@ const VendorBackstagePage = () => {
     return () => {
       dispatch(setProducts([]));
       dispatch(setErrorMessage(null));
-      dispatch(setHasMoreProducts(true));
     };
   }, []);
 
@@ -102,7 +99,6 @@ const VendorBackstagePage = () => {
       <Products
         products={products}
         id={id}
-        hasMoreProducts={hasMoreProducts}
         handler={handleVendorProductMoreButton}
         productErrorMessage={productErrorMessage}
       />

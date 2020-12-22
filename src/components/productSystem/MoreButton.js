@@ -7,14 +7,10 @@ const ButtonContainer = styled.div`
   align-items: center;
 `;
 
-export const MoreButton = ({ id, hasMoreProducts, handler }) => {
+export const MoreButton = ({ id, handler }) => {
   return (
-    <>
-      {hasMoreProducts && (
-        <ButtonContainer>
-          <NormalButton onClick={() => handler(id)}>看更多</NormalButton>
-        </ButtonContainer>
-      )}
-    </>
+    <ButtonContainer>
+      <NormalButton onClick={() => handler(id)}>看更多</NormalButton>
+    </ButtonContainer>
   );
 };

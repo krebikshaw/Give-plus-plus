@@ -20,7 +20,6 @@ export const productSlice = createSlice({
     product: [],
     products: [],
     productCount: 0,
-    hasMoreProducts: true,
     category: [],
     categories: [],
     errorMessage: null,
@@ -40,9 +39,6 @@ export const productSlice = createSlice({
     },
     setProducts: (state, action) => {
       state.products = action.payload;
-    },
-    setHasMoreProducts: (state, action) => {
-      state.hasMoreProducts = action.payload;
     },
     setProductCount: (state, action) => {
       state.productCount = action.payload;
@@ -69,7 +65,6 @@ export const {
   pushProducts,
   setProducts,
   setProductCount,
-  setHasMoreProducts,
   setProduct,
   setCategories,
   setCategory,
@@ -79,18 +74,9 @@ export const {
 export const getProducts = (page) => (dispatch) => {
   getProductsAPI(page).then((res) => {
     if (res.ok === 0) {
-      if (typeof res.message === 'object') {
-        dispatch(setHasMoreProducts(false));
-        return dispatch(setErrorMessage('something wrong'));
-      }
-      dispatch(setHasMoreProducts(false));
-      return dispatch(setErrorMessage(res.message));
+      return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
-    let { count, products } = res.data;
-    let remainder = count - products.length;
-    if (remainder <= 0 || products.length !== 10) {
-      dispatch(setHasMoreProducts(false));
-    }
+    const { count, products } = res.data;
     dispatch(pushProducts(products));
     dispatch(setProductCount(count));
   });
@@ -101,7 +87,7 @@ export const getProduct = (id) => (dispatch) => {
     if (res.ok === 0) {
       return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
-    let { category, product } = res.data;
+    const { category, product } = res.data;
     dispatch(setProduct(product));
     dispatch(setCategory(category));
     return res.data;
@@ -111,15 +97,11 @@ export const getProduct = (id) => (dispatch) => {
 export const getProductsFromCategory = (id, page, queue) => (dispatch) => {
   getProductsFromCategoryAPI(id, page, queue).then((res) => {
     if (res.ok === 0) {
-      dispatch(setHasMoreProducts(false));
       return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
-    let { category, count, products } = res.data;
-    let remainder = count - products.length;
-    if (remainder <= 0 || products.length !== 10) {
-      dispatch(setHasMoreProducts(false));
-    }
+    const { category, count, products } = res.data;
     dispatch(setCategory(category));
+    dispatch(setProductCount(count));
     dispatch(pushProducts(products));
   });
 };
@@ -127,15 +109,10 @@ export const getProductsFromCategory = (id, page, queue) => (dispatch) => {
 export const getProductsFromVendor = (id, page, limit) => (dispatch) => {
   return getProductsFromVendorAPI(id, page, limit).then((res) => {
     if (res.ok === 0) {
-      dispatch(setHasMoreProducts(false));
       dispatch(setErrorMessage(res ? res.message : 'something wrong'));
       return res.message;
     }
-    let { vendorInfo, count, products } = res.data;
-    let remainder = count - products.length;
-    if (remainder <= 0 || products.length !== 10) {
-      dispatch(setHasMoreProducts(false));
-    }
+    const { vendorInfo, count, products } = res.data;
     dispatch(setVendorInfo(vendorInfo));
     dispatch(pushProducts(products));
     dispatch(setProductCount(count));
@@ -146,15 +123,11 @@ export const getProductsFromVendor = (id, page, limit) => (dispatch) => {
 export const searchProduct = (keyword, page, queue) => (dispatch) => {
   searchProductAPI(keyword, page, queue).then((res) => {
     if (res.ok === 0) {
-      dispatch(setHasMoreProducts(false));
       return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
-    let { count, products } = res.data;
-    let remainder = count - products.length;
-    if (remainder <= 0 || products.length !== 10) {
-      dispatch(setHasMoreProducts(false));
-    }
+    const { products, count } = res.data;
     dispatch(pushProducts(products));
+    dispatch(setProductCount(count));
   });
 };
 
@@ -249,7 +222,6 @@ export const selectProduct = (state) => state.product.product;
 export const selectCategory = (state) => state.product.category;
 export const selectErrorMessage = (state) => state.product.errorMessage;
 export const selectProductCount = (state) => state.product.productCount;
-export const selectHasMoreProducts = (state) => state.product.hasMoreProducts;
 export const selectPage = (state) => state.product.page;
 export const selectSort = (state) => state.product.sort;
 export const selectVendorInfo = (state) => state.product.vendorInfo;
