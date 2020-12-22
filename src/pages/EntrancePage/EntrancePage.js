@@ -6,6 +6,7 @@ import {
   BackgroundColumn,
   SocialMediaButton,
   NavButton,
+  AlertFooter,
 } from '../../components/general/';
 
 const Container = styled.div`
@@ -50,8 +51,9 @@ const EntrancePage = () => {
             </Section>
           </Container>
         </Column>
-        <BackgroundColumn $picture={'entrance-bg'}/>
+        <BackgroundColumn $picture={'entrance-bg'} />
       </ThickNavTwoColumnsPage>
+      <AlertFooter />
     </>
   );
 };
