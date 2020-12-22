@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { COLOR, FONT } from '../../constants/style';
 
 const ErrorMessageContainer = styled.div`
+  margin-top: ${(props) => props.$margin || '0px'};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,11 +11,13 @@ const ErrorMessageContainer = styled.div`
   color: ${COLOR.hover};
 `;
 
-export const ErrorMessage = ({ productErrorMessage }) => {
+export const ErrorMessage = ({ productErrorMessage, $margin }) => {
   return (
     <>
       {productErrorMessage && (
-        <ErrorMessageContainer>{productErrorMessage}</ErrorMessageContainer>
+        <ErrorMessageContainer $margin={$margin}>
+          {productErrorMessage}
+        </ErrorMessageContainer>
       )}
     </>
   );
