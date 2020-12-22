@@ -4,6 +4,8 @@ import { ActionButton } from "../../components/Button";
 import { COLOR, FONT } from "../../constants/style";
 import { useDispatch } from "react-redux";
 import useCart from "../../hooks/cartHooks/useCart";
+import { getUser } from "../../redux/slices/orderSlice/orderSlice";
+import { getProduct } from "../../redux/slices/productSlice/productSlice";
 import {
   setIsPaying,
   setFilter,
@@ -13,7 +15,7 @@ const Container = styled.div`
   border: solid 1px #e6e6e6;
   border-radius: 8px 8px;
   margin-bottom: 40px;
-  position: absolute;
+  position: fixed;
   top: 28%;
   right: 10%;
   transform: translate(20%, -10%);
@@ -54,13 +56,14 @@ const Hr = styled.hr`
 `;
 export default function OrderPrice({ cart }) {
   const dispatch = useDispatch();
-  const {
-    formatter,
-    price,
-  } = useCart();
+  const { formatter, price, checked } = useCart();
+  const productId = cart.cartDetail.map((data) => Object.values(data)[3]);
   const handlePay = () => {
+    if(checked === false) return
     dispatch(setIsPaying(true));
     dispatch(setFilter("select"))
+    dispatch(getUser());
+    dispatch(getProduct(productId[0]))
   }
   return (
     <Container>

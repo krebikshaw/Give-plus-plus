@@ -30,8 +30,8 @@ const PayTitle = styled.p`
 `;
 const Container = styled.div`
   margin-top: 100px;
-  min-width: 500px;
-  width: 900px;
+  min-width: 800px;
+  width: 1230px;
   padding: ${DISTANCE.xs};
   min-width: ${MEDIA_QUERY_MD.md};
 `;
@@ -55,11 +55,12 @@ const LoadingMessage = styled.div`
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  useEffect(() => dispatch(getCartItem()), [dispatch]);
+  useEffect(() => {dispatch(getCartItem())}, [dispatch]);
   const { carts, isLoading, isPaying, isSelect, filter } = useCart();
   const handleToCart = () => {
     dispatch(setIsPaying(false));
     dispatch(setFilter("all"));
+    window.location.reload(true);
   }
   return (
     <>

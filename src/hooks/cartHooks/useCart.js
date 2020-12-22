@@ -15,6 +15,8 @@ import {
   selectQuantity,
   selectAdd,
   selectUpdate,
+  selectChecked,
+
 } from "../../redux/slices/cartSlice/cartSlice";
 
 export default function useCart() {
@@ -37,6 +39,8 @@ export default function useCart() {
   const SelectQuantity = useSelector(selectQuantity);
   const hasAdd = useSelector(selectAdd);
   const update = useSelector(selectUpdate);
+  const checked = useSelector(selectChecked);
+  
   const handleDelete = (id) => {
     dispatch(deleteCartItem(id));
     window.location.reload();
@@ -53,6 +57,7 @@ export default function useCart() {
     completeOrder,
     price,
     isPaying,
+    checked,
     payWay,
     filter,
     carts,
@@ -64,6 +69,7 @@ export default function useCart() {
     orderNumber,
     SelectQuantity,
     hasAdd,
+
   };
 }
 

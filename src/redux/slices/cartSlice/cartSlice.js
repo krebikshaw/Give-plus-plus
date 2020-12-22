@@ -25,6 +25,8 @@ export const cartSlice = createSlice({
     quantity: 1,
     hasAdd: false,
     update: false,
+    checked: false,
+
   },
   reducers: {
     // reducer
@@ -67,11 +69,16 @@ export const cartSlice = createSlice({
     setUpdate: (state, action) => {
       state.update = action.payload;
     },
+    setChecked: (state, action) => {
+      state.checked = action.payload;
+    },
+
   },
 });
 
 export const {
   //action
+
   setErrorMessage,
   setCart,
   setIsLoading,
@@ -85,15 +92,17 @@ export const {
   setQuantity,
   setHasAdd,
   setUpdate,
+  setChecked,
+
 } = cartSlice.actions;
 
 export const getCartItem = () => (dispatch) => {
-  dispatch(setIsLoading(true));
+  //dispatch(setIsLoading(true));
   return getItem().then((res) => {
     if (!res || res.ok === 0)
       return dispatch(setErrorMessage(res ? res.message : "no data"));
     dispatch(setCart(res.data));
-    dispatch(setIsLoading(false));
+    //dispatch(setIsLoading(false));
     return res.data
   });
 };
@@ -106,24 +115,24 @@ export const addCartItem = (productId, quantity, id) => (dispatch) => {
   });
 };
 export const minusQuantity = (quantity, id) => (dispatch) => {
-  dispatch(setIsLoading(true));
+  //dispatch(setIsLoading(true));
   //console.log(quantity);
   quantity--;
   return updateItem(quantity, id).then((res) => {
     //console.log(quantity);
     dispatch(getCartItem());
-    dispatch(setIsLoading(false));
+    //dispatch(setIsLoading(false));
     return res;
   });
 };
 export const addQuantity = (quantity, id) => (dispatch) => {
-  dispatch(setIsLoading(true)); 
+  //dispatch(setIsLoading(true)); 
   //console.log("加一之前的數量:",quantity);
   quantity++ ;
   return updateItem(quantity, id).then((res) => {
     //console.log("加一之後的數量:", quantity);
     dispatch(getCartItem());
-    dispatch(setIsLoading(false));
+    //dispatch(setIsLoading(false));
     return res;
   });
 };
@@ -150,6 +159,8 @@ export const createOrder = (quantity, productId, sellerId, id) => (dispatch) => 
     dispatch(setOrderNumber(res.orderNumber));
   });
 };
+
+export const selectChecked = (state) => state.cart.checked;
 export const selectUpdate = (state) => state.cart.update;
 export const selectAdd = (state) => state.cart.hasAdd;
 export const selectQuantity = (state) => state.cart.quantity;

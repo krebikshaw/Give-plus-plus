@@ -176,7 +176,7 @@ export const ProductInfo = ({ product }) => {
         <Modal>
           <Form>
             <IconContainer onClick={handleClose}>
-              <IconComponent kind={"close"} />
+              <IconComponent kind={"close-black"} />
             </IconContainer>
             {errorMessage}
           </Form>
@@ -186,7 +186,7 @@ export const ProductInfo = ({ product }) => {
         <Modal>
           <Form>
             <IconContainer onClick={handleClose}>
-              <IconComponent kind={"close"} />
+              <IconComponent kind={"close-black"} />
             </IconContainer>
             商品已成功加入購物車囉！
           </Form>

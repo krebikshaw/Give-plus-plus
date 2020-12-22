@@ -45,6 +45,8 @@ const Form = styled.form`
   display: flex;
   position: relative;
   align-items: center;
+  padding: 0 60px;
+  letter-spacing: 1px;
   justify-content: center;
   flex-direction: column;
   margin: 80px auto;
@@ -64,7 +66,7 @@ const IconContainer = styled.div`
 
 export default function ChooseQuantity({ Item }) {
   const dispatch = useDispatch();
-  const { errorMessage, isSelect, isPaying } = useCart();
+  const { errorMessage, isSelect, isPaying, checked } = useCart();
   const { cartItemId, cartQuantity, productQuantity } = Item;
   //console.log("state 裡面存的 資料庫的數量:",cartQuantity);
   const handlePlus = () => {
@@ -74,36 +76,49 @@ export default function ChooseQuantity({ Item }) {
       );
       return;
     }
-      dispatch(addQuantity(cartQuantity, cartItemId));
-      
-      //window.location.reload(true);
+    dispatch(addQuantity(cartQuantity, cartItemId));
+
+    //window.location.reload(true);
   };
   const handleMinus = () => {
     if (cartQuantity <= 1) {
       dispatch(setErrorMessage("抱歉，結帳最少購買1件"));
       return;
     }
-      dispatch(minusQuantity(cartQuantity, cartItemId));
-      
-      //window.location.reload(true);
+    dispatch(minusQuantity(cartQuantity, cartItemId));
+
+    //window.location.reload(true);
   };
-   const handleClose = () => {
-       dispatch(setErrorMessage(false))
-   }
+  const handleClose = () => {
+    dispatch(setErrorMessage(false));
+  };
+  const handleError = () => {
+      dispatch(setErrorMessage("勾選購物車後，即代表確認購買商品與數量，無法再更動購買的商品數量。若要重新選擇購買數量，請先取消勾選購物車。"));
+  }
   return (
     <>
       {errorMessage && (
         <Modal>
           <Form>
             <IconContainer onClick={handleClose}>
-              <IconComponent kind={"close"} />
+              <IconComponent kind={"close-black"} />
             </IconContainer>
             {errorMessage}
           </Form>
         </Modal>
       )}
-      {isSelect || isPaying ? (
+      {isPaying ? (
         <CartQuantity>x {Item.cartQuantity}</CartQuantity>
+      ) : checked ? (
+        <Wrapper>
+          <Container onClick={handleError}>
+            <IconComponent kind={"minus"} />
+          </Container>
+          <Quantity>{Item.cartQuantity}</Quantity>
+          <Container onClick={handleError}>
+            <IconComponent kind={"plus"} />
+          </Container>
+        </Wrapper>
       ) : (
         <Wrapper>
           <Container onClick={() => handleMinus(cartQuantity, cartItemId)}>

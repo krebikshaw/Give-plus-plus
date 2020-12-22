@@ -45,16 +45,16 @@ const LoadingBackground = styled.div`
   background: ${COLOR.bg_mask};
   z-index: 2;
 `;
-export default function ItemDetail({Item}) {
-    const {
-      isLoading,
-      handleDelete,
-      formatter,
-      isSelect,
-      isPaying,
-      completeOrder,
-    } = useCart();
- 
+export default function ItemDetail({ Item }) {
+  const {
+    isLoading,
+    handleDelete,
+    formatter,
+    isSelect,
+    isPaying,
+    completeOrder,
+  } = useCart();
+
   return (
     <>
       {isLoading && (
@@ -67,7 +67,7 @@ export default function ItemDetail({Item}) {
           <PhotoImg src={Item.pictureUrl}></PhotoImg>
         </Photo>
         <ProductName>{Item.productName}</ProductName>
-        <ChooseQuantity Item={Item} />
+        <ChooseQuantity Item={Item}  />
         {completeOrder ? (
           <Price>{formatter.format(Item.price * Item.cartQuantity)}</Price>
         ) : (

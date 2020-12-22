@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
 import { IconComponent } from "../../components";
 import { COLOR, FONT, MEDIA_QUERY_MD } from "../../constants/style";
 import { useDispatch } from "react-redux";
@@ -10,11 +10,14 @@ import {
   setIsSelect,
   setPrice,
   setFilter,
+  getCartItem,
+  setChecked,
+  setErrorMessage,
 } from "../../redux/slices/cartSlice/cartSlice";
 const Container = styled.p`
-  margin: 20px auto;
-  width: 95%;
-  min-width: ${MEDIA_QUERY_MD.md};
+  margin: 20px 120px 20px 10px;
+  width: 60%;
+  min-width: 400px;
   border: solid 1px #f6f5f5;
   border-radius: 8px 8px;
   margin-bottom: 40px;
@@ -72,7 +75,7 @@ const IconContainer = styled.div`
 const Section = styled.div`
   position: fix;
   right: 0;
-  margin-left: 535px;
+  margin-left: 450px;
  
 `;
 const Wrapper = styled.div`
@@ -89,41 +92,93 @@ const TotalAmountTitle = styled.p`
   font-size: ${FONT.sm};
   margin-right: 20px;
 `;
-
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: ${COLOR.bg_mask};
+  z-index: 2;
+`;
+const Form = styled.form`
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 0 60px;
+  letter-spacing: 1px;
+  justify-content: center;
+  flex-direction: column;
+  margin: 80px auto;
+  height: 300px;
+  width: 40%;
+  min-width: 300px;
+  border-radius: 9px;
+  background: ${COLOR.white};
+`;
+const ModalIconContainer = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+`;
 export default function CartItem({ cart }) {
-  
   const dispatch = useDispatch();
   const {
     handleDeleteSeller,
+    errorMessage,
     isSelect,
     isPaying,
     formatter,
     completeOrder,
+    checked,
   } = useCart();
   const SellerId = cart.cartDetail.map((data) => Object.values(data)[1]);
-  const TotalAmount = cart.cartDetail.map(
-    (data) => Object.values(data)[6] * Object.values(data)[7]
-  );
+  //console.log(SellerId[0]);
+  const TotalAmount = cart.cartDetail
+    .map((data) => Object.values(data)[6] * Object.values(data)[7])
+    .reduce((acc, cur) => acc + cur);
+  //console.log(TotalAmount);
   const handleSelect = (id, TotalAmount) => {
+    dispatch(setErrorMessage("🌸 溫馨提醒 🌸，一次只能結帳一個賣家的購物車喔～"));
     dispatch(setIsSelect(id));
+    //dispatch(setFilter("select"));
+    dispatch(setChecked(!checked))
     dispatch(setPrice(TotalAmount));
-    dispatch(setFilter("select"));
+    if (checked === true) {
+      //dispatch(setFilter("all"));
+      dispatch(setPrice(0));
+    }
+  };
+  const handleClose = () => {
+    dispatch(setErrorMessage(false));
   };
   return (
     <Container>
+      {errorMessage && (
+        <Modal>
+          <Form>
+            <ModalIconContainer onClick={handleClose}>
+              <IconComponent kind={"close-black"} />
+            </ModalIconContainer>
+            {errorMessage}
+          </Form>
+        </Modal>
+      )}
       <Top>
         <Seller>
           {isPaying ? null : (
             <Check
               type="checkbox"
-              onClick={() => handleSelect(SellerId[0], TotalAmount[0])}
+              onClick={() => handleSelect(SellerId[0], TotalAmount)}
             ></Check>
           )}
           <Name isSelect={isSelect}>{cart.sellerName}</Name>
         </Seller>
-        {isPaying || isSelect ? null : (
+        {isPaying || checked ? null : (
           <IconContainer onClick={() => handleDeleteSeller(SellerId)}>
-            <IconComponent kind={"close"} />
+            <IconComponent kind={"close-black"} />
           </IconContainer>
         )}
       </Top>
@@ -136,7 +191,7 @@ export default function CartItem({ cart }) {
           <Section>
             <Wrapper>
               <TotalAmountTitle>商品總計</TotalAmountTitle>
-              <Price>{formatter.format(TotalAmount[0])}</Price>
+              <Price>{formatter.format(TotalAmount)}</Price>
             </Wrapper>
             <Wrapper>
               <TotalAmountTitle>運費總計</TotalAmountTitle>
@@ -145,7 +200,7 @@ export default function CartItem({ cart }) {
             <Hr />
             <Wrapper>
               <TotalAmountTitle>總共金額</TotalAmountTitle>
-              <Price>{formatter.format(TotalAmount[0])}</Price>
+              <Price>{formatter.format(TotalAmount)}</Price>
             </Wrapper>
           </Section>
         ) : (
