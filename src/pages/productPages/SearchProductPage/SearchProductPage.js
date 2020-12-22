@@ -9,7 +9,6 @@ import { Products, ProductSort } from '../../../components/productSystem';
 import {
   setProducts,
   setErrorMessage,
-  setHasMoreProducts,
 } from '../../../redux/slices/productSlice/productSlice';
 
 const SearchTitleContainer = styled.section`
@@ -42,7 +41,6 @@ const SearchProductPage = () => {
   const { keyword } = useParams();
   const {
     products,
-    hasMoreProducts,
     productErrorMessage,
     handleSearchProductMoreButton,
     handleChangeProductSort,
@@ -54,7 +52,6 @@ const SearchProductPage = () => {
     return () => {
       dispatch(setProducts([]));
       dispatch(setErrorMessage(null));
-      dispatch(setHasMoreProducts(true));
     };
   }, [keyword, dispatch]);
   return (
@@ -67,7 +64,6 @@ const SearchProductPage = () => {
         <Products
           products={products}
           id={keyword}
-          hasMoreProducts={hasMoreProducts}
           handler={handleSearchProductMoreButton}
           productErrorMessage={productErrorMessage}
         />

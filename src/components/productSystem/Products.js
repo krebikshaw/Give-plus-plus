@@ -3,6 +3,11 @@ import { COLOR, FONT, DISTANCE } from '../../constants/style';
 import { MoreButton, ErrorMessage } from '../../components/productSystem/';
 import useProduct from '../../hooks/productHooks/useProduct';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import {
+  selectProductCount,
+  selectProducts,
+} from '../../redux/slices/productSlice/productSlice';
 
 const ProductsContainer = styled.div`
   padding: ${(props) => props.$padding || '50px 25px'};
@@ -116,7 +121,6 @@ const Product = ({ product, onLoad, loaded, $width, $height, $margin }) => {
 export const Products = ({
   products,
   id,
-  hasMoreProducts,
   handler,
   productErrorMessage,
   $width,
@@ -126,6 +130,8 @@ export const Products = ({
   $justify,
 }) => {
   const { loaded, onLoad } = useProduct();
+  const productsArray = useSelector(selectProducts);
+  const productCount = useSelector(selectProductCount);
   return (
     <>
       <ProductsContainer $padding={$padding}>
@@ -151,14 +157,14 @@ export const Products = ({
           <Placeholder $width={$width} $margin={$margin} />
         </ProductsWrap>
       </ProductsContainer>
-      {loaded && !productErrorMessage ? (
-        <MoreButton
-          id={id}
-          products={products}
-          hasMoreProducts={hasMoreProducts}
-          handler={handler}
-        />
-      ) : (
+
+      {(productCount - productsArray.length <= 0 &&
+        productsArray.length !== 10) ||
+      productErrorMessage ? null : (
+        <MoreButton id={id} handler={handler} />
+      )}
+
+      {productErrorMessage && (
         <ErrorMessage productErrorMessage={productErrorMessage} />
       )}
     </>

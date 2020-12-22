@@ -10,7 +10,6 @@ export const PurchaseInfoRight = ({
   product,
   products,
   id,
-  hasMoreProducts,
   handler,
   productErrorMessage,
   vendorInfo,
@@ -22,7 +21,6 @@ export const PurchaseInfoRight = ({
         products={products}
         id={id}
         vendorInfo={vendorInfo}
-        hasMoreProducts={hasMoreProducts}
         handler={handler}
         productErrorMessage={productErrorMessage}
       />

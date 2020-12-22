@@ -11,9 +11,9 @@ import {
   ErrorMessage,
 } from '../../../components/productSystem';
 import {
+  setPage,
   setProducts,
   setCategory,
-  setHasMoreProducts,
   setErrorMessage,
 } from '../../../redux/slices/productSlice/productSlice';
 
@@ -45,7 +45,6 @@ const CategorizedProductPage = () => {
   const {
     products,
     category,
-    hasMoreProducts,
     productErrorMessage,
     handleCategoryProductMoreButton,
     handleGetProductFromCategory,
@@ -55,12 +54,12 @@ const CategorizedProductPage = () => {
   if (productErrorMessage === '查無此分類') navigate('/');
   useEffect(() => {
     window.scroll(0, 0);
+    dispatch(setPage(1));
     handleGetProductFromCategory(id, 1);
     return () => {
       dispatch(setProducts([]));
       dispatch(setCategory([]));
       dispatch(setErrorMessage(null));
-      dispatch(setHasMoreProducts(true));
     };
   }, [id, dispatch]);
   return (
@@ -81,7 +80,6 @@ const CategorizedProductPage = () => {
             <Products
               products={products}
               id={id}
-              hasMoreProducts={hasMoreProducts}
               handler={handleCategoryProductMoreButton}
               productErrorMessage={productErrorMessage}
             />
