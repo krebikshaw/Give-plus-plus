@@ -30,6 +30,11 @@ const AvatarContainer = styled.div`
   width: 75px;
   height: 75px;
 
+  a {
+    width: 100%;
+    height: 100%;
+  }
+
   &:before {
     content: '';
     position: absolute;

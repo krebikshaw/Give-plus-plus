@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getUserByIdAPI } from '../../../webAPI/userAPI';
 import {
   getProductsAPI,
   getProductCategoriesAPI,
@@ -141,19 +140,6 @@ export const getProductCategories = () => (dispatch) => {
       return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
     dispatch(setCategories(res.data));
-  });
-};
-
-export const getUserById = (id) => (dispatch) => {
-  dispatch(setVendorInfo({}));
-  dispatch(setErrorMessage(''));
-  return getUserByIdAPI(id).then((result) => {
-    if (!result || result.ok === 0)
-      return dispatch(
-        setErrorMessage(result ? result.message : 'something wrong')
-      );
-    dispatch(setVendorInfo(result.data));
-    return result;
   });
 };
 

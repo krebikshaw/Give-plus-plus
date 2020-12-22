@@ -19,15 +19,15 @@ export const Radio = ({
 }) => {
   return (
     <RadioLabel>
-        <RadioInput
-          $margin={0}
-          rows="15"
-          type="radio"
-          value={value}
-          name={name}
-          onChange={handleChange}
-          checked={currentOption && value === Number(currentOption)}
-        />
+      <RadioInput
+        $margin={0}
+        rows='15'
+        type='radio'
+        value={value}
+        name={name}
+        onChange={handleChange}
+        checked={currentOption && value == Number(currentOption)}
+      />
       {children}
     </RadioLabel>
   );

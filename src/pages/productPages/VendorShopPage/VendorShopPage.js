@@ -35,7 +35,6 @@ const VendorShopPage = () => {
     productErrorMessage,
     handleVendorProductMoreButton,
     handleGetProductsFromVendor,
-    handleGetUserById,
   } = useProduct();
 
   useEffect(() => {
@@ -46,10 +45,6 @@ const VendorShopPage = () => {
       dispatch(setErrorMessage(null));
     };
   }, [id, dispatch]);
-
-  useEffect(() => {
-    handleGetUserById(id);
-  }, []);
 
   return (
     <>
