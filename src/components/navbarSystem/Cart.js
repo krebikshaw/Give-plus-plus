@@ -5,11 +5,8 @@ import { Nav } from '../Button';
 import { COLOR, DISTANCE, EFFECT, FONT } from '../../constants/style';
 import { selectCart } from '../../redux/slices/cartSlice/cartSlice';
 import { useSelector } from 'react-redux';
-import { useDispatch } from "react-redux";
-import {
-  getCartItem,
-  
-} from "../../redux/slices/cartSlice/cartSlice";
+import { useDispatch } from 'react-redux';
+import { getCartItem } from '../../redux/slices/cartSlice/cartSlice';
 
 const UserContainer = styled.div`
   position: relative;
@@ -49,7 +46,7 @@ const OptionWrapper = styled.div`
     border-style: solid;
     border-width: 0 6px 9px;
     position: absolute;
-    top: 1px;
+    top: 3px;
     right: 14px;
     z-index: 7500;
   }
@@ -127,6 +124,8 @@ const CartBottom = styled.div`
   margin-top: 15px;
 `;
 
+const ProductQuantity = styled.span``;
+
 const CartItem = ({ cartItem }) => {
   const formatter = new Intl.NumberFormat('zh-TW', {
     style: 'currency',
@@ -142,7 +141,9 @@ const CartItem = ({ cartItem }) => {
             <ProductImg src={product.pictureUrl} />
             <ProductInfo>
               <ProductName>{product.productName}</ProductName>
+
               <ProductPrice>{formatter.format(product.price)}</ProductPrice>
+              <ProductQuantity>x{product.cartQuantity}</ProductQuantity>
             </ProductInfo>
           </ProductItem>
         ))}
@@ -165,7 +166,7 @@ export default function Cart() {
   const cart = useSelector(selectCart);
   const dispatch = useDispatch();
   const handleGetCart = () => {
-    window.location.reload(true)
+    window.location.reload(true);
     dispatch(getCartItem());
   };
   return (
@@ -182,7 +183,11 @@ export default function Cart() {
                 <CartItem cartItem={cartItem} key={index} />
               ))}
               <CartBottom>
-                <Nav children={'前往結帳'} path={'/cart'} onClick={() => handleGetCart()}/>
+                <Nav
+                  children={'前往結帳'}
+                  path={'/cart'}
+                  onClick={() => handleGetCart()}
+                />
               </CartBottom>
             </OptionList>
           ) : (

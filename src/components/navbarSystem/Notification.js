@@ -41,7 +41,7 @@ const OptionWrapper = styled.div`
     border-style: solid;
     border-width: 0 6px 9px;
     position: absolute;
-    top: 1px;
+    top: 3px;
     right: 14px;
     z-index: 7500;
   }
