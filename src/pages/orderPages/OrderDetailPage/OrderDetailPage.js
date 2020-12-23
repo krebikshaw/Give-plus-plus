@@ -231,6 +231,7 @@ const OrderDetailPage = () => {
   const {
     detailOrder,
     user,
+    orders,
     mask,
     isLoading,
     totalAmount,
@@ -246,6 +247,7 @@ const OrderDetailPage = () => {
     seller_email,
     client_address,
     handleCancelOrder,
+    sellerId,
     handleSentOrder,
     handleCompleteOrder,
     handlePayOrder,
@@ -258,8 +260,10 @@ const OrderDetailPage = () => {
     dispatch(getDetailOrder(id));
     dispatch(getUser());
   }, [dispatch,id]);
-  
-  
+  //console.log(sellerId[0]);
+  //console.log(user.userId);
+  //console.log(user.is_vendor)
+  //console.log(user);
   return (
     <>
       {mask && <Modal />}
@@ -411,7 +415,7 @@ const OrderDetailPage = () => {
                     取消訂單
                   </NormalButton>
                 )}
-                {user && user.is_vendor ? (
+                { user &&  (sellerId == user.userId) && (
                   <>
                     {detailOrder && is_sent[0] ? (
                       <Button>完成出貨</Button>
@@ -433,7 +437,7 @@ const OrderDetailPage = () => {
                       </NormalButton>
                     )}
                   </>
-                ) : null}
+                ) }
               </OrderButtonSection>
               <Section>
                 <LineWrapper>
