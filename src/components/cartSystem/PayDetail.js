@@ -40,13 +40,13 @@ const PayContainer = styled.div`
   padding: 10px 20px;
 `;
 const IconContainer = styled.div`
-  
+
 `;
 const ReceiveInfo = styled.div`
   padding: 10px 20px;
   background: #e6e6e6;
   border-radius: 8px 8px 0 0;
-  
+
 `;
 const Top = styled.div`
   display: flex;
@@ -159,19 +159,22 @@ export default function PayDetail({cart}) {
   const {
     product,
   } = useProduct();
-  const productId = cart.cartDetail.map((data) => Object.values(data)[3]);
-  const quantity = cart.cartDetail.map((data) => Object.values(data)[7]);
-  const sellerId = cart.cartDetail.map((data) => Object.values(data)[1]);
-  const id = cart.cartDetail.map((data) => Object.values(data)[0]);
-  console.log(cart.cartDetail);
-  console.log(productId, quantity, sellerId, id);
-  const handleToCheckOutCartPage = () => {
-    if (payWay === true){
-        navigate("/cart/checkout");
+  const readyToOrderItems = cart.cartDetail.map((cartDetail) => {
+    return {
+      ProductId: cartDetail.productId,
+      UserId: cartDetail.sellerId,
+      product_quantity: cartDetail.cartQuantity,
+    };
+  });
+
+  const handleToCheckOutCartPage = (readyToOrderItems) => {
+    if (payWay === true) {
+      navigate("/cart/checkout");
     }
     dispatch(setComplete(true));
-    dispatch(createOrder(quantity, productId, sellerId,id))
+    dispatch(createOrder(readyToOrderItems));
   }
+
   const handlePayWay = () => {
     dispatch(setPayWay(true));
   }
@@ -181,19 +184,19 @@ export default function PayDetail({cart}) {
   const handleClose = () => {
     dispatch(setUpdate(false));
   }
-    const handleUpdateReceiver = (e) => {
-       setReceiver(e.target.value);
-    };
-   const handleUpdateAddress = (e) => {
-       setReceiveAddress(e.target.value);
-   };
-    const handleUpdateBuyer = (e) => {
-       setBuyer(e.target.value);
-    };
-    const handleUpdateInfo = () => {
-        dispatch(setUpdate(false));
-    }
-    
+  const handleUpdateReceiver = (e) => {
+    setReceiver(e.target.value);
+  };
+  const handleUpdateAddress = (e) => {
+    setReceiveAddress(e.target.value);
+  };
+  const handleUpdateBuyer = (e) => {
+    setBuyer(e.target.value);
+  };
+  const handleUpdateInfo = () => {
+    dispatch(setUpdate(false));
+  }
+
   return (
     <>
       {update && (
@@ -275,14 +278,7 @@ export default function PayDetail({cart}) {
             <ActionButton
               $margin={0}
               style={{ background: "#b6deea", width: "100%" }}
-              onClick={() =>
-                handleToCheckOutCartPage(
-                  quantity,
-                  productId,
-                  sellerId,
-                  id
-                )
-              }
+              onClick={() => handleToCheckOutCartPage(readyToOrderItems)}
             >
               確認付款
             </ActionButton>

@@ -126,7 +126,7 @@ export const minusQuantity = (quantity, id) => (dispatch) => {
   });
 };
 export const addQuantity = (quantity, id) => (dispatch) => {
-  //dispatch(setIsLoading(true)); 
+  //dispatch(setIsLoading(true));
   //console.log("加一之前的數量:",quantity);
   quantity++ ;
   return updateItem(quantity, id).then((res) => {
@@ -150,10 +150,9 @@ export const deleteCartItemsBySeller = (id) => (dispatch) => {
     return res;
   });
 };
-export const createOrder = (quantity, productId, sellerId, id) => (dispatch) => {
-  console.log(quantity, productId, sellerId, id);
+export const createOrder = (readyToOrderItems) => (dispatch) => {
   dispatch(setIsLoading(true));
-  return createOrderAPI(quantity, productId, sellerId, id).then((res) => {
+  return createOrderAPI(readyToOrderItems).then((res) => {
     dispatch(setIsLoading(false));
     console.log(res.orderNumber);
     dispatch(setOrderNumber(res.orderNumber));
