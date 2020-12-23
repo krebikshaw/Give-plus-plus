@@ -164,15 +164,16 @@ const CartItem = ({ cartItem }) => {
 export default function Cart() {
   const cart = useSelector(selectCart);
   const dispatch = useDispatch();
-  useEffect(() => {
+  const handleGetCart = () => {
+    window.location.reload(true)
     dispatch(getCartItem());
-  }, [dispatch]);
+  };
   return (
     <UserContainer>
       <IconComponent kind={'shopping-cart'} />
       <OptionWrapper>
         <OptionInner>
-          {cart ? (
+          {cart && cart.length > 0 ? (
             <OptionList>
               <OptionItem>
                 <p>購物車</p>
@@ -181,7 +182,7 @@ export default function Cart() {
                 <CartItem cartItem={cartItem} key={index} />
               ))}
               <CartBottom>
-                <Nav children={'前往結帳'} path={'/cart'} />
+                <Nav children={'前往結帳'} path={'/cart'} onClick={() => handleGetCart()}/>
               </CartBottom>
             </OptionList>
           ) : (

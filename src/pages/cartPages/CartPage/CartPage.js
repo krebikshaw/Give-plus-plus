@@ -56,7 +56,7 @@ const LoadingMessage = styled.div`
 const CartPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {dispatch(getCartItem())}, [dispatch]);
-  const { carts, isLoading, isPaying, isSelect, filter } = useCart();
+  const { carts, isLoading, isPaying, isSelect, filter, checked } = useCart();
   const handleToCart = () => {
     dispatch(setIsPaying(false));
     dispatch(setFilter("all"));
@@ -71,7 +71,7 @@ const CartPage = () => {
       )}
       <ThickNavPage>
         <Container>
-          {isPaying ? (
+          {isPaying && checked ? (
             <Wrapper>
               <IconWrapper onClick={() => handleToCart()}>
                 <IconComponent kind={"left-blue"} $margin={0} />

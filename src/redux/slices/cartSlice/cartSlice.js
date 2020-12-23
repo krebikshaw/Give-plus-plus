@@ -110,6 +110,7 @@ export const getCartItem = () => (dispatch) => {
 export const addCartItem = (productId, quantity, id) => (dispatch) => {
   dispatch(setIsLoading(true));
   return addItem(productId, quantity, id).then((res) => {
+    dispatch(getCartItem());
     dispatch(setIsLoading(false));
     return res;
   });

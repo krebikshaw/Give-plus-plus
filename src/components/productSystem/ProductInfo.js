@@ -160,7 +160,7 @@ export const ProductInfo = ({ product }) => {
         dispatch(setHasAdd(true));
       }
     })
-     dispatch(getCartItem());
+     
 
   };
   const handleClose = () => {
