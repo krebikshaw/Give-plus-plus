@@ -35,11 +35,13 @@ const VendorShopPage = () => {
     productErrorMessage,
     handleVendorProductMoreButton,
     handleGetProductsFromVendor,
+    handleGetUserById,
   } = useProduct();
 
   useEffect(() => {
     window.scroll(0, 0);
     handleGetProductsFromVendor(id, 1);
+    handleGetUserById(id);
     return () => {
       dispatch(setProducts([]));
       dispatch(setErrorMessage(null));

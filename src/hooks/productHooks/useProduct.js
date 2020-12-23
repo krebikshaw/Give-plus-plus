@@ -20,6 +20,7 @@ import {
   getProductCategories,
   getProductsFromCategory,
   getProductsFromVendor,
+  getUserById,
 } from '../../redux/slices/productSlice/productSlice';
 
 function averageTime(count, products) {
@@ -118,6 +119,10 @@ export default function useProduct() {
       : dispatch(searchProduct(id, page, sort));
   };
 
+  const handleGetUserById = (id) => {
+    dispatch(getUserById(id));
+  };
+
   return {
     page,
     loaded,
@@ -143,5 +148,6 @@ export default function useProduct() {
     handleGetProductFromCategory,
     handleGetProductsFromVendor,
     handleChangeProductSort,
+    handleGetUserById,
   };
 }

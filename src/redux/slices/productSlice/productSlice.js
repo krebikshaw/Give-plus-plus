@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getUserByIdAPI } from '../../../webAPI/userAPI';
 import {
   getProductsAPI,
   getProductCategoriesAPI,
@@ -87,7 +88,9 @@ export const getProduct = (id) => (dispatch) => {
     if (res.ok === 0) {
       return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
-    const { category, product } = res.data;
+    const { vendorInfo, category, product } = res.data;
+    console.log(res);
+    dispatch(setVendorInfo(vendorInfo));
     dispatch(setProduct(product));
     dispatch(setCategory(category));
     return res.data;
@@ -112,8 +115,7 @@ export const getProductsFromVendor = (id, page, limit) => (dispatch) => {
       dispatch(setErrorMessage(res ? res.message : 'something wrong'));
       return res.message;
     }
-    const { vendorInfo, count, products } = res.data;
-    dispatch(setVendorInfo(vendorInfo));
+    const { count, products } = res.data;
     dispatch(pushProducts(products));
     dispatch(setProductCount(count));
     return products;
@@ -140,6 +142,19 @@ export const getProductCategories = () => (dispatch) => {
       return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
     dispatch(setCategories(res.data));
+  });
+};
+
+export const getUserById = (id) => (dispatch) => {
+  dispatch(setVendorInfo({}));
+  dispatch(setErrorMessage(''));
+  return getUserByIdAPI(id).then((result) => {
+    if (!result || result.ok === 0)
+      return dispatch(
+        setErrorMessage(result ? result.message : 'something wrong')
+      );
+    dispatch(setVendorInfo(result.data));
+    return result;
   });
 };
 
