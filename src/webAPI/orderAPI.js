@@ -12,33 +12,33 @@ export const getMe = () => {
 };
 // 取得自己買的訂單列表
 export const getClientOrder = () => {
-   const token = getAuthToken();
-   return fetch(`${BASE_URL}/orders/buy`, {
-     headers: {
-       "content-type": "application/json",
-       authorization: `Bearer ${token}`,
-     },
-   }).then((res) => res.json());
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/orders/buy`, {
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
 }
 // 取得自己賣的訂單列表
 export const getSellerOrder = () => {
-    const token = getAuthToken();
-    return fetch(`${BASE_URL}/orders/sell`, {
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => res.json());
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/orders/sell`, {
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
 }
 // 取得單一訂單明細
 export const getDetailOrder = (id) => {
-    const token = getAuthToken();
-    return fetch(`${BASE_URL}/orders/order/${id}`, {
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => res.json());
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/orders/order/${id}`, {
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
 }
 // 訂單取消
 export const cancelOrder = (id, cancelReason) => {
@@ -56,25 +56,25 @@ export const cancelOrder = (id, cancelReason) => {
 };
 // 訂單出貨
 export const sentOrder = (id) => {
-    const token = getAuthToken();
-    return fetch(`${BASE_URL}/orders/${id}/send`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => res.json());
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/orders/${id}/send`, {
+    method: "PATCH",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
 }
 // 刪除訂單資料
 export const deleteOrder = (id) => {
-    const token = getAuthToken();
-    return fetch(`${BASE_URL}/orders/${id}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => res.json());
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/orders/${id}`, {
+    method: "DELETE",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
 }
 // 取得全部訂單資料
 export const getAllOrder = () => {
@@ -106,21 +106,5 @@ export const completeOrder = (id) => {
       "content-type": "application/json",
       authorization: `Bearer ${token}`,
     },
-  }).then((res) => res.json());
-};
-// 成立訂單
-export const createOrder = (quantity, productId, sellerId) => {
-  const token = getAuthToken();
-  return fetch(`${BASE_URL}/orders/new`, {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      productId,
-      quantity,
-      sellerId,
-    }),
   }).then((res) => res.json());
 };
