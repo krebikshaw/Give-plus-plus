@@ -48,7 +48,7 @@ const SearchProductPage = () => {
   } = useProduct();
 
   useEffect(() => {
-    handleGetSearchProduct(keyword);
+    handleGetSearchProduct(keyword, 1);
     return () => {
       dispatch(setProducts([]));
       dispatch(setErrorMessage(null));

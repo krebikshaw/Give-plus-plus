@@ -30,7 +30,6 @@ const MoreLink = styled.a`
 export const VendorIntro = ({
   products,
   id,
-  handler,
   productErrorMessage,
   vendorInfo,
 }) => {
@@ -49,7 +48,6 @@ export const VendorIntro = ({
           <Products
             products={products}
             id={id}
-            handler={handler}
             productErrorMessage={productErrorMessage}
             $padding={'20px 10px'}
             $width={'150px'}

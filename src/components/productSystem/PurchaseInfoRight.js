@@ -10,7 +10,6 @@ export const PurchaseInfoRight = ({
   product,
   products,
   id,
-  handler,
   productErrorMessage,
   vendorInfo,
 }) => {
@@ -21,7 +20,6 @@ export const PurchaseInfoRight = ({
         products={products}
         id={id}
         vendorInfo={vendorInfo}
-        handler={handler}
         productErrorMessage={productErrorMessage}
       />
     </PurchaseInfoRightContainer>

@@ -37,7 +37,6 @@ const ProductPage = () => {
     products,
     category,
     productErrorMessage,
-    handleVendorProductMoreButton,
     handleGetProduct,
   } = useProduct();
 
@@ -64,7 +63,6 @@ const ProductPage = () => {
               id={vendorInfo.id}
               productId={id}
               vendorInfo={vendorInfo}
-              handler={handleVendorProductMoreButton}
               productErrorMessage={productErrorMessage}
             />
           </PurchaseInfo>
