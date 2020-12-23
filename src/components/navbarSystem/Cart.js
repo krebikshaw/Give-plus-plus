@@ -5,6 +5,11 @@ import { Nav } from '../Button';
 import { COLOR, DISTANCE, EFFECT, FONT } from '../../constants/style';
 import { selectCart } from '../../redux/slices/cartSlice/cartSlice';
 import { useSelector } from 'react-redux';
+import { useDispatch } from "react-redux";
+import {
+  getCartItem,
+  
+} from "../../redux/slices/cartSlice/cartSlice";
 
 const UserContainer = styled.div`
   position: relative;
@@ -158,13 +163,17 @@ const CartItem = ({ cartItem }) => {
 
 export default function Cart() {
   const cart = useSelector(selectCart);
-
+  const dispatch = useDispatch();
+  const handleGetCart = () => {
+    window.location.reload(true)
+    dispatch(getCartItem());
+  };
   return (
     <UserContainer>
       <IconComponent kind={'shopping-cart'} />
       <OptionWrapper>
         <OptionInner>
-          {cart ? (
+          {cart && cart.length > 0 ? (
             <OptionList>
               <OptionItem>
                 <p>購物車</p>
@@ -173,7 +182,7 @@ export default function Cart() {
                 <CartItem cartItem={cartItem} key={index} />
               ))}
               <CartBottom>
-                <Nav children={'前往結帳'} path={'/cart'} />
+                <Nav children={'前往結帳'} path={'/cart'} onClick={() => handleGetCart()}/>
               </CartBottom>
             </OptionList>
           ) : (

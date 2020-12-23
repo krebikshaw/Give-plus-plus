@@ -12,6 +12,7 @@ import {
   setQuantity,
   setHasAdd,
   setErrorMessage,
+  getCartItem,
 } from "../../redux/slices/cartSlice/cartSlice";
 import { getUser } from "../../redux/slices/orderSlice/orderSlice";
 const ProductName = styled.div`
@@ -159,6 +160,8 @@ export const ProductInfo = ({ product }) => {
         dispatch(setHasAdd(true));
       }
     })
+     
+
   };
   const handleClose = () => {
     dispatch(setHasAdd(false));
@@ -176,7 +179,7 @@ export const ProductInfo = ({ product }) => {
         <Modal>
           <Form>
             <IconContainer onClick={handleClose}>
-              <IconComponent kind={"close"} />
+              <IconComponent kind={"close-black"} />
             </IconContainer>
             {errorMessage}
           </Form>
@@ -186,7 +189,7 @@ export const ProductInfo = ({ product }) => {
         <Modal>
           <Form>
             <IconContainer onClick={handleClose}>
-              <IconComponent kind={"close"} />
+              <IconComponent kind={"close-black"} />
             </IconContainer>
             商品已成功加入購物車囉！
           </Form>

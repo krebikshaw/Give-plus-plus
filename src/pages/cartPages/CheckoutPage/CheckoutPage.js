@@ -9,7 +9,7 @@ import {
 } from "../../../constants/style";
 import { ThickNavPage } from "../../../components/Page";
 import { IconComponent } from "../../../components";
-import { Link } from "react-router-dom";
+import { NavLink, useNavigate, useLocation, Link } from "react-router-dom";
 import CartItem from "../../../components/cartSystem/CartItem";
 import OrderPrice from "../../../components/cartSystem/OrderPrice";
 import PayDetail from "../../../components/cartSystem/PayDetail.js";
@@ -18,6 +18,7 @@ import {
   getCartItem,
   setIsPaying,
   setFilter,
+  setChecked,
 } from "../../../redux/slices/cartSlice/cartSlice";
 import useCart from "../../../hooks/cartHooks/useCart";
 const Title = styled.p`
@@ -36,8 +37,8 @@ const PayTitle = styled.p`
 `;
 const Container = styled.div`
   margin-top: 100px;
-  min-width: 500px;
-  width: 900px;
+  min-width: 800px;
+  width: 1230px;
   padding: ${DISTANCE.xs};
   min-width: ${MEDIA_QUERY_MD.md};
 `;
@@ -56,7 +57,7 @@ const LoadingMessage = styled.div`
   background: ${COLOR.bg_mask};
   z-index: 2;
 `;
-const BuyAnother = styled(Link)`
+const BuyAnother = styled.p`
   color: #825959;
   font-size: ${FONT.md};
   width: 30%;
@@ -71,7 +72,8 @@ const BuyAnother = styled(Link)`
 
 const CheckoutPage = () => {
   const dispatch = useDispatch();
-  useEffect(() => dispatch(getCartItem()), [dispatch]);
+  const navigate = useNavigate();
+  //useEffect(() => dispatch(getCartItem()), [dispatch]);
   const {
     carts,
     isLoading,
@@ -85,6 +87,13 @@ const CheckoutPage = () => {
     dispatch(setIsPaying(false));
     dispatch(setFilter("all"));
   };
+  const handleToHomePage = () => {
+    navigate('/');
+    dispatch(getCartItem());
+    dispatch(setIsPaying(false));
+    dispatch(setChecked(false));
+    
+  };
   return (
     <>
       {isLoading && (
@@ -97,7 +106,9 @@ const CheckoutPage = () => {
           {completeOrder ? (
             <>
               <PayTitle>恭喜你完成訂單！訂單編號 : {orderNumber} </PayTitle>
-              <BuyAnother to="/">回到首頁繼續購物</BuyAnother>
+              <BuyAnother onClick={handleToHomePage}>
+                回到首頁繼續購物
+              </BuyAnother>
             </>
           ) : isPaying ? (
             <Wrapper>
