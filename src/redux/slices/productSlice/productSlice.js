@@ -89,7 +89,6 @@ export const getProduct = (id) => (dispatch) => {
       return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
     const { vendorInfo, category, product } = res.data;
-    console.log(res);
     dispatch(setVendorInfo(vendorInfo));
     dispatch(setProduct(product));
     dispatch(setCategory(category));
