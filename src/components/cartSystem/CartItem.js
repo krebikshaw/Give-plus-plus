@@ -141,7 +141,6 @@ export default function CartItem({ cart }) {
     .reduce((acc, cur) => acc + cur);
   //console.log(TotalAmount);
   const handleSelect = (id, TotalAmount) => {
-    dispatch(setErrorMessage("🌸 溫馨提醒 🌸，一次只能結帳一個賣家的購物車喔～"));
     dispatch(setIsSelect(id));
     //dispatch(setFilter("select"));
     dispatch(setChecked(!checked))
@@ -172,6 +171,7 @@ export default function CartItem({ cart }) {
             <Check
               type="checkbox"
               onClick={() => handleSelect(SellerId[0], TotalAmount)}
+              disabled={checked && isSelect !== SellerId[0]}
             ></Check>
           )}
           <Name isSelect={isSelect}>{cart.sellerName}</Name>

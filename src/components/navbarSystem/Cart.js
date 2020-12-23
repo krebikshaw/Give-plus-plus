@@ -5,6 +5,11 @@ import { Nav } from '../Button';
 import { COLOR, DISTANCE, EFFECT, FONT } from '../../constants/style';
 import { selectCart } from '../../redux/slices/cartSlice/cartSlice';
 import { useSelector } from 'react-redux';
+import { useDispatch } from "react-redux";
+import {
+  getCartItem,
+  
+} from "../../redux/slices/cartSlice/cartSlice";
 
 const UserContainer = styled.div`
   position: relative;
@@ -158,7 +163,10 @@ const CartItem = ({ cartItem }) => {
 
 export default function Cart() {
   const cart = useSelector(selectCart);
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCartItem());
+  }, [dispatch]);
   return (
     <UserContainer>
       <IconComponent kind={'shopping-cart'} />

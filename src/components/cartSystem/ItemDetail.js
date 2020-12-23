@@ -53,6 +53,7 @@ export default function ItemDetail({ Item }) {
     isSelect,
     isPaying,
     completeOrder,
+    checked
   } = useCart();
 
   return (
@@ -73,7 +74,7 @@ export default function ItemDetail({ Item }) {
         ) : (
           <Price>{formatter.format(Item.price)}</Price>
         )}
-        {isSelect || isPaying ? null : (
+        {checked || isPaying ? null : (
           <Container onClick={() => handleDelete(Item.cartItemId)}>
             <IconComponent kind={"delete"} />
           </Container>

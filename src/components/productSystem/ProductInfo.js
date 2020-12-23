@@ -12,6 +12,7 @@ import {
   setQuantity,
   setHasAdd,
   setErrorMessage,
+  getCartItem,
 } from "../../redux/slices/cartSlice/cartSlice";
 import { getUser } from "../../redux/slices/orderSlice/orderSlice";
 const ProductName = styled.div`
@@ -159,6 +160,8 @@ export const ProductInfo = ({ product }) => {
         dispatch(setHasAdd(true));
       }
     })
+     dispatch(getCartItem());
+
   };
   const handleClose = () => {
     dispatch(setHasAdd(false));
