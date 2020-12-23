@@ -8,7 +8,6 @@ import useProduct from '../../hooks/productHooks/useProduct';
 import Snowfall from 'react-snowfall';
 import {
   setProducts,
-  setHasMoreProducts,
   setErrorMessage,
 } from '../../redux/slices/productSlice/productSlice';
 
@@ -32,7 +31,6 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const {
     products,
-    hasMoreProducts,
     productErrorMessage,
     handleGetProducts,
     handleGetProductsMoreButton,
@@ -44,7 +42,6 @@ const HomePage = () => {
     return () => {
       dispatch(setProducts([]));
       dispatch(setErrorMessage(null));
-      dispatch(setHasMoreProducts(true));
     };
   }, [dispatch]);
 
@@ -57,7 +54,6 @@ const HomePage = () => {
         <HomePageProducts>
           <Products
             products={products}
-            hasMoreProducts={hasMoreProducts}
             handler={handleGetProductsMoreButton}
             productErrorMessage={productErrorMessage}
           />

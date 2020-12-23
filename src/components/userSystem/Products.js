@@ -133,7 +133,6 @@ const Product = ({ product, onLoad, loaded, $width, $height, $margin }) => {
 export default function Products({
   products,
   id,
-  hasMoreProducts,
   handler,
   productErrorMessage,
   filter,
@@ -174,7 +173,6 @@ export default function Products({
         <MoreButton
           id={id}
           products={products}
-          hasMoreProducts={hasMoreProducts}
           handler={handler}
         />
       ) : (

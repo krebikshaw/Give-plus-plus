@@ -155,8 +155,8 @@ export default function useProductForm(id) {
     setIsSubmitClicked(true);
     if (!hasError) {
       dispatch(postProduct(formData));
+      navigate('/users/backstage');
     }
-    navigate('/users/backstage');
   };
 
   const handleSubmitEditForm = (e) => {
@@ -165,8 +165,8 @@ export default function useProductForm(id) {
     setIsSubmitClicked(true);
     if (!hasError) {
       dispatch(updateProduct(id, formData));
+      navigate('/users/backstage');
     }
-    navigate('/users/backstage');
   };
 
   return {

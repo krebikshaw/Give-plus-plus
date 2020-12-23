@@ -13,7 +13,6 @@ import {
 } from '../../../components/productSystem';
 import {
   setProducts,
-  setHasMoreProducts,
   setErrorMessage,
 } from '../../../redux/slices/productSlice/productSlice';
 
@@ -33,7 +32,6 @@ const VendorShopPage = () => {
     onLoad,
     vendorInfo,
     products,
-    hasMoreProducts,
     productErrorMessage,
     handleVendorProductMoreButton,
     handleGetProductsFromVendor,
@@ -43,16 +41,12 @@ const VendorShopPage = () => {
   useEffect(() => {
     window.scroll(0, 0);
     handleGetProductsFromVendor(id, 1);
+    handleGetUserById(id);
     return () => {
       dispatch(setProducts([]));
       dispatch(setErrorMessage(null));
-      dispatch(setHasMoreProducts(true));
     };
   }, [id, dispatch]);
-
-  useEffect(() => {
-    handleGetUserById(id);
-  }, []);
 
   return (
     <>
@@ -73,7 +67,6 @@ const VendorShopPage = () => {
         <Products
           products={products}
           id={id}
-          hasMoreProducts={hasMoreProducts}
           handler={handleVendorProductMoreButton}
           productErrorMessage={productErrorMessage}
         />

@@ -34,6 +34,8 @@ const Avatar = styled.img`
   height: 100%;
   transition: opacity 0.2s;
   object-fit: cover;
+  border-radius: 50%;
+  overflow: hidden;
 `;
 
 const InfoContainer = styled.div`
