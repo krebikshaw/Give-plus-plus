@@ -115,7 +115,7 @@ export const getProductsFromVendor = (id, page, limit) => (dispatch) => {
   return getProductsFromVendorAPI(id, page, limit).then((res) => {
     if (res.ok === 0) {
       dispatch(setErrorMessage(res ? res.message : 'something wrong'));
-      return res.message;
+      return res.ok;
     }
     const { count, products } = res.data;
     dispatch(pushProducts(products));
