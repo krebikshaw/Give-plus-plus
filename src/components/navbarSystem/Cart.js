@@ -164,6 +164,9 @@ const CartItem = ({ cartItem }) => {
 export default function Cart() {
   const cart = useSelector(selectCart);
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCartItem());
+  }, [dispatch]);
   const handleGetCart = () => {
     window.location.reload(true)
     dispatch(getCartItem());
