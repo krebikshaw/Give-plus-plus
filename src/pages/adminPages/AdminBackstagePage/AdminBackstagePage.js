@@ -3,10 +3,7 @@ import styled from 'styled-components';
 import useUser from '../../../hooks/userHooks/useUser';
 import { useNavigate } from 'react-router-dom';
 import { COLOR, FONT, DISTANCE } from '../../../constants/style';
-import {
-  OptionListComponent,
-  ExamineProductComponent,
-} from '../../../components/adminSystem';
+import { OptionList, ExamineProduct } from '../../../components/adminSystem';
 import { ThickNavPage } from '../../../components/Page';
 
 const Wrapper = styled.div`
@@ -35,9 +32,9 @@ const AdminBackstagePage = () => {
     <ThickNavPage>
       <Wrapper>
         <Title>後台管理系統</Title>
-        <OptionListComponent />
+        <OptionList />
         <Title>商品審查</Title>
-        <ExamineProductComponent />
+        <ExamineProduct />
       </Wrapper>
     </ThickNavPage>
   );

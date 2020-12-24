@@ -8,8 +8,8 @@ import { ActionButton } from '../../../components/Button';
 import {
   Announcement,
   VendorInfoForm,
-  SetAvatarComponent,
-  SetBannerComponent,
+  SetAvatar,
+  SetBanner,
 } from '../../../components/userSystem';
 import { ThickNavPage } from '../../../components/Page';
 
@@ -126,9 +126,9 @@ const ApplyForVendorPage = () => {
         <VendorInfoForm setSuccessMode={setSuccessMode} />
         {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
         <Text>變更頭貼</Text>
-        <SetAvatarComponent setSuccessMode={setSuccessMode} />
+        <SetAvatar setSuccessMode={setSuccessMode} />
         <Text>變更封面</Text>
-        <SetBannerComponent setSuccessMode={setSuccessMode} />
+        <SetBanner setSuccessMode={setSuccessMode} />
         {successMode && (
           <WrapperMask>
             <SuccessMessage>

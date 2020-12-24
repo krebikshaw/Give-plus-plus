@@ -9,7 +9,7 @@ import useProduct from '../../../hooks/productHooks/useProduct';
 import { NormalButton, Nav } from '../../../components/Button';
 import {
   SellerInfo,
-  SetAnnouncementComponent,
+  SetAnnouncement,
   Products,
 } from '../../../components/userSystem';
 import { Banner, Announcement } from '../../../components/productSystem';
@@ -88,9 +88,7 @@ const VendorBackstagePage = () => {
         <NormalButton onClick={handleSetAnnouncement}>編輯公告</NormalButton>
       </ButtonContainer>
       {isSettingAnnouncement && (
-        <SetAnnouncementComponent
-          setIsSettingAnnouncement={setIsSettingAnnouncement}
-        />
+        <SetAnnouncement setIsSettingAnnouncement={setIsSettingAnnouncement} />
       )}
       <Announcement announcement={user.announcement} />
 

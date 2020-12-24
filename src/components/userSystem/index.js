@@ -1,29 +1,29 @@
 import Announcement from './Announcement';
 import ClientInfoForm from './ClientInfoForm';
 import BirthdaySelector from './BirthdaySelector';
-import SetPasswordComponent from './SetPasswordComponent';
+import SetPassword from './SetPassword';
 import WrapperMask from './WrapperMask';
-import SetAvatarComponent from './SetAvatarComponent';
+import SetAvatar from './SetAvatar';
 import VendorInfoForm from './VendorInfoForm';
 import SetQRCode from './SetQRCode';
-import SetBannerComponent from './SetBannerComponent';
-import SetPermissionComponent from './SetPermissionComponent';
+import SetBanner from './SetBanner';
+import SetPermission from './SetPermission';
 import SellerInfo from './SellerInfo';
-import SetAnnouncementComponent from './SetAnnouncementComponent';
+import SetAnnouncement from './SetAnnouncement';
 import Products from './Products';
 
 export {
   Announcement,
   ClientInfoForm,
   BirthdaySelector,
-  SetPasswordComponent,
-  SetAvatarComponent,
+  SetPassword,
+  SetAvatar,
   VendorInfoForm,
   SetQRCode,
-  SetBannerComponent,
-  SetPermissionComponent,
+  SetBanner,
+  SetPermission,
   SellerInfo,
-  SetAnnouncementComponent,
+  SetAnnouncement,
   WrapperMask,
   Products,
 };

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import useAdmin from '../../hooks/adminHooks/useAdmin';
 import { DISTANCE, FONT, COLOR } from '../../constants/style';
 import { Nav } from '../../components/Button';
-import PaginationComponent from '../adminSystem/PaginationComponent';
+import Pagination from '../adminSystem/Pagination';
 
 const ExamineUserContainer = styled.div`
   margin: ${DISTANCE.md} 0;
@@ -78,7 +78,7 @@ const UsersItem = ({ user }) => {
   );
 };
 
-export default function ManageUsersComponent() {
+export default function ManageUsers() {
   const { users, handleGetUsers, handleSearchUsers } = useAdmin();
   const [isSearch, setIsSearch] = useState(false);
   const [keyword, setKeyword] = useState('');
@@ -128,7 +128,7 @@ export default function ManageUsersComponent() {
             )}
           </UsersTbody>
         </UsersTable>
-        <PaginationComponent
+        <Pagination
           propsFunction={isSearch ? handleSearchUsers : handleGetUsers}
           propsParams={params}
         />

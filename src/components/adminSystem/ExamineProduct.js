@@ -59,7 +59,7 @@ const ProductsItem = ({ product }) => {
   );
 };
 
-export default function ExamineProductComponent() {
+export default function ExamineProduct() {
   const { products, handleGetUnCheckProducts } = useAdmin();
 
   useEffect(() => {

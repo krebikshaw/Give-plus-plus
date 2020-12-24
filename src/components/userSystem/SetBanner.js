@@ -103,7 +103,7 @@ const LoadingMask = styled.div`
   align-items: center;
 `;
 
-export default function SetBannerComponent({ setSuccessMode }) {
+export default function SetBanner({ setSuccessMode }) {
   const { user, handleUploadBanner } = useUser();
   const [isCheckImage, setIsCheckImage] = useState(false);
   const [uploadEvent, setUploadEvent] = useState(null);

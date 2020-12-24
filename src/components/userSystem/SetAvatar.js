@@ -103,7 +103,7 @@ const LoadingMask = styled.div`
   align-items: center;
 `;
 
-export default function SetAvatarComponent({ setSuccessMode }) {
+export default function SetAvatar({ setSuccessMode }) {
   const { user, handleUploadAvatar } = useUser();
   const [isCheckImage, setIsCheckImage] = useState(false);
   const [uploadEvent, setUploadEvent] = useState(null);

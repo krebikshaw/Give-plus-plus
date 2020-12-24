@@ -11,7 +11,7 @@ const PaginationContainer = styled.div`
   justify-content: center;
 `;
 
-export default function PaginationComponent({ propsFunction, propsParams }) {
+export default function Pagination({ propsFunction, propsParams }) {
   const { count } = useAdmin();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageList, setPageList] = useState([]);

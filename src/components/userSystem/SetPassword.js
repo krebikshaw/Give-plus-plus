@@ -52,10 +52,7 @@ const ErrorMessage = styled.p`
   margin-top: 15px;
 `;
 
-export default function SetPasswordComponent({
-  setSuccessMode,
-  setIsSettingPassword,
-}) {
+export default function SetPassword({ setSuccessMode, setIsSettingPassword }) {
   const { handleUpdatePassword } = useUser();
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
