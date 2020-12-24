@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import {
   selectCart,
   selectError,
@@ -56,7 +56,7 @@ export default function useCart() {
   const hasAdd = useSelector(selectAdd);
   const update = useSelector(selectUpdate);
   const checked = useSelector(selectChecked);
-  
+
   const handleDelete = (id) => {
     dispatch(deleteCartItem(id));
     window.location.reload();
@@ -65,94 +65,101 @@ export default function useCart() {
     dispatch(deleteCartItemsBySeller(id));
     window.location.reload();
   };
-   const handleClose = () => {
-     dispatch(setErrorMessage(false));
-   };
-   const handleSelect = (id, TotalAmount) => {
-     dispatch(setIsSelect(id));
-     dispatch(setChecked(!checked));
-     dispatch(setPrice(TotalAmount));
-     if (checked === true) {
-       dispatch(setPrice(0));
-     }
-   };
-     const handleError = () => {
-       dispatch(
-         setErrorMessage(
-           "勾選購物車後，即代表確認購買商品與數量，無法再更動購買的商品數量。若要重新選擇購買數量，請先取消勾選購物車。"
-         )
-       );
-     };
-       const handlePlus = (cartQuantity, cartItemId, productQuantity) => {
-         if (cartQuantity >= productQuantity) {
-           dispatch(
-             setErrorMessage("抱歉，本次結帳最多購買" + productQuantity + "件")
-           );
-           return;
-         }
-         dispatch(addQuantity(cartQuantity, cartItemId));
-       };
-       const handleMinus = (cartQuantity, cartItemId) => {
-         if (cartQuantity <= 1) {
-           dispatch(setErrorMessage("抱歉，結帳最少購買1件"));
-           return;
-         }
-         dispatch(minusQuantity(cartQuantity, cartItemId));
-       };
-        const handleCloseError = () => {
-          dispatch(setErrorMessage(false));
-        };
-        
-        const handlePay = (productId) => {
-          if (checked === true) {
-            dispatch(setIsPaying(true));
-            dispatch(setFilter("select"));
-            dispatch(getUser());
-            dispatch(getProduct(productId));
-          } else {
-            dispatch(setErrorMessage("請勾選一個購物車才能前往結帳"));
-          }
-        };
-          const handleUpdateInfo = () => {
-            dispatch(setUpdate(false));
-          };
-           const handleUpdateBuyer = (e, setBuyer) => {
-             setBuyer(e.target.value);
-           };
-            const handleUpdateAddress = (e, setReceiveAddress) => {
-              setReceiveAddress(e.target.value);
-            };
-              const handleUpdateReceiver = (e, setReceiver) => {
-                setReceiver(e.target.value);
-              };
-               const handleCloseUpdate = () => {
-                 dispatch(setUpdate(false));
-               };
-                const handleUpdateReceiveInfo = () => {
-                  dispatch(setUpdate(true));
-                };
-                const handlePayWay = () => {
-                  dispatch(setPayWay(true));
-                };
-                 const handleToCheckOutCartPage = (readyToOrderItems) => {
-                   if (payWay === true) {
-                     navigate("/cart/checkout");
-                     dispatch(setComplete(true));
-                     dispatch(createOrder(readyToOrderItems));
-                   } else {
-                     dispatch(
-                       setErrorMessage("請勾選一個付款方式後才能完成訂單")
-                     );
-                   }
-                 };
-                  const handleGetCart = () => {
-                    window.location.reload(true);
-                    dispatch(getCartItem());
-                  };
- 
+  const handleClose = () => {
+    dispatch(setErrorMessage(false));
+  };
+  const handleSelect = (id, TotalAmount) => {
+    dispatch(setIsSelect(id));
+    dispatch(setChecked(!checked));
+    dispatch(setPrice(TotalAmount));
+    if (checked === true) {
+      dispatch(setPrice(0));
+    }
+  };
+  const handleError = () => {
+    dispatch(
+      setErrorMessage(
+        "勾選購物車後，即代表確認購買商品與數量，無法再更動購買的商品數量。若要重新選擇購買數量，請先取消勾選購物車。"
+      )
+    );
+  };
+  const handlePlus = (cartQuantity, cartItemId, productQuantity) => {
+    if (cartQuantity >= productQuantity) {
+      dispatch(
+        setErrorMessage("抱歉，本次結帳最多購買" + productQuantity + "件")
+      );
+      return;
+    }
+    dispatch(addQuantity(cartQuantity, cartItemId));
+  };
+  const handleMinus = (cartQuantity, cartItemId) => {
+    if (cartQuantity <= 1) {
+      dispatch(setErrorMessage("抱歉，結帳最少購買1件"));
+      return;
+    }
+    dispatch(minusQuantity(cartQuantity, cartItemId));
+  };
+  const handleCloseError = () => {
+    dispatch(setErrorMessage(false));
+  };
 
+  const handlePay = (productId) => {
+    if (checked === true) {
+      dispatch(setIsPaying(true));
+      dispatch(setFilter("select"));
+      dispatch(getUser());
+      dispatch(getProduct(productId));
+    } else {
+      dispatch(setErrorMessage("請勾選一個購物車才能前往結帳"));
+    }
+  };
+  const handleUpdateInfo = () => {
+    dispatch(setUpdate(false));
+  };
+  const handleUpdateBuyer = (e, setBuyer) => {
+    setBuyer(e.target.value);
+  };
+  const handleUpdateAddress = (e, setReceiveAddress) => {
+    setReceiveAddress(e.target.value);
+  };
+  const handleUpdateReceiver = (e, setReceiver) => {
+    setReceiver(e.target.value);
+  };
+  const handleCloseUpdate = () => {
+    dispatch(setUpdate(false));
+  };
+  const handleUpdateReceiveInfo = () => {
+    dispatch(setUpdate(true));
+  };
+  const handlePayWay = () => {
+    dispatch(setPayWay(true));
+  };
+  const handleToCheckOutCartPage = (readyToOrderItems) => {
+    if (payWay === true) {
+      navigate("/cart/checkout");
+      dispatch(setComplete(true));
+      dispatch(createOrder(readyToOrderItems));
+    } else {
+      dispatch(setErrorMessage("請勾選一個付款方式後才能完成訂單"));
+    }
+  };
+  const handleGetCart = () => {
+    window.location.reload(true);
+    dispatch(getCartItem());
+  };
+  const handleToCart = () => {
+    dispatch(setIsPaying(false));
+    dispatch(setFilter("all"));
+    window.location.reload(true);
+  };
 
-  
+  const handleToHomePage = () => {
+    navigate("/");
+    dispatch(getCartItem());
+    dispatch(setIsPaying(false));
+    dispatch(setChecked(false));
+  };
+
   return {
     update,
     isSelect,
@@ -187,12 +194,7 @@ export default function useCart() {
     handlePayWay,
     handleToCheckOutCartPage,
     handleGetCart,
+    handleToCart,
+    handleToHomePage,
   };
 }
-
-
-
-
-
-
-

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { ThickNavPage } from "../../../components/Page";
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   getUser,
   getSellerOrder,
@@ -101,7 +101,7 @@ const VendorOrdersPage = () => {
             </LoadingMessage>
           ) : !orders || orders.length === 0 ? (
             <Message>目前尚無訂單</Message>
-          ) :  (
+          ) : (
             <Table>
               <NameContainer>
                 <Name>編號</Name>

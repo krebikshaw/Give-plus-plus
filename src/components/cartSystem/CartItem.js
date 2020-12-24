@@ -62,13 +62,11 @@ const Select = styled.select`
   width: 15%;
   margin: 10px 0 10px 0;
 `;
-const IconContainer = styled.div`
-`;
+const IconContainer = styled.div``;
 const Section = styled.div`
   position: fix;
   right: 0;
   margin-left: 450px;
- 
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -128,13 +126,11 @@ export default function CartItem({ cart }) {
     handleSelect,
   } = useCart();
   const SellerId = cart.cartDetail.map((data) => Object.values(data)[1]);
-  
+
   const TotalAmount = cart.cartDetail
     .map((data) => Object.values(data)[6] * Object.values(data)[7])
     .reduce((acc, cur) => acc + cur);
-  
-  
- 
+
   return (
     <Container>
       {errorMessage && (
@@ -200,10 +196,3 @@ export default function CartItem({ cart }) {
     </Container>
   );
 }
-
-
-
-
-
-
-

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 import {
   getMe,
   getClientOrder as getClientOrderAPI,
@@ -20,7 +20,6 @@ export const orderSlice = createSlice({
     errorMessage: null,
     userData: null,
     mask: false,
-
   },
   reducers: {
     // reducer
@@ -42,7 +41,6 @@ export const orderSlice = createSlice({
     setMask: (state, action) => {
       state.mask = action.payload;
     },
-    
   },
 });
 
@@ -74,41 +72,36 @@ export const getUser = () => (dispatch) => {
 
 export const getClientOrder = () => (dispatch) => {
   dispatch(setIsLoading(true));
-  return getClientOrderAPI()
-    .then((res) => {
-      if (!res || res.ok === 0)
-        return dispatch(
-          setErrorMessage(res ? res.message : "no data")
-        );
-      dispatch(setOrder(res.data));
-      dispatch(setIsLoading(false));
-      return res.data;
-    })
-}
-
-export const getSellerOrder = (order) => (dispatch) => {
-  dispatch(setIsLoading(true));
-  return getSellerOrderAPI(order)
-    .then((res) => {
-      if (!res || res.ok === 0)
-        return dispatch(setErrorMessage(res ? res.message : "no data"));
+  return getClientOrderAPI().then((res) => {
+    if (!res || res.ok === 0)
+      return dispatch(setErrorMessage(res ? res.message : "no data"));
     dispatch(setOrder(res.data));
     dispatch(setIsLoading(false));
     return res.data;
   });
 };
 
-export const getDetailOrder = (id) => dispatch => {
+export const getSellerOrder = (order) => (dispatch) => {
   dispatch(setIsLoading(true));
-  return getDetailOrderAPI(id)
-    .then((res) => {
-      if (!res || res.ok === 0)
-        return dispatch(setErrorMessage(res ? res.message : "no data"));
-      dispatch(setDetailOrders(res.data));
-      dispatch(setIsLoading(false));
-      return res.data;
-    })
-}
+  return getSellerOrderAPI(order).then((res) => {
+    if (!res || res.ok === 0)
+      return dispatch(setErrorMessage(res ? res.message : "no data"));
+    dispatch(setOrder(res.data));
+    dispatch(setIsLoading(false));
+    return res.data;
+  });
+};
+
+export const getDetailOrder = (id) => (dispatch) => {
+  dispatch(setIsLoading(true));
+  return getDetailOrderAPI(id).then((res) => {
+    if (!res || res.ok === 0)
+      return dispatch(setErrorMessage(res ? res.message : "no data"));
+    dispatch(setDetailOrders(res.data));
+    dispatch(setIsLoading(false));
+    return res.data;
+  });
+};
 
 export const cancelOrder = (id, cancelReason) => (dispatch) => {
   dispatch(setIsLoading(true));
@@ -118,13 +111,13 @@ export const cancelOrder = (id, cancelReason) => (dispatch) => {
   });
 };
 
-export const sentOrder = (id) => dispatch => {
+export const sentOrder = (id) => (dispatch) => {
   dispatch(setIsLoading(true));
   return sentOrderAPI(id).then((res) => {
     dispatch(setIsLoading(false));
     return res.data;
   });
-}
+};
 export const completeOrder = (quantity, productId, sellerId) => (dispatch) => {
   dispatch(setIsLoading(true));
   return completeOrderAPI(quantity, productId, sellerId).then((res) => {

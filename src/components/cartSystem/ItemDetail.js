@@ -13,7 +13,6 @@ const CartInfo = styled.div`
   min-width: 400px;
   justify-content: space-around;
   align-items: center;
-  
 `;
 const ProductName = styled.p`
   color: ${COLOR.text_2};
@@ -33,9 +32,7 @@ const Price = styled.p`
   color: ${COLOR.text_1};
   font-size: ${FONT.sm};
 `;
-const Container = styled.div`
-  
-`;
+const Container = styled.div``;
 const LoadingBackground = styled.div`
   position: fixed;
   top: 0;
@@ -52,7 +49,7 @@ export default function ItemDetail({ Item }) {
     formatter,
     isPaying,
     completeOrder,
-    checked
+    checked,
   } = useCart();
 
   return (
@@ -67,7 +64,7 @@ export default function ItemDetail({ Item }) {
           <PhotoImg src={Item.pictureUrl}></PhotoImg>
         </Photo>
         <ProductName>{Item.productName}</ProductName>
-        <ChooseQuantity Item={Item}  />
+        <ChooseQuantity Item={Item} />
         {completeOrder ? (
           <Price>{formatter.format(Item.price * Item.cartQuantity)}</Price>
         ) : (

@@ -1,4 +1,4 @@
-import { BASE_URL } from '../constants/unit';
+import { BASE_URL } from "../constants/unit";
 import { getAuthToken } from "../utils";
 
 export const getMe = () => {
@@ -19,7 +19,7 @@ export const getClientOrder = () => {
       authorization: `Bearer ${token}`,
     },
   }).then((res) => res.json());
-}
+};
 // 取得自己賣的訂單列表
 export const getSellerOrder = () => {
   const token = getAuthToken();
@@ -29,7 +29,7 @@ export const getSellerOrder = () => {
       authorization: `Bearer ${token}`,
     },
   }).then((res) => res.json());
-}
+};
 // 取得單一訂單明細
 export const getDetailOrder = (id) => {
   const token = getAuthToken();
@@ -39,7 +39,7 @@ export const getDetailOrder = (id) => {
       authorization: `Bearer ${token}`,
     },
   }).then((res) => res.json());
-}
+};
 // 訂單取消
 export const cancelOrder = (id, cancelReason) => {
   const token = getAuthToken();
@@ -64,7 +64,7 @@ export const sentOrder = (id) => {
       authorization: `Bearer ${token}`,
     },
   }).then((res) => res.json());
-}
+};
 // 刪除訂單資料
 export const deleteOrder = (id) => {
   const token = getAuthToken();
@@ -75,7 +75,7 @@ export const deleteOrder = (id) => {
       authorization: `Bearer ${token}`,
     },
   }).then((res) => res.json());
-}
+};
 // 取得全部訂單資料
 export const getAllOrder = () => {
   const token = getAuthToken();

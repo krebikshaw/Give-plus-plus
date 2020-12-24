@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   getUser,
   getClientOrder,
 } from "../../../redux/slices/orderSlice/orderSlice";
 import { ThickNavPage } from "../../../components/Page";
-import { getAuthToken} from "../../../utils";
+import { getAuthToken } from "../../../utils";
 import useOrder from "../../../hooks/orderHooks/useOrder";
 import { LoopCircleLoading } from "react-loadingg";
 import {
@@ -25,7 +25,7 @@ const Message = styled.p`
   color: ${COLOR.text_2};
   font-size: ${FONT.lg};
   margin: 70px auto;
-  text-align:center;
+  text-align: center;
 `;
 const Container = styled.p`
   margin: 200px auto;
@@ -41,16 +41,14 @@ const Table = styled.table`
   border-collapse: collapse;
   margin-top: ${DISTANCE.lg};
 `;
-const NameContainer = styled.tr`
-`;
+const NameContainer = styled.tr``;
 const Name = styled.th`
   font-size: ${FONT.md};
   color: ${COLOR.black};
   border-bottom: solid 1px ${COLOR.text_2};
   padding: ${DISTANCE.sm};
 `;
-const ContentContainer = styled.tr`
-`;
+const ContentContainer = styled.tr``;
 const Content = styled.td`
   font-size: ${FONT.md};
   color: ${COLOR.text_2};
@@ -82,17 +80,16 @@ const LoadingMessage = styled.div`
 `;
 
 const ClientOrdersPage = () => {
-
-const dispatch = useDispatch();
-const { orders, formatter, isLoading } = useOrder();
-useEffect(() => {
-  if (getAuthToken()) {
-    dispatch(getUser());
-  }
-}, [dispatch]);
-useEffect(() => {
-  dispatch(getClientOrder())
-}, [dispatch]);
+  const dispatch = useDispatch();
+  const { orders, formatter, isLoading } = useOrder();
+  useEffect(() => {
+    if (getAuthToken()) {
+      dispatch(getUser());
+    }
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(getClientOrder());
+  }, [dispatch]);
 
   return (
     <>
@@ -105,7 +102,7 @@ useEffect(() => {
             </LoadingMessage>
           ) : !orders || orders.length === 0 ? (
             <Message>訂單查詢</Message>
-          ) :  (
+          ) : (
             <Table>
               <NameContainer>
                 <Name>編號</Name>

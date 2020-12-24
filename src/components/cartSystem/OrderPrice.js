@@ -5,7 +5,6 @@ import { COLOR, FONT } from "../../constants/style";
 import { IconComponent } from "../../components";
 import useCart from "../../hooks/cartHooks/useCart";
 
-
 const Container = styled.div`
   width: 300px;
   border: solid 1px #e6e6e6;
@@ -82,7 +81,6 @@ const ModalIconContainer = styled.div`
   margin-right: 10px;
 `;
 export default function OrderPrice({ cart }) {
-
   const {
     formatter,
     price,
@@ -91,8 +89,7 @@ export default function OrderPrice({ cart }) {
     handlePay,
   } = useCart();
   const productId = cart.cartDetail.map((data) => Object.values(data)[3]);
-  
- 
+
   return (
     <>
       {errorMessage && (

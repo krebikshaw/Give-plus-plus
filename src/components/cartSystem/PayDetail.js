@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { IconComponent } from "../../components";
 import { InputComponent } from "../../components/Input";
 import { ActionButton } from "../../components/Button";
-import { COLOR, FONT} from "../../constants/style";
+import { COLOR, FONT } from "../../constants/style";
 import useCart from "../../hooks/cartHooks/useCart";
 import useOrder from "../../hooks/orderHooks/useOrder";
 import useProduct from "../../hooks/productHooks/useProduct";
@@ -30,14 +30,11 @@ const PayContainer = styled.div`
   transform: translate(20%, -5%);
   padding: 10px 20px;
 `;
-const IconContainer = styled.div`
-
-`;
+const IconContainer = styled.div``;
 const ReceiveInfo = styled.div`
   padding: 10px 20px;
   background: #e6e6e6;
   border-radius: 8px 8px 0 0;
-
 `;
 const Top = styled.div`
   display: flex;
@@ -90,9 +87,7 @@ const PayWrapper = styled.div`
   align-items: baseline;
   margin-bottom: 15px;
 `;
-const WrapperAll = styled.div`
-
-`;
+const WrapperAll = styled.div``;
 const IconClose = styled.div`
   position: absolute;
   right: 0;
@@ -111,7 +106,7 @@ const ReceiveTitle = styled.p`
   margin-right: 20px;
 `;
 const Hr = styled.hr`
-  border: solid 0.2px #D8D8D9;
+  border: solid 0.2px #d8d8d9;
   margin-bottom: 20px;
   margin-top: 10px;
 `;
@@ -170,8 +165,8 @@ const ModalIconContainer = styled.div`
   margin-top: 10px;
   margin-right: 10px;
 `;
-export default function PayDetail({cart}) {
-  const [receiver, setReceiver] = useState('')
+export default function PayDetail({ cart }) {
+  const [receiver, setReceiver] = useState("");
   const [receiveAddress, setReceiveAddress] = useState("");
   const [buyer, setBuyer] = useState("");
   const {
@@ -188,12 +183,8 @@ export default function PayDetail({cart}) {
     handleCloseError,
     handleToCheckOutCartPage,
   } = useCart();
-  const {
-    user
-  } = useOrder();
-  const {
-    product,
-  } = useProduct();
+  const { user } = useOrder();
+  const { product } = useProduct();
   const readyToOrderItems = cart.cartDetail.map((cartDetail) => {
     return {
       ProductId: cartDetail.productId,
@@ -201,7 +192,6 @@ export default function PayDetail({cart}) {
       product_quantity: cartDetail.cartQuantity,
     };
   });
-  
 
   return (
     <>

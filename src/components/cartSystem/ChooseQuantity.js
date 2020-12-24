@@ -19,7 +19,6 @@ const CartQuantity = styled.p`
 `;
 const Wrapper = styled.div`
   display: flex;
-
 `;
 const Container = styled.div`
   border: solid 1px #f1f1f1;
@@ -70,7 +69,7 @@ export default function ChooseQuantity({ Item }) {
     handlePlus,
   } = useCart();
   const { cartItemId, cartQuantity, productQuantity } = Item;
-  
+
   return (
     <>
       {errorMessage && (
