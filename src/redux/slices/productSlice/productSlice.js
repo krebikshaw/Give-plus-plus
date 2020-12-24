@@ -10,7 +10,6 @@ import {
   postProductAPI,
   updateProductAPI,
   deleteProductAPI,
-  postPictureAPI,
 } from '../../../webAPI/productAPI';
 
 export const productSlice = createSlice({
@@ -76,6 +75,9 @@ export const {
 export const getProducts = (page) => (dispatch) => {
   getProductsAPI(page).then((res) => {
     if (res.ok === 0) {
+      if (typeof res.message === 'object') {
+        return dispatch(setErrorMessage('something wrong'));
+      }
       return dispatch(setErrorMessage(res ? res.message : 'something wrong'));
     }
     const { count, products } = res.data;
