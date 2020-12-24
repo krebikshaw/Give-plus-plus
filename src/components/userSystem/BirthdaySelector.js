@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
 import useUser from '../../hooks/userHooks/useUser';
+import useDate from '../../hooks/userHooks/useDate';
 import { COLOR, FONT, EFFECT } from '../../constants/style';
 
 const BirthdayContainer = styled.div`
@@ -54,27 +55,18 @@ const Unit = styled.span`
 
 export default function BirthdaySelector({ setBirthday }) {
   const { user } = useUser();
-  const [year, setYear] = useState('');
-  const [month, setMonth] = useState('');
-  const [date, setDate] = useState('');
-  const startYear = dayjs().get('year') - 80;
-  const endYear = dayjs().get('year');
-  const yearsRange = [];
-  for (let i = startYear; i <= endYear; i++) {
-    yearsRange.push(i);
-  }
-  const monthRange = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  const dateRange = [];
-  for (let i = 1; i <= 31; i++) {
-    dateRange.push(i);
-  }
-
-  const handleCheckBirthday = () => {
-    const birthdayAuth = dayjs(`${year}-${month}-${date}`, 'YYYY-MM-DD')
-      .format()
-      .split('T')[0];
-    setBirthday(birthdayAuth);
-  };
+  const {
+    year,
+    month,
+    date,
+    setYear,
+    setMonth,
+    setDate,
+    yearsRange,
+    monthRange,
+    dateRange,
+    handleCheckBirthday,
+  } = useDate();
 
   useEffect(() => {
     setYear(dayjs(user.birthday).get('year'));
@@ -83,7 +75,7 @@ export default function BirthdaySelector({ setBirthday }) {
   }, [user]);
 
   useEffect(() => {
-    handleCheckBirthday();
+    handleCheckBirthday(setBirthday);
   }, [year, month, date]);
 
   return (

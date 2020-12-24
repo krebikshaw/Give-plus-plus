@@ -62,7 +62,7 @@ export default function VendorInfoForm({ setSuccessMode, isAdminStatus }) {
       socialmedia_id: socialMediaId ? socialMediaId : null,
     };
     if (isAdminStatus)
-      return handleUpdateUserInfo(user.id, data).then((result) => {
+      return handleUpdateUserInfo(user.userId, data).then((result) => {
         if (result) return;
         setSuccessMode(true);
       });
