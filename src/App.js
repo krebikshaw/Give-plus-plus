@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import GlobalStyle from './constants/globalStyle';
-import generalTheme from './constants/theme.js';
 import { Navbar, Footer } from './components';
-import { HelperButton } from './components/Button';
-import { ThemeProvider } from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getMe } from './redux/slices/generalSlice/generalSlice';
@@ -62,7 +59,6 @@ const App = () => {
 
   return (
     <Root>
-      <ThemeProvider theme={generalTheme}>
         <GlobalStyle />
         <BrowserRouter>
           <Navbar />
@@ -113,9 +109,7 @@ const App = () => {
             </Route>
           </Routes>
           <Footer />
-          <HelperButton />
         </BrowserRouter>
-      </ThemeProvider>
     </Root>
   );
 };
