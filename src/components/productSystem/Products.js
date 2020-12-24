@@ -158,8 +158,7 @@ export const Products = ({
         </ProductsWrap>
       </ProductsContainer>
 
-      {productCount - productsArray.length <= 0 &&
-      productsArray.length !== 10 ? (
+      {productCount - productsArray.length <= 0 ? (
         <></>
       ) : (
         <>{handler && <MoreButton id={id} handler={handler} />}</>

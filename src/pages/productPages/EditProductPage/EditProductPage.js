@@ -35,7 +35,6 @@ const EditProductPage = () => {
     setProductInfo,
     setProductCategory,
     setProductPrice,
-    setProductPictureUrl,
     setDeliveryTime,
     setDeliveryLocation,
     setDelivery,
@@ -65,6 +64,7 @@ const EditProductPage = () => {
     paymentMethod,
     remark,
     changeProductValue,
+    handleChangePicture,
   } = useProductForm(id);
 
   useEffect(() => {
@@ -109,7 +109,7 @@ const EditProductPage = () => {
             type={'picture'}
             errorMessage={'請選擇商品照片'}
             productPictureUrl={productPictureUrl}
-            setProductPictureUrl={setProductPictureUrl}
+            handleChange={handleChangePicture}
           />
 
           <InputItem

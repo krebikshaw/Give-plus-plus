@@ -30,7 +30,6 @@ export const InputItem = ({
   handleChange,
   options,
   productPictureUrl,
-  setProductPictureUrl,
   textareaRows,
   value,
 }) => {
