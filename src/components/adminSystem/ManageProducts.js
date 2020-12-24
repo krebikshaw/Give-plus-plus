@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SearchBar } from '../../components/adminSystem';
 import styled from 'styled-components';
 import useAdmin from '../../hooks/adminHooks/useAdmin';
@@ -69,30 +69,18 @@ const ProductsItem = ({ product }) => {
 };
 
 export default function ManageProducts() {
-  const { products, handleGetProducts, handleSearchProducts } = useAdmin();
-  const [isSearch, setIsSearch] = useState(false);
-  const [keyword, setKeyword] = useState('');
-  const [params, setParams] = useState({
-    status: 'all',
-    sort: 'createdAt',
-    order: 'DESC',
-  });
+  const {
+    products,
+    isSearch,
+    productParams,
+    handleSearchingProducts,
+    handleGetProducts,
+    handleSearchProducts,
+  } = useAdmin();
 
-  const handleSearch = (value) => {
-    setKeyword(value);
-    setIsSearch(true);
-    setParams({
-      ...params,
-      keyword: value ? value : keyword,
-    });
-    handleSearchProducts({
-      ...params,
-      keyword: value ? value : keyword,
-    });
-  };
   return (
     <>
-      <SearchBar handleSearch={handleSearch} />
+      <SearchBar handleSearch={handleSearchingProducts} />
       <ExamineProductContainer>
         <ProductsTable>
           <ProductsThead>
@@ -115,7 +103,7 @@ export default function ManageProducts() {
         </ProductsTable>
         <Pagination
           propsFunction={isSearch ? handleSearchProducts : handleGetProducts}
-          propsParams={params}
+          propsParams={productParams}
         />
       </ExamineProductContainer>
     </>

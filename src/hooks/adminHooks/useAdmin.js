@@ -17,13 +17,24 @@ import {
 
 export default function useAdmin() {
   const dispatch = useDispatch();
-  const [value, setValue] = useState('');
-  const [isChecked, setIsChecked] = useState(false);
   const users = useSelector(selectUsers);
   const products = useSelector(selectProducts);
   const count = useSelector(selectCount);
   const mails = useSelector(selectMails);
   const mail = useSelector(selectMail);
+  const [value, setValue] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
+  const [keyword, setKeyword] = useState('');
+  const [params, setParams] = useState({
+    sort: 'createdAt',
+    order: 'DESC',
+  });
+  const [productParams, setProductParams] = useState({
+    status: 'all',
+    sort: 'createdAt',
+    order: 'DESC',
+  });
 
   const handleGetUnCheckProducts = (page) =>
     dispatch(getUnCheckProducts(page)).then((result) => result);
@@ -44,6 +55,32 @@ export default function useAdmin() {
     setIsChecked(true);
     const status = e.target.value === '通過' ? '1' : '2';
     handleUpdateProductStatus(product.id, status);
+  };
+
+  const handleSearchingUsers = (value) => {
+    setKeyword(value);
+    setIsSearch(true);
+    setParams({
+      ...params,
+      keyword: value ? value : keyword,
+    });
+    handleSearchUsers({
+      ...params,
+      keyword: value ? value : keyword,
+    });
+  };
+
+  const handleSearchingProducts = (value) => {
+    setKeyword(value);
+    setIsSearch(true);
+    setProductParams({
+      ...productParams,
+      keyword: value ? value : keyword,
+    });
+    handleSearchProducts({
+      ...productParams,
+      keyword: value ? value : keyword,
+    });
   };
 
   const formatter = new Intl.NumberFormat('zh-TW', {
@@ -73,5 +110,15 @@ export default function useAdmin() {
     setValue,
     setIsChecked,
     handleChangeSelector,
+    isSearch,
+    keyword,
+    params,
+    setIsChecked,
+    setKeyword,
+    setParams,
+    handleSearchingUsers,
+    productParams,
+    setProductParams,
+    handleSearchingProducts,
   };
 }
