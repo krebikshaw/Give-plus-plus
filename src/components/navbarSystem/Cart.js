@@ -7,9 +7,11 @@ import { selectCart } from '../../redux/slices/cartSlice/cartSlice';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getCartItem } from '../../redux/slices/cartSlice/cartSlice';
+import useCart from "../../hooks/cartHooks/useCart";
 
 const UserContainer = styled.div`
   position: relative;
+
   &:hover {
     & div {
       opacity: 1;
@@ -21,6 +23,7 @@ const UserContainer = styled.div`
 const OptionWrapper = styled.div`
   z-index: 1;
   visibility: hidden;
+
   opacity: 0;
   transition: visibility 0s, opacity 0.2s linear;
   position: absolute;
@@ -58,6 +61,8 @@ const OptionInner = styled.div`
   position: relative;
   width: 250px;
   background: ${COLOR.bg_primary};
+  overflow: scroll;
+  height: 400px;
 `;
 
 const OptionList = styled.ul`
@@ -68,6 +73,7 @@ const OptionList = styled.ul`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  
 `;
 
 const OptionItem = styled.li`
@@ -165,13 +171,11 @@ const CartItem = ({ cartItem }) => {
 export default function Cart() {
   const cart = useSelector(selectCart);
   const dispatch = useDispatch();
+  const { handleGetCart } = useCart();
   useEffect(() => {
     dispatch(getCartItem());
   }, [dispatch]);
-  const handleGetCart = () => {
-    window.location.reload(true);
-    dispatch(getCartItem());
-  };
+ 
   return (
     <UserContainer>
       <IconComponent kind={'shopping-cart'} />

@@ -4,18 +4,10 @@ import { IconComponent } from "../../components";
 import { InputComponent } from "../../components/Input";
 import { ActionButton } from "../../components/Button";
 import { COLOR, FONT} from "../../constants/style";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import useCart from "../../hooks/cartHooks/useCart";
 import useOrder from "../../hooks/orderHooks/useOrder";
 import useProduct from "../../hooks/productHooks/useProduct";
-import {
-  setPayWay,
-  setComplete,
-  createOrder,
-  setUpdate,
-  setErrorMessage,
-} from "../../redux/slices/cartSlice/cartSlice";
+
 const Container = styled.div`
   width: 300px;
   border: solid 1px #e6e6e6;
@@ -182,9 +174,20 @@ export default function PayDetail({cart}) {
   const [receiver, setReceiver] = useState('')
   const [receiveAddress, setReceiveAddress] = useState("");
   const [buyer, setBuyer] = useState("");
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { payWay, completeOrder, update, errorMessage } = useCart();
+  const {
+    completeOrder,
+    update,
+    errorMessage,
+    handleUpdateInfo,
+    handleUpdateBuyer,
+    handleUpdateAddress,
+    handleUpdateReceiver,
+    handleCloseUpdate,
+    handleUpdateReceiveInfo,
+    handlePayWay,
+    handleCloseError,
+    handleToCheckOutCartPage,
+  } = useCart();
   const {
     user
   } = useOrder();
@@ -198,42 +201,7 @@ export default function PayDetail({cart}) {
       product_quantity: cartDetail.cartQuantity,
     };
   });
-
-  const handleToCheckOutCartPage = (readyToOrderItems) => {
-    if (payWay === true) {
-      navigate("/cart/checkout");
-      dispatch(setComplete(true));
-      dispatch(createOrder(readyToOrderItems));
-    }else{
-        dispatch(setErrorMessage("請勾選一個付款方式後才能完成訂單"));
-    }
-    
-  }
-  const handleCloseError = () => {
-    dispatch(setErrorMessage(false));
-  };
-
-  const handlePayWay = () => {
-    dispatch(setPayWay(true));
-  }
-  const handleUpdateReceiveInfo = () => {
-    dispatch(setUpdate(true));
-  }
-  const handleClose = () => {
-    dispatch(setUpdate(false));
-  }
-  const handleUpdateReceiver = (e) => {
-    setReceiver(e.target.value);
-  };
-  const handleUpdateAddress = (e) => {
-    setReceiveAddress(e.target.value);
-  };
-  const handleUpdateBuyer = (e) => {
-    setBuyer(e.target.value);
-  };
-  const handleUpdateInfo = () => {
-    dispatch(setUpdate(false));
-  }
+  
 
   return (
     <>
@@ -250,7 +218,7 @@ export default function PayDetail({cart}) {
       {update && (
         <Modal>
           <Form>
-            <IconClose onClick={handleClose}>
+            <IconClose onClick={handleCloseUpdate}>
               <IconComponent kind={"close-black"} />
             </IconClose>
             <UpdateTitle>請填寫收件人與購買人資訊</UpdateTitle>
@@ -258,18 +226,18 @@ export default function PayDetail({cart}) {
             <InputComponent
               value={receiver}
               placeholder="收件人姓名"
-              onChange={handleUpdateReceiver}
+              onChange={(e) => handleUpdateReceiver(e, setReceiver)}
             ></InputComponent>
             <InputComponent
               value={receiveAddress}
               placeholder="收件地址"
-              onChange={handleUpdateAddress}
+              onChange={(e) => handleUpdateAddress(e, setReceiveAddress)}
             ></InputComponent>
             <Title>購買人</Title>
             <InputComponent
               value={buyer}
               placeholder="購買人姓名"
-              onChange={handleUpdateBuyer}
+              onChange={(e) => handleUpdateBuyer(e, setBuyer)}
             ></InputComponent>
             <ActionButton
               $margin={0}
