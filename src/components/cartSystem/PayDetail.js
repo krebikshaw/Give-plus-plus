@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { IconComponent } from "../../components";
 import { InputComponent } from "../../components/Input";
 import { ActionButton } from "../../components/Button";
@@ -9,8 +9,6 @@ import { useDispatch } from "react-redux";
 import useCart from "../../hooks/cartHooks/useCart";
 import useOrder from "../../hooks/orderHooks/useOrder";
 import useProduct from "../../hooks/productHooks/useProduct";
-import { getUser } from "../../redux/slices/orderSlice/orderSlice";
-import { getProduct } from "../../redux/slices/productSlice/productSlice";
 import {
   setPayWay,
   setComplete,

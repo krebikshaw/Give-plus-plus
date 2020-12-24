@@ -6,7 +6,6 @@ import {
   selectError,
   selectDetailOrder,
   selectMask,
-  cancelOrder,
   sentOrder,
   setMask,
   completeOrder,

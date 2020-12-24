@@ -6,11 +6,8 @@ import {
   getDetailOrder as getDetailOrderAPI,
   cancelOrder as cancelOrderAPI,
   sentOrder as sentOrderAPI,
-  deleteOrder as deleteOrderAPI,
-  getAllOrder as getAllOrderAPI,
   payOrder as payOrderAPI,
   completeOrder as completeOrderAPI,
-  createOrder as createOrderAPI,
 } from "../../../webAPI/orderAPI.js";
 import { setAuthToken, getAuthToken } from "../../../utils";
 export const orderSlice = createSlice({

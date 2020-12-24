@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { NavLink, useNavigate, useLocation, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import {
   getUser,
   getClientOrder,
 } from "../../../redux/slices/orderSlice/orderSlice";
-import { Navbar } from "../../../components";
 import { ThickNavPage } from "../../../components/Page";
 import { getAuthToken} from "../../../utils";
 import useOrder from "../../../hooks/orderHooks/useOrder";
@@ -83,9 +82,7 @@ const LoadingMessage = styled.div`
 `;
 
 const ClientOrdersPage = () => {
-const navigate = useNavigate();
-const location = useLocation();
-const currentPath = location.pathname;
+
 const dispatch = useDispatch();
 const { orders, formatter, isLoading } = useOrder();
 useEffect(() => {

@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { Navbar } from "../../../components";
 import { ThickNavPage } from "../../../components/Page";
-import { NavLink, useNavigate, useLocation, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import {
   getUser,
   getSellerOrder,

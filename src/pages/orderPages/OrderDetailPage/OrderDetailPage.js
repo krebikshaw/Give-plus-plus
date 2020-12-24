@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Navbar } from "../../../components";
 import { ThickNavPage } from "../../../components/Page";
 import { NormalButton } from "../../../components/Button";
-import { NavLink, useNavigate, useLocation, Link ,useParams} from "react-router-dom";
+import { useNavigate, useParams} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { LoopCircleLoading } from "react-loadingg";
 import {
   getUser,
   getDetailOrder,
-  setContent,
 } from "../../../redux/slices/orderSlice/orderSlice";
-import { getAuthToken } from "../../../hooks/orderHooks/useOrder";
 import useOrder from "../../../hooks/orderHooks/useOrder";
 import {
   COLOR,
@@ -231,7 +228,6 @@ const OrderDetailPage = () => {
   const {
     detailOrder,
     user,
-    orders,
     mask,
     isLoading,
     totalAmount,
@@ -246,7 +242,6 @@ const OrderDetailPage = () => {
     client_name,
     seller_email,
     client_address,
-    handleCancelOrder,
     sellerId,
     handleSentOrder,
     handleCompleteOrder,
@@ -260,10 +255,6 @@ const OrderDetailPage = () => {
     dispatch(getDetailOrder(id));
     dispatch(getUser());
   }, [dispatch,id]);
-  //console.log(sellerId[0]);
-  //console.log(user.userId);
-  //console.log(user.is_vendor)
-  //console.log(user);
   return (
     <>
       {mask && <Modal />}

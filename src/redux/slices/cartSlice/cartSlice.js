@@ -1,4 +1,4 @@
-import { createSlice, isAllOf } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import {
   getItem,
   addItem,
@@ -97,12 +97,10 @@ export const {
 } = cartSlice.actions;
 
 export const getCartItem = () => (dispatch) => {
-  //dispatch(setIsLoading(true));
   return getItem().then((res) => {
     if (!res || res.ok === 0)
       return dispatch(setErrorMessage(res ? res.message : "no data"));
     dispatch(setCart(res.data));
-    //dispatch(setIsLoading(false));
     return res.data
   });
 };
@@ -116,24 +114,16 @@ export const addCartItem = (productId, quantity, id) => (dispatch) => {
   });
 };
 export const minusQuantity = (quantity, id) => (dispatch) => {
-  //dispatch(setIsLoading(true));
-  //console.log(quantity);
   quantity--;
   return updateItem(quantity, id).then((res) => {
-    //console.log(quantity);
     dispatch(getCartItem());
-    //dispatch(setIsLoading(false));
     return res;
   });
 };
 export const addQuantity = (quantity, id) => (dispatch) => {
-  //dispatch(setIsLoading(true));
-  //console.log("加一之前的數量:",quantity);
   quantity++ ;
   return updateItem(quantity, id).then((res) => {
-    //console.log("加一之後的數量:", quantity);
     dispatch(getCartItem());
-    //dispatch(setIsLoading(false));
     return res;
   });
 };

@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React from "react";
 import { IconComponent } from "../../components";
-import { COLOR, FONT, MEDIA_QUERY_MD } from "../../constants/style";
+import { COLOR, FONT } from "../../constants/style";
 import { useDispatch } from "react-redux";
 
 import ItemDetail from "./ItemDetail";
@@ -9,8 +9,6 @@ import useCart from "../../hooks/cartHooks/useCart";
 import {
   setIsSelect,
   setPrice,
-  setFilter,
-  getCartItem,
   setChecked,
   setErrorMessage,
 } from "../../redux/slices/cartSlice/cartSlice";
@@ -135,18 +133,18 @@ export default function CartItem({ cart }) {
     checked,
   } = useCart();
   const SellerId = cart.cartDetail.map((data) => Object.values(data)[1]);
-  //console.log(SellerId[0]);
+  
   const TotalAmount = cart.cartDetail
     .map((data) => Object.values(data)[6] * Object.values(data)[7])
     .reduce((acc, cur) => acc + cur);
-  //console.log(TotalAmount);
+  
   const handleSelect = (id, TotalAmount) => {
     dispatch(setIsSelect(id));
-    //dispatch(setFilter("select"));
+    
     dispatch(setChecked(!checked))
     dispatch(setPrice(TotalAmount));
     if (checked === true) {
-      //dispatch(setFilter("all"));
+      
       dispatch(setPrice(0));
     }
   };
