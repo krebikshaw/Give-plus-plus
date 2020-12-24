@@ -102,11 +102,13 @@ useEffect(() => {
       <ThickNavPage>
         <Container>
           <Title>訂單查詢</Title>
-          {!orders || orders.length === 0 || isLoading ? (
+          {isLoading ? (
             <LoadingMessage>
               <LoopCircleLoading />;
             </LoadingMessage>
-          ) : (
+          ) : !orders || orders.length === 0 ? (
+            <Message>訂單查詢</Message>
+          ) :  (
             <Table>
               <NameContainer>
                 <Name>編號</Name>

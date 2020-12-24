@@ -46,7 +46,8 @@ export default function useOrder() {
   const cancelReason = detailOrder.map(
     (data) => Object.values(data)[11].cancelReason
   );
-  console.log(cancelReason);
+  const sellerId = detailOrder.map((data) => Object.values(data)[11].seller_id);
+  //console.log(cancelReason);
   const totalAmount = detailOrder.map(
     (data) => Object.values(data)[11].total_amount
   );
@@ -89,6 +90,7 @@ export default function useOrder() {
     orders,
     user,
     mask,
+    sellerId,
     errorMessage,
     cancelReason,
     totalAmount,
