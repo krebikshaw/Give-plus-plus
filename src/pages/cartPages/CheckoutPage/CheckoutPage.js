@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import {
@@ -9,7 +9,7 @@ import {
 } from "../../../constants/style";
 import { ThickNavPage } from "../../../components/Page";
 import { IconComponent } from "../../../components";
-import { NavLink, useNavigate, useLocation, Link } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import CartItem from "../../../components/cartSystem/CartItem";
 import OrderPrice from "../../../components/cartSystem/OrderPrice";
 import PayDetail from "../../../components/cartSystem/PayDetail.js";

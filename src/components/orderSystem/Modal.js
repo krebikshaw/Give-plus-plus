@@ -7,7 +7,6 @@ import { COLOR, FONT } from '../../constants/style';
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
-  setContent,
   setErrorMessage,
   setMask,
   cancelOrder,
@@ -58,7 +57,7 @@ export default function Modal() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const setError = () => dispatch(setErrorMessage(null));
-  const { errorMessage, handleCancelOrder, handleCloseModal } = useOrder();
+  const { errorMessage, handleCloseModal } = useOrder();
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!cancelReason || !cancelReason.trim()) {

@@ -50,7 +50,6 @@ export default function ItemDetail({ Item }) {
     isLoading,
     handleDelete,
     formatter,
-    isSelect,
     isPaying,
     completeOrder,
     checked
