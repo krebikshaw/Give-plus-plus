@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Navbar } from '../../../components';
 import { WrapperMask } from '../../../components/userSystem/';
 import { COLOR, FONT, EFFECT, DISTANCE } from '../../../constants/style';
 import { ActionButton } from '../../../components/Button';
 import {
   Announcement,
   ClientInfoForm,
-  SetPasswordComponent,
-  SetAvatarComponent,
+  SetPassword,
+  SetAvatar,
 } from '../../../components/userSystem';
 import { ThickNavPage } from '../../../components/Page';
 import useUser from '../../../hooks/userHooks/useUser';
@@ -63,7 +62,6 @@ const UserInfoPage = () => {
   const [successMode, setSuccessMode] = useState(false);
   const [isSettingPassword, setIsSettingPassword] = useState(false);
   const { handleGetMe, errorMessage } = useUser();
-
   const handleSetPassword = () => setIsSettingPassword(true);
 
   useEffect(() => {
@@ -87,13 +85,13 @@ const UserInfoPage = () => {
           變更密碼
         </ActionButton>
         {isSettingPassword && (
-          <SetPasswordComponent
+          <SetPassword
             setSuccessMode={setSuccessMode}
             setIsSettingPassword={setIsSettingPassword}
           />
         )}
         <Text>變更頭貼</Text>
-        <SetAvatarComponent setSuccessMode={setSuccessMode} />
+        <SetAvatar setSuccessMode={setSuccessMode} />
         {successMode && (
           <WrapperMask>
             <SuccessMessage>

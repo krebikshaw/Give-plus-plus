@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import useUser from '../../../hooks/userHooks/useUser';
 import { useNavigate } from 'react-router-dom';
 import { COLOR, FONT, DISTANCE } from '../../../constants/style';
-import { ManageUsersComponent } from '../../../components/adminSystem';
+import { ManageUsers } from '../../../components/adminSystem';
 import { ThickNavPage } from '../../../components/Page';
 
 const Wrapper = styled.div`
@@ -32,7 +32,7 @@ const AdminUserPage = () => {
     <ThickNavPage>
       <Wrapper>
         <Title>用戶管理</Title>
-        <ManageUsersComponent />
+        <ManageUsers />
       </Wrapper>
     </ThickNavPage>
   );

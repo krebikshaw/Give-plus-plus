@@ -1,19 +1,19 @@
-import OptionListComponent from './OptionListComponent';
-import ExamineProductComponent from './ExamineProductComponent';
+import OptionList from './OptionList';
+import ExamineProduct from './ExamineProduct';
 import ExamineSelector from './ExamineSelector';
 import SearchBar from './SearchBar';
-import ManageUsersComponent from './ManageUsersComponent';
-import ManageProductsComponent from './ManageProductsComponent';
-import PaginationComponent from './PaginationComponent';
-import MailListComponent from './MailListComponent';
+import ManageUsers from './ManageUsers';
+import ManageProducts from './ManageProducts';
+import Pagination from './Pagination';
+import MailList from './MailList';
 
 export {
-  OptionListComponent,
-  ExamineProductComponent,
+  OptionList,
+  ExamineProduct,
   ExamineSelector,
   SearchBar,
-  ManageUsersComponent,
-  ManageProductsComponent,
-  PaginationComponent,
-  MailListComponent,
+  ManageUsers,
+  ManageProducts,
+  Pagination,
+  MailList,
 };

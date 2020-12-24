@@ -65,7 +65,7 @@ const PermissionSelector = ({ permissionState, setPermissionState }) => {
   );
 };
 
-export default function SetPermissionComponent({ setSuccessMode }) {
+export default function SetPermission({ setSuccessMode }) {
   const navigate = useNavigate();
   const { user, handleUpdatePermission } = useUser();
   const [permissionState, setPermissionState] = useState(0);

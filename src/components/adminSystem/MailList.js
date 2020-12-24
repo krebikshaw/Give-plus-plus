@@ -43,16 +43,12 @@ const MailItem = ({ mail }) => {
   );
 };
 
-export default function MailListComponent() {
+export default function MailList() {
   const { mails, handleGetMails } = useAdmin();
 
   useEffect(() => {
     handleGetMails();
   }, []);
-
-  useEffect(() => {
-    console.log(mails);
-  }, [mails]);
 
   return (
     <MailListContainer>

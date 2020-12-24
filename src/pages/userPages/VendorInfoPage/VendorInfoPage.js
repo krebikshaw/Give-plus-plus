@@ -2,17 +2,16 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useUser from '../../../hooks/userHooks/useUser';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Navbar } from '../../../components';
 import { WrapperMask } from '../../../components/userSystem/';
 import { COLOR, FONT, EFFECT, DISTANCE } from '../../../constants/style';
 import { ActionButton } from '../../../components/Button';
 import {
   Announcement,
   VendorInfoForm,
-  SetPasswordComponent,
-  SetAvatarComponent,
-  SetBannerComponent,
-  SetPermissionComponent,
+  SetPassword,
+  SetAvatar,
+  SetBanner,
+  SetPermission,
 } from '../../../components/userSystem';
 import { ThickNavPage } from '../../../components/Page';
 
@@ -90,9 +89,7 @@ const VendorInfoPage = () => {
       <Wrapper>
         <Title>基本資料</Title>
         <Announcement />
-        {isAdminStatus && (
-          <SetPermissionComponent setSuccessMode={setSuccessMode} />
-        )}
+        {isAdminStatus && <SetPermission setSuccessMode={setSuccessMode} />}
         <VendorInfoForm
           setSuccessMode={setSuccessMode}
           isAdminStatus={isAdminStatus}
@@ -103,15 +100,15 @@ const VendorInfoPage = () => {
           變更密碼
         </ActionButton>
         {isSettingPassword && (
-          <SetPasswordComponent
+          <SetPassword
             setSuccessMode={setSuccessMode}
             setIsSettingPassword={setIsSettingPassword}
           />
         )}
         <Text>變更頭貼</Text>
-        <SetAvatarComponent setSuccessMode={setSuccessMode} />
+        <SetAvatar setSuccessMode={setSuccessMode} />
         <Text>變更封面</Text>
-        <SetBannerComponent setSuccessMode={setSuccessMode} />
+        <SetBanner setSuccessMode={setSuccessMode} />
         {successMode && (
           <WrapperMask>
             <SuccessMessage>

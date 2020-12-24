@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import useUser from '../../../hooks/userHooks/useUser';
 import { useNavigate } from 'react-router-dom';
 import { COLOR, FONT, DISTANCE } from '../../../constants/style';
-import { MailListComponent } from '../../../components/adminSystem';
+import { MailList } from '../../../components/adminSystem';
 import { ThickNavPage } from '../../../components/Page';
 
 const Wrapper = styled.div`
@@ -32,7 +32,7 @@ const AdminMailPage = () => {
     <ThickNavPage>
       <Wrapper>
         <Title>查看意見箱</Title>
-        <MailListComponent />
+        <MailList />
       </Wrapper>
     </ThickNavPage>
   );

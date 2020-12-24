@@ -39,7 +39,7 @@ const ErrorMessage = styled.p`
   margin-top: 15px;
 `;
 
-export default function SetAnnouncementComponent({ setIsSettingAnnouncement }) {
+export default function SetAnnouncement({ setIsSettingAnnouncement }) {
   const { user, handleUpdateAnnouncement } = useUser();
   const [value, setValue] = useState('');
   const [submitError, setSubmitError] = useState('');

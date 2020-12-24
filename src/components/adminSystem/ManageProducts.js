@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import useAdmin from '../../hooks/adminHooks/useAdmin';
 import { DISTANCE } from '../../constants/style';
 import { Nav } from '../../components/Button';
-import PaginationComponent from '../adminSystem/PaginationComponent';
+import Pagination from '../adminSystem/Pagination';
 
 const ExamineProductContainer = styled.div`
   margin: ${DISTANCE.md} 0;
@@ -68,7 +68,7 @@ const ProductsItem = ({ product }) => {
   );
 };
 
-export default function ManageProductsComponent() {
+export default function ManageProducts() {
   const { products, handleGetProducts, handleSearchProducts } = useAdmin();
   const [isSearch, setIsSearch] = useState(false);
   const [keyword, setKeyword] = useState('');
@@ -113,7 +113,7 @@ export default function ManageProductsComponent() {
             ))}
           </ProductsTbody>
         </ProductsTable>
-        <PaginationComponent
+        <Pagination
           propsFunction={isSearch ? handleSearchProducts : handleGetProducts}
           propsParams={params}
         />
