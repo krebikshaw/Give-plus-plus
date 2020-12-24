@@ -74,8 +74,8 @@ const LoginPage = () => {
             />
 
             <Description>
-              還不是會員嗎？{' '}
-              <RegisterLink to={'/register'} children={'立刻註冊新帳號'} />
+              還不是會員嗎？
+              <RegisterLink className='register_link' to={'/register'} children={'立刻註冊新帳號'} />
             </Description>
 
             {isUserLoading ? (
@@ -83,7 +83,7 @@ const LoginPage = () => {
             ) : (
               <>
                 <ErrorMessage>{errorMessage}</ErrorMessage>
-                <JoinButton onClick={handleLogin}>登入</JoinButton>
+                <JoinButton id={'login_button'} onClick={handleLogin}>登入</JoinButton>
               </>
             )}
           </Form>

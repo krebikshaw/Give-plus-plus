@@ -1,9 +1,13 @@
 # 二手交易平台 - 前端系統
-下載檔案後：
-1. 安裝套件 npm install
-2. 啟動 dev-server npm run start
 
-## 注意事項
+## 可使用的指令
+- `npm install`：安裝所需第三方套件
+- `yarn start`：以開發模式在 http://localhost:3000/ 啟動專案
+- `yarn cypress:open`：啟動 Cypress E2E 測試工具
+- `yarn cypress:run`：執行 Cypress E2E 測試，並生成或更新測試影片
+- `yarn build`：打包並建立此專案的 Production 版本
+
+## 開發注意事項
 - 有任何動作之前，一定要開新的 branch，切勿直接改動 master 的東西
 - 所有資料夾都有依據不同的功能來區分
   * 請各位依照指定的資料夾結構進行開發
