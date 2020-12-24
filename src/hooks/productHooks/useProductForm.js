@@ -158,6 +158,7 @@ export default function useProductForm(id) {
       dispatch(postProduct(formData));
       navigate('/users/backstage');
     }
+    alert('商品已刊登成功，請耐心等待管理員審核商品！');
   };
 
   const handleSubmitEditForm = (e) => {
