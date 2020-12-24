@@ -90,7 +90,7 @@ export default function useProduct() {
   const handleGetProductsFromVendor = (id, page) => {
     dispatch(setPage(page));
     dispatch(getProductsFromVendor(id, page, 10)).then((res) => {
-      if (res === '非賣家') navigate('/');
+      if (res === 0) navigate('/');
     });
   };
 
