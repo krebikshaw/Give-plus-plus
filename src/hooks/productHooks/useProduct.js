@@ -116,7 +116,8 @@ export default function useProduct() {
     dispatch(getProductsFromCategory(id, page + 1, sort));
   };
 
-  const handleChangeProductSort = (id, sort) => {
+  const handleChangeProductSort = (id, sort, page) => {
+    dispatch(setPage(page));
     dispatch(setProducts([]));
     dispatch(setSort(sort));
     currentPage.includes('/category')
