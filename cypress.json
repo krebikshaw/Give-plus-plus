@@ -1,0 +1,10 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "env": {
+    "apiUrl": "http://localhost:3001/v1",
+    "login_url": "/login",
+    "register_url": "/register",
+    "test_username": "Seller01",
+    "test_password": "lidemy"
+  }
+}

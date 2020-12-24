@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { IconComponent } from '../../components';
-import { COLOR, FONT, DISTANCE } from '../../constants/style';
-import { NavLink } from 'react-router-dom';
+import styled from "styled-components";
+import { IconComponent } from "../../components";
+import { COLOR, FONT, DISTANCE } from "../../constants/style";
+import { NavLink } from "react-router-dom";
 
 const InputBox = styled.div`
   margin-bottom: ${DISTANCE.sm};
@@ -68,29 +68,34 @@ export default function JoinInput({
     <InputBox>
       <InputTitle>{title}</InputTitle>
       <InputWrapper>
-        {type === 'password' && <IconComponent kind={'lock'} />}
-        {type === 'username' && <IconComponent kind={'user'} />}
-        {type === 'email' && <IconComponent kind={'envelope'} />}
+        {type === "password" && <IconComponent kind={"lock"} />}
+        {type === "username" && <IconComponent kind={"user"} />}
+        {type === "email" && <IconComponent kind={"envelope"} />}
 
         <Input
-          type={type === 'password' && !isPasswordShowed ? 'password' : 'text'}
+          className={
+            (type === "username" && "username_input") ||
+            (type === "password" && "password_input") ||
+            (type === "email" && "email_input")
+          }
+          type={type === "password" && !isPasswordShowed ? "password" : "text"}
           maxLength={limit}
           onChange={handleInputChange}
           placeholder={message}
         ></Input>
 
-        {type === 'password' && (
+        {type === "password" && (
           <span onClick={togglePassword}>
-            <IconComponent kind={'invisible'} />
+            <IconComponent kind={"invisible"} />
           </span>
         )}
       </InputWrapper>
 
       <ErrorMessage>{errorMessage}</ErrorMessage>
 
-      {linksType === 'password' && (
+      {linksType === "password" && (
         <Links>
-          <Link to={'#'}>忘記密碼</Link> ｜ <Link to={'#'}>重寄認證信</Link>
+          <Link to={"#"}>忘記密碼</Link> ｜ <Link to={"#"}>重寄認證信</Link>
         </Links>
       )}
     </InputBox>
