@@ -16,6 +16,7 @@ import {
   setComplete,
   createOrder,
   setUpdate,
+  setErrorMessage,
 } from "../../redux/slices/cartSlice/cartSlice";
 const Container = styled.div`
   width: 300px;
@@ -57,6 +58,12 @@ const Title = styled.p`
   color: ${COLOR.text_2};
   font-size: ${FONT.sm};
   letter-spacing: 1px;
+`;
+const RadioTitle = styled.label`
+  color: ${COLOR.text_2};
+  font-size: ${FONT.sm};
+  letter-spacing: 1px;
+  cursor: pointer;
 `;
 const UpdateTitle = styled.p`
   color: ${COLOR.text_2};
@@ -142,17 +149,44 @@ const Form = styled.form`
   border-radius: 9px;
   background: ${COLOR.white};
 `;
+const ErrorModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: ${COLOR.bg_mask};
+  z-index: 2;
+`;
+const ErrorForm = styled.form`
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 0 60px;
+  letter-spacing: 1px;
+  justify-content: center;
+  flex-direction: column;
+  margin: 80px auto;
+  height: 300px;
+  width: 40%;
+  min-width: 300px;
+  border-radius: 9px;
+  background: ${COLOR.white};
+`;
+const ModalIconContainer = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+`;
 export default function PayDetail({cart}) {
   const [receiver, setReceiver] = useState('')
   const [receiveAddress, setReceiveAddress] = useState("");
   const [buyer, setBuyer] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {
-    payWay,
-    completeOrder,
-    update,
-  } = useCart();
+  const { payWay, completeOrder, update, errorMessage } = useCart();
   const {
     user
   } = useOrder();
@@ -170,10 +204,16 @@ export default function PayDetail({cart}) {
   const handleToCheckOutCartPage = (readyToOrderItems) => {
     if (payWay === true) {
       navigate("/cart/checkout");
+      dispatch(setComplete(true));
+      dispatch(createOrder(readyToOrderItems));
+    }else{
+        dispatch(setErrorMessage("請勾選一個付款方式後才能完成訂單"));
     }
-    dispatch(setComplete(true));
-    dispatch(createOrder(readyToOrderItems));
+    
   }
+  const handleCloseError = () => {
+    dispatch(setErrorMessage(false));
+  };
 
   const handlePayWay = () => {
     dispatch(setPayWay(true));
@@ -199,6 +239,16 @@ export default function PayDetail({cart}) {
 
   return (
     <>
+      {errorMessage && (
+        <ErrorModal>
+          <ErrorForm>
+            <ModalIconContainer onClick={() => handleCloseError()}>
+              <IconComponent kind={"close-black"} />
+            </ModalIconContainer>
+            {errorMessage}
+          </ErrorForm>
+        </ErrorModal>
+      )}
       {update && (
         <Modal>
           <Form>
@@ -264,16 +314,34 @@ export default function PayDetail({cart}) {
             <Title>付款方式</Title>
             <Hr />
             <PayWrapper>
-              <Radio type="radio" name="radio" onClick={handlePayWay}></Radio>
-              <Title>面交時付款</Title>
+              <Radio
+                type="radio"
+                name="radio"
+                id="面交時付款"
+                value="面交時付款"
+                onClick={handlePayWay}
+              ></Radio>
+              <RadioTitle for="面交時付款">面交時付款</RadioTitle>
             </PayWrapper>
             <PayWrapper>
-              <Radio type="radio" name="radio" onClick={handlePayWay}></Radio>
-              <Title>超商取貨付款</Title>
+              <Radio
+                type="radio"
+                name="radio"
+                id="超商取貨付款"
+                value="超商取貨付款"
+                onClick={handlePayWay}
+              ></Radio>
+              <RadioTitle for="超商取貨付款">超商取貨付款</RadioTitle>
             </PayWrapper>
             <PayWrapper>
-              <Radio type="radio" name="radio" onClick={handlePayWay}></Radio>
-              <Title>Apple Pay</Title>
+              <Radio
+                type="radio"
+                name="radio"
+                id="Apple Pay"
+                value="Apple Pay"
+                onClick={handlePayWay}
+              ></Radio>
+              <RadioTitle for="Apple Pay">Apple Pay</RadioTitle>
             </PayWrapper>
             <ActionButton
               $margin={0}

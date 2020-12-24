@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import { ActionButton } from "../../components/Button";
 import { COLOR, FONT } from "../../constants/style";
+import { IconComponent } from "../../components";
 import { useDispatch } from "react-redux";
 import useCart from "../../hooks/cartHooks/useCart";
 import { getUser } from "../../redux/slices/orderSlice/orderSlice";
@@ -9,6 +10,7 @@ import { getProduct } from "../../redux/slices/productSlice/productSlice";
 import {
   setIsPaying,
   setFilter,
+  setErrorMessage,
 } from "../../redux/slices/cartSlice/cartSlice";
 const Container = styled.div`
   width: 300px;
@@ -54,19 +56,69 @@ const Hr = styled.hr`
   border: solid 0.2px #f6f5f5;
   margin-bottom: 20px;
 `;
+const ErrorModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: ${COLOR.bg_mask};
+  z-index: 2;
+`;
+const ErrorForm = styled.form`
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 0 60px;
+  letter-spacing: 1px;
+  justify-content: center;
+  flex-direction: column;
+  margin: 80px auto;
+  height: 300px;
+  width: 40%;
+  min-width: 300px;
+  border-radius: 9px;
+  background: ${COLOR.white};
+`;
+const ModalIconContainer = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+`;
 export default function OrderPrice({ cart }) {
   const dispatch = useDispatch();
-  const { formatter, price, checked } = useCart();
+  const { formatter, price, checked, errorMessage } = useCart();
   const productId = cart.cartDetail.map((data) => Object.values(data)[3]);
   const handlePay = () => {
-    if(checked === false) return
-    dispatch(setIsPaying(true));
-    dispatch(setFilter("select"))
-    dispatch(getUser());
-    dispatch(getProduct(productId[0]))
+    if(checked === true) {
+        dispatch(setIsPaying(true));
+        dispatch(setFilter("select"));
+        dispatch(getUser());
+        dispatch(getProduct(productId[0]));
+    }else {
+        dispatch(setErrorMessage("請勾選一個購物車才能前往結帳"));
+    }
+    
   }
+  const handleCloseError = () => {
+    dispatch(setErrorMessage(false));
+  };
   return (
+      <>
+      {errorMessage && (
+        <ErrorModal>
+          <ErrorForm>
+            <ModalIconContainer onClick={() => handleCloseError()}>
+              <IconComponent kind={"close-black"} />
+            </ModalIconContainer>
+            {errorMessage}
+          </ErrorForm>
+        </ErrorModal>
+      )}
     <Container>
+      
       <Top>
         <Title>訂單摘要</Title>
       </Top>
@@ -94,5 +146,6 @@ export default function OrderPrice({ cart }) {
         </ActionButton>
       </Count>
     </Container>
+    </>
   );
 }
