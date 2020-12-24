@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import {
   COLOR,
@@ -9,17 +8,11 @@ import {
 } from "../../../constants/style";
 import { ThickNavPage } from "../../../components/Page";
 import { IconComponent } from "../../../components";
-import {  useNavigate } from "react-router-dom";
 import CartItem from "../../../components/cartSystem/CartItem";
 import OrderPrice from "../../../components/cartSystem/OrderPrice";
 import PayDetail from "../../../components/cartSystem/PayDetail.js";
 import { LoopCircleLoading } from "react-loadingg";
-import {
-  getCartItem,
-  setIsPaying,
-  setFilter,
-  setChecked,
-} from "../../../redux/slices/cartSlice/cartSlice";
+
 import useCart from "../../../hooks/cartHooks/useCart";
 const Title = styled.p`
   color: ${COLOR.text_2};
@@ -71,9 +64,6 @@ const BuyAnother = styled.p`
 `;
 
 const CheckoutPage = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  //useEffect(() => dispatch(getCartItem()), [dispatch]);
   const {
     carts,
     isLoading,
@@ -82,18 +72,10 @@ const CheckoutPage = () => {
     filter,
     completeOrder,
     orderNumber,
+    handleToHomePage,
+    handleToCart,
   } = useCart();
-  const handleToCart = () => {
-    dispatch(setIsPaying(false));
-    dispatch(setFilter("all"));
-  };
-  const handleToHomePage = () => {
-    navigate('/');
-    dispatch(getCartItem());
-    dispatch(setIsPaying(false));
-    dispatch(setChecked(false));
-    
-  };
+
   return (
     <>
       {isLoading && (
@@ -149,4 +131,3 @@ const CheckoutPage = () => {
 };
 
 export default CheckoutPage;
-

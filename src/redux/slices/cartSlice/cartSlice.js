@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 import {
   getItem,
   addItem,
   updateItem,
   deleteItem,
   deleteItemsBySeller,
-  createOrder as createOrderAPI
+  createOrder as createOrderAPI,
 } from "../../../webAPI/cartAPI";
 
 export const cartSlice = createSlice({
@@ -26,7 +26,6 @@ export const cartSlice = createSlice({
     hasAdd: false,
     update: false,
     checked: false,
-
   },
   reducers: {
     // reducer
@@ -72,7 +71,6 @@ export const cartSlice = createSlice({
     setChecked: (state, action) => {
       state.checked = action.payload;
     },
-
   },
 });
 
@@ -93,7 +91,6 @@ export const {
   setHasAdd,
   setUpdate,
   setChecked,
-
 } = cartSlice.actions;
 
 export const getCartItem = () => (dispatch) => {
@@ -101,7 +98,7 @@ export const getCartItem = () => (dispatch) => {
     if (!res || res.ok === 0)
       return dispatch(setErrorMessage(res ? res.message : "no data"));
     dispatch(setCart(res.data));
-    return res.data
+    return res.data;
   });
 };
 
@@ -121,7 +118,7 @@ export const minusQuantity = (quantity, id) => (dispatch) => {
   });
 };
 export const addQuantity = (quantity, id) => (dispatch) => {
-  quantity++ ;
+  quantity++;
   return updateItem(quantity, id).then((res) => {
     dispatch(getCartItem());
     return res;

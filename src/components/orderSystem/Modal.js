@@ -1,16 +1,12 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import React, { useState } from "react";
 import { InputComponent } from "../../components/Input";
 import { IconComponent } from "../../components";
 import { ActionButton } from "../../components/Button";
-import { COLOR, FONT } from '../../constants/style';
+import { COLOR, FONT } from "../../constants/style";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  setErrorMessage,
-  setMask,
-  cancelOrder,
-} from "../../redux/slices/orderSlice/orderSlice";
+import { setErrorMessage } from "../../redux/slices/orderSlice/orderSlice";
 import useOrder from "../../hooks/orderHooks/useOrder";
 const Form = styled.form`
   display: flex;
@@ -57,20 +53,15 @@ export default function Modal() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const setError = () => dispatch(setErrorMessage(null));
-  const { errorMessage, handleCloseModal } = useOrder();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!cancelReason || !cancelReason.trim()) {
-      return dispatch(setErrorMessage("請務必填寫取消訂單原因後再送出"));
-    }
-    dispatch(cancelOrder(id, cancelReason));
-      dispatch(setMask(false));
-      window.location.reload(true);
-    };
-   
+  const {
+    errorMessage,
+    handleCloseModal,
+    handleSubmitCancelReason,
+  } = useOrder();
+
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={(e) => handleSubmitCancelReason(e, id, cancelReason)}>
         <Wrapper onClick={handleCloseModal}>
           <IconComponent kind={"close-black"} />
         </Wrapper>

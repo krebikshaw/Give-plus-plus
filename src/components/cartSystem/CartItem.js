@@ -2,16 +2,10 @@ import styled from "styled-components";
 import React from "react";
 import { IconComponent } from "../../components";
 import { COLOR, FONT } from "../../constants/style";
-import { useDispatch } from "react-redux";
 
 import ItemDetail from "./ItemDetail";
 import useCart from "../../hooks/cartHooks/useCart";
-import {
-  setIsSelect,
-  setPrice,
-  setChecked,
-  setErrorMessage,
-} from "../../redux/slices/cartSlice/cartSlice";
+
 const Container = styled.p`
   margin: 20px 120px 20px 10px;
   width: 60%;
@@ -68,13 +62,11 @@ const Select = styled.select`
   width: 15%;
   margin: 10px 0 10px 0;
 `;
-const IconContainer = styled.div`
-`;
+const IconContainer = styled.div``;
 const Section = styled.div`
   position: fix;
   right: 0;
   margin-left: 450px;
- 
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -122,7 +114,6 @@ const ModalIconContainer = styled.div`
   margin-right: 10px;
 `;
 export default function CartItem({ cart }) {
-  const dispatch = useDispatch();
   const {
     handleDeleteSeller,
     errorMessage,
@@ -131,26 +122,15 @@ export default function CartItem({ cart }) {
     formatter,
     completeOrder,
     checked,
+    handleClose,
+    handleSelect,
   } = useCart();
   const SellerId = cart.cartDetail.map((data) => Object.values(data)[1]);
-  
+
   const TotalAmount = cart.cartDetail
     .map((data) => Object.values(data)[6] * Object.values(data)[7])
     .reduce((acc, cur) => acc + cur);
-  
-  const handleSelect = (id, TotalAmount) => {
-    dispatch(setIsSelect(id));
-    
-    dispatch(setChecked(!checked))
-    dispatch(setPrice(TotalAmount));
-    if (checked === true) {
-      
-      dispatch(setPrice(0));
-    }
-  };
-  const handleClose = () => {
-    dispatch(setErrorMessage(false));
-  };
+
   return (
     <Container>
       {errorMessage && (
@@ -216,10 +196,3 @@ export default function CartItem({ cart }) {
     </Container>
   );
 }
-
-
-
-
-
-
-

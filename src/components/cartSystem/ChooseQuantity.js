@@ -2,13 +2,8 @@ import styled from "styled-components";
 import React from "react";
 import { IconComponent } from "../../components";
 import { COLOR, FONT } from "../../constants/style";
-import { useDispatch } from "react-redux";
 import useCart from "../../hooks/cartHooks/useCart";
-import {
-  addQuantity,
-  minusQuantity,
-  setErrorMessage,
-} from "../../redux/slices/cartSlice/cartSlice";
+
 const Quantity = styled.p`
   color: ${COLOR.text_2};
   font-size: ${FONT.sm};
@@ -24,7 +19,6 @@ const CartQuantity = styled.p`
 `;
 const Wrapper = styled.div`
   display: flex;
-
 `;
 const Container = styled.div`
   border: solid 1px #f1f1f1;
@@ -65,36 +59,17 @@ const IconContainer = styled.div`
 `;
 
 export default function ChooseQuantity({ Item }) {
-  const dispatch = useDispatch();
-  const { errorMessage, isPaying, checked } = useCart();
+  const {
+    errorMessage,
+    isPaying,
+    checked,
+    handleClose,
+    handleError,
+    handleMinus,
+    handlePlus,
+  } = useCart();
   const { cartItemId, cartQuantity, productQuantity } = Item;
-  
-  const handlePlus = () => {
-    if (cartQuantity >= productQuantity) {
-      dispatch(
-        setErrorMessage("抱歉，本次結帳最多購買" + productQuantity + "件")
-      );
-      return;
-    }
-    dispatch(addQuantity(cartQuantity, cartItemId));
 
-   
-  };
-  const handleMinus = () => {
-    if (cartQuantity <= 1) {
-      dispatch(setErrorMessage("抱歉，結帳最少購買1件"));
-      return;
-    }
-    dispatch(minusQuantity(cartQuantity, cartItemId));
-
-    
-  };
-  const handleClose = () => {
-    dispatch(setErrorMessage(false));
-  };
-  const handleError = () => {
-      dispatch(setErrorMessage("勾選購物車後，即代表確認購買商品與數量，無法再更動購買的商品數量。若要重新選擇購買數量，請先取消勾選購物車。"));
-  }
   return (
     <>
       {errorMessage && (
@@ -125,7 +100,11 @@ export default function ChooseQuantity({ Item }) {
             <IconComponent kind={"minus"} />
           </Container>
           <Quantity>{Item.cartQuantity}</Quantity>
-          <Container onClick={() => handlePlus(cartQuantity, cartItemId)}>
+          <Container
+            onClick={() =>
+              handlePlus(cartQuantity, cartItemId, productQuantity)
+            }
+          >
             <IconComponent kind={"plus"} />
           </Container>
         </Wrapper>

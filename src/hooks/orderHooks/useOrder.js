@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import {
   selectOrder,
   selectUser,
@@ -10,11 +10,10 @@ import {
   setMask,
   completeOrder,
   payOrder,
+  cancelOrder,
+  setErrorMessage,
 } from "../../redux/slices/orderSlice/orderSlice";
-import {
-  useParams,
-} from "react-router-dom";
-
+import { useParams } from "react-router-dom";
 
 export default function useOrder() {
   const dispatch = useDispatch();
@@ -40,7 +39,7 @@ export default function useOrder() {
   const is_completed = detailOrder.map(
     (data) => Object.values(data)[11].is_completed
   );
-   const is_paid = detailOrder.map((data) => Object.values(data)[11].is_paid);
+  const is_paid = detailOrder.map((data) => Object.values(data)[11].is_paid);
   const createdAt = detailOrder.map((data) => Object.values(data)[10]);
   const cancelReason = detailOrder.map(
     (data) => Object.values(data)[11].cancelReason
@@ -64,25 +63,35 @@ export default function useOrder() {
   const client_address = detailOrder.map(
     (data) => Object.values(data)[11].client_address
   );
- 
+
   const handleCloseModal = () => {
     dispatch(setMask(false));
   };
-   const handleModal = () => {
-     dispatch(setMask(true));
-   };
+  const handleModal = () => {
+    dispatch(setMask(true));
+  };
   const handleSentOrder = (id) => {
     dispatch(sentOrder(id));
     window.location.reload(true);
-  }
+  };
   const handleCompleteOrder = () => {
     dispatch(completeOrder(id));
     window.location.reload(true);
-  }
+  };
   const handlePayOrder = () => {
     dispatch(payOrder(id));
     window.location.reload(true);
-  }
+  };
+
+  const handleSubmitCancelReason = (e, id, cancelReason) => {
+    e.preventDefault();
+    if (!cancelReason || !cancelReason.trim()) {
+      return dispatch(setErrorMessage("請務必填寫取消訂單原因後再送出"));
+    }
+    dispatch(cancelOrder(id, cancelReason));
+    dispatch(setMask(false));
+    window.location.reload(true);
+  };
 
   const user = useSelector(selectUser);
   return {
@@ -112,5 +121,6 @@ export default function useOrder() {
     formatter,
     handleModal,
     handleCloseModal,
+    handleSubmitCancelReason,
   };
 }

@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { COLOR, FONT, MEDIA_QUERY_MD,
-  DISTANCE, } from "../../../constants/style";
+import {
+  COLOR,
+  FONT,
+  MEDIA_QUERY_MD,
+  DISTANCE,
+} from "../../../constants/style";
 import { ThickNavPage } from "../../../components/Page";
 import { IconComponent } from "../../../components";
-import CartItem from "../../../components/cartSystem/CartItem"
+import CartItem from "../../../components/cartSystem/CartItem";
 import OrderPrice from "../../../components/cartSystem/OrderPrice";
 import PayDetail from "../../../components/cartSystem/PayDetail.js";
 
 import { LoopCircleLoading } from "react-loadingg";
-import {
-  getCartItem,
-  setIsPaying,
-  setFilter
-} from "../../../redux/slices/cartSlice/cartSlice";
+import { getCartItem } from "../../../redux/slices/cartSlice/cartSlice";
 import useCart from "../../../hooks/cartHooks/useCart";
 const Title = styled.p`
   color: ${COLOR.text_2};
@@ -26,7 +26,6 @@ const PayTitle = styled.p`
   color: ${COLOR.text_1};
   font-size: ${FONT.md};
   width: 30%;
-  
 `;
 const Container = styled.div`
   margin-top: 100px;
@@ -40,9 +39,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
 `;
-const IconWrapper = styled.div`
-  
-`;
+const IconWrapper = styled.div``;
 const LoadingMessage = styled.div`
   position: fixed;
   top: 0;
@@ -55,13 +52,19 @@ const LoadingMessage = styled.div`
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  useEffect(() => {dispatch(getCartItem())}, [dispatch]);
-  const { carts, isLoading, isPaying, isSelect, filter, checked } = useCart();
-  const handleToCart = () => {
-    dispatch(setIsPaying(false));
-    dispatch(setFilter("all"));
-    window.location.reload(true);
-  }
+  useEffect(() => {
+    dispatch(getCartItem());
+  }, [dispatch]);
+  const {
+    carts,
+    isLoading,
+    isPaying,
+    isSelect,
+    filter,
+    checked,
+    handleToCart,
+  } = useCart();
+
   return (
     <>
       {isLoading && (
@@ -97,7 +100,7 @@ const CartPage = () => {
                 <>
                   <CartItem key={index} cart={cart} />
                   {isPaying ? (
-                    <PayDetail cart={cart}/>
+                    <PayDetail cart={cart} />
                   ) : (
                     <OrderPrice cart={cart} />
                   )}
@@ -108,6 +111,5 @@ const CartPage = () => {
     </>
   );
 };
-
 
 export default CartPage;

@@ -3,15 +3,8 @@ import React from "react";
 import { ActionButton } from "../../components/Button";
 import { COLOR, FONT } from "../../constants/style";
 import { IconComponent } from "../../components";
-import { useDispatch } from "react-redux";
 import useCart from "../../hooks/cartHooks/useCart";
-import { getUser } from "../../redux/slices/orderSlice/orderSlice";
-import { getProduct } from "../../redux/slices/productSlice/productSlice";
-import {
-  setIsPaying,
-  setFilter,
-  setErrorMessage,
-} from "../../redux/slices/cartSlice/cartSlice";
+
 const Container = styled.div`
   width: 300px;
   border: solid 1px #e6e6e6;
@@ -88,25 +81,17 @@ const ModalIconContainer = styled.div`
   margin-right: 10px;
 `;
 export default function OrderPrice({ cart }) {
-  const dispatch = useDispatch();
-  const { formatter, price, checked, errorMessage } = useCart();
+  const {
+    formatter,
+    price,
+    errorMessage,
+    handleCloseError,
+    handlePay,
+  } = useCart();
   const productId = cart.cartDetail.map((data) => Object.values(data)[3]);
-  const handlePay = () => {
-    if(checked === true) {
-        dispatch(setIsPaying(true));
-        dispatch(setFilter("select"));
-        dispatch(getUser());
-        dispatch(getProduct(productId[0]));
-    }else {
-        dispatch(setErrorMessage("請勾選一個購物車才能前往結帳"));
-    }
-    
-  }
-  const handleCloseError = () => {
-    dispatch(setErrorMessage(false));
-  };
+
   return (
-      <>
+    <>
       {errorMessage && (
         <ErrorModal>
           <ErrorForm>
@@ -117,35 +102,34 @@ export default function OrderPrice({ cart }) {
           </ErrorForm>
         </ErrorModal>
       )}
-    <Container>
-      
-      <Top>
-        <Title>訂單摘要</Title>
-      </Top>
-      <Count>
-        <Wrapper>
-          <TotalAmountTitle>商品總計</TotalAmountTitle>
+      <Container>
+        <Top>
+          <Title>訂單摘要</Title>
+        </Top>
+        <Count>
+          <Wrapper>
+            <TotalAmountTitle>商品總計</TotalAmountTitle>
 
-          <TotalAmount>{formatter.format(price)}</TotalAmount>
-        </Wrapper>
-        <Wrapper>
-          <TotalAmountTitle>運費總計</TotalAmountTitle>
-          <TotalAmount>NTD 0</TotalAmount>
-        </Wrapper>
-        <Hr />
-        <Wrapper>
-          <TotalAmountTitle>總共金額</TotalAmountTitle>
-          <TotalAmount> {formatter.format(price)}</TotalAmount>
-        </Wrapper>
-        <ActionButton
-          $margin={0}
-          style={{ background: "#b6deea" }}
-          onClick={() => handlePay()}
-        >
-          前往結帳
-        </ActionButton>
-      </Count>
-    </Container>
+            <TotalAmount>{formatter.format(price)}</TotalAmount>
+          </Wrapper>
+          <Wrapper>
+            <TotalAmountTitle>運費總計</TotalAmountTitle>
+            <TotalAmount>NTD 0</TotalAmount>
+          </Wrapper>
+          <Hr />
+          <Wrapper>
+            <TotalAmountTitle>總共金額</TotalAmountTitle>
+            <TotalAmount> {formatter.format(price)}</TotalAmount>
+          </Wrapper>
+          <ActionButton
+            $margin={0}
+            style={{ background: "#b6deea" }}
+            onClick={() => handlePay(productId[0])}
+          >
+            前往結帳
+          </ActionButton>
+        </Count>
+      </Container>
     </>
   );
 }

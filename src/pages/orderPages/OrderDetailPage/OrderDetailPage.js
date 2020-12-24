@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { ThickNavPage } from "../../../components/Page";
 import { NormalButton } from "../../../components/Button";
-import { useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { LoopCircleLoading } from "react-loadingg";
 import {
@@ -16,7 +16,7 @@ import {
   MEDIA_QUERY_MD,
   DISTANCE,
 } from "../../../constants/style";
-import Modal from "../../../components/orderSystem/Modal"
+import Modal from "../../../components/orderSystem/Modal";
 const Title = styled.p`
   color: ${COLOR.black};
   font-size: ${FONT.lg};
@@ -254,7 +254,7 @@ const OrderDetailPage = () => {
   useEffect(() => {
     dispatch(getDetailOrder(id));
     dispatch(getUser());
-  }, [dispatch,id]);
+  }, [dispatch, id]);
   return (
     <>
       {mask && <Modal />}
@@ -406,7 +406,7 @@ const OrderDetailPage = () => {
                     取消訂單
                   </NormalButton>
                 )}
-                { user &&  (sellerId == user.userId) && (
+                {user && sellerId == user.userId && (
                   <>
                     {detailOrder && is_sent[0] ? (
                       <Button>完成出貨</Button>
@@ -428,7 +428,7 @@ const OrderDetailPage = () => {
                       </NormalButton>
                     )}
                   </>
-                ) }
+                )}
               </OrderButtonSection>
               <Section>
                 <LineWrapper>
