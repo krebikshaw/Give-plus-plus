@@ -41,11 +41,6 @@ export default function Pagination({ propsFunction, propsParams }) {
   }, [currentPage]);
 
   useEffect(() => {
-    if (totalPages <= 5)
-      setPageList(Array.from({ length: totalPages }, (_, i) => i + 1));
-  }, [totalPages]);
-
-  useEffect(() => {
     setPageList(() => {
       if (totalPages <= 5)
         return Array.from({ length: totalPages }, (_, i) => i + 1);
