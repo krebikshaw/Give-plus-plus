@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import useUser from '../../hooks/userHooks/useUser';
+import useSet from '../../hooks/userHooks/useSet';
 import { WrapperMask } from '../userSystem';
 import { COLOR, FONT, DISTANCE } from '../../constants/style';
 import { InputComponent } from '../../components/Input';
@@ -53,65 +53,22 @@ const ErrorMessage = styled.p`
 `;
 
 export default function SetPassword({ setSuccessMode, setIsSettingPassword }) {
-  const { handleUpdatePassword } = useUser();
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [submitError, setSubmitError] = useState('');
-  const [shownOldPassword, setShownOldPassword] = useState(false);
-  const [shownNewPassword, setShownNewPassword] = useState(false);
-  const [shownConfirmPassword, setShownConfirmPassword] = useState(false);
-
-  const handleSubmit = () => {
-    setSubmitError('');
-    if (
-      !oldPassword ||
-      !newPassword ||
-      !confirmPassword ||
-      !oldPassword.trim() ||
-      !newPassword.trim() ||
-      !confirmPassword.trim()
-    )
-      return setSubmitError('請填滿欄位');
-    if (newPassword !== confirmPassword) {
-      setNewPassword('');
-      setConfirmPassword('');
-      return setSubmitError('密碼不一致');
-    }
-    const data = {
-      oldPassword,
-      newPassword,
-      confirmPassword,
-    };
-    handleUpdatePassword(data).then((result) => {
-      if (
-        result &&
-        result.ok === 0 &&
-        result.message === 'Invalid oldPassword'
-      ) {
-        setOldPassword('');
-        return setSubmitError('舊密碼錯誤');
-      }
-      if (
-        result &&
-        result.ok === 0 &&
-        result.message === 'oldPassword and newPassword cannot be the same'
-      ) {
-        setOldPassword('');
-        setNewPassword('');
-        setConfirmPassword('');
-        return setSubmitError('請勿設定與原先相同的密碼');
-      }
-      setSuccessMode(true);
-      setIsSettingPassword(false);
-    });
-  };
-  const handleToggleShownOldPassword = () =>
-    setShownOldPassword(!shownOldPassword);
-  const handleToggleShownNewPassword = () =>
-    setShownNewPassword(!shownNewPassword);
-  const handleToggleShownConfirmPassword = () =>
-    setShownConfirmPassword(!shownConfirmPassword);
+  const {
+    oldPassword,
+    newPassword,
+    confirmPassword,
+    submitError,
+    shownOldPassword,
+    shownNewPassword,
+    shownConfirmPassword,
+    setOldPassword,
+    setNewPassword,
+    setConfirmPassword,
+    handleSubmitSetPassword,
+    handleToggleShownConfirmPassword,
+    handleToggleShownNewPassword,
+    handleToggleShownOldPassword,
+  } = useSet();
 
   return (
     <WrapperMask>
@@ -170,7 +127,12 @@ export default function SetPassword({ setSuccessMode, setIsSettingPassword }) {
         </InputItem>
         {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
         <TwoButton>
-          <ActionButton $margin={0} onClick={handleSubmit}>
+          <ActionButton
+            $margin={0}
+            onClick={() =>
+              handleSubmitSetPassword(setSuccessMode, setIsSettingPassword)
+            }
+          >
             送出
           </ActionButton>
           <ActionButton $bg={'red'} onClick={() => setIsSettingPassword(false)}>

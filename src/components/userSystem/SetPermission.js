@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useUser from '../../hooks/userHooks/useUser';
+import useSet from '../../hooks/userHooks/useSet';
 import { COLOR, FONT, DISTANCE, EFFECT } from '../../constants/style';
 import { ActionButton } from '../../components/Button';
-import { useNavigate } from 'react-router-dom';
 
 const SetPermissionContainer = styled.div`
   display: flex;
@@ -66,23 +66,14 @@ const PermissionSelector = ({ permissionState, setPermissionState }) => {
 };
 
 export default function SetPermission({ setSuccessMode }) {
-  const navigate = useNavigate();
-  const { user, handleUpdatePermission } = useUser();
-  const [permissionState, setPermissionState] = useState(0);
-  const [permissionError, setPermissionError] = useState('');
+  const { user } = useUser();
+  const {
+    permissionState,
+    permissionError,
+    setPermissionState,
+    handleSubmitSetPermission,
+  } = useSet();
 
-  const handleSubmit = () => {
-    setPermissionError('');
-    const data = {
-      id: user.id,
-      status: permissionState,
-    };
-    handleUpdatePermission(data).then((result) => {
-      if (result) return;
-      setSuccessMode(true);
-      navigate(-1);
-    });
-  };
   useEffect(() => {
     setPermissionState(user.status);
   }, [user]);
@@ -100,7 +91,10 @@ export default function SetPermission({ setSuccessMode }) {
           />
           {permissionError && <ErrorMessage>{permissionError}</ErrorMessage>}
         </FontWrapper>
-        <ActionButton onClick={handleSubmit} $bg={'red'}>
+        <ActionButton
+          onClick={() => handleSubmitSetPermission(setSuccessMode)}
+          $bg={'red'}
+        >
           送出
         </ActionButton>
       </SetPermissionContainer>
