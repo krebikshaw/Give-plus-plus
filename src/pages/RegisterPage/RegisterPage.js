@@ -97,6 +97,7 @@ const RegisterPage = () => {
               <RuleLink
                 target="_blank"
                 to={'/rules'}
+                className='rules_link'
                 children={'資料使用政策與使用條款'}
               />
             </Description>
@@ -106,7 +107,7 @@ const RegisterPage = () => {
             ) : (
               <>
                 <ErrorMessage>{errorMessage}</ErrorMessage>
-                <JoinButton onClick={handleRegister}>註冊</JoinButton>
+                <JoinButton id="register_button" onClick={handleRegister}>註冊</JoinButton>
               </>
             )}
           </Form>
