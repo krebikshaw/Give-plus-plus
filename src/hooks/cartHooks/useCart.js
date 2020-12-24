@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import useOrder from "../orderHooks/useOrder";
 import {
   selectCart,
   selectError,
@@ -29,12 +30,16 @@ import {
   setComplete,
   createOrder,
   getCartItem,
+  setQuantity,
+  setHasAdd,
+  addCartItem,
 } from "../../redux/slices/cartSlice/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../redux/slices/orderSlice/orderSlice";
 import { getProduct } from "../../redux/slices/productSlice/productSlice";
 
 export default function useCart() {
+  const { user } = useOrder();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formatter = new Intl.NumberFormat("zh-TW", {
@@ -159,7 +164,25 @@ export default function useCart() {
     dispatch(setIsPaying(false));
     dispatch(setChecked(false));
   };
-
+  const handleSelectQuantity = (e) => {
+    dispatch(setQuantity(e.target.value));
+  };
+  const handleAddProduct = (productId, quantity, userId) => {
+    dispatch(addCartItem(productId, quantity, userId)).then((res) => {
+      if (res.ok === 1 || quantity === 1) {
+        dispatch(setHasAdd(true));
+      }
+    });
+  };
+  const handleCloseAddProduct = () => {
+    dispatch(setHasAdd(false));
+    dispatch(setErrorMessage(false));
+  };
+  const handleAlert = () => {
+    if (!user) {
+      dispatch(setErrorMessage("請先登入再購買商品，謝謝"));
+    }
+  };
   return {
     update,
     isSelect,
@@ -196,5 +219,9 @@ export default function useCart() {
     handleGetCart,
     handleToCart,
     handleToHomePage,
+    handleSelectQuantity,
+    handleAddProduct,
+    handleCloseAddProduct,
+    handleAlert,
   };
 }

@@ -45,15 +45,15 @@ export default function useOrder() {
     (data) => Object.values(data)[11].cancelReason
   );
   const sellerId = detailOrder.map((data) => Object.values(data)[11].seller_id);
-  //console.log(cancelReason);
+
   const totalAmount = detailOrder.map(
     (data) => Object.values(data)[11].total_amount
   );
-  console.log(totalAmount);
+
   const seller_name = detailOrder.map(
     (data) => Object.values(data)[11].seller_name
   );
-  console.log(seller_name);
+
   const seller_email = detailOrder.map(
     (data) => Object.values(data)[11].seller_email
   );
