@@ -42,7 +42,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     window.scroll(0, 0);
-    handleGetProduct(id);
+    handleGetProduct(id, 1);
     return () => {
       dispatch(setProduct([]));
       dispatch(setProducts([]));

@@ -51,7 +51,8 @@ export default function useProduct() {
   const averageShippingTime = averageTime(products.length, products);
   const sort = useSelector(selectSort);
 
-  const handleGetProduct = (id) => {
+  const handleGetProduct = (id, page) => {
+    dispatch(setPage(page));
     dispatch(getProduct(id)).then((res) => {
       if (!res.product || Number(res.product.status) !== 1) {
         return navigate('/');
