@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useUser from '../../hooks/userHooks/useUser';
+import useSet from '../../hooks/userHooks/useSet';
 import { WrapperMask } from '../userSystem';
 import { COLOR, FONT, DISTANCE } from '../../constants/style';
 import { TextAreaComponent } from '../../components/Input';
@@ -40,17 +41,10 @@ const ErrorMessage = styled.p`
 `;
 
 export default function SetAnnouncement({ setIsSettingAnnouncement }) {
-  const { user, handleUpdateAnnouncement } = useUser();
+  const { user } = useUser();
+  const { handleSubmitSetAnnouncement } = useSet();
   const [value, setValue] = useState('');
   const [submitError, setSubmitError] = useState('');
-
-  const handleSubmit = () => {
-    setSubmitError('');
-    handleUpdateAnnouncement(value).then((result) => {
-      if (result) setSubmitError('編輯失敗');
-      setIsSettingAnnouncement(false);
-    });
-  };
 
   useEffect(() => {
     setValue(user.announcement);
@@ -68,7 +62,17 @@ export default function SetAnnouncement({ setIsSettingAnnouncement }) {
         />
         {submitError && <ErrorMessage>{submitError}</ErrorMessage>}
         <TwoButton>
-          <ActionButton onClick={handleSubmit}>送出</ActionButton>
+          <ActionButton
+            onClick={() =>
+              handleSubmitSetAnnouncement(
+                setIsSettingAnnouncement,
+                setSubmitError,
+                value
+              )
+            }
+          >
+            送出
+          </ActionButton>
           <ActionButton
             $bg={'red'}
             onClick={() => setIsSettingAnnouncement(false)}

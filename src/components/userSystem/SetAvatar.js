@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useUser from '../../hooks/userHooks/useUser';
+import useSet from '../../hooks/userHooks/useSet';
 import { WrapperMask } from '../userSystem';
 import { COLOR, FONT, DISTANCE, EFFECT } from '../../constants/style';
 import { ActionButton } from '../../components/Button';
@@ -104,37 +105,17 @@ const LoadingMask = styled.div`
 `;
 
 export default function SetAvatar({ setSuccessMode }) {
-  const { user, handleUploadAvatar } = useUser();
-  const [isCheckImage, setIsCheckImage] = useState(false);
-  const [uploadEvent, setUploadEvent] = useState(null);
-  const [uploadError, setUploadError] = useState('');
-  const [isLoadingUpload, setIsLoadingUpload] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState('https://i.imgur.com/uqZxFCm.png');
-
-  const handleChangeFile = (e) => {
-    setUploadEvent(e.target.files[0]);
-    const file = e.target.files.item(0);
-    const fileReader = new FileReader();
-    fileReader.addEventListener('load', (e) => {
-      setAvatarUrl(e.target.result);
-      setIsCheckImage(true);
-    });
-    fileReader.readAsDataURL(file);
-  };
-  const handleSubmit = () => {
-    setIsLoadingUpload(true);
-    setUploadError('');
-    handleUploadAvatar(uploadEvent).then((result) => {
-      if (result.ok === 0) return setUploadError(result.message);
-      setIsLoadingUpload(false);
-      setIsCheckImage(false);
-      setSuccessMode(true);
-    });
-  };
-  const handleCancel = () => {
-    setAvatarUrl(user.avatar_url);
-    setIsCheckImage(false);
-  };
+  const { user } = useUser();
+  const {
+    isCheckImage,
+    uploadError,
+    isLoadingUpload,
+    avatarUrl,
+    setAvatarUrl,
+    handleChangeFile,
+    handleSubmitSetAvatar,
+    handleCancelSetAvatar,
+  } = useSet();
 
   useEffect(() => {
     if (user.avatar_url) setAvatarUrl(user.avatar_url);
@@ -158,10 +139,17 @@ export default function SetAvatar({ setSuccessMode }) {
               <CheckAvatar src={avatarUrl} alt='圖片載入失敗' />
               {uploadError && <ErrorMessage>{uploadError}</ErrorMessage>}
               <TwoButton>
-                <ActionButton $margin={0} onClick={handleSubmit}>
+                <ActionButton
+                  $margin={0}
+                  onClick={() => handleSubmitSetAvatar(setSuccessMode)}
+                >
                   確定
                 </ActionButton>
-                <ActionButton $bg={'red'} $margin={0} onClick={handleCancel}>
+                <ActionButton
+                  $bg={'red'}
+                  $margin={0}
+                  onClick={() => handleCancelSetAvatar(setSuccessMode)}
+                >
                   取消
                 </ActionButton>
               </TwoButton>

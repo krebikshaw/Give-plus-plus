@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useUser from '../../hooks/userHooks/useUser';
+import useSet from '../../hooks/userHooks/useSet';
 import { WrapperMask } from '../userSystem';
 import { COLOR, FONT, DISTANCE, EFFECT } from '../../constants/style';
 import { ActionButton } from '../../components/Button';
@@ -104,39 +105,17 @@ const LoadingMask = styled.div`
 `;
 
 export default function SetBanner({ setSuccessMode }) {
-  const { user, handleUploadBanner } = useUser();
-  const [isCheckImage, setIsCheckImage] = useState(false);
-  const [uploadEvent, setUploadEvent] = useState(null);
-  const [uploadError, setUploadError] = useState('');
-  const [isLoadingUpload, setIsLoadingUpload] = useState(false);
-  const [bannerUrl, setBannerUrl] = useState(
-    'https://lh4.googleusercontent.com/sAvtic6WzLRcGC485d2irc6Q36VS9GaiIj2TjL9AkbD1t3RjwacfNkJmmUe9fh9c0WV-ZVKQcw=w1200'
-  );
-
-  const handleChangeFile = (e) => {
-    setUploadEvent(e.target.files[0]);
-    const file = e.target.files.item(0);
-    const fileReader = new FileReader();
-    fileReader.addEventListener('load', (e) => {
-      setBannerUrl(e.target.result);
-      setIsCheckImage(true);
-    });
-    fileReader.readAsDataURL(file);
-  };
-  const handleSubmit = () => {
-    setIsLoadingUpload(true);
-    setUploadError('');
-    handleUploadBanner(uploadEvent).then((result) => {
-      if (result.ok === 0) return setUploadError(result.message);
-      setIsLoadingUpload(false);
-      setIsCheckImage(false);
-      setSuccessMode(true);
-    });
-  };
-  const handleCancel = () => {
-    setBannerUrl(user.banner_url);
-    setIsCheckImage(false);
-  };
+  const { user } = useUser();
+  const {
+    isCheckImage,
+    uploadError,
+    isLoadingUpload,
+    bannerUrl,
+    setBannerUrl,
+    handleChangeBannerFile,
+    handleSubmitSetBanner,
+    handleCancelSetBanner,
+  } = useSet();
 
   useEffect(() => {
     if (user.banner_url) setBannerUrl(user.banner_url);
@@ -150,7 +129,7 @@ export default function SetBanner({ setSuccessMode }) {
           從電腦中選取圖檔<br></br>最佳大小為 250 x 1140px
         </Description>
         <Label>
-          <InputFile type='file' onChange={handleChangeFile} />
+          <InputFile type='file' onChange={handleChangeBannerFile} />
           選擇圖片
         </Label>
         {isCheckImage && (
@@ -160,10 +139,17 @@ export default function SetBanner({ setSuccessMode }) {
               <CheckBanner src={bannerUrl} alt='圖片載入失敗' />
               {uploadError && <ErrorMessage>{uploadError}</ErrorMessage>}
               <TwoButton>
-                <ActionButton $margin={0} onClick={handleSubmit}>
+                <ActionButton
+                  $margin={0}
+                  onClick={() => handleSubmitSetBanner(setSuccessMode)}
+                >
                   確定
                 </ActionButton>
-                <ActionButton $bg={'red'} $margin={0} onClick={handleCancel}>
+                <ActionButton
+                  $bg={'red'}
+                  $margin={0}
+                  onClick={() => handleCancelSetBanner(setSuccessMode)}
+                >
                   取消
                 </ActionButton>
               </TwoButton>

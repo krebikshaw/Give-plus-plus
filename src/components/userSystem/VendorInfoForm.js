@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useUser from '../../hooks/userHooks/useUser';
 import { SetQRCode } from '../userSystem/';
@@ -6,6 +6,7 @@ import { BirthdaySelector } from '../../components/userSystem';
 import { COLOR, FONT, DISTANCE } from '../../constants/style';
 import { InputComponent } from '../../components/Input';
 import { ActionButton } from '../../components/Button';
+import useVendorForm from '../../hooks/userHooks/useVendorForm';
 
 const FontWrapper = styled.form`
   margin: ${DISTANCE.md} 0;
@@ -30,47 +31,25 @@ const ErrorMessage = styled.span`
 `;
 
 export default function VendorInfoForm({ setSuccessMode, isAdminStatus }) {
-  const { user, handleUpdateUser, handleUpdateUserInfo } = useUser();
-  const [nickname, setNickname] = useState('');
-  const [idCardNumber, setIdCardNumber] = useState('');
-  const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
-  const [socialMediaId, setSocialMediaId] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [nicknameError, setNicknameError] = useState('');
-  const [idCardNumberError, setIdCardNumberError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [addressError, setAddressError] = useState('');
-  const [birthdayError, setBirthdayError] = useState('');
-
-  const handleSubmit = () => {
-    setNicknameError('');
-    setEmailError('');
-    setAddressError('');
-    setBirthdayError('');
-    const emailReg = /^([\w]+)(.[\w]+)*@([\w]+)(.[\w]{2,3}){1,2}$/;
-    if (nickname && !nickname.trim()) return setNicknameError('姓名格式錯誤');
-    if (email && email.search(emailReg) === -1)
-      return setEmailError('email 格式錯誤');
-    if (address && !address.trim()) return setAddressError('地址格式錯誤');
-    const data = {
-      nickname: nickname ? nickname : '',
-      id_card_no: idCardNumber ? idCardNumber : '',
-      email: email ? email : '',
-      address: address ? address : '',
-      birthday: birthday ? birthday : null,
-      socialmedia_id: socialMediaId ? socialMediaId : null,
-    };
-    if (isAdminStatus)
-      return handleUpdateUserInfo(user.id, data).then((result) => {
-        if (result) return;
-        setSuccessMode(true);
-      });
-    handleUpdateUser(data).then((result) => {
-      if (result) return;
-      setSuccessMode(true);
-    });
-  };
+  const { user } = useUser();
+  const {
+    nickname,
+    idCardNumber,
+    email,
+    address,
+    nicknameError,
+    idCardNumberError,
+    emailError,
+    addressError,
+    birthdayError,
+    setNickname,
+    setIdCardNumber,
+    setEmail,
+    setAddress,
+    setSocialMediaId,
+    setBirthday,
+    handleSubmit,
+  } = useVendorForm();
 
   useEffect(() => {
     setNickname(user.nickname ? user.nickname : '');
@@ -129,7 +108,10 @@ export default function VendorInfoForm({ setSuccessMode, isAdminStatus }) {
         <InputDescription>line QR-code</InputDescription>
         <SetQRCode setSocialMediaId={setSocialMediaId} />
       </FontWrapper>
-      <ActionButton onClick={handleSubmit} $margin={0}>
+      <ActionButton
+        onClick={() => handleSubmit(setSuccessMode, isAdminStatus)}
+        $margin={0}
+      >
         送出
       </ActionButton>
     </>

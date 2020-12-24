@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useAdmin from '../../hooks/adminHooks/useAdmin';
 import { EFFECT } from '../../constants/style';
@@ -26,16 +26,14 @@ const Selector = styled.select`
 const OptionComponent = styled.option``;
 
 export default function ExamineSelector({ product }) {
-  const [value, setValue] = useState('');
-  const [isChecked, setIsChecked] = useState(false);
-  const { handleUpdateProductStatus } = useAdmin();
-
-  const handleChangeSelector = (e) => {
-    setValue(e.target.value);
-    setIsChecked(true);
-    const status = e.target.value === '通過' ? '1' : '2';
-    handleUpdateProductStatus(product.id, status);
-  };
+  const {
+    value,
+    isChecked,
+    setValue,
+    setIsChecked,
+    handleUpdateProductStatus,
+    handleChangeSelector,
+  } = useAdmin();
 
   useEffect(() => {
     setValue(product.status);
@@ -43,7 +41,11 @@ export default function ExamineSelector({ product }) {
 
   return (
     <ExamineContainer>
-      <Selector onChange={handleChangeSelector} value={value} $bg={value}>
+      <Selector
+        onChange={(e) => handleChangeSelector(e, product)}
+        value={value}
+        $bg={value}
+      >
         {!isChecked && <OptionComponent>待審查</OptionComponent>}
         <OptionComponent>通過</OptionComponent>
         <OptionComponent>未通過</OptionComponent>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SearchBar } from '../../components/adminSystem';
 import styled from 'styled-components';
 import useAdmin from '../../hooks/adminHooks/useAdmin';
@@ -79,30 +79,18 @@ const UsersItem = ({ user }) => {
 };
 
 export default function ManageUsers() {
-  const { users, handleGetUsers, handleSearchUsers } = useAdmin();
-  const [isSearch, setIsSearch] = useState(false);
-  const [keyword, setKeyword] = useState('');
-  const [params, setParams] = useState({
-    sort: 'createdAt',
-    order: 'DESC',
-  });
-
-  const handleSearch = (value) => {
-    setKeyword(value);
-    setIsSearch(true);
-    setParams({
-      ...params,
-      keyword: value ? value : keyword,
-    });
-    handleSearchUsers({
-      ...params,
-      keyword: value ? value : keyword,
-    });
-  };
+  const {
+    users,
+    isSearch,
+    params,
+    handleSearchingUsers,
+    handleGetUsers,
+    handleSearchUsers,
+  } = useAdmin();
 
   return (
     <>
-      <SearchBar handleSearch={handleSearch} />
+      <SearchBar handleSearch={handleSearchingUsers} />
       <ExamineUserContainer>
         <UsersTable>
           <UsersThead>

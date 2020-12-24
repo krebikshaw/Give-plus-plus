@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import useUser from '../../hooks/userHooks/useUser';
+import useSet from '../../hooks/userHooks/useSet';
 import { COLOR, FONT, DISTANCE, EFFECT } from '../../constants/style';
 
 const SetAvatarContainer = styled.div`
@@ -46,21 +47,8 @@ const InputFile = styled.input`
 `;
 
 export default function SetQRCode({ setSocialMediaId }) {
-  const { user, handleUploadQRCode } = useUser();
-  const [qrCodeUrl, setQrCodeUrl] = useState('https://i.imgur.com/uqZxFCm.png');
-
-  const handleChangeFile = (e) => {
-    const uploadEvent = e.target.files[0];
-    const file = e.target.files.item(0);
-    const fileReader = new FileReader();
-    fileReader.addEventListener('load', (e) => {
-      setQrCodeUrl(e.target.result);
-      handleUploadQRCode(uploadEvent).then((result) =>
-        setSocialMediaId(result)
-      );
-    });
-    fileReader.readAsDataURL(file);
-  };
+  const { user } = useUser();
+  const { qrCodeUrl, setQrCodeUrl, handleChangeQRCodeFile } = useSet();
 
   useEffect(() => {
     if (user.socialmedia_id) setQrCodeUrl(user.socialmedia_id);
@@ -74,7 +62,10 @@ export default function SetQRCode({ setSocialMediaId }) {
           從電腦中選取圖檔<br></br>上傳 QR-Code
         </Description>
         <Label>
-          <InputFile type='file' onChange={handleChangeFile} />
+          <InputFile
+            type='file'
+            onChange={(e) => handleChangeQRCodeFile(e, setSocialMediaId)}
+          />
           上傳檔案
         </Label>
       </RightSide>
