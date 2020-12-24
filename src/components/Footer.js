@@ -65,16 +65,13 @@ const Footer = () => {
         <Nav to={'/contact'} children={'聯絡我們'} />
         <Items>
           <Item>
-            <IconComponent kind={'facebook'} />
-          </Item>
-          <Item>
-            <IconComponent kind={'twitter'} />
-          </Item>
-          <Item>
-            <IconComponent kind={'line'} />
-          </Item>
-          <Item>
-            <IconComponent kind={'github'} />
+            <a
+              target='_blank'
+              rel='noreferrer'
+              href='https://github.com/krebikshaw/second-hand-trading-platform-frontend'
+            >
+              <IconComponent kind={'github'} />
+            </a>
           </Item>
         </Items>
       </FooterItems>
