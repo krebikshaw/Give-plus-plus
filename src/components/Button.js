@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { COLOR, FONT, EFFECT } from '../constants/style';
 import IconComponent from './Icon';
 

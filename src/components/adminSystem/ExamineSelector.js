@@ -30,8 +30,6 @@ export default function ExamineSelector({ product }) {
     value,
     isChecked,
     setValue,
-    setIsChecked,
-    handleUpdateProductStatus,
     handleChangeSelector,
   } = useAdmin();
 

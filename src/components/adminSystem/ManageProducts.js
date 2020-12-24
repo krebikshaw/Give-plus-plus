@@ -38,11 +38,6 @@ const ProductImage = styled.img`
   min-height: 80px;
 `;
 
-const BottomContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
 const ProductsItem = ({ product }) => {
   const { setThousandths } = useAdmin();
 

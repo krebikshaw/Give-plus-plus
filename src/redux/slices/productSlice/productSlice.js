@@ -10,7 +10,6 @@ import {
   postProductAPI,
   updateProductAPI,
   deleteProductAPI,
-  postPictureAPI,
 } from '../../../webAPI/productAPI';
 
 export const productSlice = createSlice({
