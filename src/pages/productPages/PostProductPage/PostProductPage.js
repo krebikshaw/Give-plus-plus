@@ -31,7 +31,6 @@ const PostProductPage = () => {
     setProductInfo,
     setProductCategory,
     setProductPrice,
-    setProductPictureUrl,
     setDeliveryTime,
     setDeliveryLocation,
     setDelivery,
