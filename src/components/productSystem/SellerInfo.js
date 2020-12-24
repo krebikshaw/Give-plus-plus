@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { COLOR, FONT, DISTANCE } from '../../constants/style';
 import { ActionButton, NormalButton } from '../../components/Button';
 import useProduct from '../../hooks/productHooks/useProduct';
-import { VendorContactComponent } from '../../components/productSystem';
+import { VendorContact } from '../../components/productSystem';
 
 const InfoBlock = styled.section`
   display: flex;
@@ -161,9 +161,7 @@ const InfoRight = ({ email }) => {
       <ContactInfo>
         <ContactInfoTitle>聯絡資訊</ContactInfoTitle>
         <NormalButton onClick={handleClick}>聯絡賣家</NormalButton>
-        {isShowContact && (
-          <VendorContactComponent setIsShowContact={setIsShowContact} />
-        )}
+        {isShowContact && <VendorContact setIsShowContact={setIsShowContact} />}
       </ContactInfo>
       <Email>{email}</Email>
     </ContactContainer>

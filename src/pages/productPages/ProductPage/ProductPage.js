@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { StandardNavPage } from '../../../components/Page';
 import styled from 'styled-components';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import useProduct from '../../../hooks/productHooks/useProduct';
 import { useDispatch } from 'react-redux';
 import {
@@ -28,7 +28,6 @@ const PurchaseInfo = styled.section`
 `;
 
 const ProductPage = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
   const {

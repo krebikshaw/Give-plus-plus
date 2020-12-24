@@ -10,6 +10,7 @@ import {
   postProductAPI,
   updateProductAPI,
   deleteProductAPI,
+  postPictureAPI,
 } from '../../../webAPI/productAPI';
 
 export const productSlice = createSlice({
@@ -229,6 +230,12 @@ export const updateProduct = (
 export const deleteProduct = (id) => (_) => {
   return deleteProductAPI(id).then((res) => res.message);
 };
+
+// export const postPicture = (formData) => (_) => {
+//   return postPictureAPI(formData).then((res) => {
+//     return res;
+//   });
+// };
 
 export const selectProductCategories = (state) => state.product.categories;
 export const selectProducts = (state) => state.product.products;

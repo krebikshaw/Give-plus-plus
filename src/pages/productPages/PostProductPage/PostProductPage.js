@@ -51,6 +51,7 @@ const PostProductPage = () => {
     handleSubmitAddForm,
     productPictureUrl,
     deliveryLocation,
+    handleChangePicture,
   } = useProductFrom();
 
   useEffect(() => {
@@ -88,7 +89,7 @@ const PostProductPage = () => {
             type={'picture'}
             errorMessage={'請選擇商品照片'}
             productPictureUrl={productPictureUrl}
-            setProductPictureUrl={setProductPictureUrl}
+            handleChange={handleChangePicture}
           />
 
           <InputItem
