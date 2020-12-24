@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
 import {
   selectUsers,
   selectProducts,
@@ -13,10 +14,11 @@ import {
   searchProducts,
   getMails,
 } from '../../redux/slices/adminSlice/adminSlice';
-import { getMailsAPI } from '../../webAPI/adminAPI';
 
 export default function useAdmin() {
   const dispatch = useDispatch();
+  const [value, setValue] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
   const users = useSelector(selectUsers);
   const products = useSelector(selectProducts);
   const count = useSelector(selectCount);
@@ -36,6 +38,13 @@ export default function useAdmin() {
   const handleSearchProducts = (params) =>
     dispatch(searchProducts(params)).then((result) => result);
   const handleGetMails = () => dispatch(getMails()).then((result) => result);
+
+  const handleChangeSelector = (e, product) => {
+    setValue(e.target.value);
+    setIsChecked(true);
+    const status = e.target.value === '通過' ? '1' : '2';
+    handleUpdateProductStatus(product.id, status);
+  };
 
   const formatter = new Intl.NumberFormat('zh-TW', {
     style: 'currency',
@@ -59,5 +68,10 @@ export default function useAdmin() {
     handleSearchProducts,
     handleGetMails,
     setThousandths,
+    value,
+    isChecked,
+    setValue,
+    setIsChecked,
+    handleChangeSelector,
   };
 }
