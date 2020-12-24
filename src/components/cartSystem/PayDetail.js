@@ -59,6 +59,12 @@ const Title = styled.p`
   font-size: ${FONT.sm};
   letter-spacing: 1px;
 `;
+const RadioTitle = styled.label`
+  color: ${COLOR.text_2};
+  font-size: ${FONT.sm};
+  letter-spacing: 1px;
+  cursor: pointer;
+`;
 const UpdateTitle = styled.p`
   color: ${COLOR.text_2};
   font-size: ${FONT.sm};
@@ -308,16 +314,34 @@ export default function PayDetail({cart}) {
             <Title>付款方式</Title>
             <Hr />
             <PayWrapper>
-              <Radio type="radio" name="radio" onClick={handlePayWay}></Radio>
-              <Title>面交時付款</Title>
+              <Radio
+                type="radio"
+                name="radio"
+                id="面交時付款"
+                value="面交時付款"
+                onClick={handlePayWay}
+              ></Radio>
+              <RadioTitle for="面交時付款">面交時付款</RadioTitle>
             </PayWrapper>
             <PayWrapper>
-              <Radio type="radio" name="radio" onClick={handlePayWay}></Radio>
-              <Title>超商取貨付款</Title>
+              <Radio
+                type="radio"
+                name="radio"
+                id="超商取貨付款"
+                value="超商取貨付款"
+                onClick={handlePayWay}
+              ></Radio>
+              <RadioTitle for="超商取貨付款">超商取貨付款</RadioTitle>
             </PayWrapper>
             <PayWrapper>
-              <Radio type="radio" name="radio" onClick={handlePayWay}></Radio>
-              <Title>Apple Pay</Title>
+              <Radio
+                type="radio"
+                name="radio"
+                id="Apple Pay"
+                value="Apple Pay"
+                onClick={handlePayWay}
+              ></Radio>
+              <RadioTitle for="Apple Pay">Apple Pay</RadioTitle>
             </PayWrapper>
             <ActionButton
               $margin={0}
