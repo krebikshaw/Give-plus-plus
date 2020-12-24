@@ -77,7 +77,8 @@ export default function useProduct() {
 
   const handleGetProductCategories = () => dispatch(getProductCategories());
 
-  const handleGetSearchProduct = (keyword) => {
+  const handleGetSearchProduct = (keyword, page) => {
+    dispatch(setPage(page));
     dispatch(searchProduct(keyword, page));
   };
 
@@ -85,7 +86,8 @@ export default function useProduct() {
     dispatch(getProductsFromCategory(id, 1));
   };
 
-  const handleGetProductsFromVendor = (id) => {
+  const handleGetProductsFromVendor = (id, page) => {
+    dispatch(setPage(page));
     dispatch(getProductsFromVendor(id, page, 10)).then((res) => {
       if (res === '非賣家') navigate('/');
     });
@@ -97,11 +99,13 @@ export default function useProduct() {
   };
 
   const handleSearchProductMoreButton = (keyword) => {
-    dispatch(searchProduct(keyword, page, sort));
+    dispatch(setPage(page + 1));
+    dispatch(searchProduct(keyword, page + 1, sort));
   };
 
   const handleVendorProductMoreButton = (id) => {
-    dispatch(getProductsFromVendor(id, page, 10)).then((res) => {
+    dispatch(setPage(page + 1));
+    dispatch(getProductsFromVendor(id, page + 1, 10)).then((res) => {
       if (res === '非賣家') navigate('/');
     });
   };
@@ -128,6 +132,7 @@ export default function useProduct() {
     loaded,
     setLoaded,
     onLoad,
+    setPage,
     setProducts,
     vendorInfo,
     productCategories,

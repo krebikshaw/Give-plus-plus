@@ -1,11 +1,11 @@
 import { COLOR, FONT, DISTANCE } from '../../constants/style';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from "react-redux";
-import useOrder from "../../hooks/orderHooks/useOrder";
-import useCart from "../../hooks/cartHooks/useCart";
+import { useDispatch } from 'react-redux';
+import useOrder from '../../hooks/orderHooks/useOrder';
+import useCart from '../../hooks/cartHooks/useCart';
 import { ActionButton } from '../../components/Button';
-import { IconComponent } from "../../components";
+import { IconComponent } from '../../components';
 import { InfoBlock } from '../../components/productSystem';
 import {
   addCartItem,
@@ -13,8 +13,8 @@ import {
   setHasAdd,
   setErrorMessage,
   getCartItem,
-} from "../../redux/slices/cartSlice/cartSlice";
-import { getUser } from "../../redux/slices/orderSlice/orderSlice";
+} from '../../redux/slices/cartSlice/cartSlice';
+import { getUser } from '../../redux/slices/orderSlice/orderSlice';
 const ProductName = styled.div`
   width: 500px;
   word-break: break-all;
@@ -57,6 +57,16 @@ const ProductCountSelect = styled.select`
   background-image: url(data:image/svg+xml,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath class='color' d='M0 0h10L5 6z' fill='%23D3D3D5' fill-rule='evenodd'/%3E%3C/svg%3E%0A);
 }
 `;
+
+const SoldOutMessage = styled.div`
+  margin-top: ${(props) => props.$margin || '0px'};
+  display: flex;
+  align-items: center;
+  font-size: ${FONT.lg};
+  font-weight: bold;
+  color: ${COLOR.hover};
+`;
+
 const Modal = styled.div`
   position: fixed;
   top: 0;
@@ -106,16 +116,23 @@ const Options = ({ quantity }) => {
 const ProductQuantitySelector = ({ quantity }) => {
   const dispatch = useDispatch();
   const handleSelectQuantity = (e) => {
-    dispatch(setQuantity(e.target.value))
-
+    dispatch(setQuantity(e.target.value));
   };
   return (
-    <ProductQuantityContainer>
-      <label>數量</label>
-      <ProductCountSelect  onChange={handleSelectQuantity}>
-        <Options quantity={quantity} />
-      </ProductCountSelect>
-    </ProductQuantityContainer>
+    <>
+      {quantity > 0 ? (
+        <ProductQuantityContainer>
+          <label>數量</label>
+          <ProductCountSelect onChange={handleSelectQuantity}>
+            <Options quantity={quantity} />
+          </ProductCountSelect>
+        </ProductQuantityContainer>
+      ) : (
+        <ProductQuantityContainer>
+          <SoldOutMessage>已售出</SoldOutMessage>
+        </ProductQuantityContainer>
+      )}
+    </>
   );
 };
 
@@ -152,24 +169,21 @@ export const ProductInfo = ({ product }) => {
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
-   
+
   const handleAddProduct = (productId, quantity, userId) => {
-    
     dispatch(addCartItem(productId, quantity, userId)).then((res) => {
       if (res.ok === 1 || quantity === 1) {
         dispatch(setHasAdd(true));
       }
-    })
-     
-
+    });
   };
   const handleClose = () => {
     dispatch(setHasAdd(false));
     dispatch(setErrorMessage(false));
-  }
+  };
   const handleAlert = () => {
     if (!user) {
-      dispatch(setErrorMessage("請先登入再購買商品，謝謝"));
+      dispatch(setErrorMessage('請先登入再購買商品，謝謝'));
     }
   };
 
@@ -179,7 +193,7 @@ export const ProductInfo = ({ product }) => {
         <Modal>
           <Form>
             <IconContainer onClick={handleClose}>
-              <IconComponent kind={"close-black"} />
+              <IconComponent kind={'close-black'} />
             </IconContainer>
             {errorMessage}
           </Form>
@@ -189,19 +203,19 @@ export const ProductInfo = ({ product }) => {
         <Modal>
           <Form>
             <IconContainer onClick={handleClose}>
-              <IconComponent kind={"close-black"} />
+              <IconComponent kind={'close-black'} />
             </IconContainer>
             商品已成功加入購物車囉！
           </Form>
         </Modal>
       )}
-      <ProductName>{product.name || "商品載入中..."}</ProductName>
+      <ProductName>{product.name || '商品載入中...'}</ProductName>
       <ProductPrice>{formatter.format(product.price)}</ProductPrice>
       <ProductQuantitySelector quantity={product.quantity} />
       {user ? (
         <ShoppingCart
           $margin={0}
-          $size={"lg"}
+          $size={'lg'}
           onClick={() =>
             handleAddProduct(product.id, SelectQuantity, user.userId)
           }
@@ -209,11 +223,7 @@ export const ProductInfo = ({ product }) => {
           放 入 購 物 車
         </ShoppingCart>
       ) : (
-        <ShoppingCart
-          $margin={0}
-          $size={"lg"}
-          onClick={handleAlert}
-        >
+        <ShoppingCart $margin={0} $size={'lg'} onClick={handleAlert}>
           放 入 購 物 車
         </ShoppingCart>
       )}
