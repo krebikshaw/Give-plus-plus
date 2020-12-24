@@ -14,7 +14,7 @@ function changeProductSort(queue) {
       break;
     default:
       sort = 'id';
-      order = 'ASC';
+      order = 'DESC';
   }
   return { sort, order };
 }

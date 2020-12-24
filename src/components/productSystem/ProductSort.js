@@ -1,5 +1,5 @@
-import { COLOR, FONT } from "../../constants/style";
-import styled from "styled-components";
+import { COLOR, FONT } from '../../constants/style';
+import styled from 'styled-components';
 
 const ProductSelect = styled.div`
   display: flex;
@@ -25,10 +25,10 @@ export const ProductSort = ({ id, handleChangeProductSort }) => {
   return (
     <ProductSelect>
       <SortName>排序</SortName>
-      <Select onChange={(e) => handleChangeProductSort(id, e.target.value)}>
-        <option value={"latest"}>最新上架</option>
-        <option value={"lowToHight"}>價格低到高</option>
-        <option value={"hightToLow"}>價格高到低</option>
+      <Select onChange={(e) => handleChangeProductSort(id, e.target.value, 1)}>
+        <option value={'latest'}>最新上架</option>
+        <option value={'lowToHight'}>價格低到高</option>
+        <option value={'hightToLow'}>價格高到低</option>
       </Select>
     </ProductSelect>
   );
