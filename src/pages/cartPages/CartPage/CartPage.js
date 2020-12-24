@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
 import {
   COLOR,
   FONT,
   MEDIA_QUERY_MD,
   DISTANCE,
-} from "../../../constants/style";
-import { ThickNavPage } from "../../../components/Page";
-import { IconComponent } from "../../../components";
-import CartItem from "../../../components/cartSystem/CartItem";
-import OrderPrice from "../../../components/cartSystem/OrderPrice";
-import PayDetail from "../../../components/cartSystem/PayDetail.js";
+} from '../../../constants/style';
+import { ThickNavPage } from '../../../components/Page';
+import { IconComponent } from '../../../components';
+import CartItem from '../../../components/cartSystem/CartItem';
+import OrderPrice from '../../../components/cartSystem/OrderPrice';
+import PayDetail from '../../../components/cartSystem/PayDetail.js';
 
-import { LoopCircleLoading } from "react-loadingg";
-import { getCartItem } from "../../../redux/slices/cartSlice/cartSlice";
-import useCart from "../../../hooks/cartHooks/useCart";
+import { LoopCircleLoading } from 'react-loadingg';
+import { getCartItem } from '../../../redux/slices/cartSlice/cartSlice';
+import useCart from '../../../hooks/cartHooks/useCart';
 const Title = styled.p`
   color: ${COLOR.text_2};
   font-size: ${FONT.lg};
@@ -77,7 +77,7 @@ const CartPage = () => {
           {isPaying && checked ? (
             <Wrapper>
               <IconWrapper onClick={() => handleToCart()}>
-                <IconComponent kind={"left-blue"} $margin={0} />
+                <IconComponent kind={'left-blue'} $margin={0} />
               </IconWrapper>
               <PayTitle>返回購物車</PayTitle>
             </Wrapper>
@@ -88,9 +88,9 @@ const CartPage = () => {
             carts
               .filter((cart) => {
                 switch (filter) {
-                  case "all":
+                  case 'all':
                     return true;
-                  case "select":
+                  case 'select':
                     return cart.cartDetail[0].sellerId === isSelect;
                   default:
                     return true;
