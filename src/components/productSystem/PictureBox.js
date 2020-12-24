@@ -45,21 +45,7 @@ const InputFile = styled.input`
   display: none;
 `;
 
-export function PictureBox({ pictureUrl, setPictureUrl }) {
-  const handleChangeFile = (e) => {
-    const formData = new FormData();
-    formData.append('image', e.target.files[0]);
-    fetch('https://api.imgur.com/3/image', {
-      method: 'POST',
-      headers: {
-        Authorization: 'Client-ID 4610c48a0c55b2a',
-      },
-      body: formData,
-    })
-      .then((data) => data.json())
-      .then((data) => setPictureUrl(data.data.link));
-  };
-
+export function PictureBox({ pictureUrl, handleChange }) {
   return (
     <SetPictureContainer>
       <PreviewPicture src={pictureUrl} alt='圖片載入失敗' />
@@ -70,7 +56,7 @@ export function PictureBox({ pictureUrl, setPictureUrl }) {
           最佳大小為 600px x 600px
         </Description>
         <Label>
-          <InputFile type='file' onChange={handleChangeFile} />
+          <InputFile type='file' onChange={handleChange} />
           選擇圖片
         </Label>
       </RightSide>

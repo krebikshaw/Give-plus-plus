@@ -1,6 +1,5 @@
 import { COLOR, FONT, DISTANCE } from '../../constants/style';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
 import useProduct from '../../hooks/productHooks/useProduct';
 
 const ProductPictureContainer = styled.div`

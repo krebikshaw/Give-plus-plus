@@ -78,7 +78,7 @@ export const InputItem = ({
       {type === 'picture' && (
         <PictureBox
           pictureUrl={productPictureUrl}
-          setPictureUrl={setProductPictureUrl}
+          handleChange={handleChange}
         />
       )}
 

@@ -1,5 +1,5 @@
 import { COLOR, FONT, DISTANCE } from '../../constants/style';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import useOrder from '../../hooks/orderHooks/useOrder';

@@ -141,6 +141,16 @@ const deleteProductAPI = (id) => {
   }).then((res) => res.json());
 };
 
+const postPictureAPI = (formData) => {
+  return fetch('https://api.imgur.com/3/image', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Client-ID 4610c48a0c55b2a',
+    },
+    body: formData,
+  }).then((res) => res.json());
+};
+
 export {
   getProductsAPI,
   getProductCategoriesAPI,
@@ -151,4 +161,5 @@ export {
   postProductAPI,
   updateProductAPI,
   deleteProductAPI,
+  postPictureAPI,
 };

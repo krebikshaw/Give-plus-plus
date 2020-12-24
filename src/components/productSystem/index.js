@@ -17,9 +17,9 @@ import { ProductInfo } from './ProductInfo';
 import { VendorIntro } from './VendorIntro';
 import { PurchaseInfoRight } from './PurchaseInfoRight';
 import { VendorInfo } from './VendorInfo';
-import { VendorContactComponent } from './VendorContactComponent';
+import { VendorContact } from './VendorContact';
 import { ButtonsBox } from './ButtonsBox';
-import { InputItem } from './InputItem'
+import { InputItem } from './InputItem';
 export {
   Banner,
   ButtonsBox,
@@ -40,5 +40,5 @@ export {
   VendorIntro,
   PurchaseInfoRight,
   VendorInfo,
-  VendorContactComponent,
+  VendorContact,
 };

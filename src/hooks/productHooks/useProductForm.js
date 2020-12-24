@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { postPictureAPI } from '../../webAPI/productAPI';
 import {
   postProduct,
   updateProduct,
@@ -169,6 +170,12 @@ export default function useProductForm(id) {
     }
   };
 
+  const handleChangePicture = (e) => {
+    const formData = new FormData();
+    formData.append('image', e.target.files[0]);
+    postPictureAPI(formData).then((res) => setProductPictureUrl(res.data.link));
+  };
+
   return {
     changeProductValue,
     productCategory,
@@ -205,5 +212,6 @@ export default function useProductForm(id) {
     hasProductQuantity,
     handleSubmitAddForm,
     handleSubmitEditForm,
+    handleChangePicture,
   };
 }

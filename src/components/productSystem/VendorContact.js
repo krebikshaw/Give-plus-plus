@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import useProduct from '../../hooks/productHooks/useProduct';
-import { WrapperMask } from '../../components/userSystem';
+import { WrapperMask } from '../userSystem';
 import { COLOR, FONT, DISTANCE } from '../../constants/style';
-import { IconComponent } from '../../components';
+import { IconComponent } from '..';
 
 const VendorContactContainer = styled.div`
   position: fixed;
@@ -50,7 +50,7 @@ const GoBackButton = styled.div`
   transform: translate(210px, -60px);
 `;
 
-export const VendorContactComponent = ({ setIsShowContact }) => {
+export const VendorContact = ({ setIsShowContact }) => {
   const { vendorInfo } = useProduct();
 
   return (
