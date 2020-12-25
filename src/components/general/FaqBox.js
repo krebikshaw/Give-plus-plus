@@ -29,7 +29,7 @@ const FaqBox = ({ question, answer }) => {
     <FaqWrapper onClick={() => setIsShowed(!isShowed)}>
       <Question>
         {question}
-        <IconComponent kind={'angle-down'} />
+        <IconComponent kind='angle-down' />
       </Question>
       {isShowed ? <Answer>{answer}</Answer> : ''}
     </FaqWrapper>
