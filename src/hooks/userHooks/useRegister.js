@@ -22,7 +22,7 @@ export default function useRegister() {
   const [isClicked, setIsClick] = useState(false);
   const errorMessage = useSelector(selectErrorMessage);
   const isUserLoading = useSelector(selectIsUserLoading);
-  
+
   const togglePassword = () =>
     setIsPasswordShowed(isPasswordShowed ? false : true);
 
@@ -75,18 +75,18 @@ export default function useRegister() {
   };
 
   return {
-    handleInputChange,
-    handleRegister,
-    setUsername,
-    setPassword,
-    setEmail,
     setErrorMessage,
-    togglePassword,
     isPasswordShowed,
     isUsernameValid,
     isPasswordValid,
     isEmailValid,
     errorMessage,
     isUserLoading,
+    handleInputChange,
+    handleRegister,
+    setUsername,
+    setPassword,
+    setEmail,
+    togglePassword,
   };
 }

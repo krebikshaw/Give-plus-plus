@@ -28,14 +28,14 @@ export default function useDate() {
     year,
     month,
     date,
-    setYear,
-    setMonth,
-    setDate,
     startYear,
     endYear,
     yearsRange,
     monthRange,
     dateRange,
+    setYear,
+    setMonth,
+    setDate,
     handleCheckBirthday,
   };
 }

@@ -16,7 +16,7 @@ export default function useLogout() {
   };
 
   return {
-    handleLogout,
     userId,
+    handleLogout,
   };
 }
