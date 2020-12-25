@@ -33,9 +33,6 @@ function averageTime(count, products) {
 
 export default function useProduct() {
   const [loaded, setLoaded] = useState(false);
-  const onLoad = () => {
-    setLoaded(true);
-  };
   const navigate = useNavigate();
   const location = useLocation();
   const currentPage = location.pathname;
@@ -50,6 +47,10 @@ export default function useProduct() {
   const productErrorMessage = useSelector(selectErrorMessage);
   const averageShippingTime = averageTime(products.length, products);
   const sort = useSelector(selectSort);
+
+  const onLoad = () => {
+    setLoaded(true);
+  };
 
   const handleGetProduct = (id, page) => {
     dispatch(setPage(page));
@@ -107,7 +108,7 @@ export default function useProduct() {
   const handleVendorProductMoreButton = (id) => {
     dispatch(setPage(page + 1));
     dispatch(getProductsFromVendor(id, page + 1, 10)).then((res) => {
-      if (res === '非賣家') navigate('/');
+      if (res === 0) navigate('/');
     });
   };
 
@@ -132,10 +133,6 @@ export default function useProduct() {
   return {
     page,
     loaded,
-    setLoaded,
-    onLoad,
-    setPage,
-    setProducts,
     vendorInfo,
     productCategories,
     averageShippingTime,
@@ -144,6 +141,12 @@ export default function useProduct() {
     category,
     productCount,
     productErrorMessage,
+
+    setPage,
+    setProducts,
+    setLoaded,
+
+    onLoad,
     handleGetProducts,
     handleGetProduct,
     handleGetSearchProduct,

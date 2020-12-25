@@ -178,7 +178,6 @@ export default function useProductForm(id) {
   };
 
   return {
-    changeProductValue,
     productCategory,
     productName,
     productInfo,
@@ -190,6 +189,17 @@ export default function useProductForm(id) {
     paymentMethod,
     productPictureUrl,
     remark,
+
+    hasProductName,
+    hasProductInfo,
+    hasProductCategory,
+    hasDeliveryLocation,
+    hasProductPrice,
+    hasDeliveryTime,
+    hasDelivery,
+    hasPaymentMethod,
+    hasProductQuantity,
+
     setProductName,
     setProductInfo,
     setProductCategory,
@@ -201,16 +211,9 @@ export default function useProductForm(id) {
     setPaymentMethod,
     setRemark,
     setProductQuantity,
+
+    changeProductValue,
     handleChange,
-    hasProductName,
-    hasProductInfo,
-    hasProductCategory,
-    hasDeliveryLocation,
-    hasProductPrice,
-    hasDeliveryTime,
-    hasDelivery,
-    hasPaymentMethod,
-    hasProductQuantity,
     handleSubmitAddForm,
     handleSubmitEditForm,
     handleChangePicture,
