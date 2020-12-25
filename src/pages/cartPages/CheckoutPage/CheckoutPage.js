@@ -95,7 +95,7 @@ const CheckoutPage = () => {
           ) : isPaying ? (
             <Wrapper>
               <IconWrapper onClick={() => handleToCart()}>
-                <IconComponent kind={"left-blue"} $margin={0} />
+                <IconComponent kind="left-blue" $margin={0} />
               </IconWrapper>
               <PayTitle>返回購物車</PayTitle>
             </Wrapper>

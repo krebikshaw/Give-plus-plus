@@ -63,7 +63,7 @@ export default function Modal() {
     <Container>
       <Form onSubmit={(e) => handleSubmitCancelReason(e, id, cancelReason)}>
         <Wrapper onClick={handleCloseModal}>
-          <IconComponent kind={"close-black"} />
+          <IconComponent kind="close-black" />
         </Wrapper>
         <Title>訂單取消原因</Title>
         {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}

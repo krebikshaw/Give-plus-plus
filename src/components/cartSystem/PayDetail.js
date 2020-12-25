@@ -199,7 +199,7 @@ export default function PayDetail({ cart }) {
         <ErrorModal>
           <ErrorForm>
             <ModalIconContainer onClick={() => handleCloseError()}>
-              <IconComponent kind={"close-black"} />
+              <IconComponent kind="close-black" />
             </ModalIconContainer>
             {errorMessage}
           </ErrorForm>
@@ -209,7 +209,7 @@ export default function PayDetail({ cart }) {
         <Modal>
           <Form>
             <IconClose onClick={handleCloseUpdate}>
-              <IconComponent kind={"close-black"} />
+              <IconComponent kind="close-black" />
             </IconClose>
             <UpdateTitle>請填寫收件人與購買人資訊</UpdateTitle>
             <Title>收件人</Title>
@@ -246,7 +246,7 @@ export default function PayDetail({ cart }) {
               <Title>收件資訊</Title>
               {completeOrder ? null : (
                 <IconContainer onClick={handleUpdateReceiveInfo}>
-                  <IconComponent kind={"update"} />
+                  <IconComponent kind="update" />
                 </IconContainer>
               )}
             </Top>

@@ -96,7 +96,7 @@ export default function OrderPrice({ cart }) {
         <ErrorModal>
           <ErrorForm>
             <ModalIconContainer onClick={() => handleCloseError()}>
-              <IconComponent kind={"close-black"} />
+              <IconComponent kind="close-black" />
             </ModalIconContainer>
             {errorMessage}
           </ErrorForm>
