@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/static/js/main.832f773e.chunk.js",
-    "main.js.map": "/static/js/main.832f773e.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.ae3106fa.js",
-    "runtime-main.js.map": "/static/js/runtime-main.ae3106fa.js.map",
-    "static/js/2.4eb95f4a.chunk.js": "/static/js/2.4eb95f4a.chunk.js",
-    "static/js/2.4eb95f4a.chunk.js.map": "/static/js/2.4eb95f4a.chunk.js.map",
-    "index.html": "/index.html",
-    "static/js/2.4eb95f4a.chunk.js.LICENSE.txt": "/static/js/2.4eb95f4a.chunk.js.LICENSE.txt"
+    "main.js": "/Give-plus-plus/static/js/main.f0354655.chunk.js",
+    "main.js.map": "/Give-plus-plus/static/js/main.f0354655.chunk.js.map",
+    "runtime-main.js": "/Give-plus-plus/static/js/runtime-main.931e69cd.js",
+    "runtime-main.js.map": "/Give-plus-plus/static/js/runtime-main.931e69cd.js.map",
+    "static/js/2.aa5da96c.chunk.js": "/Give-plus-plus/static/js/2.aa5da96c.chunk.js",
+    "static/js/2.aa5da96c.chunk.js.map": "/Give-plus-plus/static/js/2.aa5da96c.chunk.js.map",
+    "index.html": "/Give-plus-plus/index.html",
+    "static/js/2.aa5da96c.chunk.js.LICENSE.txt": "/Give-plus-plus/static/js/2.aa5da96c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.ae3106fa.js",
-    "static/js/2.4eb95f4a.chunk.js",
-    "static/js/main.832f773e.chunk.js"
+    "static/js/runtime-main.931e69cd.js",
+    "static/js/2.aa5da96c.chunk.js",
+    "static/js/main.f0354655.chunk.js"
   ]
 }

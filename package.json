@@ -20,7 +20,7 @@
     "react-snowfall": "^1.0.2",
     "styled-components": "^5.2.1"
   },
-  "homepage": "https://krebikshaw.github.io/",
+  "homepage": "https://krebikshaw.github.io/Give-plus-plus",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
