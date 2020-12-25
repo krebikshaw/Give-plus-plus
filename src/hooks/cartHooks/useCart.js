@@ -146,21 +146,27 @@ export default function useCart() {
       dispatch(setErrorMessage("請勾選一個付款方式後才能完成訂單"));
     }
   };
+  const reset = () => {
+    dispatch(setIsPaying(false));
+    dispatch(setIsSelect(false));
+    dispatch(setFilter("all"));
+    dispatch(setChecked(false));
+  };
   const handleGetCart = () => {
-    window.location.reload(true);
+    reset();
     dispatch(getCartItem());
+    dispatch(setPayWay(false));
+    dispatch(setComplete(false));
   };
   const handleToCart = () => {
-    dispatch(setIsPaying(false));
-    dispatch(setFilter("all"));
-    window.location.reload(true);
+    reset();
+    dispatch(setPrice(0));
   };
 
   const handleToHomePage = () => {
     navigate("/");
     dispatch(getCartItem());
-    dispatch(setIsPaying(false));
-    dispatch(setChecked(false));
+    reset();
   };
   const handleSelectQuantity = (e) => {
     dispatch(setQuantity(e.target.value));

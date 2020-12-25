@@ -189,11 +189,7 @@ export default function Cart() {
                 <CartItem cartItem={cartItem} key={index} />
               ))}
               <CartBottom>
-                <Nav
-                  children={"前往結帳"}
-                  path={"/cart"}
-                  onClick={() => handleGetCart()}
-                />
+                <Nav children={"前往結帳"} path={"/cart"} />
               </CartBottom>
             </OptionList>
           ) : (

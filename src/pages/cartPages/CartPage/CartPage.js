@@ -52,9 +52,6 @@ const LoadingMessage = styled.div`
 
 const CartPage = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCartItem());
-  }, [dispatch]);
   const {
     carts,
     isLoading,
@@ -63,7 +60,12 @@ const CartPage = () => {
     filter,
     checked,
     handleToCart,
+    handleGetCart,
   } = useCart();
+
+  useEffect(() => {
+    handleGetCart();
+  }, []);
 
   return (
     <>
