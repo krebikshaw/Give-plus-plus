@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/Give-plus-plus/static/js/main.e82c2bb1.chunk.js",
-    "main.js.map": "/Give-plus-plus/static/js/main.e82c2bb1.chunk.js.map",
+    "main.js": "/Give-plus-plus/static/js/main.aa3205ed.chunk.js",
+    "main.js.map": "/Give-plus-plus/static/js/main.aa3205ed.chunk.js.map",
     "runtime-main.js": "/Give-plus-plus/static/js/runtime-main.931e69cd.js",
     "runtime-main.js.map": "/Give-plus-plus/static/js/runtime-main.931e69cd.js.map",
     "static/js/2.aa5da96c.chunk.js": "/Give-plus-plus/static/js/2.aa5da96c.chunk.js",
@@ -12,6 +12,6 @@
   "entrypoints": [
     "static/js/runtime-main.931e69cd.js",
     "static/js/2.aa5da96c.chunk.js",
-    "static/js/main.e82c2bb1.chunk.js"
+    "static/js/main.aa3205ed.chunk.js"
   ]
 }
