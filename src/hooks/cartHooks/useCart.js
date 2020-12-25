@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import useOrder from "../orderHooks/useOrder";
 import {
-  selectCart,
+  selectCarts,
   selectError,
   selectLoading,
   deleteCartItemsBySeller,
@@ -47,7 +47,7 @@ export default function useCart() {
     currency: "NTD",
     minimumFractionDigits: 0,
   });
-  const carts = useSelector(selectCart);
+  const carts = useSelector(selectCarts);
   const errorMessage = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
   const isSelect = useSelector(selectIsSelect);
@@ -57,26 +57,24 @@ export default function useCart() {
   const payWay = useSelector(selectPayWay);
   const completeOrder = useSelector(selectComplete);
   const orderNumber = useSelector(selectOrderNumber);
-  const SelectQuantity = useSelector(selectQuantity);
+  const isSelectQuantity = useSelector(selectQuantity);
   const hasAdd = useSelector(selectAdd);
   const update = useSelector(selectUpdate);
   const checked = useSelector(selectChecked);
 
-  const handleDelete = (id) => {
+  const handleDeleteProductInCart = (id) => {
     dispatch(deleteCartItem(id));
-    window.location.reload();
   };
-  const handleDeleteSeller = (id) => {
+  const handleDeleteCart = (id) => {
     dispatch(deleteCartItemsBySeller(id));
-    window.location.reload();
   };
   const handleClose = () => {
     dispatch(setErrorMessage(false));
   };
-  const handleSelect = (id, TotalAmount) => {
+  const handleSelect = (id, totalAmount) => {
     dispatch(setIsSelect(id));
     dispatch(setChecked(!checked));
-    dispatch(setPrice(TotalAmount));
+    dispatch(setPrice(totalAmount));
     if (checked === true) {
       dispatch(setPrice(0));
     }
@@ -196,11 +194,12 @@ export default function useCart() {
     formatter,
     errorMessage,
     isLoading,
-    handleDelete,
-    handleDeleteSeller,
     orderNumber,
-    SelectQuantity,
+    isSelectQuantity,
     hasAdd,
+
+    handleDeleteProductInCart,
+    handleDeleteCart,
     handleClose,
     handleSelect,
     handleError,

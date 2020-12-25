@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import React from 'react';
-import { IconComponent } from '../../components';
-import { COLOR, FONT } from '../../constants/style';
+import styled from "styled-components";
+import React from "react";
+import { IconComponent } from "../../components";
+import { COLOR, FONT } from "../../constants/style";
 
-import ItemDetail from './ItemDetail';
-import useCart from '../../hooks/cartHooks/useCart';
+import ItemDetail from "./ItemDetail";
+import useCart from "../../hooks/cartHooks/useCart";
 
 const Container = styled.div`
   margin: 20px 120px 20px 10px;
@@ -115,7 +115,7 @@ const ModalIconContainer = styled.div`
 `;
 export default function CartItem({ cart }) {
   const {
-    handleDeleteSeller,
+    handleDeleteCart,
     errorMessage,
     isSelect,
     isPaying,
@@ -137,7 +137,7 @@ export default function CartItem({ cart }) {
         <Modal>
           <Form>
             <ModalIconContainer onClick={handleClose}>
-              <IconComponent kind={'close-black'} />
+              <IconComponent kind="close-black" />
             </ModalIconContainer>
             {errorMessage}
           </Form>
@@ -147,7 +147,7 @@ export default function CartItem({ cart }) {
         <Seller>
           {isPaying ? null : (
             <Check
-              type='checkbox'
+              type="checkbox"
               onClick={() => handleSelect(SellerId[0], TotalAmount)}
               disabled={checked && isSelect !== SellerId[0]}
             ></Check>
@@ -155,8 +155,8 @@ export default function CartItem({ cart }) {
           <Name isSelect={isSelect}>{cart.sellerName}</Name>
         </Seller>
         {isPaying || checked ? null : (
-          <IconContainer onClick={() => handleDeleteSeller(SellerId)}>
-            <IconComponent kind={'close-black'} />
+          <IconContainer onClick={() => handleDeleteCart(SellerId)}>
+            <IconComponent kind="close-black" />
           </IconContainer>
         )}
       </Top>
@@ -184,11 +184,11 @@ export default function CartItem({ cart }) {
         ) : (
           <>
             <Title>選擇收件地與運送方式</Title>
-            <Select name='地區'>
-              <option value='台灣'>台灣</option>
+            <Select name="地區">
+              <option value="台灣">台灣</option>
             </Select>
-            <Select name='交貨方式'>
-              <option value='面交'>面交</option>
+            <Select name="交貨方式">
+              <option value="面交">面交</option>
             </Select>
           </>
         )}

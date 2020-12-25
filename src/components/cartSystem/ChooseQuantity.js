@@ -76,7 +76,7 @@ export default function ChooseQuantity({ Item }) {
         <Modal>
           <Form>
             <IconContainer onClick={handleClose}>
-              <IconComponent kind={"close-black"} />
+              <IconComponent kind="close-black" />
             </IconContainer>
             {errorMessage}
           </Form>
@@ -87,11 +87,11 @@ export default function ChooseQuantity({ Item }) {
       ) : checked ? (
         <Wrapper>
           <Container onClick={handleError}>
-            <IconComponent kind={"minus"} />
+            <IconComponent kind="minus" />
           </Container>
           <Quantity>{Item.cartQuantity}</Quantity>
           <Container onClick={handleError}>
-            <IconComponent kind={"plus"} />
+            <IconComponent kind="plus" />
           </Container>
         </Wrapper>
       ) : (

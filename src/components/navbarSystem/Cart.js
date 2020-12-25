@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import IconComponent from '../Icon';
-import { Nav } from '../Button';
-import { COLOR, DISTANCE, EFFECT, FONT } from '../../constants/style';
-import { selectCart } from '../../redux/slices/cartSlice/cartSlice';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { getCartItem } from '../../redux/slices/cartSlice/cartSlice';
-import useCart from '../../hooks/cartHooks/useCart';
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import IconComponent from "../Icon";
+import { Nav } from "../Button";
+import { COLOR, DISTANCE, EFFECT, FONT } from "../../constants/style";
+import { selectCarts } from "../../redux/slices/cartSlice/cartSlice";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getCartItem } from "../../redux/slices/cartSlice/cartSlice";
+import useCart from "../../hooks/cartHooks/useCart";
 
 const UserContainer = styled.div`
   position: relative;
@@ -30,7 +30,7 @@ const OptionWrapper = styled.div`
   top: 30px;
   right: 0;
   &::before {
-    content: '';
+    content: "";
     width: 0;
     height: 0;
     border-color: transparent transparent #e5e5e6;
@@ -42,7 +42,7 @@ const OptionWrapper = styled.div`
     z-index: 7000;
   }
   &::after {
-    content: '';
+    content: "";
     width: 0;
     height: 0;
     border-color: transparent transparent #fff;
@@ -62,7 +62,7 @@ const OptionInner = styled.div`
   width: 250px;
   background: ${COLOR.bg_primary};
   overflow: scroll;
-  height: 90vh;
+  max-height: 70vh;
 `;
 
 const OptionList = styled.ul`
@@ -132,9 +132,9 @@ const CartBottom = styled.div`
 const ProductQuantity = styled.span``;
 
 const CartItem = ({ cartItem }) => {
-  const formatter = new Intl.NumberFormat('zh-TW', {
-    style: 'currency',
-    currency: 'NTD',
+  const formatter = new Intl.NumberFormat("zh-TW", {
+    style: "currency",
+    currency: "NTD",
     minimumFractionDigits: 0,
   });
   return (
@@ -168,7 +168,7 @@ const CartItem = ({ cartItem }) => {
 };
 
 export default function Cart() {
-  const cart = useSelector(selectCart);
+  const cart = useSelector(selectCarts);
   const dispatch = useDispatch();
   const { handleGetCart } = useCart();
   useEffect(() => {
@@ -177,7 +177,7 @@ export default function Cart() {
 
   return (
     <UserContainer>
-      <IconComponent kind={'shopping-cart'} />
+      <IconComponent kind="shopping-cart" />
       <OptionWrapper>
         <OptionInner>
           {cart && cart.length > 0 ? (
@@ -190,15 +190,15 @@ export default function Cart() {
               ))}
               <CartBottom>
                 <Nav
-                  children={'前往結帳'}
-                  path={'/cart'}
+                  children={"前往結帳"}
+                  path={"/cart"}
                   onClick={() => handleGetCart()}
                 />
               </CartBottom>
             </OptionList>
           ) : (
             <OptionList>
-              <OptionItem style={{ color: COLOR.text_1, margin: '15px 0' }}>
+              <OptionItem style={{ color: COLOR.text_1, margin: "15px 0" }}>
                 你的購物車中沒有商品
               </OptionItem>
             </OptionList>

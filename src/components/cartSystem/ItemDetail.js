@@ -5,6 +5,7 @@ import { COLOR, FONT } from "../../constants/style";
 import ChooseQuantity from "./ChooseQuantity";
 import useCart from "../../hooks/cartHooks/useCart";
 import { LoopCircleLoading } from "react-loadingg";
+import { useDispatch } from "react-redux";
 
 const CartInfo = styled.div`
   display: flex;
@@ -43,9 +44,10 @@ const LoadingBackground = styled.div`
   z-index: 2;
 `;
 export default function ItemDetail({ Item }) {
+  const dispatch = useDispatch();
   const {
     isLoading,
-    handleDelete,
+    handleDeleteProductInCart,
     formatter,
     isPaying,
     completeOrder,
@@ -71,8 +73,8 @@ export default function ItemDetail({ Item }) {
           <Price>{formatter.format(Item.price)}</Price>
         )}
         {checked || isPaying ? null : (
-          <Container onClick={() => handleDelete(Item.cartItemId)}>
-            <IconComponent kind={"delete"} />
+          <Container onClick={() => handleDeleteProductInCart(Item.cartItemId)}>
+            <IconComponent kind="delete" />
           </Container>
         )}
       </CartInfo>

@@ -125,16 +125,14 @@ export const addQuantity = (quantity, id) => (dispatch) => {
   });
 };
 export const deleteCartItem = (id) => (dispatch) => {
-  dispatch(setIsLoading(true));
   return deleteItem(id).then((res) => {
-    dispatch(setIsLoading(false));
+    dispatch(getCartItem());
     return res;
   });
 };
 export const deleteCartItemsBySeller = (id) => (dispatch) => {
-  dispatch(setIsLoading(true));
   return deleteItemsBySeller(id).then((res) => {
-    dispatch(setIsLoading(false));
+    dispatch(getCartItem());
     return res;
   });
 };
@@ -160,5 +158,5 @@ export const selectIsPaying = (state) => state.cart.isPaying;
 export const selectIsSelect = (state) => state.cart.isSelect;
 export const selectError = (state) => state.cart.errorMessage;
 export const selectLoading = (state) => state.cart.isLoading;
-export const selectCart = (state) => state.cart.cart;
+export const selectCarts = (state) => state.cart.cart;
 export default cartSlice.reducer;

@@ -152,7 +152,7 @@ export const ProductInfo = ({ product }) => {
   const dispatch = useDispatch();
   const { user } = useOrder();
   const {
-    SelectQuantity,
+    isSelectQuantity,
     hasAdd,
     errorMessage,
     handleCloseAddProduct,
@@ -198,7 +198,7 @@ export const ProductInfo = ({ product }) => {
           $margin={0}
           $size={"lg"}
           onClick={() =>
-            handleAddProduct(product.id, SelectQuantity, user.userId)
+            handleAddProduct(product.id, isSelectQuantity, user.userId)
           }
         >
           放 入 購 物 車
