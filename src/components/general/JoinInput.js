@@ -68,9 +68,9 @@ export default function JoinInput({
     <InputBox>
       <InputTitle>{title}</InputTitle>
       <InputWrapper>
-        {type === "password" && <IconComponent kind={"lock"} />}
-        {type === "username" && <IconComponent kind={"user"} />}
-        {type === "email" && <IconComponent kind={"envelope"} />}
+        {type === "password" && <IconComponent kind='lock' />}
+        {type === "username" && <IconComponent kind='user' />}
+        {type === "email" && <IconComponent kind='envelope' />}
 
         <Input
           className={
@@ -86,7 +86,7 @@ export default function JoinInput({
 
         {type === "password" && (
           <span onClick={togglePassword}>
-            <IconComponent kind={"invisible"} />
+            <IconComponent kind='invisible' />
           </span>
         )}
       </InputWrapper>
