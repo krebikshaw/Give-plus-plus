@@ -73,39 +73,39 @@ const App = () => {
             <Route path={'/rules'} element={<RulesPage />} />
 
             <Route path={'/users'}>
-              <Route path={'/me'} element={<UserInfoPage />}></Route>
-              <Route path={'/:id'} element={<UserInfoPage />}></Route>
-              <Route path={'/apply'} element={<ApplyForVendorPage />}></Route>
-              <Route path={'/backstage'} element={<VendorBackstagePage />}></Route>
-              <Route path={'/contact/:id'} element={<VendorContactPage />}></Route>
-              <Route path={'/vendor/:id'} element={<VendorInfoPage />}></Route>
+              <Route path={'/me'} element={<UserInfoPage />} />
+              <Route path={'/:id'} element={<UserInfoPage />} />
+              <Route path={'/apply'} element={<ApplyForVendorPage />} />
+              <Route path={'/backstage'} element={<VendorBackstagePage />} />
+              <Route path={'/contact/:id'} element={<VendorContactPage />} />
+              <Route path={'/vendor/:id'} element={<VendorInfoPage />} />
             </Route>
 
             <Route path={'/products'}>
-              <Route path={'/:id'} element={<ProductPage />}></Route>
-              <Route path={'/edit/:id'} element={<EditProductPage />}></Route>
-              <Route path={'/post'} element={<PostProductPage />}></Route>
-              <Route path={'/search/:keyword'} element={<SearchProductPage />}></Route>
-              <Route path={'/category/:id'} element={<CategorizedProductPage />}></Route>
-              <Route path={'/vendor/:id'} element={<VendorShopPage />}></Route>
+              <Route path={'/:id'} element={<ProductPage />} />
+              <Route path={'/edit/:id'} element={<EditProductPage />} />
+              <Route path={'/post'} element={<PostProductPage />} />
+              <Route path={'/search/:keyword'} element={<SearchProductPage />} />
+              <Route path={'/category/:id'} element={<CategorizedProductPage />} />
+              <Route path={'/vendor/:id'} element={<VendorShopPage />} />
             </Route>
 
             <Route path={'/cart'}>
-              <Route path={'/'} element={<CartPage />}></Route>
-              <Route path={'/checkout'} element={<CheckoutPage />}></Route>
+              <Route path={'/'} element={<CartPage />} />
+              <Route path={'/checkout'} element={<CheckoutPage />} />
             </Route>
 
             <Route path={'/orders'}>
-              <Route path={':id'} element={<OrderDetailPage />}></Route>
-              <Route path={'/client'} element={<ClientOrdersPage />}></Route>
-              <Route path={'/vendor'} element={<VendorOrdersPage />}></Route>
+              <Route path={':id'} element={<OrderDetailPage />} />
+              <Route path={'/client'} element={<ClientOrdersPage />} />
+              <Route path={'/vendor'} element={<VendorOrdersPage />} />
             </Route>
 
             <Route path={'/admin'}>
-              <Route path={'/'} element={<AdminBackstagePage />}></Route>
-              <Route path={'/users'} element={<AdminUserPage />}></Route>
-              <Route path={'/products'} element={<AdminProductPage />}></Route>
-              <Route path={'/mails'} element={<AdminMailPage />}></Route>
+              <Route path={'/'} element={<AdminBackstagePage />} />
+              <Route path={'/users'} element={<AdminUserPage />} />
+              <Route path={'/products'} element={<AdminProductPage />} />
+              <Route path={'/mails'} element={<AdminMailPage />} />
             </Route>
           </Routes>
           <Footer />
