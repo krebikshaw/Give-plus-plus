@@ -57,7 +57,7 @@ const ProductsItem = ({ product }) => {
         {product.status === '2' && '未通過'}
       </ProductTd>
       <ProductTd>
-        <Nav children={'查看'} path={`products/${product.id}`} />
+        <Nav children={'查看'} path={`/products/${product.id}`} />
       </ProductTd>
     </ProductTr>
   );

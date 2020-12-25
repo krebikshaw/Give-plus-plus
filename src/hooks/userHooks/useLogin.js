@@ -35,14 +35,14 @@ export default function useRegister() {
   };
 
   return {
+    isPasswordShowed,
+    errorMessage,
+    isUserLoading,
+    setErrorMessage,
     handleInputChange,
     setUsername,
     setPassword,
     togglePassword,
-    isPasswordShowed,
-    errorMessage,
-    isUserLoading,
     handleLogin,
-    setErrorMessage,
   };
 }

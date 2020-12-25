@@ -44,6 +44,7 @@ export default function useUser() {
 
   return {
     user,
+    errorMessage,
     handleGetMe,
     handleUpdateUser,
     handleUpdatePassword,
@@ -55,6 +56,5 @@ export default function useUser() {
     handleUpdateUserInfo,
     handleApplyForVendor,
     handleUpdateAnnouncement,
-    errorMessage,
   };
 }
