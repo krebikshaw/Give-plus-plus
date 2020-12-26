@@ -1,1 +1,1 @@
-export const BASE_URL = 'http://krebikshaw.tw:3100/v1';
+export const BASE_URL = 'https://give.krebikshaw.tw/v1';
