@@ -61,7 +61,7 @@ const OptionInner = styled.div`
   position: relative;
   width: 250px;
   background: ${COLOR.bg_primary};
-  overflow: scroll;
+  overflow: auto;
   max-height: 70vh;
 `;
 
