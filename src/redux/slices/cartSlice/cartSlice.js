@@ -140,7 +140,6 @@ export const createOrder = (readyToOrderItems) => (dispatch) => {
   dispatch(setIsLoading(true));
   return createOrderAPI(readyToOrderItems).then((res) => {
     dispatch(setIsLoading(false));
-    console.log(res.orderNumber);
     dispatch(setOrderNumber(res.orderNumber));
   });
 };
