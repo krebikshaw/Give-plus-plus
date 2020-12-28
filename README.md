@@ -1,7 +1,7 @@
 # Give++
 Give++ 二手交易平台
 
-> 網站連結 : https://give-plus-plus.tw/
+> 網站連結 : https://give-plus-plus.herokuapp.com/
 
 > 介紹影片 : https://www.youtube.com/watch?v=o4nH5tC_XKk&feature=youtu.be
 
