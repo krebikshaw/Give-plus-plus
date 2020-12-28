@@ -3,6 +3,8 @@ Give++ 二手交易平台
 
 > 網站連結 : https://give-plus-plus.tw/
 
+> 介紹影片 : https://www.youtube.com/watch?v=o4nH5tC_XKk&feature=youtu.be
+
 ![](https://github.com/krebikshaw/final-project/blob/master/%E9%A6%96%E9%A0%81%E6%88%AA%E5%9C%96.png?raw=true)
 
 ## 專案簡介
