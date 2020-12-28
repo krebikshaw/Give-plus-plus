@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { Nav } from '../../../components/Button';
 import { WrapperMask } from '../../../components/userSystem/';
 import { COLOR, FONT, EFFECT, DISTANCE } from '../../../constants/style';
 import { ActionButton } from '../../../components/Button';
@@ -57,6 +58,14 @@ const SuccessMessage = styled.div`
   }
 `;
 
+const PageBottom = styled.div`
+  margin: ${DISTANCE.md} auto 0 auto;
+  width: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const UserInfoPage = () => {
   const navigate = useNavigate();
   const [successMode, setSuccessMode] = useState(false);
@@ -92,6 +101,9 @@ const UserInfoPage = () => {
         )}
         <Text>變更頭貼</Text>
         <SetAvatar setSuccessMode={setSuccessMode} />
+        <PageBottom>
+          <Nav path='/' children='回首頁' />
+        </PageBottom>
         {successMode && (
           <WrapperMask>
             <SuccessMessage>

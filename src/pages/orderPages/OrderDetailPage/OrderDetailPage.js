@@ -92,7 +92,7 @@ const Product = styled.p`
 `;
 const TotalTable = styled.table`
   width: 90%;
-  text-align: center;
+  text-align: left;
   table-layout: fixed;
   border-collapse: collapse;
 `;
@@ -313,7 +313,7 @@ const OrderDetailPage = () => {
               <Content></Content>
               <Content></Content>
               <Content>運費</Content>
-              <Content>NTD$ 0</Content>
+              <Content>NTD 0</Content>
             </ContentContainer>
             <ContentContainer>
               <Content></Content>

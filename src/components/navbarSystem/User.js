@@ -80,7 +80,7 @@ export default function User() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [isVendor, setIsVendor] = useState(false);
-  const { handleGetMe } = useUser();
+  const { user, handleGetMe } = useUser();
 
   useEffect(() => {
     handleGetMe().then((result) => {
@@ -89,6 +89,10 @@ export default function User() {
       setUsername(result.data.username);
     });
   }, []);
+
+  useEffect(() => {
+    setIsVendor(user.is_vendor);
+  }, [user]);
 
   return (
     <UserContainer>

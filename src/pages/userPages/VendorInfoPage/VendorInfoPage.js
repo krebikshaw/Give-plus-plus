@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useUser from '../../../hooks/userHooks/useUser';
+import { Nav } from '../../../components/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { WrapperMask } from '../../../components/userSystem/';
 import { COLOR, FONT, EFFECT, DISTANCE } from '../../../constants/style';
@@ -59,6 +60,14 @@ const SuccessMessage = styled.div`
   }
 `;
 
+const PageBottom = styled.div`
+  margin: ${DISTANCE.md} auto 0 auto;
+  width: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const VendorInfoPage = () => {
   const { handleGetUserById } = useUser();
   const location = useLocation();
@@ -109,6 +118,9 @@ const VendorInfoPage = () => {
         <SetAvatar setSuccessMode={setSuccessMode} />
         <Text>變更封面</Text>
         <SetBanner setSuccessMode={setSuccessMode} />
+        <PageBottom>
+          <Nav path='/' children='回首頁' />
+        </PageBottom>
         {successMode && (
           <WrapperMask>
             <SuccessMessage>

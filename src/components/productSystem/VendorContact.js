@@ -58,7 +58,7 @@ export const VendorContact = ({ setIsShowContact }) => {
       <VendorContactContainer>
         <InnerContainer>
           <GoBackButton onClick={() => setIsShowContact(false)}>
-            <IconComponent kind={'close'} />
+            <IconComponent kind={'close-black'} />
           </GoBackButton>
           <Title>聯絡資訊</Title>
           <Topic>電子郵件</Topic>

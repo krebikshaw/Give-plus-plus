@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { COLOR, FONT, DISTANCE } from '../../constants/style';
+import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setCurrentRule } from '../../redux/slices/generalSlice/generalSlice';
 
 const AnnouncementWrapper = styled.div`
   min-width: 500px;
@@ -26,13 +29,15 @@ const AnnouncementAlert = styled.p`
   font-size: ${FONT.xs};
 `;
 
-const AnnouncementLink = styled.a`
+const AnnouncementLink = styled(NavLink)`
   color: ${COLOR.text_1};
   font-size: ${FONT.xs};
   margin: ${DISTANCE.xs} 0;
 `;
 
 export default function Announcement({ isApply }) {
+  const dispatch = useDispatch();
+
   return (
     <AnnouncementWrapper>
       <AnnouncementTitle>小提醒</AnnouncementTitle>
@@ -44,7 +49,12 @@ export default function Announcement({ isApply }) {
       <AnnouncementContent>
         如果你不希望你的真實姓名被列入本平台及其他外部搜尋引擎的搜尋結果，建議你選擇一個暱稱使用。網站將依照個人資料保護法保障你的個人隱私！
       </AnnouncementContent>
-      <AnnouncementLink href='/rules/3'>隱私權政策</AnnouncementLink>
+      <AnnouncementLink
+        target='_blank'
+        onClick={() => dispatch(setCurrentRule('rule3'))}
+        to={'/rules#rule3'}
+        children={'隱私權政策'}
+      />
     </AnnouncementWrapper>
   );
 }
