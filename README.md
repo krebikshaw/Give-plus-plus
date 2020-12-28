@@ -5,7 +5,7 @@ Give++ 二手交易平台
 
 > 介紹影片 : https://www.youtube.com/watch?v=o4nH5tC_XKk&feature=youtu.be
 
-![](https://github.com/krebikshaw/final-project/blob/master/%E9%A6%96%E9%A0%81%E6%88%AA%E5%9C%96.png?raw=true)
+![](https://github.com/krebikshaw/final-project/blob/master/give-plus-plus.herokuapp.com_%20(1).png?raw=true)
 
 ## 專案簡介
 這是 Give++ 二手交易平台的前端原始碼，採用 React Hooks 和 Redux Toolkit 開發。 
@@ -64,11 +64,11 @@ Give++ 二手交易平台
 
 ### 商品搜尋
 可依照最新商品、手動搜尋、分類搜尋方式搜尋商品，且可在搜尋結果頁面自訂商品的排序方式
-![](https://github.com/krebikshaw/final-project/blob/master/%E6%90%9C%E5%B0%8B%E5%95%86%E5%93%81.gif?raw=true)
+![](https://github.com/krebikshaw/final-project/blob/master/%E6%90%9C%E5%B0%8B%E5%95%86%E5%93%81%20(1).gif?raw=true)
 
 ### 購買商品
 可以將商品加入購物車，查看欲購買的商品內容及金額，並成立訂單
-![](https://github.com/krebikshaw/final-project/blob/master/%E8%B3%BC%E7%89%A9%E8%BB%8A.gif?raw=true)
+![](https://github.com/krebikshaw/final-project/blob/master/%E8%B3%BC%E7%89%A9%E8%BB%8A%20(1).gif?raw=true)
 
 ### 查看訂單
 隨時掌握/更新訂單的最新動態
