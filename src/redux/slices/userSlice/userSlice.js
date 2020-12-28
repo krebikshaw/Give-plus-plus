@@ -139,6 +139,7 @@ export const applyForVendor = () => (dispatch) => {
       dispatch(setErrorMessage(result ? result.message : 'something wrong'));
       return result;
     }
+    dispatch(getMe());
   });
 };
 
