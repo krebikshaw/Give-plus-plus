@@ -156,9 +156,9 @@ export default function useProductForm(id) {
     setIsSubmitClicked(true);
     if (!hasError) {
       dispatch(postProduct(formData));
+      alert('商品已刊登成功，請耐心等待管理員審核商品！');
       navigate('/users/backstage');
     }
-    alert('商品已刊登成功，請耐心等待管理員審核商品！');
   };
 
   const handleSubmitEditForm = (e) => {
