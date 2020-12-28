@@ -91,7 +91,7 @@ export default function useProduct() {
   const handleGetProductsFromVendor = (id, page) => {
     dispatch(setPage(page));
     dispatch(getProductsFromVendor(id, page, 10)).then((res) => {
-      if (res === 0) navigate('/');
+      if (res.message === '非賣家') navigate('/');
     });
   };
 
@@ -108,7 +108,7 @@ export default function useProduct() {
   const handleVendorProductMoreButton = (id) => {
     dispatch(setPage(page + 1));
     dispatch(getProductsFromVendor(id, page + 1, 10)).then((res) => {
-      if (res === 0) navigate('/');
+      if (res.message === '非賣家') navigate('/');
     });
   };
 
