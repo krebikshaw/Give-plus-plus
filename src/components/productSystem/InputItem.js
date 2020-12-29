@@ -42,7 +42,12 @@ export const InputItem = ({
           value={value}
           $margin={0}
           $size={title === '商品名稱' && 'lg'}
-          placeholder={isNumber && '請輸入正整數'}
+          placeholder={
+            (title === '價格' && '價格需小於 NTD 50,000 元') ||
+            (title === '數量' && '數量需小於 1,000 個且不可為零') ||
+            (title === '備貨天數' && '備貨天數最長不能超過 30 天') ||
+            null
+          }
           onChange={handleChange}
         />
       )}

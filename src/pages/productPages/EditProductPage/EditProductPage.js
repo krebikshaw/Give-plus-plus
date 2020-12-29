@@ -123,31 +123,28 @@ const EditProductPage = () => {
           />
 
           <InputItem
-            isNumber
             title={'價格'}
             type={'input'}
             hasValue={hasProductPrice}
-            errorMessage={'請輸入商品價格'}
+            errorMessage={'請輸入正確的商品價格'}
             handleChange={handleChange(setProductPrice)}
             value={productPrice}
           />
 
           <InputItem
-            isNumber
             title={'數量'}
             type={'input'}
-            errorMessage={'請輸入商品數量'}
+            errorMessage={'請輸入正確的商品數量'}
             hasValue={hasProductQuantity}
             handleChange={handleChange(setProductQuantity)}
             value={productQuantity}
           />
 
           <InputItem
-            isNumber
-            title={'備貨時間'}
+            title={'備貨天數'}
             type={'input'}
             hasValue={hasDeliveryTime}
-            errorMessage={'請輸入備貨時間'}
+            errorMessage={'請輸入正確的備貨天數'}
             handleChange={handleChange(setDeliveryTime)}
             value={deliveryTime}
           />

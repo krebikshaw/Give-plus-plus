@@ -39,14 +39,12 @@ export default function useProductForm(id) {
 
   const handleChange = (setValue) => (e) => setValue(e.target.value);
 
-  const checkNumber = (str) => {
-    let NumberRgexp = /^([1-9]\d*|[0]{1,1})$/;
-    return NumberRgexp.test(str);
-  };
-
-  const checkInteger = (str) => {
-    let IntegerRgexp = /^[0-9]*[1-9][0-9]*$/;
-    return IntegerRgexp.test(str);
+  const checkValidNumber = (input, max, min) => {
+    const num = Number(input);
+    if (!Number.isInteger(num) || num > max || num < min) {
+      return false;
+    }
+    return true;
   };
 
   const checkDataValidity = () => {
@@ -64,7 +62,7 @@ export default function useProductForm(id) {
       setHasDeliveryLocation(true);
     }
 
-    if (!productCategory || !productInfo.trim()) {
+    if (!productCategory) {
       hasError = true;
       setHasProductCategory(false);
     } else {
@@ -78,35 +76,35 @@ export default function useProductForm(id) {
       setHasProductInfo(true);
     }
 
-    if (!checkInteger(productPrice)) {
+    if (!checkValidNumber(productPrice, 50000, 0)) {
       hasError = true;
       setHasProductPrice(false);
     } else {
       setHasProductPrice(true);
     }
 
-    if (!checkInteger(productQuantity)) {
+    if (!checkValidNumber(productQuantity, 1000, 1)) {
       hasError = true;
       setHasProductQuantity(false);
     } else {
       setHasProductQuantity(true);
     }
 
-    if (!checkNumber(delivery)) {
+    if (!checkValidNumber(delivery, 2, 0)) {
       hasError = true;
       setHasDelivery(false);
     } else {
       setHasDelivery(true);
     }
 
-    if (!checkInteger(deliveryTime)) {
+    if (!checkValidNumber(deliveryTime, 30, 0)) {
       hasError = true;
       setHasDeliveryTime(false);
     } else {
       setHasDeliveryTime(true);
     }
 
-    if (!checkNumber(paymentMethod)) {
+    if (!checkValidNumber(paymentMethod, 2, 0)) {
       hasError = true;
       setHasPaymentMethod(false);
     } else {
