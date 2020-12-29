@@ -1,8 +1,15 @@
 import styled from 'styled-components';
+import { MEDIA_QUERY } from '../constants/style';
 
 export const StandardNavPage = styled.div`
   margin: 110px 150px;
   min-height: 50vh;
+  ${MEDIA_QUERY.md} {
+    margin: 135px 150px;
+  }
+  ${MEDIA_QUERY.sm} {
+    margin: 165px 150px;
+  }
 `;
 
 export const ThickNavPage = styled.div`
@@ -15,4 +22,4 @@ export const ThickNavTwoColumnsPage = styled.div`
   margin-top: 65px;
   height: calc(100vh - 95px);
   width: 100%;
-`
+`;

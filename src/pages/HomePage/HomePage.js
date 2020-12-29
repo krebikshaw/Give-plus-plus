@@ -4,6 +4,7 @@ import { DISTANCE } from '../../constants/style';
 import { GoalBox, Title, CarouselBox } from '../../components/general';
 import { useDispatch } from 'react-redux';
 import { Products } from '../../components/productSystem';
+import { MEDIA_QUERY } from '../../constants/style';
 import useProduct from '../../hooks/productHooks/useProduct';
 import Snowfall from 'react-snowfall';
 import {
@@ -15,6 +16,12 @@ const Page = styled.div`
   margin-top: 110px;
   height: fit-content;
   width: 100%;
+  ${MEDIA_QUERY.md} {
+    margin-top: 135px;
+  }
+  ${MEDIA_QUERY.sm} {
+    margin-top: 165px;
+  }
 `;
 
 const Section = styled.div`

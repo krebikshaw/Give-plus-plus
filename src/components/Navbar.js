@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 import useUser from '../hooks/userHooks/useUser';
 import useProduct from '../hooks/productHooks/useProduct';
 import useLogout from '../hooks/userHooks/useLogout';
+import { MEDIA_QUERY } from '../constants/style';
 import {
   selectUserId,
   selectIsUserLoading,
@@ -23,6 +24,12 @@ const NavbarContainer = styled.div`
   background: #fff;
   padding: 15px 0;
   z-index: 99;
+  ${MEDIA_QUERY.lg} {
+    height: ${(props) => (props.$size === 'sm' ? '65px' : '135px')};
+  }
+  ${MEDIA_QUERY.sm} {
+    height: ${(props) => (props.$size === 'sm' ? '65px' : '165px')};
+  }
 `;
 
 const NavbarTop = styled.div`
@@ -36,16 +43,25 @@ const NavbarTop = styled.div`
 const NavbarBottom = styled.div`
   display: flex;
   justify-content: center;
+  ${MEDIA_QUERY.lg} {
+    flex-wrap: wrap;
+  }
 `;
 
 const LeftSide = styled.div`
   display: flex;
   align-items: center;
   margin-left: 80px;
+  ${MEDIA_QUERY.md} {
+    margin-left: 20px;
+  }
 `;
 
 const RightSide = styled.div`
   margin-right: 90px;
+  ${MEDIA_QUERY.md} {
+    margin-right: 20px;
+  }
 `;
 
 const OptionList = styled.div`
