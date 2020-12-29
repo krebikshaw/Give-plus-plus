@@ -91,7 +91,7 @@ export default function User() {
   }, []);
 
   useEffect(() => {
-    setIsVendor(user.is_vendor ? user.is_vendor : isVendor);
+    setIsVendor((isVendor) => (user.is_vendor ? user.is_vendor : isVendor));
   }, [user]);
 
   return (
