@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { EFFECT, COLOR } from '../constants/style';
+import { EFFECT, COLOR, MEDIA_QUERY } from '../constants/style';
 import { IconComponent } from '../components';
 import { InputSearch } from './Input';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -19,6 +19,9 @@ const SearchBarContainer = styled.div`
   & div {
     display: flex;
     align-items: center;
+  }
+  ${MEDIA_QUERY.md} {
+    display: none;
   }
 `;
 

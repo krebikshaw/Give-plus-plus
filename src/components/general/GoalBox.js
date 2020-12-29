@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FONT, COLOR, DISTANCE } from '../../constants/style';
+import { FONT, COLOR, DISTANCE, MEDIA_QUERY } from '../../constants/style';
 
 const GoalSection = styled.div`
   margin: ${DISTANCE.md} 0;
@@ -19,6 +19,9 @@ const GoalTitle = styled.h2`
   font-size: ${FONT.lg};
   font-weight: 400;
   color: ${COLOR.text_2};
+  ${MEDIA_QUERY.sm} {
+    font-size: ${FONT.xss};
+  }
 `;
 
 const GoalPicture = styled.img`
@@ -33,14 +36,14 @@ const GoalBox = () => {
         <GoalTitle>安心消費有保障</GoalTitle>
         <GoalPicture
           src={process.env.PUBLIC_URL + '/about-us-security.png'}
-          alt="安心消費有保障"
+          alt='安心消費有保障'
         />
       </Goal>
       <Goal>
         <GoalTitle>最簡便的二手平台</GoalTitle>
         <GoalPicture
           src={process.env.PUBLIC_URL + '/about-us-heart.png'}
-          alt="最簡便的二手平台"
+          alt='最簡便的二手平台'
         />
       </Goal>
     </GoalSection>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { EFFECT } from '../constants/style';
+import { EFFECT, MEDIA_QUERY } from '../constants/style';
 
 const LogoComponent = styled(Link)`
   position: absolute;
@@ -10,6 +10,9 @@ const LogoComponent = styled(Link)`
   height: 60px;
   width: 120px;
   text-shadow: ${EFFECT.shadowDark};
+  ${MEDIA_QUERY.md} {
+    left: 20px;
+  }
 `;
 
 const Logo = () => {

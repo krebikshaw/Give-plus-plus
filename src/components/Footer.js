@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { COLOR, FONT } from '../constants/style';
+import { COLOR, FONT, DISTANCE, MEDIA_QUERY } from '../constants/style';
 import IconComponent from '../components/Icon';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -19,12 +19,17 @@ const FooterItems = styled.ul`
   justify-content: space-evenly;
   width: 60%;
   min-width: fit-content;
+  ${MEDIA_QUERY.md} {
+    width: 90%;
+    flex-wrap: wrap;
+  }
 `;
 
 const Nav = styled(NavLink)`
   font-size: ${FONT.xs};
   font-weight: bold;
   color: ${COLOR.black};
+  margin: ${DISTANCE.sm};
   :hover {
     color: ${COLOR.hover};
   }
