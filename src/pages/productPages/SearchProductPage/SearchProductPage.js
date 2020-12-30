@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { StandardNavPage } from '../../../components/Page';
-import { COLOR, FONT } from '../../../constants/style';
+import { COLOR, FONT, MEDIA_QUERY } from '../../../constants/style';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -16,11 +16,23 @@ const SearchTitleContainer = styled.section`
   display: flex;
   justify-content: space-between;
   color: ${COLOR.text_2};
+
+  ${MEDIA_QUERY.lg} {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const SearchKeyword = styled.div`
+  min-width: 160px;
   font-weight: bold;
   font-size: ${FONT.lg};
+
+  ${MEDIA_QUERY.lg} {
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const SearchTitle = ({ keyword, handleChangeProductSort }) => {

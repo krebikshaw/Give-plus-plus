@@ -8,6 +8,7 @@ import useProduct from '../../../hooks/productHooks/useProduct';
 import {
   Banner,
   SellerInfo,
+  SellerInfoMobile,
   Announcement,
   Products,
 } from '../../../components/productSystem';
@@ -30,9 +31,12 @@ const VendorShopPage = () => {
   const {
     loaded,
     onLoad,
+    isShowContact,
     vendorInfo,
     products,
     productErrorMessage,
+    setIsShowContact,
+    handleClick,
     handleVendorProductMoreButton,
     handleGetProductsFromVendor,
     handleGetUserById,
@@ -48,6 +52,7 @@ const VendorShopPage = () => {
     };
   }, [id, dispatch]);
 
+  const isMobile = window.innerWidth <= 1140;
   return (
     <>
       <StandardNavPage>
@@ -56,12 +61,27 @@ const VendorShopPage = () => {
           loaded={loaded}
           onLoad={onLoad}
         />
-        <SellerInfo
-          vendorInfo={vendorInfo}
-          products={products}
-          loaded={loaded}
-          onLoad={onLoad}
-        />
+        {isMobile ? (
+          <SellerInfoMobile
+            vendorInfo={vendorInfo}
+            products={products}
+            loaded={loaded}
+            onLoad={onLoad}
+            isShowContact={isShowContact}
+            setIsShowContact={setIsShowContact}
+            handleClick={handleClick}
+          />
+        ) : (
+          <SellerInfo
+            vendorInfo={vendorInfo}
+            products={products}
+            loaded={loaded}
+            onLoad={onLoad}
+            isShowContact={isShowContact}
+            setIsShowContact={setIsShowContact}
+            handleClick={handleClick}
+          />
+        )}
         <Announcement announcement={vendorInfo.announcement} />
         <SellerProductTitle>刊登商品</SellerProductTitle>
         <Products

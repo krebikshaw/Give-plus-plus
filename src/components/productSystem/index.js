@@ -1,5 +1,5 @@
 import { Banner } from './Banner';
-import { SellerInfo } from './SellerInfo';
+import { SellerInfo, SellerInfoMobile } from './SellerInfo';
 import { Announcement } from './Announcement';
 import { Products } from './Products';
 import { MoreButton } from './MoreButton';
@@ -8,6 +8,9 @@ import { ErrorMessage } from './ErrorMessage';
 import { Breadcrumb } from './Breadcrumb';
 import {
   PurchaseInfoLeft,
+  ProductPicture,
+  ProductIntro,
+  FreightIntro,
   InfoTitle,
   InfoBlock,
   InfoItem,
@@ -20,11 +23,14 @@ import { VendorInfo } from './VendorInfo';
 import { VendorContact } from './VendorContact';
 import { ButtonsBox } from './ButtonsBox';
 import { InputItem } from './InputItem';
+import { SingleProductMobile } from './SingleProductMobile';
+
 export {
   Banner,
   ButtonsBox,
   InputItem,
   SellerInfo,
+  SellerInfoMobile,
   Announcement,
   Products,
   MoreButton,
@@ -32,13 +38,17 @@ export {
   ErrorMessage,
   Breadcrumb,
   PurchaseInfoLeft,
+  ProductPicture,
   InfoTitle,
   InfoBlock,
   InfoItem,
   InfoItemTitle,
+  ProductIntro,
+  FreightIntro,
   ProductInfo,
   VendorIntro,
   PurchaseInfoRight,
   VendorInfo,
   VendorContact,
+  SingleProductMobile,
 };

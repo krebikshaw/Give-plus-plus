@@ -5,10 +5,8 @@ export const StandardNavPage = styled.div`
   margin: 110px 150px;
   min-height: 50vh;
   ${MEDIA_QUERY.md} {
-    margin: 135px 150px;
-  }
-  ${MEDIA_QUERY.sm} {
-    margin: 165px 150px;
+    margin: 0 auto;
+    padding: 30px;
   }
 `;
 

@@ -32,6 +32,7 @@ function averageTime(count, products) {
 }
 
 export default function useProduct() {
+  const [isShowContact, setIsShowContact] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,6 +48,10 @@ export default function useProduct() {
   const productErrorMessage = useSelector(selectErrorMessage);
   const averageShippingTime = averageTime(products.length, products);
   const sort = useSelector(selectSort);
+
+  const handleClick = () => {
+    setIsShowContact(true);
+  };
 
   const onLoad = () => {
     setLoaded(true);
@@ -133,6 +138,7 @@ export default function useProduct() {
   return {
     page,
     loaded,
+    isShowContact,
     vendorInfo,
     productCategories,
     averageShippingTime,
@@ -145,8 +151,10 @@ export default function useProduct() {
     setPage,
     setProducts,
     setLoaded,
+    setIsShowContact,
 
     onLoad,
+    handleClick,
     handleGetProducts,
     handleGetProduct,
     handleGetSearchProduct,
