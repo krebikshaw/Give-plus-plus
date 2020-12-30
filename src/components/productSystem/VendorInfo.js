@@ -1,4 +1,4 @@
-import { COLOR, FONT } from '../../constants/style';
+import { COLOR, FONT, MEDIA_QUERY } from '../../constants/style';
 import styled from 'styled-components';
 import { ActionButton } from '../Button';
 import useProduct from '../../hooks/productHooks/useProduct';
@@ -11,6 +11,10 @@ import {
 const VendorInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
+
+  ${MEDIA_QUERY.lg} {
+    align-items: center;
+  }
 `;
 
 const VendorInfoTop = styled.div`
@@ -86,6 +90,7 @@ const InfoWrap = styled(InfoItem)`
   padding-bottom: 0;
 
   ${InfoItemTitle} {
+    min-width: 150px;
     font-size: ${FONT.sm};
 
     &:after {
@@ -99,12 +104,20 @@ const InfoWrap = styled(InfoItem)`
     border-bottom: none;
     padding-bottom: 0;
   }
+
+  ${MEDIA_QUERY.lg} {
+    flex-wrap: wrap;
+    align-items: center;
+  }
 `;
 
 const InfoItemBlock = styled(InfoBlock)`
   font-weight: normal;
   color: ${COLOR.black};
   height: 20px;
+  ${MEDIA_QUERY.lg} {
+    max-width: 40px;
+  }
 `;
 
 const VendorInfoItem = () => {

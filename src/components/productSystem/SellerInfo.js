@@ -1,8 +1,7 @@
-import { useState } from 'react';
 import styled from 'styled-components';
-import { COLOR, FONT, DISTANCE } from '../../constants/style';
-import { ActionButton, NormalButton } from '../../components/Button';
 import useProduct from '../../hooks/productHooks/useProduct';
+import { COLOR, FONT, DISTANCE, MEDIA_QUERY } from '../../constants/style';
+import { ActionButton, NormalButton } from '../../components/Button';
 import { VendorContact } from '../../components/productSystem';
 
 const InfoBlock = styled.section`
@@ -13,8 +12,8 @@ const InfoBlock = styled.section`
 `;
 const AvatarContainer = styled.div`
   position: relative;
-  width: 150px;
-  height: 150px;
+  max-width: 150px;
+  max-height: 150px;
 
   &:before {
     content: '';
@@ -43,12 +42,24 @@ const InfoContainer = styled.div`
   border-right: 1px solid ${COLOR.text_2};
   padding-right: 40px;
   align-self: center;
+
+  ${MEDIA_QUERY.lg_1} {
+    width: 100%;
+    padding-right: 0px;
+    border-right: none;
+  }
 `;
 
 const InfoTop = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 40px;
+
+  ${MEDIA_QUERY.lg_1} {
+    flex-direction: column;
+    margin-bottom: 0px;
+    justify-content: center;
+  }
 `;
 
 const SellerName = styled.div`
@@ -56,6 +67,11 @@ const SellerName = styled.div`
   color: ${COLOR.text_2};
   font-weight: bold;
   margin-right: 26px;
+
+  ${MEDIA_QUERY.lg_1} {
+    margin-right: 0px;
+    margin-bottom: 40px;
+  }
 `;
 
 const InfoBottom = styled.div`
@@ -125,6 +141,24 @@ const InfoMiddle = ({ nickname, products }) => {
   );
 };
 
+const VendorInfoWrap = styled.div`
+  display: flex;
+  justify-content: center;
+
+  ${MEDIA_QUERY.sm} {
+    padding: 10px 0;
+  }
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  align-items: center;
+
+  ${MEDIA_QUERY.sm} {
+    font-size: 10px;
+  }
+`;
+
 const InfoItem = () => {
   const { averageShippingTime, productCount } = useProduct();
   return (
@@ -151,11 +185,7 @@ const InfoItem = () => {
   );
 };
 
-const InfoRight = ({ email }) => {
-  const [isShowContact, setIsShowContact] = useState(false);
-  const handleClick = () => {
-    setIsShowContact(true);
-  };
+const InfoRight = ({ email, isShowContact, setIsShowContact, handleClick }) => {
   return (
     <ContactContainer>
       <ContactInfo>
@@ -168,7 +198,52 @@ const InfoRight = ({ email }) => {
   );
 };
 
-export const SellerInfo = ({ onLoad, loaded, vendorInfo, products }) => {
+export const SellerInfoMobile = ({
+  onLoad,
+  loaded,
+  vendorInfo,
+  products,
+  isShowContact,
+  setIsShowContact,
+  handleClick,
+}) => {
+  return (
+    <InfoContainer>
+      <VendorInfoWrap>
+        <InfoTop>
+          <AvatarContainer>
+            <Avatar
+              src={vendorInfo.avatar_url}
+              style={{ opacity: loaded ? 1 : 0 }}
+              onLoad={onLoad}
+            />
+          </AvatarContainer>
+          <SellerName>{vendorInfo.nickname}</SellerName>
+          <Buttons>
+            <ActionButton $margin={20}>+ 加入關注</ActionButton>
+            <ActionButton onClick={handleClick} $margin={20} $bg={'red'}>
+              + 加入關注
+            </ActionButton>
+            {isShowContact && (
+              <VendorContact setIsShowContact={setIsShowContact} />
+            )}
+          </Buttons>
+        </InfoTop>
+      </VendorInfoWrap>
+      <InfoItem products={products} />
+    </InfoContainer>
+  );
+};
+
+export const SellerInfo = ({
+  onLoad,
+  loaded,
+  vendorInfo,
+  products,
+  isShowContact,
+  setIsShowContact,
+  handleClick,
+}) => {
   return (
     <InfoBlock>
       <InfoLeft
@@ -177,7 +252,12 @@ export const SellerInfo = ({ onLoad, loaded, vendorInfo, products }) => {
         loaded={loaded}
       />
       <InfoMiddle nickname={vendorInfo.nickname} products={products} />
-      <InfoRight email={vendorInfo.email} />
+      <InfoRight
+        email={vendorInfo.email}
+        isShowContact={isShowContact}
+        setIsShowContact={setIsShowContact}
+        handleClick={handleClick}
+      />
     </InfoBlock>
   );
 };

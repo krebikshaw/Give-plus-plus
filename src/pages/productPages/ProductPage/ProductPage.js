@@ -4,10 +4,12 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import useProduct from '../../../hooks/productHooks/useProduct';
 import { useDispatch } from 'react-redux';
+import { MEDIA_QUERY } from '../../../constants/style';
 import {
   Breadcrumb,
   PurchaseInfoLeft,
   PurchaseInfoRight,
+  SingleProductMobile,
 } from '../../../components/productSystem';
 import {
   setProduct,
@@ -25,6 +27,11 @@ const ProductInfoContainer = styled.section`
 
 const PurchaseInfo = styled.section`
   display: flex;
+
+  ${MEDIA_QUERY.lg} {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const ProductPage = () => {
@@ -49,25 +56,38 @@ const ProductPage = () => {
       dispatch(setErrorMessage(null));
     };
   }, [id, dispatch]);
+
+  const isMobile = window.innerWidth <= 1000;
+
   return (
-    <>
-      <StandardNavPage>
-        <ProductInfoContainer>
-          <Breadcrumb category={category} product={product} />
-          <PurchaseInfo>
-            <PurchaseInfoLeft product={product} category={category} />
-            <PurchaseInfoRight
+    <StandardNavPage>
+      <ProductInfoContainer>
+        <Breadcrumb category={category} product={product} />
+        <PurchaseInfo>
+          {isMobile ? (
+            <SingleProductMobile
               product={product}
               products={products}
               id={vendorInfo.id}
-              productId={id}
               vendorInfo={vendorInfo}
               productErrorMessage={productErrorMessage}
             />
-          </PurchaseInfo>
-        </ProductInfoContainer>
-      </StandardNavPage>
-    </>
+          ) : (
+            <>
+              <PurchaseInfoLeft product={product} category={category} />
+              <PurchaseInfoRight
+                product={product}
+                products={products}
+                id={vendorInfo.id}
+                productId={id}
+                vendorInfo={vendorInfo}
+                productErrorMessage={productErrorMessage}
+              />
+            </>
+          )}
+        </PurchaseInfo>
+      </ProductInfoContainer>
+    </StandardNavPage>
   );
 };
 

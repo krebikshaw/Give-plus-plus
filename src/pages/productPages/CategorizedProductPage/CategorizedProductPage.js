@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { StandardNavPage } from '../../../components/Page';
-import { COLOR, FONT } from '../../../constants/style';
+import { COLOR, FONT, MEDIA_QUERY } from '../../../constants/style';
 import styled from 'styled-components';
 import { useParams, useNavigate } from 'react-router-dom';
 import useProduct from '../../../hooks/productHooks/useProduct';
@@ -22,11 +22,21 @@ const CategoryTitleContainer = styled.section`
   display: flex;
   justify-content: space-between;
   color: ${COLOR.text_2};
+  ${MEDIA_QUERY.lg} {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const CategoryName = styled.div`
+  min-width: 120px;
   font-weight: bold;
   font-size: ${FONT.lg};
+  ${MEDIA_QUERY.lg} {
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const CategoryTitle = ({ id, category, handleChangeProductSort }) => {

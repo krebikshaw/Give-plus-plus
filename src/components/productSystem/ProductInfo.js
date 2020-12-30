@@ -9,6 +9,7 @@ import { IconComponent } from '../../components';
 import { InfoBlock } from '../../components/productSystem';
 
 import { getUser } from '../../redux/slices/orderSlice/orderSlice';
+const ProductInfoContainer = styled.div``;
 const ProductName = styled.div`
   width: 500px;
   word-break: break-all;
@@ -169,7 +170,7 @@ export const ProductInfo = ({ product }) => {
   }, [dispatch]);
 
   return (
-    <>
+    <ProductInfoContainer>
       {errorMessage && (
         <Modal>
           <Form>
@@ -209,6 +210,6 @@ export const ProductInfo = ({ product }) => {
         </ShoppingCart>
       )}
       <Remind />
-    </>
+    </ProductInfoContainer>
   );
 };

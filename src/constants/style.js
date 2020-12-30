@@ -33,6 +33,7 @@ export const DISTANCE = {
 };
 
 export const MEDIA_QUERY = {
+  lg_1: '@media (max-width: 1140px)',
   lg: '@media (max-width: 1000px)',
   md: '@media (max-width: 768px)',
   sm: '@media (max-width: 500px)',

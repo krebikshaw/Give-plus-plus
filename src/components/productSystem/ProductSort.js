@@ -1,4 +1,4 @@
-import { COLOR, FONT } from '../../constants/style';
+import { COLOR, FONT, MEDIA_QUERY } from '../../constants/style';
 import styled from 'styled-components';
 
 const ProductSelect = styled.div`
@@ -9,6 +9,10 @@ const ProductSelect = styled.div`
 
 const SortName = styled.div`
   margin-right: 40px;
+
+  ${MEDIA_QUERY.lg} {
+    display: none;
+  }
 `;
 
 const Select = styled.select`

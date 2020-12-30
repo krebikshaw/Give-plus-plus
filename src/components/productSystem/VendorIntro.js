@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR } from '../../constants/style';
+import { COLOR, MEDIA_QUERY } from '../../constants/style';
 import {
   Products,
   InfoTitle,
@@ -7,9 +7,18 @@ import {
   VendorInfo,
 } from '../../components/productSystem';
 
+const VendorTitle = styled(InfoTitle)`
+  margin-top: 40px;
+`;
+
 const OtherProductWrap = styled(InfoItem)`
+  margin-top: 40px;
   padding-bottom: 0;
   border-bottom: none;
+  ${MEDIA_QUERY} {
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 const OtherProductTitle = styled(InfoTitle)`
@@ -35,7 +44,7 @@ export const VendorIntro = ({
 }) => {
   return (
     <>
-      <InfoTitle>賣家</InfoTitle>
+      <VendorTitle>賣家</VendorTitle>
       <VendorInfo />
       {products.length !== 0 ? (
         <>

@@ -1,9 +1,12 @@
 import { COLOR, FONT, DISTANCE } from '../../constants/style';
 import styled from 'styled-components';
 import useProduct from '../../hooks/productHooks/useProduct';
+import { MEDIA_QUERY } from '../../constants/style';
 
 const ProductPictureContainer = styled.div`
   position: relative;
+  display: flex;
+  justify-content: center;
   margin-bottom: 65px;
   height: 400px;
 
@@ -14,15 +17,16 @@ const ProductPictureContainer = styled.div`
     left: 0;
     bottom: 0;
     width: 100%;
+    opacity: ${(props) => (props.loaded ? 0 : 1)};
     background: url(${process.env.PUBLIC_URL}/logo.svg) center/contain no-repeat;
     object-fit: cover;
   }
 `;
 
-const ProductPicture = styled.img`
+const ProductPictureImg = styled.img`
   position: relative;
   transition: opacity 0.2s;
-  width: 100%;
+  max-width: 100%;
   height: 100%;
   object-fit: cover;
 `;
@@ -33,6 +37,11 @@ export const InfoTitle = styled.div`
   font-size: ${FONT.lg};
   color: ${COLOR.text_2};
   border-bottom: 1px solid ${COLOR.text_2};
+
+  ${MEDIA_QUERY} {
+    margin: 20px 0;
+    margin-bottom: 20px;
+  }
 `;
 
 export const InfoBlock = styled.div`
@@ -63,6 +72,7 @@ export const InfoItem = styled.div`
     border-bottom: 1px solid ${COLOR.text_2};
   }
 `;
+
 export const InfoItemTitle = styled.div`
   width: 150px;
   padding-right: 20px;
@@ -71,7 +81,20 @@ export const InfoItemTitle = styled.div`
   word-break: break-all;
 `;
 
-const ProductIntro = ({ product }) => {
+export const ProductPicture = ({ product }) => {
+  const { loaded, onLoad } = useProduct();
+  return (
+    <ProductPictureContainer loaded={loaded}>
+      <ProductPictureImg
+        src={product.picture_url}
+        style={{ opacity: loaded ? 1 : 0 }}
+        onLoad={onLoad}
+      />
+    </ProductPictureContainer>
+  );
+};
+
+export const ProductIntro = ({ product }) => {
   return (
     <>
       <InfoTitle>商品介紹</InfoTitle>
@@ -80,7 +103,7 @@ const ProductIntro = ({ product }) => {
   );
 };
 
-const FreightIntro = ({ product }) => {
+export const FreightIntro = ({ product }) => {
   return (
     <>
       <InfoTitle>運送方式與其他資訊</InfoTitle>
@@ -94,7 +117,7 @@ const FreightIntro = ({ product }) => {
           {product.payment_method === '0' ? '貨到付款' : ''}
         </InfoBlock>
       </InfoItem>
-      <InfoItem>
+      <InfoItem style={{ borderBottom: 'none' }}>
         <InfoItemTitle>退款換貨須知</InfoItemTitle>
         <InfoBlock>
           台灣境內交易七天鑑賞期
@@ -111,16 +134,9 @@ const PurchaseInfoLeftContainer = styled.section`
 `;
 
 export const PurchaseInfoLeft = ({ product }) => {
-  const { loaded, onLoad } = useProduct();
   return (
     <PurchaseInfoLeftContainer>
-      <ProductPictureContainer>
-        <ProductPicture
-          src={product.picture_url}
-          style={{ opacity: loaded ? 1 : 0 }}
-          onLoad={onLoad}
-        />
-      </ProductPictureContainer>
+      <ProductPicture product={product} />
       <ProductIntro product={product} />
       <FreightIntro product={product} />
     </PurchaseInfoLeftContainer>
