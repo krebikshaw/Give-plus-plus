@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://give.krebikshaw.tw/v1';
+export const BASE_URL = 'https://give-plus-plus-backend.herokuapp.com/v1';
